@@ -1,5 +1,6 @@
 
-# JS-Utils
+# js-utils
+## javascript to reuse
 
 > Javascript utilities meant to be reused in projects
 
