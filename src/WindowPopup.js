@@ -1,13 +1,13 @@
-define(["require", "js-utils/src/globals/window", "js-utils/src/Options", "js-utils/src/Type", "jquery", "EventEmitter", "lodash" ], 
+define(["require", "js-utils/globals/window", "js-utils/Options", "js-utils/Type", "jquery", "EventEmitter", "lodash" ], 
     function(require){
         "use strict";    
 
         var $ = require("jquery");
         var _ = require("lodash");
         var EventEmitter = require("EventEmitter");
-        var Type = require("js-utils/src/Type");
-        var Options = require("js-utils/src/Options");
-        var window = require("js-utils/src/globals/window");
+        var Type = require("js-utils/Type");
+        var Options = require("js-utils/Options");
+        var window = require("js-utils/globals/window");
 
 
         /*
@@ -49,7 +49,7 @@ define(["require", "js-utils/src/globals/window", "js-utils/src/Options", "js-ut
                 options,
                 function(result, value, key){
 
-                    var val = Type.switch(
+                    var val = Type.Switch(
                         value,
                         {
                             'boolean': function(value){

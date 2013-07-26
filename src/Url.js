@@ -1,5 +1,5 @@
 
-define(["js-utils/src/globals/window", "jquery", "lodash"], function(window, $, _){
+define(["js-utils/globals/window", "jquery", "lodash"], function(window, $, _){
     "use strict";
 
 

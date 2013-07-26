@@ -19,7 +19,9 @@
 
     "grunt-contrib-jshint": "*",
     "grunt-contrib-requirejs": "*",
-    "grunt-contrib-watch": "*"
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-jasmine": "*",
+    "grunt-http-server": "*"
 
   }
   

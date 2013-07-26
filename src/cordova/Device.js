@@ -1,5 +1,5 @@
 
-define(["js-utils/src/globals/window"], function(window){
+define(["js-utils/globals/window"], function(window){
     "use strict";
 
 

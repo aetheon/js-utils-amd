@@ -1,11 +1,11 @@
 
-define(["lodash", "js-utils/src/Options"], function(_, Options){
+define(["lodash", "js-utils/Options"], function(_, Options){
 	"use strict";
 
 
 	return {
 
-		switch: function(value, options){
+		Switch: function(value, options){
 
 			var returnNull = function(value){ return null; };
 			options = Options.getObject(
