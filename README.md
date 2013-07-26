@@ -10,8 +10,8 @@
 
 ## API
 
-### [AsyncHash](/aetheon/js-utils/tree/master/src/AsyncHash)
+### [AsyncHash](https://github.com/aetheon/js-utils/tree/master/src/AsyncHash)
 An async implementation of an Hash.
 
-### [DeviceQueries](/aetheon/js-utils/tree/master/src/DeviceQueries)
+### [DeviceQueries](https://github.com/aetheon/js-utils/tree/master/src/DeviceQueries)
 Queries the device for information (eg: isMobile() ).
