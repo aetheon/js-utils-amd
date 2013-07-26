@@ -19,7 +19,7 @@ Queries the device for information (eg: isMobile() ).
 ### [Arguments](https://github.com/aetheon/js-utils/tree/master/src/Arguments)
 Function arguments helpers.
 
-### [BrowserPopup](https://github.com/aetheon/js-utils/tree/master/src/BrowserPopup)
+### [NativePopup](https://github.com/aetheon/js-utils/tree/master/src/NativePopup)
 Native Browser popups helpers.
 
 ### [CacheManifest](https://github.com/aetheon/js-utils/tree/master/src/CacheManifest)

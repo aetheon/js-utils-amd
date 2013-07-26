@@ -5,7 +5,7 @@
  */
 
 
-define(["lodash", "js-utils/Arguments/index.js"], function(_, Arguments){
+define(["lodash", "js-utils/Arguments/index"], function(_, Arguments){
     "use strict";
 
 
