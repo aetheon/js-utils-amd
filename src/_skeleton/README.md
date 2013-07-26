@@ -1,7 +1,7 @@
 
 # ClassName
 
-> ClassDescription
+> General operations related to Class
 
 
 ```javascript

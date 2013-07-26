@@ -119,7 +119,7 @@ module.exports = function(grunt) {
     'default', 
     [
       'jshint',
-      //'jasmine'/*,
+      'jasmine'/*,
       //'requirejs'*/
     ]);
 

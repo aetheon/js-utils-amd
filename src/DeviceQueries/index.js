@@ -4,7 +4,7 @@
  * 
  */
 
-define(["js-utils/globals/window", "ua-parser"], function(window, UAParser){
+define(["js-utils/Globals/window", "ua-parser"], function(window, UAParser){
     "use strict";
 
 

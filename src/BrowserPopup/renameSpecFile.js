@@ -3,7 +3,7 @@
 require(["lib/spec/Squire"], function(Squire, AsyncHash){
     'use strict';
 
-    describe("Spec", function () {
+    describe("AsyncHashSpec", function () {
 
         var Injector = new Squire(),
         async = new AsyncSpec(this);

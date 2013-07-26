@@ -8,6 +8,7 @@ requirejs.config({
         'jquery': 'lib/jquery',
         'lodash': 'lib/lodash',
         'ua-parser': 'lib/ua-parser',
+        'EventEmitter': 'lib/EventEmitter',
 
         'js-utils': './src/'
     },
