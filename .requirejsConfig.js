@@ -7,6 +7,7 @@ requirejs.config({
         //core libraries:
         'jquery': 'lib/jquery',
         'lodash': 'lib/lodash',
+        'ua-parser': 'lib/ua-parser',
 
         'js-utils': './src/'
     },

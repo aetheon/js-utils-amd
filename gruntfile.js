@@ -62,7 +62,7 @@ module.exports = function(grunt) {
                 // use custom template to fix test describing templating
                 template: "spec/template/RequireJsSpecRunner.tmpl",
 
-                keepRunner: false,
+                keepRunner: true,
 
                 vendor: [
 
@@ -119,8 +119,8 @@ module.exports = function(grunt) {
     'default', 
     [
       'jshint',
-      'jasmine'/*,
-      'requirejs'*/
+      //'jasmine'/*,
+      //'requirejs'*/
     ]);
 
 
