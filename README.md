@@ -10,5 +10,5 @@
 
 ## API
 
-### [AsyncHash link](blob/master/src/AsyncHash/index.js)
+### [AsyncHash](blob/master/src/AsyncHash/)
 An async implementation of an Hash.

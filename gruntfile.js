@@ -79,6 +79,19 @@ module.exports = function(grunt) {
     },
 
 
+    /*
+    jsdoc : {
+        dist : {
+            src: [
+              'src/AsyncHash/index.js'
+            ], 
+            options: {
+                destination: 'doc'
+            }
+        }
+    },*/
+
+
 
     'http-server': {
 
@@ -100,6 +113,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-http-server');
+  /*grunt.loadNpmTasks('grunt-jsdoc-plugin');*/
   
   grunt.registerTask(
     'default', 

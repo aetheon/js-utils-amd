@@ -21,7 +21,8 @@
     "grunt-contrib-requirejs": "*",
     "grunt-contrib-watch": "*",
     "grunt-contrib-jasmine": "*",
-    "grunt-http-server": "*"
+    "grunt-http-server": "*"/*,
+    "grunt-jsdoc-plugin": "*"*/
 
   }
   
