@@ -1,0 +1,119 @@
+
+
+require(["lib/spec/Squire"], function(Squire, AsyncHash){
+    'use strict';
+
+    describe("ArgumentsSpec", function () {
+
+        var Injector = new Squire(),
+        async = new AsyncSpec(this);
+
+
+
+        async.beforeEach(function (done) {
+
+            // remove all dependencies from loader
+            Injector = new Squire();
+
+            done();
+
+        });
+
+
+
+        async.it(".getObject() should return a valid hash", function (done) {
+
+            Injector.require(["src/Arguments/index.js"], function(Options){
+
+                var o = Options.hash(
+                    
+                    {
+                        "val": {
+                            "one": 1
+                        }   
+                    },
+
+                    // default
+                    {
+                        "val": {
+                            "one": 1,
+                            "two": 2,
+                        }
+
+                    }
+
+                );
+
+                expect(typeof o).toEqual("object");
+                expect(o.val).not.toBe(null);
+                expect(o.val.one).not.toBe(null);
+                expect(o.val.two).not.toBe(null);
+
+                done();
+
+            });
+
+        });
+
+
+        async.it(".getObject() should ignore null default values", function (done) {
+
+            Injector.require(["src/Arguments/index.js"], function(Options){
+
+                var o = Options.hash(
+                    
+                    {
+                        "val": {
+                            "one": 1
+                        }   
+                    },
+
+                    // default
+                    null
+
+                );
+
+                expect(typeof o).toEqual("object");
+                expect(o.val).not.toBe(null);
+                expect(o.val.one).not.toBe(null);
+
+                done();
+
+            });
+
+        });
+
+
+        async.it(".getObject() should ignore null options values", function (done) {
+
+            Injector.require(["src/Arguments/index.js"], function(Options){
+
+                var o = Options.hash(
+                    null,
+
+                    {
+                        "val": {
+                            "one": 1
+                        }   
+                    }
+
+                );
+
+                expect(typeof o).toEqual("object");
+                expect(o.val).not.toBe(null);
+                expect(o.val.one).not.toBe(null);
+
+                done();
+
+            });
+
+        });
+
+
+
+
+
+    });
+
+
+});

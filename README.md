@@ -15,3 +15,7 @@ An async implementation of an Hash.
 
 ### [DeviceQueries](https://github.com/aetheon/js-utils/tree/master/src/DeviceQueries)
 Queries the device for information (eg: isMobile() ).
+
+
+### [Arguments](https://github.com/aetheon/js-utils/tree/master/src/Arguments)
+Function arguments helpers.
