@@ -1,5 +1,6 @@
 
-# js-utils - Javascript Modules Collection
+# js-utils.js
+## a collection of javascript modules...
 [![Build Status](https://travis-ci.org/aetheon/js-utils.png?branch=master)](https://travis-ci.org/aetheon/js-utils)
 
 > **It's not a library! Is a collection of javascript AMD modules to be reused.** 
