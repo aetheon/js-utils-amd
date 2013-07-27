@@ -2,8 +2,10 @@
 # js-utils - Javascript Modules Collection
 [![Build Status](https://travis-ci.org/aetheon/js-utils.png?branch=master)](https://travis-ci.org/aetheon/js-utils)
 
-> It is not a library! Is a collection of javascript AMD modules to be resused. 
-> It's meant to be used using require.js or an r.js bundle.
+> **It's not a library! Is a collection of javascript AMD modules to be reused.** 
+> It's meant to be used using require.js or a r.js bundle. (TODO: use case example's)
+
+> Was born because I got tired of writing the same code between projects.
 
 > There are helper, best practices, data structures, and a lot of code. 
 
