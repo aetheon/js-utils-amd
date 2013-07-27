@@ -1,14 +1,13 @@
 
-# js-utils
+# js-utils - Javascript Modules Collection
 [![Build Status](https://travis-ci.org/aetheon/js-utils.png?branch=master)](https://travis-ci.org/aetheon/js-utils)
 
-## javascript modules
+> It is not a library! Is a collection of javascript AMD modules to be resused. 
+> It's meant to be used using require.js or an r.js bundle.
 
-> Javascript utilities meant to be reused in projects
+> There are helper, best practices, data structures, and a lot of code. 
 
-> modules available using require.js 
-
-### Not yet ready to use!
+> Some code have dependencies to 3rd party framework to provide extra feature's.
 
 ## API
 
