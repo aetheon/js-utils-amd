@@ -1,5 +1,7 @@
 
 # js-utils
+[![Build Status](https://travis-ci.org/aetheon/js-utils.png?branch=master)](https://travis-ci.org/aetheon/js-utils)
+
 ## javascript modules
 
 > Javascript utilities meant to be reused in projects
