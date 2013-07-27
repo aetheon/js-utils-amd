@@ -11,6 +11,8 @@
 
 > Some code have dependencies to 3rd party framework to provide extra feature's.
 
+> Uses Jasmine.js / Jasmine.async.js / Squire to test the code. Each module has it's own Spec file.
+
 ## API
 
 ### [AsyncHash](https://github.com/aetheon/js-utils/tree/master/src/AsyncHash)
