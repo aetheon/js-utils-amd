@@ -8,7 +8,7 @@ requirejs.config({
         'jqm': 'lib/jquery-mobile/1.3.2/jquery.mobile-1.3.2',
         'lodash': 'lib/lodash/lodash-1.3.1',
         'ua-parser': 'lib/ua-parser/ua-parser-0.6.1',
-        'eventEmitter': 'lib/eventEmitter/eventEmitter-4.1.1.js',
+        'eventEmitter': 'lib/eventEmitter/eventEmitter-4.1.1',
         'json5': 'lib/json5/json5',
         'mustache': 'lib/mustache/mustache',
 
@@ -33,22 +33,6 @@ requirejs.config({
 
         'jqm':{
             deps: ['jquery']
-        },
-
-        'knockout.validation':{
-            deps: ['knockout']
-        },
-
-        'knockout.mapping':{
-            deps: ['knockout']
-        },
-
-        'snapjs':{
-            deps: ['jquery']
-        },
-
-        'cordova':{
-            exports: 'cordova'
         }
 
     }

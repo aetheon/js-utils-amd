@@ -8,6 +8,7 @@ module.exports = function(grunt) {
     jshint: {
       files: [
         'gruntfile.js',
+        '.require.js',
         BasePath + 'src/*',
         BasePath + 'src/**/*.js',
         BasePath + 'src/**/**/*.js',

@@ -39,3 +39,7 @@ Url helper's.
 
 ### [AutoMapper](https://github.com/aetheon/js-utils/tree/master/src/AutoMapper)
 Javascript AutoMapper implementation.
+
+### [Dependencies](https://github.com/aetheon/js-utils/tree/master/src/Dependencies)
+Dependencies boilerplate code to use in specific context (eg: defaultJQMobileApp).
+

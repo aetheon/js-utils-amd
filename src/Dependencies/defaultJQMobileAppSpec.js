@@ -3,12 +3,10 @@
 require(["lib/spec/Squire"], function(Squire, AsyncHash){
     'use strict';
 
-    describe("Spec", function () {
+    describe("defaultJQMobileAppSpec", function () {
 
         var Injector = new Squire(),
         async = new AsyncSpec(this);
-
-
 
         async.beforeEach(function (done) {
 
@@ -20,20 +18,19 @@ require(["lib/spec/Squire"], function(Squire, AsyncHash){
         });
 
 
-        /*
-        async.it(".get() should return a value", function (done) {
+        
+        async.it("defaultJQMobileApp ", function (done) {
 
-            Injector.require(["src/AsyncHash/index.js"], function(AsyncHash){
+            Injector.require(["src/Dependencies/defaultJQMobileApp"], function(wasLoaded){
 
-                expect("value").toEqual("value");
+                expect(wasLoaded).toEqual(true);
 
                 done();
 
             });
 
         });
-        */
-
+        
 
 
     });
