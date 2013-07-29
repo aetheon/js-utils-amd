@@ -68,7 +68,7 @@ module.exports = function(grunt) {
                 vendor: [
 
                     // jasmine async
-                    "lib/spec/jasmine.async.js"
+                    "lib/jasmine/jasmine.async-latest.js"
 
                 ]
 
@@ -98,8 +98,8 @@ module.exports = function(grunt) {
 
         'root': {
             root: "",
-            port: 8585,
-            runInBAckground: true
+            port: 8585//,
+            //runInBAckground: true
         }
 
      }

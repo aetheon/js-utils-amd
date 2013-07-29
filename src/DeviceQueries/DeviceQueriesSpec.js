@@ -1,6 +1,6 @@
 
 
-require(["lib/spec/Squire", "spec/mocks/UAParserMock"], function(Squire, UAParserMock){
+require(["lib/squire/squire-latest", "spec/mocks/UAParserMock"], function(Squire, UAParserMock){
     'use strict';
 
  

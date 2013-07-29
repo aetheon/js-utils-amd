@@ -1,6 +1,6 @@
 
 
-require(["lib/spec/Squire"], function(Squire, AsyncHash){
+require(["lib/squire/squire-latest"], function(Squire, AsyncHash){
     'use strict';
 
     describe("UrlSpec", function () {
