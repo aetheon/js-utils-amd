@@ -8,7 +8,7 @@
 
 ```javascript
 
-var AutoMapper = require("js-utils/AutoMapper/index.js");
+var AutoMapper = require("js-utils/AutoMapping/AutoMapper.js");
 
 var autoMapperContainer = new AutoMapper();
 autoMapperContainer

@@ -37,7 +37,7 @@ Helpers for Type's manipulation.
 ### [Url](https://github.com/aetheon/js-utils/tree/master/src/Url)
 Url helper's.
 
-### [AutoMapper](https://github.com/aetheon/js-utils/tree/master/src/AutoMapper)
+### [AutoMapping](https://github.com/aetheon/js-utils/tree/master/src/AutoMapping)
 Javascript AutoMapper implementation.
 
 ### [Dependencies](https://github.com/aetheon/js-utils/tree/master/src/Dependencies)
