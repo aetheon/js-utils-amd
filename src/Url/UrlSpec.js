@@ -51,11 +51,11 @@ require(["lib/squire/squire-latest"], function(Squire, AsyncHash){
 
 
 
-        async.it(".parseQueryString() returs an hash", function (done) {
+        async.it(".getQueryStringObject() returs an hash", function (done) {
 
             Injector.require(["src/Url/index.js"], function(Url){
 
-                var qs = Url.parseQueryString("http://a.com/?a=1&b=2");
+                var qs = Url.getQueryStringObject("http://a.com/?a=1&b=2");
                 expect(qs).not.toEqual(null);
                 expect(qs.a).toEqual('1');
                 expect(qs.b).toEqual('2');
@@ -68,11 +68,11 @@ require(["lib/squire/squire-latest"], function(Squire, AsyncHash){
 
 
 
-        async.it(".parseQueryString() when empty returs an empty hash", function (done) {
+        async.it(".getQueryStringObject() when empty returs an empty hash", function (done) {
 
             Injector.require(["src/Url/index.js"], function(Url){
 
-                var qs = Url.parseQueryString("http://a.com/");
+                var qs = Url.getQueryStringObject("http://a.com/");
                 expect(qs).not.toEqual(null);
                 
                 done();

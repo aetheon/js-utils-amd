@@ -43,3 +43,10 @@ Javascript AutoMapper implementation.
 ### [Dependencies](https://github.com/aetheon/js-utils/tree/master/src/Dependencies)
 Dependencies boilerplate code to use in specific context (eg: defaultJQMobileApp).
 
+### [UI](https://github.com/aetheon/js-utils/tree/master/src/UI)
+UI related operations (eg: defaultJQMobileApp).
+
+#### [Window](https://github.com/aetheon/js-utils/tree/master/src/UI/Window)
+
+#### [JQueryMobile](https://github.com/aetheon/js-utils/tree/master/src/UI/JQueryMobile)
+

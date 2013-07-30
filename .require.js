@@ -8,9 +8,10 @@ requirejs.config({
         'jqm': 'lib/jquery-mobile/1.3.2/jquery.mobile-1.3.2',
         'lodash': 'lib/lodash/lodash-latest',
         'ua-parser': 'lib/ua-parser/ua-parser-latest',
-        'eventEmitter': 'lib/eventEmitter/eventEmitter-latest',
+        'EventEmitter': 'lib/eventEmitter/eventEmitter-latest',
         'json5': 'lib/json5/json5',
         'mustache': 'lib/mustache/mustache-latest',
+        'fastclick': 'lib/fastclick/fastclick-latest',
 
         'persistence': 'lib/persistence/persistence',
         'persistence-migration': 'lib/persistence/persistence.migrations',

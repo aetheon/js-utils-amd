@@ -10,7 +10,7 @@ var Arguments = require("js-utils/Arguments/index.js");
 
 
 // returns the merged hash
-var o = Arguments.getObject(                 
+var o = Arguments.get(                 
     
     {
         "address": "http://..."

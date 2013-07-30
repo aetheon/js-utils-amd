@@ -42,7 +42,7 @@ define(["js-utils/Globals/window", "jquery", "lodash"], function(window, $, _){
      *
      * @return An hash with all the query string key/value's
      */
-    function parseQueryString(href) {
+    function getQueryStringObject(href) {
         
         href = href || window.location.href;
 
@@ -74,7 +74,7 @@ define(["js-utils/Globals/window", "jquery", "lodash"], function(window, $, _){
     return {
 
         getQueryString: getQueryString,
-        parseQueryString: parseQueryString
+        getQueryStringObject: getQueryStringObject
         
     };
 

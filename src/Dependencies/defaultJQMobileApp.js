@@ -9,7 +9,8 @@ define([
 	"lodash",
 	"jqm",
 	"ua-parser",
-	"eventEmitter"
+	"EventEmitter",
+    "fastclick"
 	], 
 
 	function($, _){

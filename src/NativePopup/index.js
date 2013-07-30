@@ -12,7 +12,7 @@ define(["require", "js-utils/Globals/window", "js-utils/Arguments/index", "js-ut
         var _ = require("lodash");
         var EventEmitter = require("EventEmitter");
         var Type = require("js-utils/Type/index");
-        var Options = require("js-utils/Options/index");
+        var Options = require("js-utils/Arguments/index");
         var window = require("js-utils/Globals/window");
 
 

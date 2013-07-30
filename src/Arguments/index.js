@@ -21,7 +21,7 @@ define(["jquery"], function($){
          * @param{defaultOptions} The defaults options Hash
          * @return{Object} The options
          */
-        hash: function(options, defaultOptions) {
+        get: function(options, defaultOptions) {
 
             defaultOptions = defaultOptions || {};
             options = options || {};

@@ -21,11 +21,11 @@ require(["lib/squire/squire-latest"], function(Squire, AsyncHash){
 
 
 
-        async.it(".getObject() should return a valid hash", function (done) {
+        async.it(".get() should return a valid hash", function (done) {
 
             Injector.require(["src/Arguments/index.js"], function(Options){
 
-                var o = Options.hash(
+                var o = Options.get(
                     
                     {
                         "val": {
@@ -56,11 +56,11 @@ require(["lib/squire/squire-latest"], function(Squire, AsyncHash){
         });
 
 
-        async.it(".getObject() should ignore null default values", function (done) {
+        async.it(".get() should ignore null default values", function (done) {
 
             Injector.require(["src/Arguments/index.js"], function(Options){
 
-                var o = Options.hash(
+                var o = Options.get(
                     
                     {
                         "val": {
@@ -84,11 +84,11 @@ require(["lib/squire/squire-latest"], function(Squire, AsyncHash){
         });
 
 
-        async.it(".getObject() should ignore null options values", function (done) {
+        async.it(".get() should ignore null options values", function (done) {
 
             Injector.require(["src/Arguments/index.js"], function(Options){
 
-                var o = Options.hash(
+                var o = Options.get(
                     null,
 
                     {
