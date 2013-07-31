@@ -41,59 +41,6 @@ define(["lodash", "js-utils/Arguments/index"], function(_, Arguments){
 
 
     /*
-     * Gets the value of the given
-     *
-     * @param{href} The full url
-     * @return The query string part of the url
-     */
-    Type.value = function (value, type, options) {
-            
-        //TODO: use options
-        $.extend(options, {
-            dateFormat:""
-        });
-
-        switch (type) {
-            case "number":
-                value = Number(value);
-                break;
-
-            case "date":
-                value = new Date(value).getTime();
-                break;
-
-        }
-
-        return value;
-
-    };
-
-
-    Type.value = function (value, type, options) {
-            
-        //TODO: use options
-        $.extend(options, {
-            dateFormat:""
-        });
-
-        switch (type) {
-            case "number":
-                value = Number(value);
-                break;
-
-            case "date":
-                value = new Date(value).getTime();
-                break;
-
-        }
-
-        return value;
-
-    };
-
-
-
-    /*
      * Checks if an hash has the given property
      *
      * @return{Boolean}
@@ -168,6 +115,42 @@ define(["lodash", "js-utils/Arguments/index"], function(_, Arguments){
         else 
             return number;
 
+    };
+
+
+    /*
+     * Checks if the given value is an array
+     *
+     * @param{value} value to check
+     * @return True|False
+     *
+     */
+    Type.isArray = function (value) {
+        return (value instanceof Array);
+    };
+
+
+    /*
+     * Checks if the given value is an array
+     *
+     * @param{value} value to check
+     * @return True|False
+     *
+     */
+    Type.isFunction = function (value) {
+        return typeof(value) === "function";
+    };
+
+
+    /*
+     * Checks if the given value is a string
+     *
+     * @param{value} value to check
+     * @return True|False
+     *
+     */
+    Type.isString = function (value) {
+        return typeof(value) === "string";
     };
 
 

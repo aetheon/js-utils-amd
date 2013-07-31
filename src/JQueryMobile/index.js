@@ -66,7 +66,28 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
     };
 
 
+    /*
+     * JQMobile Navigation
+     * 
+     * @param{string} href The page href
+     * @param{Object} href The page data
+     */
+    JQueryMobile.navigate = function (href, data) {
 
+        if (!href) return;
+
+        // IMPORTANT:
+        // allowSamePageTransition must be false on normal use cases otherwise
+        // JQM might throw an exception and not render the page
+
+        $.mobile.changePage(
+            href,
+            {
+                allowSamePageTransition: false,
+                data: data
+            }
+          );
+    };
 
 
     /*

@@ -70,7 +70,7 @@ define(["js-utils/Globals/window", "jquery", "lodash"], function(window, $, _){
         return values;
     }
 
-
+    
     return {
 
         getQueryString: getQueryString,

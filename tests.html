@@ -3,17 +3,43 @@
 <head>
   <meta charset="utf-8">
   <title>Jasmine Spec Runner</title>
-<% css.forEach(function(style){ %>
-  <link rel="stylesheet" type="text/css" href="<%= style %>">
-<% }) %>
+
+  <link rel="stylesheet" type="text/css" href=".grunt/grunt-contrib-jasmine/jasmine.css">
+
 
    <script data-main=".require.js" src="lib/require/require-latest.js"></script>
    
-<% with (scripts) { %>
-  <% [].concat(polyfills, jasmine, vendor, helpers, src, specs, reporters).forEach(function(script){ %>
-  <script src="<%= script %>"></script>
-  <% }) %>
-<% }; %>
+
+  
+  <script src=".grunt/grunt-contrib-jasmine/phantom-polyfill.js"></script>
+  
+  <script src=".grunt/grunt-contrib-jasmine/jasmine.js"></script>
+  
+  <script src=".grunt/grunt-contrib-jasmine/jasmine-html.js"></script>
+  
+  <script src="lib/jasmine/jasmine.async-latest.js"></script>
+  
+  <script src="src/Arguments/ArgumentsSpec.js"></script>
+  
+  <script src="src/AsyncHash/AsyncHashSpec.js"></script>
+  
+  <script src="src/Dependencies/defaultJQMobileAppSpec.js"></script>
+  
+  <script src="src/DeviceQueries/DeviceQueriesSpec.js"></script>
+  
+  <script src="src/JQueryMobile/RouterSpec.js"></script>
+  
+  <script src="src/OOP/OOPSpec.js"></script>
+  
+  <script src="src/Safe/SafeSpec.js"></script>
+  
+  <script src="src/Type/TypeSpec.js"></script>
+  
+  <script src="src/Url/UrlSpec.js"></script>
+  
+  <script src=".grunt/grunt-contrib-jasmine/reporter.js"></script>
+  
+
 
  <style>
  	

@@ -13,6 +13,8 @@ requirejs.config({
         'mustache': 'lib/mustache/mustache-latest',
         'fastclick': 'lib/fastclick/fastclick-latest',
 
+        'knockout': 'lib/knockout/knockout-latest',
+
         'persistence': 'lib/persistence/persistence',
         'persistence-migration': 'lib/persistence/persistence.migrations',
         'persistence-sql': 'lib/persistence/persistence.store.sql',

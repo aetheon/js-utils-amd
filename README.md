@@ -16,37 +16,33 @@
 
 ## API
 
-### [AsyncHash](https://github.com/aetheon/js-utils/tree/master/src/AsyncHash)
-An async implementation of an Hash.
-
-### [DeviceQueries](https://github.com/aetheon/js-utils/tree/master/src/DeviceQueries)
-Queries the device for information (eg: isMobile() ).
+### [Globals](https://github.com/aetheon/js-utils/tree/master/src/Globals)
 
 ### [Arguments](https://github.com/aetheon/js-utils/tree/master/src/Arguments)
-Function arguments helpers.
 
-### [NativePopup](https://github.com/aetheon/js-utils/tree/master/src/NativePopup)
-Native Browser popups helpers.
-
-### [CacheManifest](https://github.com/aetheon/js-utils/tree/master/src/CacheManifest)
-Offline Cache Manifest helpers.
-
-### [Type](https://github.com/aetheon/js-utils/tree/master/src/Type)
-Helpers for Type's manipulation. 
-
-### [Url](https://github.com/aetheon/js-utils/tree/master/src/Url)
-Url helper's.
+### [AsyncHash](https://github.com/aetheon/js-utils/tree/master/src/AsyncHash)
 
 ### [AutoMapping](https://github.com/aetheon/js-utils/tree/master/src/AutoMapping)
-Javascript AutoMapper implementation.
+
+### [CacheManifest](https://github.com/aetheon/js-utils/tree/master/src/CacheManifest)
+
+### [DeviceQueries](https://github.com/aetheon/js-utils/tree/master/src/DeviceQueries)
 
 ### [Dependencies](https://github.com/aetheon/js-utils/tree/master/src/Dependencies)
-Dependencies boilerplate code to use in specific context (eg: defaultJQMobileApp).
+
+### [NativePopup](https://github.com/aetheon/js-utils/tree/master/src/NativePopup)
+
+### [Type](https://github.com/aetheon/js-utils/tree/master/src/Type)
+
+### [Url](https://github.com/aetheon/js-utils/tree/master/src/Url)
 
 ### [UI](https://github.com/aetheon/js-utils/tree/master/src/UI)
-UI related operations (eg: defaultJQMobileApp).
 
 #### [Window](https://github.com/aetheon/js-utils/tree/master/src/UI/Window)
 
 #### [JQueryMobile](https://github.com/aetheon/js-utils/tree/master/src/UI/JQueryMobile)
+
+#### [OOP](https://github.com/aetheon/js-utils/tree/master/src/UI/OOP)
+
+#### [Safe](https://github.com/aetheon/js-utils/tree/master/src/UI/Safe)
 

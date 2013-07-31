@@ -74,6 +74,130 @@ require(["lib/squire/squire-latest"], function(Squire, AsyncHash){
         });
 
 
+        async.it("Type.isArray(Array) returns true", function (allDone) {
+
+            Injector.require( [ "js-utils/Type/index" ], function(Type){
+
+                var isArray = Type.isArray(["adasdasdas"]);
+
+                expect(isArray).toBeTruthy();
+                
+                allDone();
+
+            });
+            
+        });
+
+
+
+        async.it("Type.isArray(null) returns false", function (allDone) {
+
+            Injector.require( [ "js-utils/Type/index" ], function(Type){
+
+                var isArray = Type.isArray(null);
+
+                expect(isArray).not.toBeTruthy();
+                
+                allDone();
+
+            });
+            
+        });
+
+
+
+        async.it("Type.isArray(Obj) returns false", function (allDone) {
+
+            Injector.require( [ "js-utils/Type/index" ], function(Type){
+
+                var isArray = Type.isArray({});
+
+                expect(isArray).not.toBeTruthy();
+                
+                allDone();
+
+            });
+            
+        });
+
+
+
+        async.it("Type.isFunction(fn) returns true", function (allDone) {
+
+            Injector.require( [ "js-utils/Type/index" ], function(Type){
+
+                var isArray = Type.isFunction(function(){});
+
+                expect(isArray).toBeTruthy();
+                
+                allDone();
+
+            });
+            
+        });
+
+
+        async.it("Type.isFunction(null) returns false", function (allDone) {
+
+            Injector.require( [ "js-utils/Type/index" ], function(Type){
+
+                var isArray = Type.isFunction(null);
+
+                expect(isArray).not.toBeTruthy();
+                
+                allDone();
+
+            });
+            
+        });
+
+
+        async.it("Type.isFunction(Obj) returns false", function (allDone) {
+
+            Injector.require( [ "js-utils/Type/index" ], function(Type){
+
+                var isArray = Type.isFunction({});
+
+                expect(isArray).not.toBeTruthy();
+                
+                allDone();
+
+            });
+            
+        });
+
+
+        async.it("Type.isString(string) returns true", function (allDone) {
+
+            Injector.require( [ "js-utils/Type/index" ], function(Type){
+
+                var isString = Type.isString("asass");
+
+                expect(isString).toBeTruthy();
+                
+                allDone();
+
+            });
+            
+        });
+
+
+        async.it("Type.isString(Obj) returns false", function (allDone) {
+
+            Injector.require( [ "js-utils/Type/index" ], function(Type){
+
+                var isString = Type.isString({});
+
+                expect(isString).not.toBeTruthy();
+                
+                allDone();
+
+            });
+            
+        });
+
+
+
 
     });
 

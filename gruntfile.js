@@ -58,7 +58,7 @@ module.exports = function(grunt) {
                     'src/**/*Spec.js'
                 ],
                 
-                outfile: 'jasmine_tests.html',
+                outfile: 'tests.html',
                 
                 // use custom template to fix test describing templating
                 template: "spec/template/RequireJsSpecRunner.tmpl",
