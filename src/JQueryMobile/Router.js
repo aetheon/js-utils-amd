@@ -140,9 +140,7 @@ define([
 
         pageTracker.on(
             "show",
-            function(data){
-
-                var prevPage = data.prevPage[0];
+            function(prevPage, currentPage){
 
                 // fire "previous" event
                 Safe.callFunction(

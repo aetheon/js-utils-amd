@@ -7,7 +7,6 @@ define(["require", "jquery", "EventEmitter", "js-utils/Globals/document", "js-ut
     function(require, $, EventEmitter){
     "use strict";
 
-
     var document = require("js-utils/Globals/document"),
         Url = require("js-utils/Url/index"),
         Arguments = require("js-utils/Arguments/index"),
@@ -17,13 +16,21 @@ define(["require", "jquery", "EventEmitter", "js-utils/Globals/document", "js-ut
 
     // a JQM events abstraction
     // signleton emiter of jquery events
-    var jqmEvents = new EventEmitter();
+    var jqmEvents = new EventEmitter(),
+        // JQM does't save prevPage when pagebeforechange event is canceled!
+        prevPage = null;
 
 
     $(document).bind(
         "pagebeforechange", 
         function(e, data){ 
-            jqmEvents.emit("changing", e, data);
+            jqmEvents.emit("changing", e, data, {
+                cancel: function(){
+                    //cancel the jquery mobile navigation
+                    e.preventDefault();
+                    prevPage = data.toPage;
+                }
+            });
             return true;
         });
 
@@ -39,6 +46,10 @@ define(["require", "jquery", "EventEmitter", "js-utils/Globals/document", "js-ut
     $(document).bind(
         "pageshow", 
         function(e, data){ 
+            
+            if(data.prevPage.length)
+                prevPage = data.prevPage[0];
+
             jqmEvents.emit("show", e, data); 
             return true;
         });
@@ -75,7 +86,7 @@ define(["require", "jquery", "EventEmitter", "js-utils/Globals/document", "js-ut
          */
         jqmEvents.on(
             "changing", 
-            function (event, data) {
+            function (event, data, operations) {
 
                 var pageurl = Safe.getString(data.absUrl);
                 
@@ -96,10 +107,7 @@ define(["require", "jquery", "EventEmitter", "js-utils/Globals/document", "js-ut
                             "changing", 
                             pageurl, 
                             {
-                                cancel: function(){
-                                    //cancel the jquery mobile navigation
-                                    event.preventDefault();
-                                }
+                                cancel: operations.cancel
                             });
                     }, { scope: scope }
                 );
@@ -116,7 +124,7 @@ define(["require", "jquery", "EventEmitter", "js-utils/Globals/document", "js-ut
             "change", 
             function (event, data) {
 
-                var element  = $.mobile.activePage[0];
+                var element = data.toPage;
                 var dataObj = data.options.data || Url.getQueryStringObject();
 
 
@@ -139,8 +147,10 @@ define(["require", "jquery", "EventEmitter", "js-utils/Globals/document", "js-ut
         jqmEvents.on(
             "show", 
             function (event, data) {
+
+                var currentPage = $.mobile.activePage[0];
                 
-                var prevPage = data.prevPage[0];
+                // variable hoisted at top
                 if (prevPage) {
 
                     // emit event
