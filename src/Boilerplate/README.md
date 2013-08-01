@@ -1,7 +1,7 @@
 
-# Load default dependencies for a context
+# Boilerplate code
 
-## defaultJQMobileApp
+## JQMobileAppDependencies
 
 Loads jquery, jqueryMobile, LoDash, UA-Parser, etc ...
 Useful for application Bootstrappers.
@@ -10,7 +10,7 @@ Useful for application Bootstrappers.
 ```javascript
 
 define([
-	"js-utils/Dependencies/defaultJQMobileApp.js"
+	"js-utils/Boilerplate/JQMobileAppDependencies.js"
 	],
 	function(){
 

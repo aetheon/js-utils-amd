@@ -28,7 +28,7 @@
 
 ### [DeviceQueries](https://github.com/aetheon/js-utils/tree/master/src/DeviceQueries)
 
-### [Dependencies](https://github.com/aetheon/js-utils/tree/master/src/Dependencies)
+### [Boilerplate](https://github.com/aetheon/js-utils/tree/master/src/Boilerplate)
 
 ### [NativePopup](https://github.com/aetheon/js-utils/tree/master/src/NativePopup)
 

@@ -15,6 +15,8 @@ requirejs.config({
 
         'knockout': 'lib/knockout/knockout-latest',
 
+        'jquery.animate-enhanced': 'lib/jquery.animate-enhanced/jquery.animate-enhanced-latest',
+
         'persistence': 'lib/persistence/persistence',
         'persistence-migration': 'lib/persistence/persistence.migrations',
         'persistence-sql': 'lib/persistence/persistence.store.sql',
