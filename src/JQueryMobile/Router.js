@@ -12,6 +12,7 @@ define([
     "lodash", 
     "knockout", 
     "EventEmitter", 
+    
     "js-utils/Arguments/index", 
     "js-utils/JQueryMobile/index", 
     "js-utils/JQueryMobile/PageTracker", 
@@ -217,8 +218,15 @@ define([
         },
 
 
+        /*
+         * redirect page
+         *
+         * @return{null} Null is return to be used as an ActionResult (no render the action page)
+         *  
+         */
         redirect: function(href, data){
             JQMHelper.navigate(href, data);
+            return null;
         }
 
 

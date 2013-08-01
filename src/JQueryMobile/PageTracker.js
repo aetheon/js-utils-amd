@@ -77,7 +77,13 @@ define(["require", "jquery", "EventEmitter", "js-utils/Globals/document", "js-ut
             "changing", 
             function (event, data) {
 
-                var pageurl = Safe.getString(data.toPage);
+                var pageurl = Safe.getString(data.absUrl);
+                
+                // if no url was given get the default from the page
+                // Fix: when on JQM it's the first page the url is empty
+                if(!pageurl) {
+                    pageurl = Url.get();
+                }
 
                 //
                 // Execute canChangePage() to see if navigation is allowed

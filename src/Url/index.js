@@ -9,6 +9,15 @@ define(["js-utils/Globals/window", "jquery", "lodash"], function(window, $, _){
 
 
     /**
+     *  get's the current Url
+     *
+     * @return{String} the current url
+     */
+    function get() {
+        return window.location.href;
+    }
+
+    /**
      * get's the query string part of the url
      *
      * @param{href} The full url or null to get the current
@@ -73,6 +82,7 @@ define(["js-utils/Globals/window", "jquery", "lodash"], function(window, $, _){
     
     return {
 
+        get: get,
         getQueryString: getQueryString,
         getQueryStringObject: getQueryStringObject
         
