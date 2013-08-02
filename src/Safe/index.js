@@ -55,6 +55,24 @@ define(["jquery", "js-utils/Type/index", "js-utils/Arguments/index"], function($
         }
 
     };
+
+
+    /*
+     * Safelly get Object from value
+     *
+     * @param{value} The value to get
+     * @return A Object
+     */
+    Safe.getObject = function(value){
+        
+        if(Type.isObject(value)){
+            return value;
+        }
+        else{
+            return {};
+        }
+
+    };
     
 
     /*

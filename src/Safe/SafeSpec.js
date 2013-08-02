@@ -204,6 +204,39 @@ require(["lib/squire/squire-latest"], function(Squire, AsyncHash){
         });
 
 
+
+        async.it(".getObject(null) should return an Object", function (done) {
+
+            Injector.require(["src/Safe/index", "lodash"], function(Safe, _){
+
+                var obj = Safe.getObject(null);
+
+                expect(obj).not.toBe(null);
+                expect(_.keys(obj).length).toBe(0);
+
+                done();
+
+            });
+
+        });
+
+
+        async.it(".getObject({}) should return an Object", function (done) {
+
+            Injector.require(["src/Safe/index", "lodash"], function(Safe, _){
+
+                var obj = Safe.getObject({ one: 1 });
+
+                expect(obj).not.toBe(null);
+                expect(_.keys(obj).length).toBe(1);
+
+                done();
+
+            });
+
+        });
+
+
         
 
 

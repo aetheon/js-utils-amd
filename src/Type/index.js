@@ -154,6 +154,24 @@ define(["lodash", "js-utils/Arguments/index"], function(_, Arguments){
     };
 
 
+    /*
+     * Checks if the given value is an object
+     *
+     * @param{value} value to check
+     * @return True|False
+     *
+     */
+    Type.isObject = function (value) {
+
+        // null or undefined values are objects, but we don't care
+        /* jshint -W041 */
+        if(value == null)   return false;
+
+        return typeof(value) === "object";
+
+    };
+
+
     return Type;
 
 });

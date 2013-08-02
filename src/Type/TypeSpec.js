@@ -197,6 +197,50 @@ require(["lib/squire/squire-latest"], function(Squire, AsyncHash){
         });
 
 
+        async.it("Type.isObject(Obj) returns true", function (allDone) {
+
+            Injector.require( [ "js-utils/Type/index" ], function(Type){
+
+                var isObject = Type.isObject({});
+
+                expect(isObject).toBeTruthy();
+                
+                allDone();
+
+            });
+            
+        });
+
+
+        async.it("Type.isObject(null) returns false", function (allDone) {
+
+            Injector.require( [ "js-utils/Type/index" ], function(Type){
+
+                var isObject = Type.isObject(null);
+
+                expect(isObject).not.toBeTruthy();
+                
+                allDone();
+
+            });
+            
+        });
+
+
+        async.it("Type.isObject(Str) returns false", function (allDone) {
+
+            Injector.require( [ "js-utils/Type/index" ], function(Type){
+
+                var isObject = Type.isObject("");
+
+                expect(isObject).not.toBeTruthy();
+                
+                allDone();
+
+            });
+            
+        });
+
 
 
     });

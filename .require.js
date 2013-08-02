@@ -12,8 +12,10 @@ requirejs.config({
         'json5': 'lib/json5/json5',
         'mustache': 'lib/mustache/mustache-latest',
         'fastclick': 'lib/fastclick/fastclick-latest',
+        'intravenous': 'lib/intravenous/intravenous-latest',
 
         'knockout': 'lib/knockout/knockout-latest',
+        'knockout-validation': 'lib/knockout/knockout.validation',
 
         'jquery.animate-enhanced': 'lib/jquery.animate-enhanced/jquery.animate-enhanced-latest',
 
@@ -38,6 +40,10 @@ requirejs.config({
 
         'jqm':{
             deps: ['jquery']
+        },
+
+        'knockout': {
+            exports: [ "ko" ]
         }
 
     }
