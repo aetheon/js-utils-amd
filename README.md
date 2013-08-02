@@ -38,11 +38,13 @@
 
 ### [UI](https://github.com/aetheon/js-utils/tree/master/src/UI)
 
-#### [Window](https://github.com/aetheon/js-utils/tree/master/src/UI/Window)
+#### [Window](https://github.com/aetheon/js-utils/tree/master/src/Window)
 
-#### [JQueryMobile](https://github.com/aetheon/js-utils/tree/master/src/UI/JQueryMobile)
+#### [JQueryMobile](https://github.com/aetheon/js-utils/tree/master/src/JQueryMobile)
 
-#### [OOP](https://github.com/aetheon/js-utils/tree/master/src/UI/OOP)
+#### [OOP](https://github.com/aetheon/js-utils/tree/master/src/OOP)
 
-#### [Safe](https://github.com/aetheon/js-utils/tree/master/src/UI/Safe)
+#### [Safe](https://github.com/aetheon/js-utils/tree/master/src/Safe)
+
+#### [KO](https://github.com/aetheon/js-utils/tree/master/src/KO)
 
