@@ -24,7 +24,7 @@ define(["lodash", "js-utils/Arguments/index"], function(_, Arguments){
     Type.Switch = function(value, options){
 
         var returnNull = function(value){ return null; };
-        options = Arguments.getObject(
+        options = Arguments.get(
             options,
             {
                 "boolean" : returnNull,

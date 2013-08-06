@@ -76,18 +76,24 @@ define([
         // events
         var scope = this,
             pageTracker = new PageTracker(),    // jqueryPageTracker
+            
+            // current instance of the action
             currentActionResult = null;
-
 
 
         // setter of the current action action result
         var setCurrentActionResult = function(actionResult){
 
-            if (currentActionResult)
-                this.factory.destroyActionResult(currentActionResult);
+            try{
+                if (currentActionResult)
+                    this.factory.destroyActionResult(currentActionResult);
+            }
+            finally{
+                
+                // set the current action result
+                currentActionResult = actionResult;
 
-            // set the current action result
-            currentActionResult = actionResult;
+            }
 
         };
 
@@ -106,7 +112,9 @@ define([
                         
                         // cancel the changing if no action result was found
                         /* jshint -W041 */
-                        if(actionResult == null){ options.cancel(); }
+                        if(actionResult == null){ 
+                            options.cancel(); 
+                        }
 
                         // set the current action result
                         setCurrentActionResult.call(this, actionResult);

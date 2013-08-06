@@ -12,7 +12,7 @@ define(["require", "js-utils/Globals/window", "js-utils/Arguments/index", "js-ut
         var _ = require("lodash");
         var EventEmitter = require("EventEmitter");
         var Type = require("js-utils/Type/index");
-        var Options = require("js-utils/Arguments/index");
+        var Arguments = require("js-utils/Arguments/index");
         var window = require("js-utils/Globals/window");
 
 
@@ -23,7 +23,7 @@ define(["require", "js-utils/Globals/window", "js-utils/Arguments/index", "js-ut
          */
         var WindowPopup = function(options){
 
-            this.options = Options.getObject(
+            this.options = Arguments.get(
                 options,
                 {
                     left: 0,
@@ -37,6 +37,7 @@ define(["require", "js-utils/Globals/window", "js-utils/Arguments/index", "js-ut
                     status: false
                 }
             );
+            
         };
             
 
