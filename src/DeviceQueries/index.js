@@ -8,6 +8,30 @@ define(["js-utils/Globals/window", "ua-parser"], function(window, UAParser){
     "use strict";
 
 
+    /*
+     * cordova bindings 
+     *
+     */
+
+     var isCordova = false;
+     document.addEventListener(
+        "deviceready", 
+        function(){
+            isCordova = true;
+        },false);
+
+
+
+     /*
+      * isOnline
+      * Note Cordova compatible!
+      *
+      */
+    var isOnline = false;
+
+    window.addEventListener("offline", function(e) { isOnline = false; });
+    window.addEventListener("online", function(e) { isOnline = true; });
+
     var Device = {
 
 
@@ -17,7 +41,7 @@ define(["js-utils/Globals/window", "ua-parser"], function(window, UAParser){
          * @return{Boolean}
          */
         isOnline: function () {
-            return window.navigator.onLine;    
+            return isOnline;    
         },
 
         
@@ -42,34 +66,32 @@ define(["js-utils/Globals/window", "ua-parser"], function(window, UAParser){
         },
 
 
+         
          /*
-          * User Agent stuff!       
-          */
-         UA: {
+         * Check if the device is mobile!
+         *
+         * return{Boolean} True|False
+         */
+        isMobile: function(){
 
-             /*
-             * Check if the device is mobile!
-             *
-             * return{Boolean} True|False
-             */
-            isMobile: function(){
+            // if is running on cordova there are no doubts!
+            if(isCordova) return true;
 
-                var parser = new UAParser();
-                var deviceInfo = parser.getDevice();
+            // otherwise fallback to user agent
+            var parser = new UAParser();
+            var deviceInfo = parser.getDevice();
 
-                switch(deviceInfo.type){
+            switch(deviceInfo.type){
 
-                    case "mobile":
-                    case "tablet":
-                        return true;
-
-                }
-
-                return false;
+                case "mobile":
+                case "tablet":
+                    return true;
 
             }
 
-         }
+            return false;
+
+        }
 
 
     };

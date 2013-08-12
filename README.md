@@ -28,8 +28,6 @@
 
 ### [DeviceQueries](https://github.com/aetheon/js-utils/tree/master/src/DeviceQueries)
 
-### [Boilerplate](https://github.com/aetheon/js-utils/tree/master/src/Boilerplate)
-
 ### [NativePopup](https://github.com/aetheon/js-utils/tree/master/src/NativePopup)
 
 ### [Type](https://github.com/aetheon/js-utils/tree/master/src/Type)
@@ -47,4 +45,6 @@
 #### [Safe](https://github.com/aetheon/js-utils/tree/master/src/Safe)
 
 #### [KO](https://github.com/aetheon/js-utils/tree/master/src/KO)
+
+#### [Application](https://github.com/aetheon/js-utils/tree/master/src/Application)
 
