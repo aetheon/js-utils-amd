@@ -46,13 +46,13 @@ define([
             {
                 // app routes
                 routes: {
-                    "default.html": "default"
-                },
+                    // "default.html": "default"
+                }
 
-                // controller action
+                /* controller action
                 "default": function() {
                     return {};
-                }
+                }*/
 
             }
         );

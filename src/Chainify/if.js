@@ -35,7 +35,7 @@ define(["js-utils/Safe/index"], function(Safe){
         // return 'then'
         return {
             'then': then
-        }
+        };
 
         
     };

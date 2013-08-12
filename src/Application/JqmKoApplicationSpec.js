@@ -29,7 +29,10 @@ require(["lib/squire/squire-latest"], function(Squire){
 
             Injector.require(["src/Application/JqmKoApplication", "jquery"], function(Application, $){
 
-                new Application();
+                new Application({
+                    controller: function(){},
+                    domainServices: []
+                });
 
                 done();
 
@@ -60,7 +63,8 @@ require(["lib/squire/squire-latest"], function(Squire){
                 };
 
                 new Application({
-                    controller: Controller
+                    controller: Controller,
+                    domainServices: []
                 });
 
                 expect(runned).toBeTruthy();
@@ -93,6 +97,7 @@ require(["lib/squire/squire-latest"], function(Squire){
                 ];
 
                 var app = new Application({
+                        controller: function(){},
                         domainServices: services
                     });
 
@@ -130,6 +135,7 @@ require(["lib/squire/squire-latest"], function(Squire){
                 ];
 
                 var app = new Application({
+                        controller: function(){},
                         domainServices: services
                     });
 
@@ -158,7 +164,10 @@ require(["lib/squire/squire-latest"], function(Squire){
 
                 var runned = false;
 
-                var app = new Application({}, { one: 1 });
+                var app = new Application({
+                    controller: function(){},
+                    domainServices: []
+                }, { one: 1 });
 
                 expect(app.getConfig().one).toBe(1);
 

@@ -133,7 +133,7 @@ require(["lib/squire/squire-latest"], function(Squire, AsyncHash){
 
             Injector.require(["src/Safe/index"], function(Safe){
 
-                var bool = Safe.callFunction(function(){ return this; }, { scope: true});
+                var bool = Safe.callFunction(function(){ return this.val; }, { scope: { val: true} });
 
                 expect(bool).toBeTruthy();
 

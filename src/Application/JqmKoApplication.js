@@ -76,9 +76,9 @@ define([
 
                 // domain service available
                 domainServices: 
-                    [ { 
+                    [ /*{ 
                         serviceName: "", serviceType: function(){} 
-                    } ]
+                    }*/ ]
 
             });
 

@@ -111,7 +111,7 @@ define([
 
             var If = require("js-utils/Chainify/if");
 
-            return If(Device.isMobile);
+            return new If(Device.isMobile);
 
         }
 
