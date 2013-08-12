@@ -4,7 +4,7 @@ require(["lib/squire/squire-latest", "spec/mocks/UAParserMock"], function(Squire
     'use strict';
 
  
-    describe("DeviceQueries", function () {
+    describe("Device", function () {
 
         var Injector = new Squire(),
             async = new AsyncSpec(this);
@@ -25,7 +25,7 @@ require(["lib/squire/squire-latest", "spec/mocks/UAParserMock"], function(Squire
             // mock ua parser
             Injector.mock('ua-parser', Squire.Helpers.returns(new UAParserMock("Android", "2.0", "tablet")) );
 
-            Injector.require(["js-utils/DeviceQueries/index"], function(DeviceInfo){
+            Injector.require(["js-utils/Device/index"], function(DeviceInfo){
 
                 var isMobile = DeviceInfo.isMobile();
                 
@@ -44,7 +44,7 @@ require(["lib/squire/squire-latest", "spec/mocks/UAParserMock"], function(Squire
             // mock ua parser
             Injector.mock('ua-parser', Squire.Helpers.returns(new UAParserMock("Android", "2.0", "mobile")) );
 
-            Injector.require(["js-utils/DeviceQueries/index"], function(DeviceInfo){
+            Injector.require(["js-utils/Device/index"], function(DeviceInfo){
 
                 var isMobile = DeviceInfo.isMobile();
                 

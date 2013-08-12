@@ -26,7 +26,7 @@
 
 ### [CacheManifest](https://github.com/aetheon/js-utils/tree/master/src/CacheManifest)
 
-### [DeviceQueries](https://github.com/aetheon/js-utils/tree/master/src/DeviceQueries)
+### [Device](https://github.com/aetheon/js-utils/tree/master/src/Device)
 
 ### [NativePopup](https://github.com/aetheon/js-utils/tree/master/src/NativePopup)
 

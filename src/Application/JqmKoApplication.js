@@ -24,7 +24,7 @@ define([
         "js-utils/Globals/window",
         "js-utils/Arguments/index",
         "js-utils/Url/index",
-        "js-utils/DeviceQueries/index",
+        "js-utils/Device/index",
         "js-utils/UI/Window",
         "js-utils/UI/Accessibility",
         "js-utils/JQueryMobile/index",
@@ -37,7 +37,7 @@ define([
         
         var Arguments = require("js-utils/Arguments/index"),
             Url = require("js-utils/Url/index"),
-            Device = require("js-utils/DeviceQueries/index"),
+            Device = require("js-utils/Device/index"),
             Safe = require("js-utils/Safe/index"),
             Type = require("js-utils/Type/index");
 
