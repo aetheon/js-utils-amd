@@ -100,6 +100,28 @@ define(["knockout", "knockout-validation"], function(ko){
 
     };
 
+
+    /*
+    * Get all fields with error from the model on a string
+    *
+    * @param{model} - the model
+    * @return{str}
+    */
+    koValidationHelper.getModelErrorsStr = function (model, loggerFn) {
+
+        loggerFn = loggerFn || console.log;
+
+        var str = "",
+            errors = koValidationHelper.getModelErrors(model);
+
+        for (var key in errors) {
+            str += key + "=>" + errors[key] + "\n";
+        }
+
+        return str;
+
+    };
+
     return koValidationHelper;
 
 
