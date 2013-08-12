@@ -119,6 +119,30 @@ define(["lodash", "js-utils/Arguments/index"], function(_, Arguments){
 
 
     /*
+     * Get the type of the value
+     *
+     * @return{string}
+     *
+     */
+    Type.of = function (val) {
+        return typeof(val1) == typeof(val2);
+    };
+
+
+    /*
+     * Check if the types are equals
+     *
+     * @param{val1} 
+     * @param{val2} 
+     * @return True|False
+     *
+     */
+    Type.areEquals = function (val1, val2) {
+        return typeof(val1) == typeof(val2);
+    };
+
+
+    /*
      * Checks if the given value is an array
      *
      * @param{value} value to check

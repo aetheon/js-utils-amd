@@ -4,7 +4,7 @@
  * 
  */
 
-define(["jquery"], function($){
+define(["js-utils/Safe/index"], function(Safe){
     "use strict";
 
 
@@ -26,7 +26,7 @@ define(["jquery"], function($){
             defaultOptions = defaultOptions || {};
             options = options || {};
 
-            var option = $.extend(true, {}, defaultOptions, options);
+            var options = Safe.copyObject(options, defaultOptions);
 
             return option;
         }

@@ -4,7 +4,14 @@
  * 
  */
 
-define(["js-utils/Globals/window", "ua-parser"], function(window, UAParser){
+define([
+    "js-utils/Globals/window", 
+    "ua-parser",
+    "js-utils/Safe/index",
+    "js-utils/Chainify/if"
+    ], 
+
+    function(window, UAParser, Safe){
     "use strict";
 
 
@@ -90,6 +97,21 @@ define(["js-utils/Globals/window", "ua-parser"], function(window, UAParser){
             }
 
             return false;
+
+        },
+
+
+        /*
+         * Chanify exec of if is Mobile
+         *
+         *
+         * @return{object} If Chainify
+         */
+        ifMobile: function(){
+
+            var If = require("js-utils/Chainify/if");
+
+            return If(Device.isMobile);
 
         }
 

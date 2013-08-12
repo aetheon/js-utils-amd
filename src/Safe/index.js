@@ -123,6 +123,44 @@ define(["jquery", "js-utils/Type/index", "js-utils/Arguments/index"], function($
 
 
 
+    /*
+     * Safe copy object. This method will insure that the expected types are 
+     * correct
+     *
+     * @param{from} The source of the data
+     * @param{to} The object to fill it's properties
+     *
+     * @return{Object} The merged object
+     */
+    Safe.copyObject = function(from, to){
+
+
+        // if the arguments are not both objects
+        if(! (Type.isObject(from) && Type.isObject(from)) )
+            throw new Error("[Safe.copyObject] expected two Objects");
+
+        for(var key in to){
+
+            // if types are not equal throw an error
+            if( Type.areEquals(from[key], to[key]) ){
+                throw new Error("[Safe.copyObject]" + key + ": expected type '" + Type.of(to[key]) + "' but found '" + Type.of(from[key]) + "'")
+            }
+
+            if(Type.isObject(to[key])){
+                copyObject(from[key], to[key]);
+            }
+            else{
+                to[key] = from[key];       
+            }
+        }
+
+
+        return to;
+
+    };
+
+
+
     return Safe;
 
 });
