@@ -24,11 +24,18 @@ define(["lodash"], function(_){
             throw new Error("[Safe.copyObject] expected two Objects");
 
         // if there is no obj return the from object
-        var objKeys = _.keys(obj);
-        if(!objKeys.lenght)
+        var objKeys = _.keys(obj),
+            fromKeys = _.keys(from);
+
+        // return from because obj has not values
+        if(!objKeys.length)
             return from;
 
-        for(var key in objKeys){
+        // return obj because from has not values
+        if(!fromKeys.length)
+            return obj;
+
+        _.each(objKeys, function(key){
 
             var value = from[key];
 
@@ -71,12 +78,12 @@ define(["lodash"], function(_){
             else{
 
                 // if is a number and was not setted continue...
-                if( typeof obj[key] == "number" && from[key] == null ) continue;
+                if( typeof obj[key] == "number" && from[key] == null ) return;
 
                 // set the real thing!
                 obj[key] = value;       
             }
-        }
+        });
 
 
         return obj;
