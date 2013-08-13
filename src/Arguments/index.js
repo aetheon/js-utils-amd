@@ -54,6 +54,10 @@ define(["lodash"], function(_){
                         value = 0;
                         break;
 
+                    case "function":
+                        value = function(){};   // this value will be later discarded, meanwhile is a valid value
+                        break;
+
                     default:
                         value = null;
                         break;
@@ -70,6 +74,7 @@ define(["lodash"], function(_){
             //
             // set values
             //
+            /* jshint -W041 */
             if(typeof obj[key] == "object"){
                 // if is object deep copy
                 var copy = updateObjectFrom(obj[key], from[key] || null);
@@ -79,6 +84,7 @@ define(["lodash"], function(_){
 
                 // if is a number and was not setted continue...
                 if( typeof obj[key] == "number" && from[key] == null ) return;
+                if( typeof obj[key] == "function" && from[key] == null ) return;
 
                 // set the real thing!
                 obj[key] = value;       

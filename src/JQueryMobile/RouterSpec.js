@@ -39,7 +39,9 @@ require(["lib/squire/squire-latest", "spec/mocks/EventEmitterObjMock"], function
                         routes: {
                             "default$": "teste",
                         },
-                        teste: action
+                        actions: { 
+                            teste: action
+                        }
                     });
 
                     event.emit("changing", "default");
@@ -80,7 +82,9 @@ require(["lib/squire/squire-latest", "spec/mocks/EventEmitterObjMock"], function
                         routes: {
                             "": "teste",
                         },
-                        teste: action
+                        actions: {
+                            teste: action
+                        }
                     });
 
                     event.emit("changing", "");
@@ -120,7 +124,9 @@ require(["lib/squire/squire-latest", "spec/mocks/EventEmitterObjMock"], function
                         routes: {
                             "default": "teste",
                         },
-                        teste: action
+                        actions: {
+                            teste: action
+                        }
                     });
 
                     event.emit("changing", "");
@@ -166,11 +172,13 @@ require(["lib/squire/squire-latest", "spec/mocks/EventEmitterObjMock"], function
                         routes: {
                             "default$": "teste",
                         },
-                        teste: action
+                        actions: {
+                            teste: action
+                        }
                     });
 
                     event.emit("changing", "/default");
-                    event.emit("change", { }, {});
+                    event.emit("change", {}, {});
 
                 });
 
@@ -215,7 +223,9 @@ require(["lib/squire/squire-latest", "spec/mocks/EventEmitterObjMock"], function
                         routes: {
                             "default$": "teste",
                         },
-                        teste: Action
+                        actions: {
+                            teste: Action
+                        }
                     },
                     factory);
 
@@ -265,7 +275,9 @@ require(["lib/squire/squire-latest", "spec/mocks/EventEmitterObjMock"], function
                             "default$": "teste",
                             "default2$": "teste",
                         },
-                        teste: action
+                        actions: {
+                            teste: action
+                        }
                     },
                     factory);
 
@@ -306,7 +318,9 @@ require(["lib/squire/squire-latest", "spec/mocks/EventEmitterObjMock"], function
                             "default$": "teste",
                             "default2$": "teste",
                         },
-                        teste: function(){}
+                        actions: {
+                            teste: function(){}
+                        }
                     });
 
                     router.on("previous", function(){ previous=true; });

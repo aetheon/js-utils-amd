@@ -44,16 +44,15 @@ define([
         this.controller = Arguments.get(
             controller,
             {
-                // app routes
+                // routes
                 routes: {
                     // "default.html": "default"
+                },
+
+                // actions
+                actions: {
+                    // "action": function(){}
                 }
-
-                /* controller action
-                "default": function() {
-                    return {};
-                }*/
-
             }
         );
 
@@ -210,9 +209,9 @@ define([
                 action = Safe.getString(action);
 
                 // get action from "controller"
-                action = this.controller[action];
+                action = this.controller.actions[action];
                 if(!action)
-                    action = this.controller[""];  //defaut route
+                    action = this.controller.actions[""];  //defaut route
 
                 // call action 
                 return Safe.callFunction(

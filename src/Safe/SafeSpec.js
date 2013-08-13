@@ -148,7 +148,7 @@ require(["lib/squire/squire-latest"], function(Squire, AsyncHash){
 
             Injector.require(["src/Safe/index"], function(Safe){
 
-                var bool = Safe.callFunction(function(arg){ return arg; }, { args: true});
+                var bool = Safe.callFunction(function(arg){ return arg; }, { args: { arg: true } });
 
                 expect(bool).toBeTruthy();
 
