@@ -13,6 +13,24 @@ define(["lodash"], function(_){
 
 
     /*
+     * Get the type of the value
+     * Possible values are: undefined, object, array, number, string
+     *
+     * @param{obj}
+     * @return{string}
+     *
+     */
+    Type.of = function (obj) {
+        var t = typeof obj;
+
+        if(t == "object" && obj instanceof Array)
+            return "array";
+
+        return t;
+    };
+
+
+    /*
      * Checks if an hash has the given property
      *
      * @return{Boolean}
@@ -87,17 +105,6 @@ define(["lodash"], function(_){
         else 
             return number;
 
-    };
-
-
-    /*
-     * Get the type of the value
-     *
-     * @return{string}
-     *
-     */
-    Type.of = function (val) {
-        return typeof(val1);
     };
 
 
