@@ -1,4 +1,3 @@
-
 /*
  * Arguments util helpers
  * 
@@ -6,6 +5,18 @@
 
 define(["lodash"], function(_){
     "use strict";
+
+
+    var typeOf = function(obj){
+
+        var t = typeof obj;
+
+        if(t == "object" && obj instanceof Array)
+            return "array";
+
+        return t;
+
+    };
 
 
     /*
@@ -20,7 +31,7 @@ define(["lodash"], function(_){
     var updateObjectFrom = function(obj, from){
 
         // if the arguments are not both objects
-        if(! (typeof obj == "object" && (typeof from == "object" || typeof from == "undefined") ))
+        if(! ( typeOf(obj) == "object" && ( typeOf(from) == "object" || typeOf(from) == "undefined") ))
             throw new Error("[Safe.copyObject] expected two Objects");
 
         // if there is no obj return the from object
@@ -42,13 +53,14 @@ define(["lodash"], function(_){
             //
             // set undefined default values
             //
-            if( typeof value == "undefined"){
+            if( typeOf(value) == "undefined"){
 
-                switch(typeof obj[key]){
+                switch(typeOf(obj[key])){
 
                     case "boolean":
                     case "number":
                     case "function":
+                    case "array":
                         // sets the default value to be the one from the left
                         value = obj[key];
                         break;
@@ -62,15 +74,15 @@ define(["lodash"], function(_){
             //
             // guards - make sure the value are from the same type
             //
-            if( typeof obj[key] != typeof value ){
-                throw new Error("[Safe.copyObject] " + key + ": expected type '" + typeof obj[key] + "' but found '" + typeof from[key] + "'");
+            if( typeOf(obj[key]) != typeOf(value) ){
+                throw new Error("[Safe.copyObject] " + key + ": expected type '" + typeOf(obj[key]) + "' but found '" + typeOf(from[key]) + "'");
             }
 
             //
             // set values
             //
             /* jshint -W041 */
-            if(typeof obj[key] == "object"){
+            if(typeOf(obj[key]) == "object"){
                 // if is object deep copy
                 var copy = updateObjectFrom(obj[key], from[key] || null);
                 obj[key] = copy;

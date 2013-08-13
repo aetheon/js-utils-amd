@@ -111,6 +111,92 @@ require(["lib/squire/squire-latest"], function(Squire, AsyncHash){
 
 
 
+        async.it(".get() should ignore non existing values", function (done) {
+
+            Injector.require(["src/Arguments/index.js"], function(Options){
+
+                var o = Options.get(
+                    {
+                        "val1": 1
+                    },
+
+                    {
+                        "val": {
+                            "one": 1
+                        }   
+                    }
+
+                );
+
+                expect(typeof o).toEqual("object");
+                expect(o.val1).toBe(undefined);
+                expect(o.val).not.toBe(null);
+                expect(o.val.one).not.toBe(null);
+
+                done();
+
+            });
+
+        });
+
+
+
+        async.it(".get() should copy inner values", function (done) {
+
+            Injector.require(["src/Arguments/index.js"], function(Options){
+
+                var o = Options.get(
+                    {
+                        "val": {
+                            "one": 1
+                        }
+                    },
+
+                    {
+                        "val": {}   
+                    }
+
+                );
+
+                expect(typeof o).toEqual("object");
+                expect(o.val).not.toBe(null);
+                expect(o.val.one).not.toBe(null);
+
+                done();
+
+            });
+
+        });
+
+
+
+        async.it(".get() should throw when expecting an array", function (done) {
+
+            Injector.require(["src/Arguments/index.js"], function(Options){
+
+                var run = function(){
+                    var o = Options.get(
+                        {
+                            "val": {
+                                "one": 1
+                            }
+                        },
+
+                        {
+                            "val": [] 
+                        }
+
+                    );
+                };
+
+                expect(run).toThrow();
+                
+                done();
+
+            });
+
+        });
+
 
 
     });
