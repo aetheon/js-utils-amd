@@ -136,6 +136,46 @@ require(["lib/lodash/lodash-latest","lib/squire/squire-latest"], function(_, Squ
         });
 
 
+        async.it(".fill() should accept anything as null base values", function (done) {
+
+            Injector.require(["src/object/index.js"], function(Options){
+
+                var o = Options.fill(
+                    
+                    {
+                        "val": {
+                            "one": null,
+                            "two": null,
+                            "three": null,
+                        }   
+                    },
+
+                    {
+                        "val": {
+                            "one": 1,
+                            "two": [1, 2],
+                            "three": { 1: 1}
+                        }
+
+                    }
+
+                );
+
+                expect(typeof o).toEqual("object");
+                
+                expect(o.val).not.toBe(null);
+                
+                expect(o.val.one).toBe(1);
+                expect(_.keys(o.val.two).length).toBe(2);
+                expect(_.keys(o.val.three).length).toBe(1);
+                
+                done();
+
+            });
+
+        });
+
+
 
         async.it(".fill() should throw error when array expected", function (done) {
 

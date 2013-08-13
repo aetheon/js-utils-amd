@@ -8,6 +8,8 @@ define(["jquery", "lodash", "knockout", "js-utils/Safe/index"], function($, _, k
         return {
 
             createViewModel: function(ViewModel, element, data){
+                
+                // creates the view model
                 var viewModel = new ViewModel(context, element, data);
 
                 // apply ko bindings to the given element
@@ -18,7 +20,7 @@ define(["jquery", "lodash", "knockout", "js-utils/Safe/index"], function($, _, k
 
             destroyViewModel: function(viewModelInstance, element){
 
-                Safe.callFunction(viewModelInstance.destroy, { scope: viewModelInstance });
+                Safe.callFunction(viewModelInstance.destroy, { scope: viewModelInstance, args: [ element ] });
 
                 // clean ko bindings
                 ko.cleanNode(element);

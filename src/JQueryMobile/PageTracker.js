@@ -3,7 +3,7 @@
  * An abstraction of the jquerymobile event model.
  *
  */
-define(["require", "jquery", "EventEmitter", "js-utils/Globals/document", "js-utils/Url/index", "js-utils/Arguments/index", "js-utils/OOP/index", "js-utils/Safe/index"], 
+define(["require", "jquery", "EventEmitter", "js-utils/Globals/document", "js-utils/Url/index", "js-utils/Arguments/index", "js-utils/OOP/index", "js-utils/Safe/index", "js-utils/Type/index"], 
     function(require, $, EventEmitter){
     "use strict";
 
@@ -11,7 +11,8 @@ define(["require", "jquery", "EventEmitter", "js-utils/Globals/document", "js-ut
         Url = require("js-utils/Url/index"),
         Arguments = require("js-utils/Arguments/index"),
         OOP = require("js-utils/OOP/index"),
-        Safe = require("js-utils/Safe/index");
+        Safe = require("js-utils/Safe/index"),
+        Type = require("js-utils/Type/index");
 
 
     // a JQM events abstraction
@@ -24,13 +25,18 @@ define(["require", "jquery", "EventEmitter", "js-utils/Globals/document", "js-ut
     $(document).bind(
         "pagebeforechange", 
         function(e, data){ 
-            jqmEvents.emit("changing", e, data, {
-                cancel: function(){
-                    //cancel the jquery mobile navigation
-                    e.preventDefault();
-                    prevPage = data.toPage;
-                }
-            });
+
+            if(Type.isObject(data.toPage)){
+
+                jqmEvents.emit("changing", e, data, {
+                    cancel: function(){
+                        //cancel the jquery mobile navigation
+                        e.preventDefault();
+                    }
+                });
+                
+            }
+
             return true;
         });
 

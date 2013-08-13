@@ -77,24 +77,10 @@ define([
             pageTracker = new PageTracker(),    // jqueryPageTracker
             
             // current instance of the action
-            currentActionResult = null;
+            currentActionResult = null,
 
-
-        // setter of the current action action result
-        var setCurrentActionResult = function(actionResult){
-
-            try{
-                if (currentActionResult)
-                    this.factory.destroyActionResult(currentActionResult);
-            }
-            finally{
-                
-                // set the current action result
-                currentActionResult = actionResult;
-
-            }
-
-        };
+            // saves the prev page element
+            prevPageElement = null;
 
 
 
@@ -116,7 +102,11 @@ define([
                         }
 
                         // set the current action result
-                        setCurrentActionResult.call(this, actionResult);
+                        currentActionResult = actionResult;
+
+                        // sets the prevPage element
+                        if($.mobile.activePage && $.mobile.activePage.length > 0)
+                            prevPageElement = $.mobile.activePage[0];
 
                     }, { scope: scope }
                 );
@@ -133,7 +123,12 @@ define([
                 //instanciate actionResult if is a function
                 if(Type.isFunction(currentActionResult)){
                     Safe.callFunction(
-                        function() { 
+                        function() {
+
+                            if(prevPageElement){
+                                this.factory.destroyActionResult(currentActionResult, prevPageElement);
+                            }
+
                             currentActionResult = this.factory.createActionResult(currentActionResult, element, data);
                         },
                         { scope: scope }

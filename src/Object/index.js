@@ -24,7 +24,7 @@ define(["lodash", "js-utils/Type/index"], function(_, Type){
 
             // if the arguments are not both objects
             if(! ( Type.of(obj) == "object" && ( Type.of(from) == "object" || Type.of(from) == "undefined") ))
-                throw new Error("[Safe.copyObject] expected two Objects");
+                throw new Error("[Object.fill] expected two Objects");
 
             // if there is no obj return the from object
             var objKeys = _.keys(obj),
@@ -65,16 +65,17 @@ define(["lodash", "js-utils/Type/index"], function(_, Type){
 
                 //
                 // guards - make sure the value are from the same type
+                // if obj[key] is null ignore the testing
                 //
-                if( Type.of(obj[key]) != Type.of(value) ){
-                    throw new Error("[Safe.copyObject] " + key + ": expected type '" + Type.of(obj[key]) + "' but found '" + Type.of(from[key]) + "'");
+                if( obj[key] != null && Type.of(obj[key]) != Type.of(value) ){
+                    throw new Error("[Object.fill] " + key + ": expected type '" + Type.of(obj[key]) + "' but found '" + Type.of(from[key]) + "'");
                 }
 
                 //
                 // set values
                 //
                 /* jshint -W041 */
-                if(Type.of(obj[key]) == "object"){
+                if(  obj[key] != null && Type.of(obj[key]) == "object"){
                     // if is object deep copy
                     var copy = Obj.fill(obj[key], from[key] || null);
                     obj[key] = copy;
