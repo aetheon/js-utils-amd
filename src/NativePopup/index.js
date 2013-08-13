@@ -56,18 +56,12 @@ define(["require", "js-utils/Globals/window", "js-utils/Arguments/index", "js-ut
                 options,
                 function(result, value, key){
 
-                    var val = Type.Switch(
-                        value,
-                        {
-                            'boolean': function(value){
-                                if(value) return "yes";
-                                return "no";
-                            },
+                    var val = value;
 
-                            'number': function(value){ return value; },
-                            'string': function(value){ return value; }
-                        }
-                    );
+                    if(Type.isBoolean(value)){
+                        if(value) val = "yes";
+                        val = "no";
+                    }
 
                     if(val !== null){
                         result += key + "=" + val + ",";

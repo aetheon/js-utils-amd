@@ -12,34 +12,6 @@ define(["lodash", "js-utils/Arguments/index"], function(_, Arguments){
     var Type = {};
 
 
-
-    /*
-     * Switch between the given value type
-     *
-     * @param{value} The value to querie
-     * @param{options} An hash with the functions to invoque
-     *
-     * @return{} The result of the switch function invoked
-     */
-    Type.Switch = function(value, options){
-
-        var returnNull = function(value){ return null; };
-        options = Arguments.get(
-            options,
-            {
-                "boolean" : returnNull,
-                "object": returnNull,
-                "array": returnNull,
-                "number": returnNull
-            }
-        );
-
-        var key = typeof(value);
-
-        return options[key](value);
-    };
-
-
     /*
      * Checks if an hash has the given property
      *
@@ -125,7 +97,7 @@ define(["lodash", "js-utils/Arguments/index"], function(_, Arguments){
      *
      */
     Type.of = function (val) {
-        return typeof(val1) == typeof(val2);
+        return typeof(val1);
     };
 
 
@@ -151,6 +123,18 @@ define(["lodash", "js-utils/Arguments/index"], function(_, Arguments){
      */
     Type.isArray = function (value) {
         return (value instanceof Array);
+    };
+
+
+    /*
+     * Checks if the given value is an array
+     *
+     * @param{value} value to check
+     * @return True|False
+     *
+     */
+    Type.isBoolean = function (value) {
+        return typeof(value) === "boolean";
     };
 
 
