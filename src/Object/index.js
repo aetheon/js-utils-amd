@@ -91,7 +91,6 @@ define(["lodash", "js-utils/Type/index"], function(_, Type){
             return obj;
         }
 
-
     };
 
 
