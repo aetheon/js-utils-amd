@@ -1,13 +1,12 @@
 
 
-require(["lib/lodash/lodash-latest","lib/squire/squire-latest"], function(_, Squire, AsyncHash){
+require(["lib/squire/squire-latest"], function(Squire){
     'use strict';
 
     describe("ObjectSpec", function () {
 
         var Injector = new Squire(),
         async = new AsyncSpec(this);
-
 
 
         async.beforeEach(function (done) {
@@ -23,7 +22,7 @@ require(["lib/lodash/lodash-latest","lib/squire/squire-latest"], function(_, Squ
 
         async.it(".fill() should not fill unwanted values", function (done) {
 
-            Injector.require(["src/object/index.js"], function(Options){
+            Injector.require(["lib/lodash/lodash-latest.js", "src/object/index.js"], function(_, Options){
 
                 var o = Options.fill(
                     
@@ -71,7 +70,7 @@ require(["lib/lodash/lodash-latest","lib/squire/squire-latest"], function(_, Squ
 
         async.it(".fill() should ignore null values on source", function (done) {
 
-            Injector.require(["src/object/index.js"], function(Options){
+            Injector.require(["lib/lodash/lodash-latest.js", "src/object/index.js"], function(_, Options){
 
                 var o = Options.fill(
                     
@@ -105,7 +104,7 @@ require(["lib/lodash/lodash-latest","lib/squire/squire-latest"], function(_, Squ
 
         async.it(".fill() should return source when obj is null", function (done) {
 
-            Injector.require(["src/object/index.js"], function(Options){
+            Injector.require(["lib/lodash/lodash-latest.js", "src/object/index.js"], function(_, Options){
 
                 var o = Options.fill(
                     
@@ -138,7 +137,7 @@ require(["lib/lodash/lodash-latest","lib/squire/squire-latest"], function(_, Squ
 
         async.it(".fill() should accept anything as null base values", function (done) {
 
-            Injector.require(["src/object/index.js"], function(Options){
+            Injector.require(["lib/lodash/lodash-latest.js", "src/object/index.js"], function(_, Options){
 
                 var o = Options.fill(
                     
