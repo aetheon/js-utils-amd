@@ -112,7 +112,7 @@ define([
                         // cancel the changing if no action result was found
                         /* jshint -W041 */
                         if(actionResult == null){ 
-                            options.cancel(); 
+                            if(options && options.cancel) options.cancel(); 
                         }
 
                         // set the current action result

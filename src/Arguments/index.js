@@ -47,15 +47,10 @@ define(["lodash"], function(_){
                 switch(typeof obj[key]){
 
                     case "boolean":
-                        value = false;
-                        break;
-
                     case "number":
-                        value = 0;
-                        break;
-
                     case "function":
-                        value = function(){};   // this value will be later discarded, meanwhile is a valid value
+                        // sets the default value to be the one from the left
+                        value = obj[key];
                         break;
 
                     default:
@@ -81,11 +76,6 @@ define(["lodash"], function(_){
                 obj[key] = copy;
             }
             else{
-
-                // if is a number and was not setted continue...
-                if( typeof obj[key] == "number" && from[key] == null ) return;
-                if( typeof obj[key] == "function" && from[key] == null ) return;
-
                 // set the real thing!
                 obj[key] = value;       
             }

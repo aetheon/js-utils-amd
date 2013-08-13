@@ -34,7 +34,7 @@ define(["lodash", "js-utils/Arguments/index"], function(_, Arguments){
             }
         );
 
-        var key = typeof(value).toString().toLowerCase();
+        var key = typeof(value);
 
         return options[key](value);
     };

@@ -94,14 +94,14 @@ define([
                 options,
                 {
                     scope: null,
-                    args: null,
+                    args: [],
                     silentExceptions: false
                 }
             );
 
             // silent exceptions
             var fnExec = null;
-            if(options.silentExceptions){
+            if(!options.silentExceptions){
                 fnExec = function(f){ return f(); };
             }else{
                 fnExec = function(f){ try{ return f(); }catch(e){ return null; } };
