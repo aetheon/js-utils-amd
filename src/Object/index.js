@@ -67,6 +67,7 @@ define(["lodash", "js-utils/Type/index"], function(_, Type){
                 // guards - make sure the value are from the same type
                 // if obj[key] is null ignore the testing
                 //
+                /* jshint -W041 */
                 if( obj[key] != null && Type.of(obj[key]) != Type.of(value) ){
                     throw new Error("[Object.fill] " + key + ": expected type '" + Type.of(obj[key]) + "' but found '" + Type.of(from[key]) + "'");
                 }
