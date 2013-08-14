@@ -3,11 +3,24 @@
  * An abstraction of the jquerymobile event model.
  *
  */
-define(["require", "jquery", "EventEmitter", "js-utils/Globals/document", "js-utils/Url/index", "js-utils/Arguments/index", "js-utils/OOP/index", "js-utils/Safe/index", "js-utils/Type/index"], 
+define([
+    "require", 
+    "jquery", 
+    "EventEmitter", 
+    
+    "js-utils/Globals/document", 
+    "js-utils/Url/index", 
+    "js-utils/Arguments/index", 
+    "js-utils/OOP/index", 
+    "js-utils/Safe/index", 
+    "js-utils/Type/index",
+    "js-utils/JQueryMobile/index"
+    ], 
     function(require, $, EventEmitter){
     "use strict";
 
     var document = require("js-utils/Globals/document"),
+        JQueryMobile = require("js-utils/JQueryMobile/index"),
         Url = require("js-utils/Url/index"),
         Arguments = require("js-utils/Arguments/index"),
         OOP = require("js-utils/OOP/index"),
@@ -154,7 +167,7 @@ define(["require", "jquery", "EventEmitter", "js-utils/Globals/document", "js-ut
             "show", 
             function (event, data) {
 
-                var currentPage = $.mobile.activePage[0];
+                var currentPage = JQueryMobile.currentPage.getElement();
                 
                 // variable hoisted at top
                 if (prevPage) {

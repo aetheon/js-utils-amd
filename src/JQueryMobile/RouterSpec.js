@@ -1,6 +1,6 @@
 
 
-require(["lib/squire/squire-latest", "spec/mocks/EventEmitterObjMock"], function(Squire, EventEmitterObjMock){
+require(["lib/squire/squire-latest", "spec/mocks/EventEmitterObjMock", "spec/mocks/JQueryMobileMock"], function(Squire, EventEmitterObjMock, JQueryMobileMock){
     'use strict';
 
     describe("RouterSpec", function () {
@@ -25,6 +25,7 @@ require(["lib/squire/squire-latest", "spec/mocks/EventEmitterObjMock"], function
 
             var event = EventEmitterObjMock.event;
             Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
+            Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock) );
 
             var actionRun = false;
             var action = function(){
@@ -68,6 +69,7 @@ require(["lib/squire/squire-latest", "spec/mocks/EventEmitterObjMock"], function
 
             var event = EventEmitterObjMock.event;
             Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
+            Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock) );
 
             var actionRun = false;
             var action = function(){
@@ -110,6 +112,7 @@ require(["lib/squire/squire-latest", "spec/mocks/EventEmitterObjMock"], function
 
             var event = EventEmitterObjMock.event;
             Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
+            Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock) );
 
             var actionRun = false;
             var action = function(){
@@ -155,6 +158,7 @@ require(["lib/squire/squire-latest", "spec/mocks/EventEmitterObjMock"], function
 
             var event = EventEmitterObjMock.event;
             Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
+            Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock) );
 
             var actionResultRun = false;
             var action = function(){
@@ -201,6 +205,7 @@ require(["lib/squire/squire-latest", "spec/mocks/EventEmitterObjMock"], function
 
             var event = EventEmitterObjMock.event;
             Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
+            Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock) );
 
             var Action = function(){
                 // return ActionResult
@@ -253,6 +258,7 @@ require(["lib/squire/squire-latest", "spec/mocks/EventEmitterObjMock"], function
 
             var event = EventEmitterObjMock.event;
             Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
+            Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock) );
 
             var action = function(){
                 // return ActionResult
@@ -306,6 +312,7 @@ require(["lib/squire/squire-latest", "spec/mocks/EventEmitterObjMock"], function
 
             var event = EventEmitterObjMock.event;
             Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
+            Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock) );
 
             var previous = false;
             

@@ -104,7 +104,12 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
      * @return{HTMLElement}
      */
     JQueryMobile.currentPage.getElement = function(){
-        return $.mobile.activePage;
+        
+        if($.mobile.activePage && $.mobile.activePage.length)
+          return $.mobile.activePage[0];
+        
+        return null;
+
     };
 
     /*

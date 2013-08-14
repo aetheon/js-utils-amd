@@ -105,8 +105,7 @@ define([
                         currentActionResult = actionResult;
 
                         // sets the prevPage element
-                        if($.mobile.activePage && $.mobile.activePage.length > 0)
-                            prevPageElement = $.mobile.activePage[0];
+                        prevPageElement = JQMHelper.currentPage.getElement();
 
                     }, { scope: scope }
                 );
