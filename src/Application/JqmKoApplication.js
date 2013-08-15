@@ -7,20 +7,16 @@
 define([
         
         "require",
+
+        // underscore capabilities    
         "lodash",
         
         // IoC container
         "intravenous", 
-        "fastclick",
         
-        // routing
-        "js-utils/JQueryMobile/Router",
-        "js-utils/KO/ViewModelFactory",
-
+        // js-utils dependencies
         "js-utils/Safe/index",
         "js-utils/Type/index",
-
-        // js-utils dependencies
         "js-utils/Globals/window",
         "js-utils/Arguments/index",
         "js-utils/Url/index",
@@ -28,7 +24,30 @@ define([
         "js-utils/UI/Window",
         "js-utils/UI/Accessibility",
         "js-utils/JQueryMobile/index",
-        "js-utils/KO/koValidationHelper"
+        "js-utils/KO/koValidationHelper",
+        "js-utils/JQueryMobile/Router",
+        "js-utils/KO/ViewModelFactory",
+
+        // touch optimization (remove 300msec delay between taps)
+        "fastclick",
+
+        // UI manipulation with jQuery
+        "jquery", 
+        
+        // UI - jQueryMobile    
+        "jqm",
+
+        // ua parser - get device information
+        "ua-parser",
+        
+        // event based framework
+        "EventEmitter",
+        
+        // remove the 200msec delay from mobile browsers
+        "fastclick",
+
+        // use GPU animated on jquery animate
+        "jquery.animate-enhanced"
         
     ], 
 
@@ -185,9 +204,6 @@ define([
                 }
             );
             
-            
-            
-
 
             /*
              * Add routing to application. 
@@ -219,38 +235,6 @@ define([
                 // applied twice
                 //router.on("previous", ActionResultFactory.destroyElement);
             }
-
-
-
-            /* 
-             * load 3rd party libs, like JQueryMobile, etc
-             *
-             *
-             */
-            require([
-
-                // UI manipulation with jQuery
-                "jquery", 
-                
-                // underscore capabilities    
-                "lodash",
-                
-                // UI - jQueryMobile    
-                "jqm",
-
-                // ua parser - get device information
-                "ua-parser",
-                
-                // event based framework
-                "EventEmitter",
-                
-                // remove the 200msec delay from mobile browsers
-                "fastclick",
-
-                // use GPU animated on jquery animate
-                "jquery.animate-enhanced"
-
-            ]);
 
 
             return _this;
