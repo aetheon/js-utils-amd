@@ -22,7 +22,7 @@ require(["lib/squire/squire-latest"], function(Squire){
 
         async.it(".fill() should not fill unwanted values", function (done) {
 
-            Injector.require(["lib/lodash/lodash-latest.js", "src/object/index.js"], function(_, Options){
+            Injector.require(["lib/lodash/lodash-latest.js", "src/Object/index.js"], function(_, Options){
 
                 var o = Options.fill(
                     
@@ -70,7 +70,7 @@ require(["lib/squire/squire-latest"], function(Squire){
 
         async.it(".fill() should ignore null values on source", function (done) {
 
-            Injector.require(["lib/lodash/lodash-latest.js", "src/object/index.js"], function(_, Options){
+            Injector.require(["lib/lodash/lodash-latest.js", "src/Object/index.js"], function(_, Options){
 
                 var o = Options.fill(
                     
@@ -104,7 +104,7 @@ require(["lib/squire/squire-latest"], function(Squire){
 
         async.it(".fill() should return source when obj is null", function (done) {
 
-            Injector.require(["lib/lodash/lodash-latest.js", "src/object/index.js"], function(_, Options){
+            Injector.require(["lib/lodash/lodash-latest.js", "src/Object/index.js"], function(_, Options){
 
                 var o = Options.fill(
                     
@@ -137,7 +137,7 @@ require(["lib/squire/squire-latest"], function(Squire){
 
         async.it(".fill() should accept anything as null base values", function (done) {
 
-            Injector.require(["lib/lodash/lodash-latest.js", "src/object/index.js"], function(_, Options){
+            Injector.require(["lib/lodash/lodash-latest.js", "src/Object/index.js"], function(_, Options){
 
                 var o = Options.fill(
                     
@@ -178,7 +178,7 @@ require(["lib/squire/squire-latest"], function(Squire){
 
         async.it(".fill() should throw error when array expected", function (done) {
 
-            Injector.require(["src/object/index.js"], function(Options){
+            Injector.require(["src/Object/index.js"], function(Options){
 
                 var run = function(){
 
@@ -212,7 +212,7 @@ require(["lib/squire/squire-latest"], function(Squire){
 
         async.it(".fill() should throw error when string expected", function (done) {
 
-            Injector.require(["src/object/index.js"], function(Options){
+            Injector.require(["src/Object/index.js"], function(Options){
 
                 var run = function(){
 
@@ -247,7 +247,7 @@ require(["lib/squire/squire-latest"], function(Squire){
 
         async.it(".fill() should throw error when number expected", function (done) {
 
-            Injector.require(["src/object/index.js"], function(Options){
+            Injector.require(["src/Object/index.js"], function(Options){
 
                 var run = function(){
 
