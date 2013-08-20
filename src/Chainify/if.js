@@ -14,7 +14,7 @@ define(["js-utils/Safe/index"], function(Safe){
 
         var otherwise = {
 
-            'else': function(elsefn, elsefn_options){
+            'otherwise': function(elsefn, elsefn_options){
                 if(!isTrue)
                     Safe.callFunction(elsefn, elsefn_options);    
             }
