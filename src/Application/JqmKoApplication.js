@@ -156,7 +156,7 @@ define([
             var _this = {
 
                 getConfig: function(){
-                    return config;
+                    return _.cloneDeep(config);
                 },
 
                 args: function(){

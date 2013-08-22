@@ -154,7 +154,7 @@ require(["lib/squire/squire-latest"], function(Squire){
 
 
 
-        async.it("getConfig should return the configuration", function (done) {
+        async.it("getConfig should return a configuration clone", function (done) {
 
             // no dependencies are loaded
             Injector.mock('js-utils/Boilerplate/JQMobileAppDependencies', Squire.Helpers.returns(function(){}));
@@ -169,6 +169,9 @@ require(["lib/squire/squire-latest"], function(Squire){
                     domainServices: []
                 }, { one: 1 });
 
+                expect(app.getConfig().one).toBe(1);
+
+                app.getConfig().one = 2;
                 expect(app.getConfig().one).toBe(1);
 
                 done();
