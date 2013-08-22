@@ -10,13 +10,16 @@ define(["js-utils/Safe/index"], function(Safe){
 
     var If = function (condition) {
         
-        var isTrue = condition();
+        var isTrue = condition(),
+            result = null;
 
         var otherwise = {
 
             'otherwise': function(elsefn, elsefn_options){
                 if(!isTrue)
-                    Safe.callFunction(elsefn, elsefn_options);    
+                    result = Safe.callFunction(elsefn, elsefn_options);    
+
+                return result;
             }
 
         };
@@ -25,7 +28,7 @@ define(["js-utils/Safe/index"], function(Safe){
         var then = function (iffn, iffn_options) {
 
             if(isTrue){
-                Safe.callFunction(iffn, iffn_options);
+                result = Safe.callFunction(iffn, iffn_options);
             }
             
             return otherwise;
