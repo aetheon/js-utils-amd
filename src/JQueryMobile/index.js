@@ -7,6 +7,17 @@
 define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodash"], function(window, document, $, _){
     "use strict";
     
+
+    // Hate when jQM does auto initialization? me too...
+    // This disables the behaviour. Jusk make sure this is loaded before JQM
+    $(document).bind(
+        "mobileinit", 
+        function(){ 
+            // do not initializa page automatically
+            $.mobile.autoInitializePage = false;
+        });
+
+
     
     var JQueryMobile = {};
 
@@ -29,6 +40,17 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
             $.mobile.phonegapNavigationEnabled = true;
         });
 
+    };
+
+
+    /*
+    * initialiaze JQM
+    *
+    */
+    JQueryMobile.init = function () {
+
+        $.mobile.initializePage();
+        
     };
 
 

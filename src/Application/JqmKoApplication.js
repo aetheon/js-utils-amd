@@ -34,9 +34,6 @@ define([
         // UI manipulation with jQuery
         "jquery", 
         
-        // UI - jQueryMobile    
-        "jqm",
-
         // ua parser - get device information
         "ua-parser",
         
@@ -46,14 +43,21 @@ define([
         // remove the 200msec delay from mobile browsers
         "fastclick",
 
+        // UI - jQueryMobile    
+        "jqm"
+
         // use GPU animated on jquery animate
-        "jquery.animate-enhanced"
+        //"jquery.animate-enhanced"
         
     ], 
 
     function(require, _){
         "use strict";
         
+
+        var jQuery = require("jquery");
+        jQuery.mobile.autoInitializePage = false;
+
         var Arguments = require("js-utils/Arguments/index"),
             Url = require("js-utils/Url/index"),
             Device = require("js-utils/Device/index"),
@@ -235,6 +239,10 @@ define([
                 // applied twice
                 //router.on("previous", ActionResultFactory.destroyElement);
             }
+
+
+            // time to init JQMobile
+            JQMHelper.init();
 
 
             return _this;
