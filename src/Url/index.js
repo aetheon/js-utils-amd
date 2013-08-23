@@ -21,13 +21,15 @@ define(["js-utils/Globals/window", "jquery", "lodash"], function(window, $, _){
      * get's the query string part of the url
      *
      * @param{href} The full url or null to get the current
+     * @param{separator} The url qs separator. Normally is ?
      * @return{String} The query string part of the url
      */
-    function getQueryString(href) {
+    function getQueryString(href, separator) {
 
         href = href || window.location.href;
+        separator = separator || '?';
 
-        var hrefSplit = href.split('?') || [];
+        var hrefSplit = href.split(separator) || [];
         
         if(hrefSplit.length > 1){
             
@@ -49,13 +51,14 @@ define(["js-utils/Globals/window", "jquery", "lodash"], function(window, $, _){
     /*
      * Parse query string from url
      *
+     * @param{separator} The url qs separator. Normally is ?
      * @return An hash with all the query string key/value's
      */
-    function getQueryStringObject(href) {
+    function getQueryStringObject(href, separator) {
         
         href = href || window.location.href;
 
-        var qString = getQueryString(href),
+        var qString = getQueryString(href, separator),
             values = {};
 
         qString = decodeURI(qString || "");

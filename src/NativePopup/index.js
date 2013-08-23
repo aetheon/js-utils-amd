@@ -23,6 +23,8 @@ define(["require", "js-utils/Globals/window", "js-utils/Arguments/index", "js-ut
          */
         var WindowPopup = function(options){
 
+            var scope = this;
+
             this.options = Arguments.get(
                 options,
                 {
@@ -37,6 +39,12 @@ define(["require", "js-utils/Globals/window", "js-utils/Arguments/index", "js-ut
                     status: false
                 }
             );
+
+            this.windowReference = null;
+
+            this.on("closed", function(){
+                scope.windowReference = null;
+            });
             
         };
             
@@ -86,11 +94,17 @@ define(["require", "js-utils/Globals/window", "js-utils/Arguments/index", "js-ut
             /*
              * Opens the url on a new window
              *
+             * @throws {Error} if already exits a window open.
+             *
              * @param{url} The url to open
              * @param{windowName} The window's name
              */
             open: function(url, windowName){
-                var windowReference = 
+                
+                if(this.windowReference)
+                    throw new Error("[js-utils/NativePopup/index] already exists a window open. Must close() first.");
+
+                this.windowReference = 
                     window.open(
                         url, 
                         windowName,
@@ -105,7 +119,7 @@ define(["require", "js-utils/Globals/window", "js-utils/Arguments/index", "js-ut
                     function(){
                         (function(){
                             
-                            var isClosed = windowReference.closed;
+                            var isClosed = scope.windowReference.closed;
                             if(isClosed){
                                 // clear check interval and fire closed event
                                 clearInterval(intervalId);
@@ -117,6 +131,17 @@ define(["require", "js-utils/Globals/window", "js-utils/Arguments/index", "js-ut
                     2000
                 );
 
+
+            },
+
+            /*
+             * Close window
+             *
+             */
+            close: function(){
+
+                if(this.windowReference)
+                    this.windowReference.close();
 
             }
 
