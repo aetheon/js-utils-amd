@@ -1,4 +1,3 @@
-'use strict';
 
 describe("Spec", function () {
 
@@ -39,5 +38,3 @@ describe("Spec", function () {
 
 });
 
-
-});

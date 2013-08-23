@@ -1,4 +1,3 @@
-'use strict';
 
 describe("UrlSpec", function () {
 
