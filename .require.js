@@ -25,7 +25,8 @@ requirejs.config({
         'persistence-websql': 'lib/persistence/persistence.store.websql',
 
         // js-utils base path
-        'js-utils': './src/'
+        'js-utils': './src/',
+        'js-mocks': './spec/mocks/'
     },
 
     shim: {

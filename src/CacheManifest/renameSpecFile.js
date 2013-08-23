@@ -1,40 +1,39 @@
+'use strict';
 
+describe("Spec", function () {
 
-require(["lib/squire/squire-latest"], function(Squire, AsyncHash){
-    'use strict';
-
-    describe("Spec", function () {
-
-        var Injector = new Squire(),
+    var Squire = null,
+        Injector = null,
         async = new AsyncSpec(this);
 
 
 
-        async.beforeEach(function (done) {
+    async.beforeEach(function (done) {
 
-            // remove all dependencies from loader
+        require(["lib/squire/squire-latest"], function(SquireLib){
+            
+            Squire = SquireLib;
             Injector = new Squire();
 
             done();
 
         });
 
+    });
 
-        /*
-        async.it(".get() should return a value", function (done) {
 
-            Injector.require(["src/AsyncHash/index.js"], function(AsyncHash){
+    /*
+    async.it(".get() should return a value", function (done) {
 
-                expect("value").toEqual("value");
+        Injector.require(["src/AsyncHash/index.js"], function(AsyncHash){
 
-            });
+            expect("value").toEqual("value");
 
         });
-        */
-
-
 
     });
+    */
+
 
 
 });
