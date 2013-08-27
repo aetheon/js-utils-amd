@@ -127,6 +127,13 @@ define([
         };
 
 
+        /*
+         * Alias to call function
+         * 
+         */
+        Safe.call = Safe.callFunction;
+
+
         return Safe;
 
 });

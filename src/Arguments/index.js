@@ -3,7 +3,7 @@
  * 
  */
 
-define(["lodash", "js-utils/Type/index", "js-utils/Object/index"], function(_, Type, Obj){
+define(["lodash", "js-utils/Type/index", "js-utils/Object/index", "js-utils/Logger/index"], function(_, Type, Obj, Log){
     "use strict";
 
 
@@ -18,6 +18,9 @@ define(["lodash", "js-utils/Type/index", "js-utils/Object/index"], function(_, T
          *
          * @param{options} The given options Hash
          * @param{defaultOptions} The defaults options Hash
+         *
+         * @throws {Error} if the options cannot fully fill the values on defaultOptions
+         *
          * @return{Object} The options
          */
         get: function(options, defaultOptions) {
@@ -26,7 +29,19 @@ define(["lodash", "js-utils/Type/index", "js-utils/Object/index"], function(_, T
             options = options || {};
 
             // safelly copy definitions
-            options = Obj.fill(defaultOptions, options);
+            try{
+
+                options = Obj.fill(defaultOptions, options);    
+
+            }catch(e){
+
+                // always log the error thrown
+                Log.e(e);
+
+                throw e;
+
+            }
+            
 
             return options;
         }

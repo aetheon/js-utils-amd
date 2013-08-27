@@ -9,7 +9,7 @@ define(["require","js-utils/Type/index"], function(require, Type){
 
     var _ = require("lodash");
 
-    var Logger = {
+    var Log = {
 
         d: function(message){
 
@@ -29,12 +29,46 @@ define(["require","js-utils/Type/index"], function(require, Type){
                 console.log('%c ' + (e.stack ? e.stack : e.message), 'background: #000; color: red; width: 100%');
             }
             
+        },
+
+
+        /*
+         * Named Logger object
+         *
+         */
+        Logger: function(name){
+
+            name = name || "Logger";
+
+            var message = function(m){
+                
+                if(Type.isString(m)){
+                    return "[" + name + "] " + m ;  
+                }
+
+                return m;
+            };
+
+            return {
+
+                d: function(m) {
+                    Log.d(message(m));
+                },
+
+                e: function(m) {
+                    Log.e(message(m));
+                }
+
+            };
+
         }
+
         
     };
 
 
-    return Logger;
+
+    return Log;
 
 });
 

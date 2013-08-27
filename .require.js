@@ -24,6 +24,8 @@ requirejs.config({
         'persistence-sql': 'lib/persistence/persistence.store.sql',
         'persistence-websql': 'lib/persistence/persistence.store.websql',
 
+        'lawnchair': 'lib/lawnchair/lawnchair-latest',
+
         // js-utils base path
         'js-utils': './src/',
         'js-mocks': './spec/mocks/'

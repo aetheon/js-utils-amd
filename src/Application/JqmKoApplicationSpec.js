@@ -171,10 +171,13 @@ describe("JqmKoApplication", function () {
                 domainServices: []
             }, { one: 1 });
 
-            expect(app.getConfig().one).toBe(1);
 
-            app.getConfig().one = 2;
-            expect(app.getConfig().one).toBe(1);
+            var config = app.getDomainService("config").get();
+            expect(config.one).toBe(1);
+
+            config.one = 2;
+            config = app.getDomainService("config").get();
+            expect(config.one).toBe(1);
 
             done();
 

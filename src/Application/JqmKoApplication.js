@@ -43,6 +43,9 @@ define([
         // remove the 200msec delay from mobile browsers
         "fastclick",
 
+        // Json localStorage lib
+        "lawnchair",
+
         // UI - jQueryMobile    
         "jqm"
 
@@ -159,10 +162,6 @@ define([
              */
             var _this = {
 
-                getConfig: function(){
-                    return _.cloneDeep(config);
-                },
-
                 args: function(){
                     return args;
                 },
@@ -183,9 +182,17 @@ define([
 
             /*
              * Register domainServices in application context
-             *
+             * from the options.domainServices array
              */
             
+            // register config service: .get("config").get()
+            services.register(
+                "config", 
+                function(){ this.get = function(){ return _.cloneDeep(config); }; }, 
+                "singleton"
+            );
+
+            // register all the config specified on options.domainServices
             var domainServices = Safe.getArray(options.domainServices);
             _.each(
                 domainServices,

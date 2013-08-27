@@ -70,6 +70,8 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
             var viewport_height = $(window).height();
 
             var content_height = viewport_height - header.height() - footer.height();
+            // somehow I need to subtract 3px to height to not have scrollbars
+            content_height = Math.floor(content_height) - 3;
 
             var page = $(content).closest("div[data-role='page']");
 
@@ -79,7 +81,15 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
             }
 
             content.css(css_rulename, content_height + "px");
-            jQuery("[explicit-height]", content).css(css_rulename, content_height + "px");
+
+            // for every child with explicit-size attribute
+            jQuery("[explicit-size]", content).each(
+                function(){
+                    var elem = jQuery(this);
+                    elem.addClass("explicit-size");
+                    elem.css(css_rulename, content_height + "px");
+                    //elem.css("width", elem.width() + "px");
+            });
         };
 
         $(document).bind("pagechange", set_content_height);
