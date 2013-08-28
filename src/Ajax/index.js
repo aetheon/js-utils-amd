@@ -32,6 +32,21 @@ define(["require", "jquery", "EventEmitter", "js-utils/Arguments/index", "js-uti
 
 
         /*
+         * Global unsubscribe response events
+         *
+         * @param {Function} fn The function to unsubscrive
+         */
+        offAjaxResponse: function(fn){
+
+          if(!Type.isFunction(fn))
+            return;
+
+          ajaxEvent.removeListener(RESPONSE_EVENT_NAME, fn);
+
+        },
+
+
+        /*
          * Make ajax calls wrapper. This call emits a global event ( use onAjaxResponse to subscribe )
          *
          * @param {options} The ajax options
@@ -82,7 +97,12 @@ define(["require", "jquery", "EventEmitter", "js-utils/Arguments/index", "js-uti
                       }
 
                       // trigger global event
-                      ajaxEvent.emit(RESPONSE_EVENT_NAME, status);
+                      ajaxEvent.emit(
+                        RESPONSE_EVENT_NAME, 
+                        {
+                          status: status,
+                          url: options.url
+                        });
 
                       // finnally resolve promise
                       dfd.resolve(status, d);
