@@ -1,14 +1,15 @@
 
 
-define(["require", "jquery", "EventEmitter", "js-utils/Arguments/index", "js-utils/Type/index",  "js-utils/Logger/index"], function(require){
+define(["require", "jquery", "EventEmitter", "js-utils/Arguments/index", "js-utils/Type/index",  "js-utils/Log/index"], function(require){
 
     var $ = require("jquery"),
+        Log = require("js-utils/Log/index"),
         Arguments = require("js-utils/Arguments/index"),
         Type = require("js-utils/Type/index"),
         EventEmitter = require("EventEmitter");
 
 
-    var Log = new require("js-utils/Logger/index").Logger("js-utils/Ajax");
+    var log = new Log.Logger("js-utils/Ajax");
 
 
     // global event for ajax methods
@@ -99,8 +100,8 @@ define(["require", "jquery", "EventEmitter", "js-utils/Arguments/index", "js-uti
                           d = data;
                       }
 
-                      Log.d("Response url: " + options.url);
-                      Log.d("Response status: " + status);
+                      log.d("Response url: " + options.url);
+                      log.d("Response status: " + status);
 
                       // trigger global event
                       ajaxEvent.emit(

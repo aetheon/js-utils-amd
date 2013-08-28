@@ -3,9 +3,11 @@
  * 
  */
 
-define(["lodash", "js-utils/Type/index", "js-utils/Object/index", "js-utils/Logger/index"], function(_, Type, Obj, Log){
+define(["lodash", "js-utils/Type/index", "js-utils/Object/index", "js-utils/Log/index"], function(_, Type, Obj, Log){
     "use strict";
 
+
+    var log = new Log.Logger("js-utils/Arguments");
 
     /*
      * take care of options operations on javascript
@@ -36,7 +38,7 @@ define(["lodash", "js-utils/Type/index", "js-utils/Object/index", "js-utils/Logg
             }catch(e){
 
                 // always log the error thrown
-                Log.e(e);
+                log.e(e);
 
                 throw e;
 
