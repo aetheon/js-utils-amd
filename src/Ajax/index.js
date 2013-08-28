@@ -1,19 +1,42 @@
 
 
-define(["require", "jquery", "js-utils/Arguments/index"], function(require){
+define(["require", "jquery", "EventEmitter", "js-utils/Arguments/index", "js-utils/Type/index"], function(require){
 
     var $ = require("jquery"),
-        Arguments = require("js-utils/Arguments/index");
+        Arguments = require("js-utils/Arguments/index"),
+        Type = require("js-utils/Type/index"),
+        EventEmitter = require("EventEmitter");
+
+
+    // global event for ajax methods
+    var ajaxEvent = new EventEmitter(),
+        RESPONSE_EVENT_NAME = "response";
 
 
     var Ajax = {
 
 
         /*
-         * Make ajax calls wrapper
+         * Global subscribe response events
+         *
+         * @param {Function} fn The function to subscrive
+         */
+        onAjaxResponse: function(fn){
+
+          if(!Type.isFunction(fn))
+            return;
+
+          ajaxEvent.addListener(RESPONSE_EVENT_NAME, fn);
+
+        },
+
+
+        /*
+         * Make ajax calls wrapper. This call emits a global event ( use onAjaxResponse to subscribe )
          *
          * @param {options} The ajax options
          * @throws {Error} When arguments are not correct
+         *
          *
          * @return {Oject} JqueryPromise - resolved arguments: (status, data)
          */
@@ -40,23 +63,29 @@ define(["require", "jquery", "js-utils/Arguments/index"], function(require){
                 function (data, textStatus, errorThrown) {
                     (function(){
 
+                      var d = data,
+                          status = 200;
+
                       // Failed request
                       if(textStatus != "success"){
 
                           // when a parseerror occurs the status is 200 but 
                           // this may be confusing
-                          dfd.resolve(data.status === 200 ? 500 : data.status, errorThrown);
-                          return;
+                          d = errorThrown;
+                          status = data.status === 200 ? 500 : data.status;
 
                       }
 
                       // Success request
                       if(textStatus == "success"){
-
-                          dfd.resolve(200, data);
-
-                          return;
+                          d = data;
                       }
+
+                      // trigger global event
+                      ajaxEvent.emit(RESPONSE_EVENT_NAME, status);
+
+                      // finnally resolve promise
+                      dfd.resolve(status, d);
                       
                     }).call(scope);
             });

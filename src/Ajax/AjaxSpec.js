@@ -109,6 +109,34 @@ describe("Ajax", function () {
 
 
 
+    async.it(".onAjaxResponse global event should be called", function (done) {
+
+        Injector.require(["src/Ajax/index.js", "jquery"], function(Ajax){
+
+            var call = function(status){
+                expect(status).not.toBe(200);
+                done();
+            };
+
+            Ajax.onAjaxResponse(call);
+
+            Ajax.call(
+                {
+                    type: "GET",
+                    url: "spec/data/notexists.json",
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    headers: { }
+                }
+            );
+
+
+        });
+
+    });
+
+
+
 
 
 });
