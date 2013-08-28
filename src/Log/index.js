@@ -11,7 +11,19 @@ define(["require","js-utils/Type/index"], function(require, Type){
 
     var Log = {
 
+        /*
+         * sets the verbose mode
+         *
+         */
+        verbose: true,
+
+        /*
+         * print debug message
+         *
+         */
         d: function(message){
+
+            if(!Log.verbose) return;
 
             console.log(
                 '%c ' + message, 
@@ -19,7 +31,13 @@ define(["require","js-utils/Type/index"], function(require, Type){
             );
         },
 
+        /*
+         * print warn message
+         *
+         */
         w: function(message){
+
+            if(!Log.verbose) return;
 
             console.log(
                 '%c ' + message, 
@@ -27,8 +45,11 @@ define(["require","js-utils/Type/index"], function(require, Type){
             );
         },
 
+        /*
+         * print error message
+         *
+         */
         e: function(e){
-
 
             if(Type.isString(e)){
                 console.log('%c ' + e, 'background: #000; color: red; width: 100%');
