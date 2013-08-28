@@ -19,6 +19,14 @@ define(["require","js-utils/Type/index"], function(require, Type){
             );
         },
 
+        w: function(message){
+
+            console.log(
+                '%c ' + message, 
+                'background: #000; color: yellow; width: 100%'
+            );
+        },
+
         e: function(e){
 
 
@@ -53,6 +61,10 @@ define(["require","js-utils/Type/index"], function(require, Type){
 
                 d: function(m) {
                     Log.d(message(m));
+                },
+
+                w: function(m) {
+                    Log.w(message(m));
                 },
 
                 e: function(m) {
