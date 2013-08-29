@@ -25,6 +25,9 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
             $.extend($.mobile, jqmDefs);
             $.mobile.phonegapNavigationEnabled = true;
             
+            // ignore render for buttons
+            $.mobile.page.prototype.options.keepNative = 'button,input[type=button],a';
+            
         });
 
 
@@ -59,8 +62,7 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
             var viewport_height = $(window).height();
 
             var content_height = viewport_height - header.height() - footer.height();
-            // somehow I need to subtract 3px to height to not have scrollbars
-            content_height = Math.floor(content_height) - 3;
+            content_height = Math.floor(content_height) - 0.1;
 
             var page = $(content).closest("div[data-role='page']");
 
