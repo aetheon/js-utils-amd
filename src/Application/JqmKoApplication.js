@@ -144,7 +144,6 @@ define([
              *
              */
             var JQMHelper = require("js-utils/JQueryMobile/index");
-            JQMHelper.setJQMdefaults();
             JQMHelper.setFullScreenPages();
 
      

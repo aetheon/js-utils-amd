@@ -13,34 +13,23 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
     $(document).bind(
         "mobileinit", 
         function(){ 
+
+            var jqmDefs = {
+                ajaxEnabled: true,
+                domCache: false,
+                autoInitializePage: false,
+                defaultPageTransition: 'none' // no animations
+            };
+
             // do not initializa page automatically
-            $.mobile.autoInitializePage = false;
+            $.extend($.mobile, jqmDefs);
+            $.mobile.phonegapNavigationEnabled = true;
+            
         });
 
 
     
     var JQueryMobile = {};
-
-    /*
-    * init JQM with dafault options 
-    * REMARK: must be runned before jquerymobile.js include
-    *
-    */
-    JQueryMobile.setJQMdefaults = function () {
-
-        var jqmDefs = {
-            ajaxEnabled: true,
-            domCache: false,
-            autoInitializePage: true,
-            defaultPageTransition: 'none' // no animations
-        };
-
-        $(document).bind("mobileinit", function () {
-            $.extend($.mobile, jqmDefs);
-            $.mobile.phonegapNavigationEnabled = true;
-        });
-
-    };
 
 
     /*
