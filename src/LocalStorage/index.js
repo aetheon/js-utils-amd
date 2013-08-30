@@ -96,12 +96,12 @@ define(["require", "lodash", "jquery", "lawnchair", "EventEmitter", "js-utils/Ar
 
             // Guard for storage key
             if(!options.key)
-                throw Error("Storage key is null or empty");
+                throw new Error("Storage key is null or empty");
 
             // if the value already contains a key it is better to
             // not overrite it
             if(options.key === options.value.key){
-                throw Error("Given value.key is diferent from storage key!");
+                throw new Error("Given value.key is diferent from storage key!");
             }
 
             // set the storage key
@@ -142,7 +142,7 @@ define(["require", "lodash", "jquery", "lawnchair", "EventEmitter", "js-utils/Ar
 
             // Guard for storage key
             if(!options.key)
-                throw Error("Storage key is null or empty");
+                throw new Error("Storage key is null or empty");
 
 
             storage.remove(
