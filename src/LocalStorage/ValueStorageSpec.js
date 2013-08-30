@@ -1,5 +1,5 @@
 
-describe("LocalStorageSpec", function () {
+describe("ValueStorageSpec", function () {
 
     var Squire = null,
         Injector = null,
@@ -23,9 +23,11 @@ describe("LocalStorageSpec", function () {
     
     async.it(".get() should return null when key does not exists", function (done) {
         
-        Injector.require(["src/LocalStorage/index"], function(LocalStorage){
+        Injector.require(["src/LocalStorage/ValueStorage"], function(ValueLocalStorage){
 
-            LocalStorage.get({ "key": "key", "value": null }).done(
+            storage = new ValueLocalStorage({ "key": "key" });
+
+            storage.get({ "value": null }).done(
                 function(value){
                     expect("value").toEqual("value");
                     done();
@@ -39,9 +41,11 @@ describe("LocalStorageSpec", function () {
 
     async.it(".get() should return right away when the value is given", function (done) {
         
-        Injector.require(["src/LocalStorage/index"], function(LocalStorage){
+        Injector.require(["src/LocalStorage/ValueStorage"], function(ValueLocalStorage){
 
-            LocalStorage.get({ "key": "key", "value": { one: 1} }).done(
+            storage = new ValueLocalStorage({ "key": "key" });
+
+            storage.get({ "value": { one: 1} }).done(
                 function(value){
                     expect(value).not.toBe(null);
                     expect(value.one).toBe(1);
@@ -57,13 +61,15 @@ describe("LocalStorageSpec", function () {
 
     async.it(".save() should saves the value", function (done) {
         
-        Injector.require(["src/LocalStorage/index"], function(LocalStorage){
+        Injector.require(["src/LocalStorage/ValueStorage"], function(ValueLocalStorage){
+
+            storage = new ValueLocalStorage({ "key": "key" });
 
             // localStorage is sync ( ignoring callback)
-            LocalStorage.save({ key: "key", value: { one: 1 } })
+            storage.save({ value: { one: 1 } })
             .done(
                 function(){
-                    LocalStorage.get({ key: "key", value: null })
+                    storage.get({ value: null })
                     .done(
                         function(value){
                             expect(value).not.toBe(null);
@@ -83,16 +89,18 @@ describe("LocalStorageSpec", function () {
 
     async.it(".remove() should remove the value", function (done) {
         
-        Injector.require(["src/LocalStorage/index"], function(LocalStorage){
+        Injector.require(["src/LocalStorage/ValueStorage"], function(ValueLocalStorage){
+
+            storage = new ValueLocalStorage({ "key": "key" });
 
             // localStorage is sync ( ignoring callback)
-            LocalStorage.save({ key: "key", value: { one: 1 } })
+            storage.save({ value: { one: 1 } })
             .done(
                 function(){
 
-                    LocalStorage.remove({ key: "key" });
+                    storage.remove();
 
-                    LocalStorage.get({ key: "key", value: null })
+                    storage.get({ value: null })
                     .done(
                         function(value){
                             expect(value).toBe(null);
