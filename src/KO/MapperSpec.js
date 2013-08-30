@@ -78,7 +78,89 @@ describe("KO/Mapper Spec", function () {
         });
 
     });
-    
+
+
+
+    async.it(".from() should expand __FieldType", function (done) {
+
+
+        Injector.require(["knockout", "src/KO/Mapper"], function(ko, Mapper){
+
+            var InnerClass = function(){
+                this.str = ko.observable("");
+            };
+
+            var SrcClass = function(){
+                this.str = ko.observable("");
+                this.object = ko.observable({ one: 1});
+                this.array = ko.observable([1]);
+                this.inner = ko.observable();
+                this.__innerType = InnerClass;
+            };
+
+            var src = new SrcClass();
+
+            new Mapper(src).from(
+                {
+                    str: "test",
+                    object: { one: 1 },
+                    array: [1],
+                    inner: {
+                        str: "test"
+                    }
+                });
+
+            expect(src.str()).toEqual("test");
+            expect(src.object().one).toEqual(1);
+            expect(src.array().length).toEqual(1);
+            expect(src.inner().str()).toEqual("test");
+
+            done();
+
+        });
+
+    });
+
+
+
+    async.it(".from() should expand __FieldType when src has an array", function (done) {
+
+
+        Injector.require(["knockout", "src/KO/Mapper"], function(ko, Mapper){
+
+            var InnerClass = function(){
+                this.str = ko.observable("");
+            };
+
+            var SrcClass = function(){
+                this.str = ko.observable("");
+                this.object = ko.observable({ one: 1});
+                this.array = ko.observable();
+                this.__arrayType = InnerClass;
+            };
+
+            var src = new SrcClass();
+
+            new Mapper(src).from(
+                {
+                    str: "test",
+                    object: { one: 1 },
+                    array: [{
+                        str: "test"
+                    }] 
+                });
+
+            expect(src.str()).toEqual("test");
+            expect(src.object().one).toEqual(1);
+            expect(src.array().length).toEqual(1);
+            expect(src.array()[0].str()).toEqual("test");
+
+            done();
+
+        });
+
+    });
+
 
 
 
