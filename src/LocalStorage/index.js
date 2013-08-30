@@ -115,6 +115,44 @@ define(["require", "lodash", "jquery", "lawnchair", "EventEmitter", "js-utils/Ar
 
             return dfd.promise();
 
+        },
+
+
+        /*
+         * Async remove a value on the localstorage.
+         *
+         * @param {Object} options An hash with key.
+         * @throws {Error} if arguments are not sufficient or valid
+         *
+         * @return {Object} JQuery Promise
+         *
+         */
+        remove: function(options){
+
+            var dfd = $.Deferred();
+
+            options = Arguments.get(
+                options,
+                {
+                    key: ""
+                }
+            );
+
+            options.value = options.value || {};
+
+            // Guard for storage key
+            if(!options.key)
+                throw Error("Storage key is null or empty");
+
+
+            storage.remove(
+                options.key,
+                function(){
+                    dfd.resolve(options.key);
+                });
+
+            return dfd.promise();
+
         }
 
 

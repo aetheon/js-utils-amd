@@ -78,6 +78,34 @@ describe("XXXX", function () {
         });
 
     });
+
+
+
+    async.it(".remove() should remove the value", function (done) {
+        
+        Injector.require(["src/LocalStorage/index"], function(LocalStorage){
+
+            // localStorage is sync ( ignoring callback)
+            LocalStorage.save({ key: "key", value: { one: 1 } })
+            .done(
+                function(){
+
+                    LocalStorage.remove({ key: "key" });
+
+                    LocalStorage.get({ key: "key", value: null })
+                    .done(
+                        function(value){
+                            expect(value).toBe(null);
+                            done();
+                        }
+                    );
+                }
+            );
+
+
+        });
+
+    });
     
 
 
