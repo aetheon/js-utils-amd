@@ -4,22 +4,21 @@
  * 
  */
 
-define(["require", "lodash", "jquery", "lawnchair", "EventEmitter", "js-utils/Arguments/index"], function(require){
+define(["require", "lodash", "jquery", "lawnchair", "EventEmitter", "js-utils/Arguments/index", "js-utils/Log/index"], function(require){
     "use strict";
 
     var _ = require("lodash"),
         $ = require("jquery"),
+        Log = require("js-utils/Log/index"),
         Arguments = require("js-utils/Arguments/index"),
         Lawnchair = require("lawnchair"),
         EventEmitter = require("EventEmitter");
 
 
-    // storage helper
-    var storage = new Lawnchair({ adapter: "dom" }, function(){});
 
-    // global event
-    //var globalEvent = new EventEmitter();
-
+    // module global variables
+    var log = Log.Logger("LocalStorage"),
+        storage = new Lawnchair({ adapter: "dom" }, function(){});
 
 
 
@@ -57,6 +56,9 @@ define(["require", "lodash", "jquery", "lawnchair", "EventEmitter", "js-utils/Ar
                 dfd.resolve(options.value);
                 return dfd.promise();
             }
+
+
+            log.d("get " + options.key);
 
             // fallback to storage
             storage.get(
@@ -107,6 +109,8 @@ define(["require", "lodash", "jquery", "lawnchair", "EventEmitter", "js-utils/Ar
             // set the storage key
             options.value.key = options.key;
 
+            log.w("save " + options.value.key);
+
             storage.save(
                 options.value,
                 function(){
@@ -144,6 +148,8 @@ define(["require", "lodash", "jquery", "lawnchair", "EventEmitter", "js-utils/Ar
             if(!options.key)
                 throw new Error("Storage key is null or empty");
 
+
+            log.w("remove " + options.value.key);
 
             storage.remove(
                 options.key,

@@ -33,24 +33,17 @@ define(["require", "lodash", "js-utils/Arguments/index", "js-utils/LocalStorage/
              * Async get a value from localstorage. If a value is given and this have value then no 
              * call to storage is done.
              *
-             * @param {Object} options An hash with value.
+             * @param {Object} defaultValue The defaultValue to be retrieved
              * @throws {Error} if arguments are not sufficient
              *
              * @return {Object} JQuery Promise
              *
              */
-            get: function(options){
+            get: function(defaultValue){
 
                 var dfd = $.Deferred();
 
-                options = Arguments.get(
-                    options,
-                    {
-                        value: null
-                    }
-                );
-
-                return LocalStorage.get({ key: instanceOptions.key, value: options.value });
+                return LocalStorage.get({ key: instanceOptions.key, value: defaultValue });
 
             },
 
@@ -59,24 +52,17 @@ define(["require", "lodash", "js-utils/Arguments/index", "js-utils/LocalStorage/
             /*
              * Async save a value on the localstorage.
              *
-             * @param {Object} options An hash with value values.
+             * @param {Object} value The.
              * @throws {Error} if arguments are not sufficient or valid
              *
              * @return {Object} JQuery Promise
              *
              */
-            save: function(options){
+            save: function(value){
 
                 var dfd = $.Deferred();
 
-                options = Arguments.get(
-                    options,
-                    {
-                        value: null
-                    }
-                );
-
-                return LocalStorage.save({ key: instanceOptions.key, value: options.value });
+                return LocalStorage.save({ key: instanceOptions.key, value: value });
 
             },
 

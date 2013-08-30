@@ -27,7 +27,7 @@ describe("ValueStorageSpec", function () {
 
             storage = new ValueLocalStorage({ "key": "key" });
 
-            storage.get({ "value": null }).done(
+            storage.get(null).done(
                 function(value){
                     expect("value").toEqual("value");
                     done();
@@ -45,7 +45,7 @@ describe("ValueStorageSpec", function () {
 
             storage = new ValueLocalStorage({ "key": "key" });
 
-            storage.get({ "value": { one: 1} }).done(
+            storage.get({ one: 1}).done(
                 function(value){
                     expect(value).not.toBe(null);
                     expect(value.one).toBe(1);
@@ -66,10 +66,10 @@ describe("ValueStorageSpec", function () {
             storage = new ValueLocalStorage({ "key": "key" });
 
             // localStorage is sync ( ignoring callback)
-            storage.save({ value: { one: 1 } })
+            storage.save( { one: 1 } )
             .done(
                 function(){
-                    storage.get({ value: null })
+                    storage.get( null )
                     .done(
                         function(value){
                             expect(value).not.toBe(null);
@@ -94,13 +94,13 @@ describe("ValueStorageSpec", function () {
             storage = new ValueLocalStorage({ "key": "key" });
 
             // localStorage is sync ( ignoring callback)
-            storage.save({ value: { one: 1 } })
+            storage.save( { one: 1 } )
             .done(
                 function(){
 
                     storage.remove();
 
-                    storage.get({ value: null })
+                    storage.get( null )
                     .done(
                         function(value){
                             expect(value).toBe(null);
