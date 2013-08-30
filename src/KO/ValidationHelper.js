@@ -4,17 +4,18 @@ define(["knockout", "knockout-validation"], function(ko){
 
     var koValidationHelper = {};
 
-    koValidationHelper.init = function () {
-            
-        ko.validation.configure({
-            registerExtenders: true,
-            messagesOnModified: true,
-            insertMessages: true,
-            parseInputAttributes: true,
-            messageTemplate: null
-        });
-            
-    };
+    
+    /*
+     * Initialize ko validation
+     */            
+    ko.validation.configure({
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true,
+        parseInputAttributes: true,
+        messageTemplate: null
+    });
+        
 
     /*
     * isValid

@@ -24,7 +24,6 @@ define([
         "js-utils/UI/Window",
         "js-utils/UI/Accessibility",
         "js-utils/JQueryMobile/index",
-        "js-utils/KO/koValidationHelper",
         "js-utils/JQueryMobile/Router",
         "js-utils/KO/ViewModelFactory",
 
@@ -122,13 +121,6 @@ define([
              */
             require("fastclick").attach(document.body);
 
-
-
-            /*
-             * initialize knockout validation
-             *
-             */
-            require("js-utils/KO/koValidationHelper").init();
 
 
             /* 
