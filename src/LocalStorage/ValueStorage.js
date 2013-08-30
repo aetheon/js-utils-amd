@@ -86,14 +86,16 @@ define(["require", "lodash", "js-utils/Arguments/index", "js-utils/LocalStorage/
              *
              * @throws {Error} if arguments are not sufficient or valid
              *
-             * @return {Object} JQuery Promise
+             * @return {Object} null
              *
              */
             remove: function(){
 
                 var dfd = $.Deferred();
 
-                return LocalStorage.remove({ key: instanceOptions.key });
+                LocalStorage.remove({ key: instanceOptions.key });
+
+                return null;
 
             }
 
