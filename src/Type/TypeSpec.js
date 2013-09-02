@@ -257,5 +257,50 @@ describe("ArgumentsSpec", function () {
     });
 
 
+    async.it("Type.isNumber(Number) returns true", function (allDone) {
+
+        Injector.require( [ "js-utils/Type/index" ], function(Type){
+
+            var isNumber = Type.isNumber(1);
+
+            expect(isNumber).toBeTruthy();
+            
+            allDone();
+
+        });
+        
+    });
+
+
+    async.it("Type.isNumber(null) returns false", function (allDone) {
+
+        Injector.require( [ "js-utils/Type/index" ], function(Type){
+
+            var isNumber = Type.isNumber(null);
+            
+            expect(isNumber).not.toBeTruthy();
+            
+            allDone();
+
+        });
+        
+    });
+
+
+    async.it("Type.isNumber({}) returns false", function (allDone) {
+
+        Injector.require( [ "js-utils/Type/index" ], function(Type){
+
+            var isNumber = Type.isNumber({});
+            
+            expect(isNumber).not.toBeTruthy();
+            
+            allDone();
+
+        });
+        
+    });
+
+
 
 });

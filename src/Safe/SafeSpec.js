@@ -237,6 +237,37 @@ describe("SafeSpec", function () {
     });
 
 
+
+    async.it(".getNumber(Number) should return a number", function (done) {
+
+        Injector.require(["src/Safe/index"], function(Safe){
+
+            var number = Safe.getNumber(1);
+
+            expect(number).toBe(1);
+
+            done();
+
+        });
+
+    });
+
+
+    async.it(".getNumber(null) should return a zero", function (done) {
+
+        Injector.require(["src/Safe/index"], function(Safe){
+
+            var number = Safe.getNumber(null);
+
+            expect(number).toBe(0);
+
+            done();
+
+        });
+
+    });
+
+
     
 
 

@@ -81,6 +81,23 @@ define([
         
 
         /*
+         * Safelly get Number from value
+         *
+         * @param{value} The value to get
+         * @return {Number} The number or 0 if was not success
+         */
+        Safe.getNumber = function(value){
+            
+            if(Type.isNumber(value)){
+                return value;
+            }
+            else{
+                return 0;
+            }
+            
+        };
+
+        /*
          * Safe call to functions
          *
          * @param{f} the function to be executed

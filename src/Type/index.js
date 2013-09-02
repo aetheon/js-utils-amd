@@ -188,6 +188,19 @@ define(["lodash"], function(_){
     };
 
 
+    /*
+     * Checks if the given value is a number
+     *
+     * @param{value} value to check
+     * @return True|False
+     *
+     */
+    Type.isNumber = function (value) {
+        return typeof(value) === "number";
+    };
+
+
+
     return Type;
 
 });

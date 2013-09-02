@@ -70,6 +70,7 @@ define(["require", "jquery", "EventEmitter", "js-utils/Arguments/index", "js-uti
                 {
                     type: 'GET',
                     url: "",
+                    data: null,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     headers: { }
