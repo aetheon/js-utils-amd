@@ -34,9 +34,14 @@ define([ "require", "lodash", "knockout", "js-utils/AutoMapping/AutoMapper", "js
          * Mapper contains static methods to map general javascript Object to 
          * KO observables objects. 
          *
+         * To expand field the field type must be specified on the format: __fieldnameType
+         *
+         * @param {Object|Function} The object or Class to fill/instanciate
+         *
+         * @return {Object} The Mapper facade
          */
         var Mapper = function(viewmodel){
-
+            
 
             return {
 
@@ -50,64 +55,108 @@ define([ "require", "lodash", "knockout", "js-utils/AutoMapping/AutoMapper", "js
                  */
                 from: function(src, lazy){
 
-                    //
-                    // Bottom-up recursive call to map all the inner structures
-                    // This will expand the fields with __PropertyType
-                    //
-                    var scope = this;
-                    _.each(
-                        Type.getProperties(src),
-                        function (property) {
-                           
-                           return (function () {
 
-                                property = property.toString();
-                                var value = src[property];
+                    // if the src is object we must iterate all over its keys
+                    // to fill its properties
+                    if(Type.isObject(src)){
 
-                                // ignore values that are not objects ( cannot be a data structure )
-                                if (!value || typeof value != "object") return;
+                        // auto-instanciate viewmodel if needed, in other words
+                        // if a Class type is needed
+                        if(Type.isFunction(viewmodel)){
+                            /* jshint -W055 */
+                            viewmodel = new viewmodel();
+                        }
 
-                                // get the property type
-                                // eg: __Prop1Type where Prop1 is the property
-                                var MappingObjectClass = Type.getProperty(viewmodel, "__" + property + "Type");
+                        //
+                        // Bottom-up recursive call to map all the inner structures
+                        // This will expand the fields with __PropertyType
+                        //
+                        var scope = this;
+                        _.each(
+                            Type.getProperties(src),
+                            function (property) {
+                               
+                               return (function () {
 
-                                if (!MappingObjectClass) return;
+                                    property = property.toString();
+                                    var value = src[property];
 
-                                // recursive call to properties values
-                                var propertyValue = null;
-                                if (value instanceof Array) {
-                                    // if is array iterate over all elements and concat them
-                                    propertyValue = _.map(
-                                                value,
-                                                function (val) {
-                                                    return (function () {
-                                                        return new Mapper(new MappingObjectClass()).from(val);
-                                                    }).call(scope);
-                                                });
-                                }
-                                else {
-                                    propertyValue = new Mapper(new MappingObjectClass()).from(value);
-                                }
-                                
-                                // set the src property with the value of the recursive call
-                                src[property] = propertyValue;
+                                    // ignore values that are not objects ( cannot be a data structure )
+                                    if (!value || typeof value != "object") return;
 
-                            }).call(scope);
+                                    // get the property type
+                                    // eg: __Prop1Type where Prop1 is the property
+                                    var MappingObjectClass = Type.getProperty(viewmodel, "__" + property + "Type");
 
-                        });
+                                    if (!MappingObjectClass) return;
+
+                                    // recursive call to properties values
+                                    var propertyValue = null;
+                                    if (value instanceof Array) {
+                                        // if is array iterate over all elements and concat them
+                                        propertyValue = _.map(
+                                                    value,
+                                                    function (val) {
+                                                        return (function () {
+                                                            return new Mapper(new MappingObjectClass()).from(val);
+                                                        }).call(scope);
+                                                    });
+                                    }
+                                    else {
+                                        propertyValue = new Mapper(new MappingObjectClass()).from(value);
+                                    }
+                                    
+                                    // set the src property with the value of the recursive call
+                                    src[property] = propertyValue;
+
+                                }).call(scope);
+
+                            });
 
 
-                    // Map my own objects!
-                    automapper.map(
-                        MAPPER_SRC_KEY,
-                        MAPPER_DEST_KEY,
-                        src,
-                        viewmodel,
-                        lazy);
+                        // Map my own objects!
+                        automapper.map(
+                            MAPPER_SRC_KEY,
+                            MAPPER_DEST_KEY,
+                            src,
+                            viewmodel,
+                            lazy);                        
+
+                    }
+
+                    else
+                    if(Type.isArray(src)){
+
+                        var result = [];
+
+                        _.each(
+                            src,
+                            function(value){
+                                return (function () {
+
+                                    // auto-instanciate viewmodel if needed, in other words
+                                    // if a Class type is needed
+                                    if(!Type.isFunction(viewmodel)){
+                                        throw new Error("When mapping array's the Mapper viewmodel should be a Function");
+                                    }
+
+                                    result.push(new Mapper(new viewmodel()).from(value));
+
+                                }).call(scope);
+                            }
+                        );
+
+                        // return the computed array
+                        return result;
+
+                    }
 
 
+
+                
+                    // default return
                     return viewmodel;
-
+                
                 }
 
             };

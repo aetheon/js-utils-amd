@@ -242,5 +242,20 @@ describe("ArgumentsSpec", function () {
     });
 
 
+    async.it("Type.isObject(Array) returns false", function (allDone) {
+
+        Injector.require( [ "js-utils/Type/index" ], function(Type){
+
+            var isObject = Type.isObject([]);
+
+            expect(isObject).not.toBeTruthy();
+            
+            allDone();
+
+        });
+        
+    });
+
+
 
 });

@@ -180,7 +180,8 @@ define(["lodash"], function(_){
 
         // null or undefined values are objects, but we don't care
         /* jshint -W041 */
-        if(value == null)   return false;
+        if(value == null) return false;
+        if(Type.isArray(value)) return false;
 
         return typeof(value) === "object";
 

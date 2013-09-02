@@ -163,5 +163,62 @@ describe("KO/Mapper Spec", function () {
 
 
 
+    async.it(".from() should map the viewmodel observables from the src Array", function (done) {
+
+
+        Injector.require(["knockout", "src/KO/Mapper"], function(ko, Mapper){
+
+
+            var SrcClass = function(){
+                this.str = ko.observable("");
+                this.object = ko.observable({});
+                this.array = ko.observable([]);
+            };
+
+            var result = new Mapper(SrcClass).from([{
+                            str: "test",
+                            object: { one: 1 },
+                            array: [1]
+                        }]);
+
+            expect(result).not.toBe(null);
+            expect(result.length).toEqual(1);
+
+            done();
+
+        });
+
+    });
+
+
+    async.it(".from() should map the viewmodel observables from the src Object", function (done) {
+
+
+        Injector.require(["knockout", "src/KO/Mapper"], function(ko, Mapper){
+
+
+            var SrcClass = function(){
+                this.str = ko.observable("");
+                this.object = ko.observable({});
+                this.array = ko.observable([]);
+            };
+
+            var result = new Mapper(SrcClass).from({
+                            str: "test",
+                            object: { one: 1 },
+                            array: [1]
+                        });
+
+            expect(result.str()).toEqual("test");
+            expect(result.object().one).toEqual(1);
+            expect(result.array().length).toEqual(1);
+
+            done();
+
+        });
+
+    });
+
+
 
 });
