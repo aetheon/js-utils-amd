@@ -280,6 +280,37 @@ describe("ObjectSpec", function () {
 
 
 
+    async.it(".fill() should have the value from the default option when it's not specified", function (done) {
+
+        Injector.require(["src/Object/index.js"], function(Options){
+
+            var o = Options.fill(
+            
+                {
+                    "val": {
+                        "one": 1,
+                        "two": 2
+                    }
+                },
+
+                {
+                    "val": {
+                        "one": 1
+                    }
+                }
+
+            );
+            
+            expect(o.val.two).toBe(2);
+            
+            done();
+
+        });
+
+    });
+
+
+
 
 
 });
