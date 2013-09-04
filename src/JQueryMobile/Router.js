@@ -19,7 +19,9 @@ define([
     "js-utils/Type/index",
     "js-utils/Url/index",
     "js-utils/OOP/index",
-    "js-utils/Safe/index"
+    "js-utils/Safe/index",
+    "js-utils/Log/index"
+
     ], 
     function(require, $, _, ko){
     "use strict";
@@ -31,7 +33,11 @@ define([
         OOP = require("js-utils/OOP/index"),
         Type = require("js-utils/Type/index"),
         Safe = require("js-utils/Safe/index"),
+        Log = require("js-utils/Log/index"),
         EventEmitter = require("EventEmitter");
+
+
+    var log = new Log.Logger("js-utils/JQueryMobile/Router");
 
    
     // the Router class
@@ -196,6 +202,7 @@ define([
 
                 });
 
+            if(!selectedRule) log.w("Action not found for route: " + url);
 
             // if got a selected rule...
             if(selectedRule !== null){
