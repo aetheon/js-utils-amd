@@ -21,7 +21,6 @@ define([
         "js-utils/Arguments/index",
         "js-utils/Url/index",
         "js-utils/Device/index",
-        "js-utils/UI/Window",
         "js-utils/UI/Accessibility",
         "js-utils/JQueryMobile/index",
         "js-utils/JQueryMobile/Router",
@@ -112,8 +111,6 @@ define([
 
             // application ui
             var ui = {};
-            ui = $.extend({}, ui, require("js-utils/UI/Window"));  // extend UI Window Methods
-            
 
             /*
              * Remove browser 300msec delay between taps

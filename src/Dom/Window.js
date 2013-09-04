@@ -4,13 +4,14 @@
  * 
  */
 
-define(["require", "lodash", "jquery", "js-utils/Arguments/index", "js-utils/Globals/document"], function(require){
+define(["require", "lodash", "jquery", "js-utils/Arguments/index", "js-utils/Globals/window", "js-utils/Globals/document"], function(require){
     "use strict";
 
     var _ = require("lodash"),
         $ = require("jquery"),
         Arguments = require("js-utils/Arguments/index"),
-        Document = require("js-utils/Globals/document");
+        DocumentElement = require("js-utils/Globals/document"),
+        WindowElement = require("js-utils/Globals/window");
     
 
 
@@ -39,7 +40,7 @@ define(["require", "lodash", "jquery", "js-utils/Arguments/index", "js-utils/Glo
             // if bottom => position should be equal to the total
             // height of the document
             if(options.bottom)
-                options.position = $(Document).height();
+                options.position = $(DocumentElement).height();
 
             // scroll dom to position
             $('html,body').animate(
@@ -51,6 +52,17 @@ define(["require", "lodash", "jquery", "js-utils/Arguments/index", "js-utils/Glo
             );
 
             return dfd.promise();
+        },
+
+
+        /*
+         * Get the current height of the Viewport
+         *
+         * @return{Number}
+         */
+        getViewportHeight: function(){
+            var viewportHeightPx = $(WindowElement).innerHeight();
+            return viewportHeightPx;
         }
 
 
