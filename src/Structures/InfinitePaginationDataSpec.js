@@ -47,9 +47,9 @@ describe("Structures/InfinitePaginationData", function () {
 
             var infinitePaginationData = new InfinitePaginationData({ PageSize: 1, MaxSize: 2});
 
-            infinitePaginationData.addAfter({ Data: [1] });
-            infinitePaginationData.addAfter({ Data: [2] });
-            infinitePaginationData.addAfter({ Data: [3] });
+            infinitePaginationData.addAfter([1]);
+            infinitePaginationData.addAfter([2]);
+            infinitePaginationData.addAfter([3]);
             
             var range = infinitePaginationData.getIndexRange();
 
@@ -74,10 +74,10 @@ describe("Structures/InfinitePaginationData", function () {
 
             var infinitePaginationData = new InfinitePaginationData({ PageSize: 1, MaxSize: 2});
 
-            infinitePaginationData.addAfter({ Data: [1] });
-            infinitePaginationData.addAfter({ Data: [2] });
-            infinitePaginationData.addAfter({ Data: [3] });
-            infinitePaginationData.addBefore({ Data: [0] });
+            infinitePaginationData.addAfter([1]);
+            infinitePaginationData.addAfter([2]);
+            infinitePaginationData.addAfter([3]);
+            infinitePaginationData.addBefore([0]);
             
             var range = infinitePaginationData.getIndexRange();
 
@@ -88,6 +88,141 @@ describe("Structures/InfinitePaginationData", function () {
             var array = infinitePaginationData.get();
             expect(array.length).toBe(2);
 
+            done();
+
+
+        });
+
+    });
+
+
+
+    async.it(".isInIndexRange() should return a true if is in the current list range", function (done) {
+ 
+        Injector.require(["src/Structures/InfinitePaginationData"], function(InfinitePaginationData){
+
+            var infinitePaginationData = new InfinitePaginationData({ PageSize: 1, MaxSize: 2});
+
+            infinitePaginationData.addAfter([1]);
+            infinitePaginationData.addAfter([2]);
+            infinitePaginationData.addAfter([3]);
+            infinitePaginationData.addBefore([0]);
+            
+            var isInRange = infinitePaginationData.isInIndexRange(1);
+
+            expect(isInRange).toBe(true);
+            
+            done();
+
+
+        });
+
+    });
+
+
+
+    async.it(".isInIndexRange() should return a false when it's not is in the current list range", function (done) {
+ 
+        Injector.require(["src/Structures/InfinitePaginationData"], function(InfinitePaginationData){
+
+            var infinitePaginationData = new InfinitePaginationData({ PageSize: 1, MaxSize: 2});
+
+            infinitePaginationData.addAfter([1]);
+            infinitePaginationData.addAfter([2]);
+            infinitePaginationData.addAfter([3]);
+            infinitePaginationData.addBefore([0]);
+            
+            var isInRange = infinitePaginationData.isInIndexRange(3);
+
+            expect(isInRange).toBe(false);
+            
+            done();
+
+
+        });
+
+    });
+
+
+    async.it(".getPrevIndex() should return the previous index", function (done) {
+ 
+        Injector.require(["src/Structures/InfinitePaginationData"], function(InfinitePaginationData){
+
+            var infinitePaginationData = new InfinitePaginationData({ PageSize: 1, MaxSize: 2});
+
+            infinitePaginationData.addAfter([1]);
+            infinitePaginationData.addAfter([2]);
+            infinitePaginationData.addAfter([3]);
+            
+            var prev = infinitePaginationData.getPrevIndex();
+
+            expect(prev).toBe(0);
+            
+            done();
+
+
+        });
+
+    });
+
+
+    async.it(".getPrevIndex() should return null when there is no prevIndex", function (done) {
+ 
+        Injector.require(["src/Structures/InfinitePaginationData"], function(InfinitePaginationData){
+
+            var infinitePaginationData = new InfinitePaginationData({ PageSize: 1, MaxSize: 2});
+
+            infinitePaginationData.addAfter([1]);
+            infinitePaginationData.addAfter([2]);
+            
+            var prev = infinitePaginationData.getPrevIndex();
+
+            expect(prev).toBe(null);
+            
+            done();
+
+
+        });
+
+    });
+
+
+
+    async.it(".getNextIndex() should return the next index", function (done) {
+ 
+        Injector.require(["src/Structures/InfinitePaginationData"], function(InfinitePaginationData){
+
+            var infinitePaginationData = new InfinitePaginationData({ PageSize: 1, MaxSize: 2});
+
+            infinitePaginationData.addAfter([1]);
+            infinitePaginationData.addAfter([2]);
+            
+            var next = infinitePaginationData.getNextIndex();
+
+            expect(next).toBe(3);
+            
+            done();
+
+
+        });
+
+    });
+
+
+    async.it(".getNextIndex() should return null when there is no more data after", function (done) {
+ 
+        Injector.require(["src/Structures/InfinitePaginationData"], function(InfinitePaginationData){
+
+            var infinitePaginationData = new InfinitePaginationData({ PageSize: 1, MaxSize: 2});
+
+            infinitePaginationData.addAfter([1]);
+            infinitePaginationData.addAfter([2]);
+            infinitePaginationData.addAfter([]);
+            
+            var next = infinitePaginationData.getNextIndex();
+
+            expect(next).toBe(null);
+            
             done();
 
 

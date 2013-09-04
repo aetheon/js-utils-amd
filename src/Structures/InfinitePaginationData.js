@@ -14,11 +14,11 @@ define(["require", "lodash", "js-utils/Arguments/index", "js-utils/Array/index",
     
 
     /*
-     * Method Description
+     * Infinite Pagination Array Data Strcuture handles the data structure for 
+     * adding pagination data and getting its index's
      *
      * @param {Object} options - pagination options
      *
-     * @event {EVENT_TRANSACTIONS}
      *
      * @return {Object}
      */
@@ -43,6 +43,8 @@ define(["require", "lodash", "js-utils/Arguments/index", "js-utils/Array/index",
 
         // keeps track of where the index the list is beginning
         var firstIndex = 0;
+        // there is no more data flag
+        var thereIsNoMoreData = false;
 
 
         return {
@@ -55,7 +57,7 @@ define(["require", "lodash", "js-utils/Arguments/index", "js-utils/Array/index",
             get: function(){
 
                 return _.clone(data.Data);
-                
+
             },
 
             /*
@@ -71,6 +73,62 @@ define(["require", "lodash", "js-utils/Arguments/index", "js-utils/Array/index",
 
             },
 
+            /*
+             * Test if Index in range of the current Pagination
+             *
+             * @param {Number} index - The index
+             *
+             * @return {True|False}
+             */
+            isInIndexRange: function(index){
+
+                var range = this.getIndexRange();
+                if(index >= range.from && index <= range.to)
+                    return true;
+
+                return false;
+
+            },
+
+            /*
+             * Get the next index to fetch
+             *
+             * @param {Object} options - pagination options
+             *
+             * @return {Number|Null} If there is no more data return null
+             */
+            getNextIndex: function(){
+
+                var range = this.getIndexRange();
+
+                // if there is no more data return null
+                if(thereIsNoMoreData) return null;
+
+                if(range.to === 0 && !data.Data.length)
+                    return 0;
+
+                return range.to + 1;
+
+            },
+
+            /*
+             * Get the next index to fetch
+             *
+             * @param {Object} options - pagination options
+             *
+             * @return {Number|Null} Returns null if the index already is zero
+             */
+            getPrevIndex: function(){
+
+                var range = this.getIndexRange();
+
+                // in range is invalid
+                if(range.from <= 0) return null;
+                
+                return range.from - 1;
+                
+            },
+
 
             /*
              * Add Data to the end of the list
@@ -82,7 +140,11 @@ define(["require", "lodash", "js-utils/Arguments/index", "js-utils/Array/index",
                 array = Safe.getArray(array);
 
                 // ignore if data is empty
-                if(!array.length) return;
+                // this also means that it is the last page
+                if(!array.length) {
+                    thereIsNoMoreData = true;
+                    return;
+                }
 
                 // validate slice page size
                 if(array.length > data.PageSize) {
@@ -92,6 +154,7 @@ define(["require", "lodash", "js-utils/Arguments/index", "js-utils/Array/index",
                 // remove first data and increment the firstIndex Tracker
                 if(data.Data.length >= data.MaxSize) {
                     ArrayHelper.removeFirst(data.Data, { n: data.PageSize });
+                    // set firstIndex
                     firstIndex += 1;
                 }
 
@@ -121,7 +184,12 @@ define(["require", "lodash", "js-utils/Arguments/index", "js-utils/Array/index",
                 // remove last data and set the value of the current index
                 if(data.Data.length >= data.MaxSize) {
                     ArrayHelper.removeLast(data.Data, { n: data.PageSize });
-                    if(firstIndex>0) firstIndex -= 1;
+                    // if removed this means that there is more data
+                    thereIsNoMoreData = false;
+                    // set firstIndex
+                    if(firstIndex>0) 
+                        firstIndex -= 1;
+
                 }
 
                 // add data to the 
