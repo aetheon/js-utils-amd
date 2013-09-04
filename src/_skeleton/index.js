@@ -4,10 +4,11 @@
  * 
  */
 
-define(["require", "lodash"], function(require){
+define(["require", "lodash", "js-utils/Arguments/index"], function(require){
     "use strict";
 
-    var _ = require("lodash");
+    var _ = require("lodash"),
+        Arguments = require("js-utils/Arguments/index");
     
     var Object = function (options) {
 

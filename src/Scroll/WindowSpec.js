@@ -21,12 +21,12 @@ describe("XXXX", function () {
 
 
     
-    async.it("Element should get loaded", function (done) {
+    async.it("Window .ctor should get a new instance", function (done) {
+        
+        Injector.require(["src/Scroll/Window.js"], function(WindowScroll){
 
-        Injector.require(["src/Element/index.js" ], function(Element){
-
-            expect(Element).not.toBe(null);
-
+            var instance = new WindowScroll();
+            
             done();
 
         });
