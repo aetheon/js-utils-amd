@@ -4,7 +4,7 @@
  * 
  */
 
-define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index", "js-utils/Log/index", "js-utils/Scroll/WindowListener", 
+define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index", "js-utils/Log/index", "js-utils/Scroll/GlobalWindowScrollListener", 
         "js-utils/OOP/index", "js-utils/Dom/Element"], 
     function(require){
     "use strict";
@@ -15,7 +15,7 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
         OOP = require("js-utils/OOP/index"),
         Arguments = require("js-utils/Arguments/index"),
         Element = require("js-utils/Dom/Element"),
-        WindowScrollListener = require("js-utils/Scroll/WindowListener"),
+        WindowScrollListener = require("js-utils/Scroll/GlobalWindowScrollListener"),
         Log = require("js-utils/Log/index");
 
 

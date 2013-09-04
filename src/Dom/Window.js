@@ -22,7 +22,7 @@ define(["require", "lodash", "jquery", "js-utils/Arguments/index", "js-utils/Glo
          *
          * @param {Object} options - operation options
          *
-         * @return {Object} JQueryPromise
+         * @return {Object} JQueryPromise - resolved when scroll is finished
          */
         scrollTo: function (options) {
 

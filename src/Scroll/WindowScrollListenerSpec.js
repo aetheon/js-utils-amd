@@ -1,5 +1,5 @@
 
-describe("XXXX", function () {
+describe("Scroll/WindowScrollListener", function () {
 
     var Squire = null,
         Injector = null,
@@ -23,9 +23,9 @@ describe("XXXX", function () {
     
     async.it("Window .ctor should get a new instance", function (done) {
         
-        Injector.require(["src/Scroll/Window.js"], function(WindowScroll){
+        Injector.require(["src/Scroll/WindowScrollListener.js"], function(WindowScrollListener){
 
-            var instance = new WindowScroll();
+            var instance = new WindowScrollListener();
             
             done();
 
