@@ -4,7 +4,10 @@ requirejs.config({
     paths: {
 
         //core libraries:
-        'jquery': 'lib/jquery/jquery-latest',
+        
+        // jqm is not compatible yet with jquery2!
+        'jquery': 'lib/jquery/jquery-1.9.1',
+
         'jqm': 'lib/jquery-mobile/1.3.2/jquery.mobile-1.3.2',
         'lodash': 'lib/lodash/lodash-latest',
         'ua-parser': 'lib/ua-parser/ua-parser-latest',

@@ -18,7 +18,8 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
                 ajaxEnabled: true,
                 domCache: false,
                 autoInitializePage: false,
-                defaultPageTransition: 'none' // no animations
+                defaultPageTransition: 'none', // no animations
+                defaultDialogTransition: 'none'
             };
 
             // do not initializa page automatically
@@ -56,16 +57,34 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
 
         var set_content_height = function () {
 
-            var header = $("div[data-role='header']:visible");
-            var footer = $("div[data-role='footer']:visible");
-            var content = $("div[data-role='content']:visible");
+            var page = $(".ui-page-active");
+            var pageType = page.attr("data-role");
+            
+            // ignore dialogs
+            if(pageType == "dialog") return;
+
+            var content = $("div[data-role='content']", page);
             var viewport_height = $(window).height();
 
-            var content_height = viewport_height - header.height() - footer.height();
+            // subtract all page elements height, except the content
+            var content_height = viewport_height;
+            $("div[data-role]", page).each(
+                function(){
+                    var role = $(this).attr("data-role");
+                    
+                    // ignore content
+                    if(role === 'content' || role === 'panel' || role === 'popup' ) 
+                        return;
+
+                    var elementHeight = $(this).height();
+                    content_height -= elementHeight;
+                }
+            );
+
+            // set the height value to be an integer
             content_height = Math.floor(content_height) - 0.1;
 
-            var page = $(content).closest("div[data-role='page']");
-
+            // find wich css rule to apply
             var css_rulename = "min-height";
             if (page.data("fixed-height")) {
                 css_rulename = "height";
@@ -110,6 +129,29 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
                 data: data
             }
           );
+    };
+
+
+    /*
+     * JQMobile dialog
+     * 
+     * @param{string} href The page href
+     * @param{Object} href The page data
+     */
+    JQueryMobile.dialog = function (href, data) {
+
+        if (!href) return;
+
+        $.mobile.changePage(
+            href,
+            {
+                role: "dialog",
+                allowSamePageTransition: false,
+                data: data
+            }
+          );
+
+
     };
 
 
