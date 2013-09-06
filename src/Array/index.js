@@ -60,11 +60,43 @@ define(["require", "lodash", "js-utils/Arguments/index", "js-utils/Type/index", 
 
 
         /*
+         * remove index of the array
+         * 
+         * @param {Array} array - The array reference
+         * @param {Object} options - The operations options.
+         *
+         * @return {Array} The removed elements
+         */
+        removeIndex: function(array, index){
+
+            if(!Type.isArray(array)) return;
+            if(!Type.isNumber(index)) return;
+            if(index < 0 || index >= array.length) return;
+
+            var left = [];
+            for(var i=0; i<index && i<array.length; i++){
+                var removed = array.shift();
+                left.push(removed);
+            }
+
+            // remove the index
+            array.shift();
+
+            left = left.reverse();
+            for(var i=0; i<left.length; i++){
+                array.unshift(left[i]);
+            }
+
+        },
+
+
+        /*
          * remove first elements of the array
          * 
          * @param {Array} array - The array reference
          * @param {Object} options - The operations options.
          *
+         * @return {Array} The removed elements
          */
         removeFirst: function(array, options){
 
@@ -79,9 +111,13 @@ define(["require", "lodash", "js-utils/Arguments/index", "js-utils/Type/index", 
             );
 
 
+            var res = [];
             for(var i=1; i<=options.n || i<array.length; i++){
-                array.shift();
+                var removed = array.shift();
+                res.push(removed);
             }
+
+            return res;
 
         },
 
@@ -92,6 +128,7 @@ define(["require", "lodash", "js-utils/Arguments/index", "js-utils/Type/index", 
          * @param {Array} array - The array reference
          * @param {Object} options - The operations options.
          *
+         * @return {Array} The removed elements
          */
         removeLast: function(array, options){
 
@@ -105,14 +142,68 @@ define(["require", "lodash", "js-utils/Arguments/index", "js-utils/Type/index", 
                 }
             );
 
-
+            var res = [];
             for(var i=1; i<=options.n || i<array.length; i++){
-                array.pop();
+               var removed = array.pop();
+               res.push(removed);
             }
 
-        }
+            return res;
+
+        },
 
 
+
+        /*
+         * Get Array Index
+         *
+         * @param {Array} array - the array
+         *
+         * @return {Object} the value on the index of the array or null
+         */
+         index: function(array, index){
+
+            array = Safe.getArray(array);
+            index = Safe.getNumber(index);
+
+            if(index < 0 || index > array.length - 1)
+                return null;
+
+            return array[index];
+
+         },
+
+
+         /*
+         * Get last value of the array
+         *
+         * @param {array} array - the array
+         *
+         * @return {Object} the value on the index of the array or null
+         */
+         last: function(array){
+
+            array = Safe.getArray(array);
+
+            return ArrayHelper.index(array, array.length - 1);
+
+         },
+
+
+         /*
+         * Get first value of the array
+         *
+         * @param {array} array - the array
+         *
+         * @return {Object} the value on the index of the array or null
+         */
+         first: function(array){
+
+            array = Safe.getArray(array);
+
+            return ArrayHelper.index(array);
+
+         }
 
 
 
