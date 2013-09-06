@@ -318,7 +318,7 @@ describe("ArraySpec", function () {
             ArrayHelper.removeIndex(arr, 3);
             expect(arr.length).toEqual(3);
 
-            var arr = [];
+            arr = [];
             ArrayHelper.removeIndex(arr, 0);
             expect(arr.length).toEqual(0);
 

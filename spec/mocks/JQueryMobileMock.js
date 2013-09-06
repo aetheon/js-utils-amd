@@ -1,4 +1,4 @@
-define([], function(){
+define(["js-utils/Arguments/index"], function(Arguments){
 
     /*
      * returns a hash with the obj function and its
@@ -7,16 +7,33 @@ define([], function(){
      */
 
 
-     var JQueryMobile = {};
+     var Mock = function(options){
 
-     JQueryMobile.currentPage = {
 
-        getElement: function(){
-            return {};
-        }
+        options = Arguments.get(
+            options,
+            {
+                getPageRole: function() { return "page" }
+            });
+
+
+        var JQueryMobile = {};
+
+         JQueryMobile.getPageRole = options.getPageRole;
+
+         JQueryMobile.currentPage = {
+
+            getElement: function(){
+                return {};
+            }
+
+         };
+
+         return JQueryMobile;
 
      };
 
-     return JQueryMobile;
+     return Mock;
+
 
 });

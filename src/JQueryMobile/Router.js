@@ -16,10 +16,12 @@ define([
     "js-utils/Arguments/index", 
     "js-utils/JQueryMobile/index", 
     "js-utils/JQueryMobile/PageTracker", 
+    "js-utils/JQueryMobile/RouterRulesInstanceManager",
     "js-utils/Type/index",
     "js-utils/Url/index",
     "js-utils/OOP/index",
     "js-utils/Safe/index",
+    "js-utils/Array/index", 
     "js-utils/Log/index"
 
     ], 
@@ -29,18 +31,27 @@ define([
     var Arguments = require("js-utils/Arguments/index"),
         JQMHelper = require("js-utils/JQueryMobile/index"),
         PageTracker = require("js-utils/JQueryMobile/PageTracker"),
+        RouterRulesInstanceManager = require("js-utils/JQueryMobile/RouterRulesInstanceManager"),
         Url = require("js-utils/Url/index"),
         OOP = require("js-utils/OOP/index"),
         Type = require("js-utils/Type/index"),
         Safe = require("js-utils/Safe/index"),
         Log = require("js-utils/Log/index"),
+        ArrayHelper = require("js-utils/Array/index"),
         EventEmitter = require("EventEmitter");
 
 
     var log = new Log.Logger("js-utils/JQueryMobile/Router");
 
    
-    // the Router class
+    /*
+     * JQuery Router Class
+     *  . associate jquery pages with default code
+     *
+     * @param {Object} controller - The controller rules
+     * @param {Object} factory - The Action factory
+     *
+     */
     var Router = function (controller, factory) {
 
         // call .ctor
@@ -81,15 +92,26 @@ define([
         // events
         var scope = this,
             pageTracker = new PageTracker(),    // jqueryPageTracker
-            
-            // current instance of the action
-            currentActionResult = null,
+           
+            // action result to instanciate 
+            // save between the "changing" and "change" state
+            currentRule = {
+                // router rule
+                Rule: null,
+                // type of the rule to instanciate
+                Type: null
+            },
 
-            // saves the prev page element
-            prevPageElement = null;
+            // saves the instances of actions results
+            // each element: { instance: Obj, element: HtmlElement, rule: String }
+            manager = new RouterRulesInstanceManager();
 
 
 
+        //
+        // code executed before jquery mobile add the elements to
+        // the dom. Usefull for validation and pre-init stuff
+        //
         pageTracker.on(
             "changing",
             function(pageUrl, options){
@@ -98,20 +120,18 @@ define([
                 Safe.callFunction(
                     function(){
                         
-                        // get the current action result
-                        var actionResult = this.getActionResult(pageUrl);
-                        
+                        // get the rule of this url
+                        currentRule.Rule = this.getRule(pageUrl);
+                        // always run the type getter code
+                        currentRule.Type = this.getActionResultInstance(currentRule.Rule);
+
                         // cancel the changing if no action result was found
                         /* jshint -W041 */
-                        if(actionResult == null){ 
-                            if(options && options.cancel) options.cancel(); 
+                        if(currentRule.type == null){ 
+                            if(options && options.cancel) {
+                                options.cancel(); 
+                            }
                         }
-
-                        // set the current action result
-                        currentActionResult = actionResult;
-
-                        // sets the prevPage element
-                        prevPageElement = JQMHelper.currentPage.getElement();
 
                     }, { scope: scope }
                 );
@@ -124,20 +144,47 @@ define([
         pageTracker.on(
             "change",
             function(element, data){
-               
-                //instanciate actionResult if is a function
-                if(Type.isFunction(currentActionResult)){
+
+                // only instanciate actionResult if is a function
+                if(Type.isFunction(currentRule.Type)){
+
+                    var role = JQMHelper.getPageRole(element),
+                        // get and remove current instance from the manager
+                        instance = manager.get(currentRule.Rule);
+
+
                     Safe.callFunction(
                         function() {
 
-                            if(prevPageElement){
-                                this.factory.destroyActionResult(currentActionResult, prevPageElement);
+                            switch(role){
+
+                                default:
+
+                                    var last = manager.last();
+                                    if(last){
+                                        log.d("Calling factory.destroyActionResult on " + $(last.element).attr("id") );
+                                        this.factory.destroyActionResult(last.instance, last.element);
+                                    }
+                                    
+                                    break;
+
+                            }
+                            
+
+                            if(!instance){
+                                log.d("Calling factory.createActionResult on " + $(element).attr("id") );    
+                                this.factory.createActionResult(currentRule.Type, element, data);
                             }
 
-                            currentActionResult = this.factory.createActionResult(currentActionResult, element, data);
-                        },
-                        { scope: scope }
-                    );
+                            manager.add({
+                                rule: currentRule.Rule,
+                                instance: instance,
+                                element: element,
+                                role: role
+                            });
+                            
+
+                        }, { scope: scope });
                 }
 
             }
@@ -167,12 +214,13 @@ define([
 
 
         /*
-         * returns the action result from the controller options
-         * @param{string} The page url
+         * Returns the rule for the given url
          *
-         * @return{Object} The actionResult returned by the action execution
+         * @param {String} url - The page url
+         *
+         * @return {String|null} the rule name
          */
-        getActionResult: function(url){
+        getRule: function(url){
 
             // get action from routes hash
             
@@ -202,23 +250,35 @@ define([
 
                 });
 
-            if(!selectedRule) log.w("Action not found for route: " + url);
 
-            // if got a selected rule...
-            if(selectedRule !== null){
-                var action = this.controller.routes[selectedRule];
-                action = Safe.getString(action);
+            return selectedRule;
 
-                // get action from "controller"
-                action = this.controller.actions[action];
-                if(!action)
-                    action = this.controller.actions[""];  //defaut route
+        },
 
-                // call action 
-                return Safe.callFunction(
-                    action,
-                    { silentExceptions: true, scope: this });
-            }
+
+        /*
+         * Returns an instance of the given rule
+         *
+         * @param {String} rule
+         *
+         * @return {Object|null}
+         */
+        getActionResultInstance : function(rule){
+
+            if(!rule) return;
+
+            var action = this.controller.routes[rule];
+            action = Safe.getString(action);
+
+            // get action from "controller"
+            action = this.controller.actions[action];
+            if(!action)
+                action = this.controller.actions[""];  //defaut route
+
+            // call action 
+            return Safe.callFunction(
+                action,
+                { silentExceptions: true, scope: this });
 
 
         },

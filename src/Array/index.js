@@ -83,8 +83,8 @@ define(["require", "lodash", "js-utils/Arguments/index", "js-utils/Type/index", 
             array.shift();
 
             left = left.reverse();
-            for(var i=0; i<left.length; i++){
-                array.unshift(left[i]);
+            for(var j=0; j<left.length; j++){
+                array.unshift(left[j]);
             }
 
         },

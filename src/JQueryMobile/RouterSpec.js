@@ -33,7 +33,7 @@ describe("RouterSpec", function () {
 
         var event = EventEmitterObjMock.event;
         Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
-        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock) );
+        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
 
         var actionRun = false;
         var action = function(){
@@ -77,7 +77,7 @@ describe("RouterSpec", function () {
 
         var event = EventEmitterObjMock.event;
         Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
-        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock) );
+        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
 
         var actionRun = false;
         var action = function(){
@@ -120,7 +120,7 @@ describe("RouterSpec", function () {
 
         var event = EventEmitterObjMock.event;
         Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
-        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock) );
+        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
 
         var actionRun = false;
         var action = function(){
@@ -166,7 +166,7 @@ describe("RouterSpec", function () {
 
         var event = EventEmitterObjMock.event;
         Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
-        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock) );
+        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
 
         var actionResultRun = false;
         var action = function(){
@@ -213,7 +213,7 @@ describe("RouterSpec", function () {
 
         var event = EventEmitterObjMock.event;
         Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
-        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock) );
+        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
 
         var Action = function(){
             // return ActionResult
@@ -266,7 +266,7 @@ describe("RouterSpec", function () {
 
         var event = EventEmitterObjMock.event;
         Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
-        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock) );
+        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
 
         var action = function(){
             // return ActionResult
@@ -320,7 +320,7 @@ describe("RouterSpec", function () {
 
         var event = EventEmitterObjMock.event;
         Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
-        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock) );
+        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
 
         var previous = false;
         

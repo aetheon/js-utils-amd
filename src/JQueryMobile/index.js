@@ -156,6 +156,41 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
 
 
     /*
+     * Get Page role String
+     * 
+     * @param{Element|null} pageElement - The page element to query
+     *
+     * @return{String} returns the given or current page role
+     */
+    JQueryMobile.getPageRole = function (pageElement) {
+
+        if(!pageElement)
+            pageElement = JQueryMobile.currentPage.getElement();
+
+        var role = $(pageElement).attr("data-role");
+        return role;
+
+    };
+
+
+    /*
+     * Is Dialog
+     * 
+     * @param{Element|null} pageElement - The page element to query
+     *
+     * @return{Boolean} returns the given or current page role
+     */
+    JQueryMobile.isDialog = function (pageElement) {
+
+        var role = JQueryMobile.getPageRole(pageElement);
+        
+        return role === "dialog";
+
+    };
+
+
+
+    /*
      * .currentPage
      * created to hold all methods in currentPage scope
      *
