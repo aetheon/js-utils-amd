@@ -45,12 +45,9 @@ describe("RouterSpec", function () {
             Injector.require(["src/JQueryMobile/Router.js"], function(Router){
 
                 var router = new Router({
-                    routes: {
-                        "default$": "teste",
-                    },
-                    actions: { 
-                        teste: action
-                    }
+                    
+                    "default$": action
+
                 });
 
                 event.emit("changing", "default");
@@ -89,12 +86,9 @@ describe("RouterSpec", function () {
             Injector.require(["src/JQueryMobile/Router.js"], function(Router){
 
                 var router = new Router({
-                    routes: {
-                        "": "teste",
-                    },
-                    actions: {
-                        teste: action
-                    }
+                    
+                    "": action
+
                 });
 
                 event.emit("changing", "");
@@ -132,12 +126,9 @@ describe("RouterSpec", function () {
             Injector.require(["src/JQueryMobile/Router.js"], function(Router){
 
                 var router = new Router({
-                    routes: {
-                        "default": "teste",
-                    },
-                    actions: {
-                        teste: action
-                    }
+                    
+                    "default": action
+            
                 });
 
                 event.emit("changing", "");
@@ -181,12 +172,9 @@ describe("RouterSpec", function () {
             Injector.require(["src/JQueryMobile/Router.js"], function(Router){
 
                 var router = new Router({
-                    routes: {
-                        "default$": "teste",
-                    },
-                    actions: {
-                        teste: action
-                    }
+                    
+                    "default$": action
+                    
                 });
 
                 event.emit("changing", "/default");
@@ -222,12 +210,9 @@ describe("RouterSpec", function () {
             Injector.require(["src/JQueryMobile/Router.js"], function(Router){
 
                 var router = new Router({
-                    routes: {
-                        "default$": "teste",
-                    },
-                    actions: {
-                        teste: function(){ return function(){}; }
-                    }
+                    
+                    "default$": function(){ return function(){}; }
+                    
                 });
 
                 router.on("create", function(){
@@ -265,12 +250,9 @@ describe("RouterSpec", function () {
             Injector.require(["src/JQueryMobile/Router.js"], function(Router){
 
                 var router = new Router({
-                    routes: {
-                        "default$": "teste",
-                    },
-                    actions: {
-                        teste: function(){ return function(){}; }
-                    }
+                    
+                    "default$": function(){ return function(){}; }
+                    
                 });
 
                 router.on("bind", function(){
@@ -308,13 +290,10 @@ describe("RouterSpec", function () {
             Injector.require(["src/JQueryMobile/Router.js"], function(Router){
 
                 var router = new Router({
-                    routes: {
-                        "default$": "teste",
-                        "default2$": "teste",
-                    },
-                    actions: {
-                        teste: function(){ return function(){}; }
-                    }
+                
+                    "default$": function(){ return function(){}; },
+                    "default2$": function(){ return function(){}; },
+                    
                 });
 
                 router.on("destroy", function(){

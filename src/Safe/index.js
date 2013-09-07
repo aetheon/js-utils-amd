@@ -97,6 +97,24 @@ define([
             
         };
 
+
+        /*
+         * Safelly get Function from value
+         *
+         * @param{value} The value to get
+         * @return {Function}
+         */
+        Safe.getFunction = function(value){
+            
+            if(Type.isFunction(value)){
+                return value;
+            }
+            else{
+                return function(){ };
+            }
+            
+        };
+
         /*
          * Safe call to functions
          *

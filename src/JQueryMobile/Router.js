@@ -48,8 +48,7 @@ define([
      * JQuery Router Class
      *  . associate jquery pages with default code
      *
-     * @param {Object} controller - The controller rules
-     * @param {Object} factory - The Action factory
+     * @param {Object} routes - The route rules
      *
      * @event create
      * @event bind
@@ -57,24 +56,17 @@ define([
      * @event destroy
      *
      */
-    var Router = function (controller) {
+    var Router = function (routes) {
 
         // call .ctor
         OOP.super(this, EventEmitter);
 
         // the controller as argument to router
-        this.controller = Arguments.get(
-            controller,
+        this.routes = Arguments.get(
+            routes,
             {
-                // routes
-                routes: {
-                    // "default.html": "default"
-                },
-
-                // actions
-                actions: {
-                    // "action": function(){}
-                }
+                // route rules
+                //"default.html": function(){ return function() {}; }
             }
         );
 
@@ -189,7 +181,7 @@ define([
             var selectedRule = null;
 
             _.each(
-                _.keys(this.controller.routes),
+                _.keys(this.routes),
                 function(rule){
 
                     // special case for blank pattern
@@ -230,19 +222,14 @@ define([
             /* jshint -W041 */
             if(rule == null) return;
 
-            var action = this.controller.routes[rule];
-            action = Safe.getString(action);
-
-            // get action from "controller"
-            action = this.controller.actions[action];
+            var action = this.routes[rule];
             if(!action)
-                action = this.controller.actions[""];  //defaut route
+                action = this.routes[""];  //defaut route
 
             // call action 
             return Safe.callFunction(
                 action,
                 { silentExceptions: true, scope: this });
-
 
         },
 

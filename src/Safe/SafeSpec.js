@@ -114,6 +114,35 @@ describe("SafeSpec", function () {
     });
 
 
+    async.it(".getFunction(Function) should return an function", function (done) {
+
+        Injector.require(["src/Safe/index"], function(Safe){
+
+            var fn = Safe.getFunction(function(){});
+
+            expect(fn).not.toBe(null);
+
+            done();
+
+        });
+
+    });
+
+    async.it(".getFunction(null) should return an function", function (done) {
+
+        Injector.require(["src/Safe/index"], function(Safe){
+
+            var fn = Safe.getFunction(null);
+
+            expect(fn).not.toBe(null);
+
+            done();
+
+        });
+
+    });
+
+
     async.it(".callFunction() should call the given function", function (done) {
 
         Injector.require(["src/Safe/index"], function(Safe){
