@@ -133,7 +133,7 @@ define([
                     var role = JQMHelper.getPageRole(element);
 
                     // let factory take care of the instance initialization / reuse
-                    factory({
+                    factory.page({
                         rule: current.Rule,
                         role: role,
                         data: data,

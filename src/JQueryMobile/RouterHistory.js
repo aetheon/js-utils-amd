@@ -76,6 +76,8 @@ define([
             // save the rule
             rules[data.rule] = data;
 
+            return _.clone(data);
+
         };
 
 
@@ -109,7 +111,7 @@ define([
          */
         this.last = function(){
 
-            var last = ArrayHelper.removeLast();
+            var last = ArrayHelper.index(ArrayHelper.removeLast(instances), 0);
             if(last){
                 delete rules[last.rule];
             }
