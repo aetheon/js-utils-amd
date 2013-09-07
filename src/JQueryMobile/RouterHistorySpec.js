@@ -1,5 +1,5 @@
 
-describe("RouterRulesInstanceManagerSpec", function () {
+describe("RouterHistorySpec", function () {
 
     var Squire = null,
         Injector = null,
@@ -23,9 +23,9 @@ describe("RouterRulesInstanceManagerSpec", function () {
     
     async.it(".add() should add the instance data", function (done) {
 
-        Injector.require(["src/JQueryMobile/RouterRulesInstanceManager"], function(RouterRulesInstanceManager){
+        Injector.require(["src/JQueryMobile/RouterHistory"], function(RouterHistory){
 
-            var manager = new RouterRulesInstanceManager();
+            var manager = new RouterHistory();
 
             manager.add({
                 rule: "teste",
@@ -52,9 +52,9 @@ describe("RouterRulesInstanceManagerSpec", function () {
 
     async.it(".add() repeated rule should throw an exception", function (done) {
 
-        Injector.require(["src/JQueryMobile/RouterRulesInstanceManager"], function(RouterRulesInstanceManager){
+        Injector.require(["src/JQueryMobile/RouterHistory"], function(RouterHistory){
 
-            var manager = new RouterRulesInstanceManager();
+            var manager = new RouterHistory();
 
             manager.add({
                 rule: "teste",
@@ -88,9 +88,9 @@ describe("RouterRulesInstanceManagerSpec", function () {
 
     async.it(".get() from non-existing rule should return null", function (done) {
 
-        Injector.require(["src/JQueryMobile/RouterRulesInstanceManager"], function(RouterRulesInstanceManager){
+        Injector.require(["src/JQueryMobile/RouterHistory"], function(RouterHistory){
 
-            var manager = new RouterRulesInstanceManager();
+            var manager = new RouterHistory();
 
             instance = manager.get("teste");
             expect(instance).toBe(null);

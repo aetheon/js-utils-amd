@@ -16,7 +16,7 @@ define([
     "js-utils/Arguments/index", 
     "js-utils/JQueryMobile/index", 
     "js-utils/JQueryMobile/PageTracker", 
-    "js-utils/JQueryMobile/RouterRulesInstanceManager",
+    "js-utils/JQueryMobile/RouterFactory",
     "js-utils/Type/index",
     "js-utils/Url/index",
     "js-utils/OOP/index",
@@ -31,7 +31,7 @@ define([
     var Arguments = require("js-utils/Arguments/index"),
         JQMHelper = require("js-utils/JQueryMobile/index"),
         PageTracker = require("js-utils/JQueryMobile/PageTracker"),
-        RouterRulesInstanceManager = require("js-utils/JQueryMobile/RouterRulesInstanceManager"),
+        RouterFactory = require("js-utils/JQueryMobile/RouterFactory"),
         Url = require("js-utils/Url/index"),
         OOP = require("js-utils/OOP/index"),
         Type = require("js-utils/Type/index"),
@@ -52,7 +52,7 @@ define([
      * @param {Object} factory - The Action factory
      *
      */
-    var Router = function (controller, factory) {
+    var Router = function (controller, factoryOptions) {
 
         // call .ctor
         OOP.super(this, EventEmitter);
@@ -73,39 +73,21 @@ define([
             }
         );
 
-        // Router faction options
-        this.factory = Arguments.get(
-            factory,
-            { 
-                // custom creation of the ActionResult
-                createActionResult: function(ActionResult, element, data){
-                    return new ActionResult(element, data);
-                },
-                destroyActionResult: function(actionResultInstance){
-
-                }
-            }
-        );
-
-
-
         // events
         var scope = this,
             pageTracker = new PageTracker(),    // jqueryPageTracker
            
             // action result to instanciate 
             // save between the "changing" and "change" state
-            currentRule = {
+            current = {
                 // router rule
                 Rule: null,
                 // type of the rule to instanciate
                 Type: null
             },
 
-            // saves the instances of actions results
-            // each element: { instance: Obj, element: HtmlElement, rule: String }
-            manager = new RouterRulesInstanceManager();
-
+            // router history manager
+            factory = new RouterFactory(factoryOptions);
 
 
         //
@@ -121,13 +103,13 @@ define([
                     function(){
                         
                         // get the rule of this url
-                        currentRule.Rule = this.getRule(pageUrl);
+                        current.Rule = this.getRule(pageUrl);
                         // always run the type getter code
-                        currentRule.Type = this.getActionResultInstance(currentRule.Rule);
+                        current.Type = this.getActionResultInstance(current.Rule);
 
                         // cancel the changing if no action result was found
                         /* jshint -W041 */
-                        if(currentRule.type == null){ 
+                        if(current.Type == null){ 
                             if(options && options.cancel) {
                                 options.cancel(); 
                             }
@@ -146,45 +128,20 @@ define([
             function(element, data){
 
                 // only instanciate actionResult if is a function
-                if(Type.isFunction(currentRule.Type)){
+                if(Type.isFunction(current.Type)){
 
-                    var role = JQMHelper.getPageRole(element),
-                        // get and remove current instance from the manager
-                        instance = manager.get(currentRule.Rule);
+                    var role = JQMHelper.getPageRole(element);
 
+                    // let factory take care of the instance initialization / reuse
+                    factory({
+                        rule: current.Rule,
+                        role: role,
+                        data: data,
+                        element: element,
+                        instanceType: current.Type
+                    });
 
-                    Safe.callFunction(
-                        function() {
-
-                            switch(role){
-
-                                default:
-
-                                    var last = manager.last();
-                                    if(last){
-                                        log.d("Calling factory.destroyActionResult on " + $(last.element).attr("id") );
-                                        this.factory.destroyActionResult(last.instance, last.element);
-                                    }
-                                    
-                                    break;
-
-                            }
-                            
-
-                            if(!instance){
-                                log.d("Calling factory.createActionResult on " + $(element).attr("id") );    
-                                this.factory.createActionResult(currentRule.Type, element, data);
-                            }
-
-                            manager.add({
-                                rule: currentRule.Rule,
-                                instance: instance,
-                                element: element,
-                                role: role
-                            });
-                            
-
-                        }, { scope: scope });
+                    
                 }
 
             }
@@ -195,12 +152,6 @@ define([
         pageTracker.on(
             "show",
             function(prevPage, currentPage){
-
-                // fire "previous" event
-                Safe.callFunction(
-                    function() { this.emit("previous", prevPage); },
-                    { scope: scope }
-                );
 
             }
         );
@@ -265,7 +216,8 @@ define([
          */
         getActionResultInstance : function(rule){
 
-            if(!rule) return;
+            /* jshint -W041 */
+            if(rule == null) return;
 
             var action = this.controller.routes[rule];
             action = Safe.getString(action);

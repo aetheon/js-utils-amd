@@ -1,6 +1,6 @@
 
 /*
- * JqueryMobile Page Router
+ * JqueryMobile Router History
  *
  * @event previous when a previous page is hidden. args: (prevPage)
  *
@@ -28,7 +28,7 @@ define([
         ArrayHelper = require("js-utils/Array/index");
 
 
-    var log = new Log.Logger("js-utils/JQueryMobile/RouterRulesInstanceManager");
+    var log = new Log.Logger("js-utils/JQueryMobile/RouterHistory");
 
    
     /*
@@ -36,7 +36,7 @@ define([
      *  . Structure to save the living rules instances
      *
      */
-    var RouterRulesInstanceManager = function () {
+    var RouterHistory = function () {
 
         var instances = [];
         var rules = {};
@@ -122,7 +122,7 @@ define([
     };
 
 
-    return RouterRulesInstanceManager;
+    return RouterHistory;
 
 });
 
