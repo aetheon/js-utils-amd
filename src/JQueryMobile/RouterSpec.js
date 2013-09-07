@@ -209,4 +209,137 @@ describe("RouterSpec", function () {
 
 
 
+    async.it("create event should be fired", function (done) {
+
+        var event = EventEmitterObjMock.event;
+        Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
+        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
+
+        var isDone = false;
+
+        runs(function(){
+
+            Injector.require(["src/JQueryMobile/Router.js"], function(Router){
+
+                var router = new Router({
+                    routes: {
+                        "default$": "teste",
+                    },
+                    actions: {
+                        teste: function(){ return function(){}; }
+                    }
+                });
+
+                router.on("create", function(){
+                    isDone = true;
+                });
+
+                event.emit("changing", "/default");
+                event.emit("change", {}, {});
+
+            });
+
+        });
+
+        waitsFor(function () { return isDone; }, "Timeout", 5000);
+
+        runs(function(){
+
+            done();
+
+        });
+            
+    });
+
+
+    async.it("bind event should be fired", function (done) {
+
+        var event = EventEmitterObjMock.event;
+        Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
+        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
+
+        var isDone = false;
+
+        runs(function(){
+
+            Injector.require(["src/JQueryMobile/Router.js"], function(Router){
+
+                var router = new Router({
+                    routes: {
+                        "default$": "teste",
+                    },
+                    actions: {
+                        teste: function(){ return function(){}; }
+                    }
+                });
+
+                router.on("bind", function(){
+                    isDone = true;
+                });
+
+                event.emit("changing", "/default");
+                event.emit("change", {}, {});
+
+            });
+
+        });
+
+        waitsFor(function () { return isDone; }, "Timeout", 5000);
+
+        runs(function(){
+
+            done();
+
+        });
+            
+    });
+
+
+    async.it("destroy event should be fired", function (done) {
+
+        var event = EventEmitterObjMock.event;
+        Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
+        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
+
+        var isDone = false;
+
+        runs(function(){
+
+            Injector.require(["src/JQueryMobile/Router.js"], function(Router){
+
+                var router = new Router({
+                    routes: {
+                        "default$": "teste",
+                        "default2$": "teste",
+                    },
+                    actions: {
+                        teste: function(){ return function(){}; }
+                    }
+                });
+
+                router.on("destroy", function(){
+                    isDone = true;
+                });
+
+                event.emit("changing", "/default");
+                event.emit("change", {}, {});
+                event.emit("changing", "/default2");
+                event.emit("change", {}, {});
+
+            });
+
+        });
+
+        waitsFor(function () { return isDone; }, "Timeout", 5000);
+
+        runs(function(){
+
+            done();
+
+        });
+            
+    });
+
+
+
 });

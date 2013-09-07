@@ -51,8 +51,13 @@ define([
      * @param {Object} controller - The controller rules
      * @param {Object} factory - The Action factory
      *
+     * @event create
+     * @event bind
+     * @event unbind
+     * @event destroy
+     *
      */
-    var Router = function (controller, factoryOptions) {
+    var Router = function (controller) {
 
         // call .ctor
         OOP.super(this, EventEmitter);
@@ -87,8 +92,14 @@ define([
             },
 
             // router history manager
-            factory = new RouterFactory(factoryOptions);
+            factory = new RouterFactory();
 
+
+        // relay factory events
+        factory.on("create", function(arg){ scope.emit.call(scope, "create", arg); });
+        factory.on("bind", function(arg){ scope.emit.call(scope, "bind", arg); });
+        factory.on("unbind", function(arg){ scope.emit.call(scope, "unbind", arg); }); 
+        factory.on("destroy", function(arg){ scope.emit.call(scope, "destroy", arg); });
 
         //
         // code executed before jquery mobile add the elements to
