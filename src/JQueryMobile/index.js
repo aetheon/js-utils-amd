@@ -189,6 +189,37 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
     };
 
 
+    /*
+     * Is Page
+     * 
+     * @param{Element|null} pageElement - The page element to query
+     *
+     * @return{Boolean} returns the given or current page role
+     */
+    JQueryMobile.isPage = function (pageElement) {
+
+        var role = JQueryMobile.getPageRole(pageElement);
+        
+        return role === "page";
+
+    };
+
+
+    /*
+     * Remove page element from dom
+     * 
+     * @param{Element|null} pageElement - The page element to query
+     *
+     */
+    JQueryMobile.remove = function (pageElement) {
+
+        if(pageElement){
+            $(pageElement).remove();
+        }
+
+    };
+
+
 
     /*
      * .currentPage

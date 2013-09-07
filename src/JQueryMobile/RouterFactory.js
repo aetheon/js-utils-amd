@@ -17,6 +17,7 @@ define([
     "js-utils/Safe/index",
     "js-utils/Array/index", 
     "js-utils/Log/index",
+    "js-utils/JQueryMobile/index",
     "js-utils/JQueryMobile/RouterHistory",
     "js-utils/OOP/index"
 
@@ -33,10 +34,12 @@ define([
         OOP = require("js-utils/OOP/index"),
         EventEmitter = require("EventEmitter"),
         ArrayHelper = require("js-utils/Array/index"),
-        RouterHistory = require("js-utils/JQueryMobile/RouterHistory");
+        RouterHistory = require("js-utils/JQueryMobile/RouterHistory"),
+        JQueryMobile = require("js-utils/JQueryMobile/index");
 
 
     var log = new Log.Logger("js-utils/JQueryMobile/RouterFactory");
+
 
     var CREATE_EVENT_NAME = "create",
         BIND_EVENT_NAME = "bind",
@@ -87,6 +90,20 @@ define([
                 }
             },
             /*
+             * Checks if the page can be destroyed
+             * @param {Object} historyRecord
+             *
+             * @return {Boolean} True if the history record can be destroyed
+             */
+            canBeDestroyed: function(historyRecord){
+                var can = true;
+                if(historyRecord && historyRecord.instance) {
+                    can = Safe.call(historyRecord.instance.canBeDestroyed, { scope: historyRecord.instance });
+                }
+                // if result is Boolean return it otherwise return true
+                return Type.isBoolean(can) ? can : true;
+            },
+            /*
              * Call destroy to the instance object
              * @param {Object} instance
              */
@@ -94,6 +111,8 @@ define([
                 if(historyRecord && historyRecord.instance) {
                     Safe.call(historyRecord.instance.destroy, { scope: historyRecord.instance });
                     scope.emit.call(scope, DESTROY_EVENT_NAME, _.clone(historyRecord));
+                    // remove the element from the dom
+                    JQueryMobile.remove(historyRecord.element);
                 }
             }
 
@@ -103,6 +122,7 @@ define([
 
         // page history
         var history = new RouterHistory();
+
 
 
 
@@ -117,10 +137,15 @@ define([
             options = Arguments.get(
                 options,
                 {
+                    // route rule
                     rule: "",
+                    // page role ('page', 'dialog', ...)
                     role: "",
+                    // page transition data
                     data: {},
+                    // page element
                     element: {},
+                    // page controller type
                     instanceType: function(){ }
                 });
 
@@ -132,12 +157,30 @@ define([
                 log.d("Calling factory.unbind on " + $(last.element).attr("id") );
                 factory.unbind(last);
 
-                log.d("Calling factory.destroy on " + $(last.element).attr("id") );
-                factory.destroy(last);
+                // if the page then we can destroy it for keep
+                // memory low
+                if(JQueryMobile.isPage(options.element)){
+
+                    if(factory.canBeDestroyed(last)){
+                        log.d("Calling factory.destroy on " + $(last.element).attr("id") );
+                        factory.destroy(last);
+                    }
+                    else {
+                        // save instance for later reuse
+                        history.saveInstance(last);
+                    }
+
+                }
+                else{
+                    // if is a dialog or something else keep instance in memory
+                    history.save(last);
+                }
+
             }
     
             // get instance to bind
-            var instance = history.get(options.rule);
+            var historyRecord = history.get(options.rule);
+            var instance = historyRecord ? historyRecord.instance : null;
             if(!instance){
 
                 log.d("Calling factory.create on " + $(options.element).attr("id") );    
@@ -149,7 +192,7 @@ define([
             if(instance){
             
                 // add to history
-                var newHistoryRecord = history.add({
+                var newHistoryRecord = history.save({
                     rule: options.rule,
                     instance: instance,
                     element: options.element,
@@ -161,6 +204,8 @@ define([
                 factory.bind(newHistoryRecord);
 
             }
+
+            return instance;
 
         };
 

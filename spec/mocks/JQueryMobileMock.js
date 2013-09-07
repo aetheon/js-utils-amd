@@ -10,18 +10,15 @@ define(["js-utils/Arguments/index"], function(Arguments){
      var Mock = function(options){
 
 
-        options = Arguments.get(
+        var JQueryMobile = Arguments.get(
             options,
             {
-                getPageRole: function() { return "page" }
+                getPageRole: function() { return "page" },
+                isPage: function(){ return true; },
+                remove: function(){}
             });
 
-
-        var JQueryMobile = {};
-
-         JQueryMobile.getPageRole = options.getPageRole;
-
-         JQueryMobile.currentPage = {
+        JQueryMobile.currentPage = {
 
             getElement: function(){
                 return {};

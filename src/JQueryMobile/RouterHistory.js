@@ -32,27 +32,27 @@ define([
 
    
     /*
-     * JQuery Router Data Manager
+     * JQuery Router History
      *  . Structure to save the living rules instances
      *
      */
     var RouterHistory = function () {
 
-        var instances = [];
-        var rules = {};
+        // history array
+        var history = [];
+        // instances memory
+        var instances = {};
 
 
 
-
-        
 
         /*
-         * Add an instance
+         * Saves an instance for later reuse
          *
          * @param {Object} data - The data object
          *
          */
-        this.add = function(data){
+        this.saveInstance = function(data){
 
             if(!data) return;
 
@@ -66,15 +66,31 @@ define([
                 }
             );
 
-            if(rules[data.rule])
+            if(instances[data.rule])
                 throw new Error("Already exists a rule for: " + data.rule);
 
+            data.index = -1;
+            instances[data.rule] = data;
+
+        };
+
+
+        /*
+         * Save instance adding it to history 
+         *
+         * @param {Object} data - The data object
+         *
+         */
+        this.save = function(data){
+
+            // save instance
+            this.saveInstance(data);
             // add the instance to the structure
-            ArrayHelper.add(instances, data);
+            ArrayHelper.add(history, data);
             // save the index on the array
-            data.index = instances.length - 1;
+            data.index = history.length - 1;
             // save the rule
-            rules[data.rule] = data;
+            instances[data.rule] = data;
 
             return _.clone(data);
 
@@ -93,10 +109,10 @@ define([
 
             if(!rule) return;
 
-            var instance = rules[rule] || null;
+            var instance = instances[rule] || null;
             if(instance){
-                ArrayHelper.removeIndex(instances, instance.index);
-                delete rules[rule];
+                ArrayHelper.removeIndex(history, instance.index);
+                delete instances[rule];
             }
 
             return instance;
@@ -111,9 +127,9 @@ define([
          */
         this.last = function(){
 
-            var last = ArrayHelper.index(ArrayHelper.removeLast(instances), 0);
+            var last = ArrayHelper.index(ArrayHelper.removeLast(history), 0);
             if(last){
-                delete rules[last.rule];
+                delete instances[last.rule];
             }
 
             return last;

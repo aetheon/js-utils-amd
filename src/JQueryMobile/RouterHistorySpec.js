@@ -21,13 +21,13 @@ describe("RouterHistorySpec", function () {
 
 
     
-    async.it(".add() should add the instance data", function (done) {
+    async.it(".save() should add the instance data", function (done) {
 
         Injector.require(["src/JQueryMobile/RouterHistory"], function(RouterHistory){
 
             var manager = new RouterHistory();
 
-            manager.add({
+            manager.save({
                 rule: "teste",
                 instance: {},
                 element: {},
@@ -50,13 +50,13 @@ describe("RouterHistorySpec", function () {
 
 
 
-    async.it(".add() repeated rule should throw an exception", function (done) {
+    async.it(".save() repeated rule should throw an exception", function (done) {
 
         Injector.require(["src/JQueryMobile/RouterHistory"], function(RouterHistory){
 
             var manager = new RouterHistory();
 
-            manager.add({
+            manager.save({
                 rule: "teste",
                 instance: {},
                 element: {},
@@ -66,7 +66,7 @@ describe("RouterHistorySpec", function () {
 
             var add = function(){
 
-                manager.add({
+                manager.save({
                     rule: "teste",
                     instance: {},
                     element: {},
