@@ -230,7 +230,7 @@ define([
                     "create",
                     function(instance, element){
                         // when instance created auto bind it with the element
-                        ko.applyBindings(instance, element);
+                        ko.applyBindings(instance, jQuery(element)[0]);
                     }
                 );
 

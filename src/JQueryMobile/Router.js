@@ -92,14 +92,14 @@ define([
             },
 
             // router history manager
-            factory = new RouterFactory();
+            factory = new RouterFactory(options);
 
 
         // relay factory events
-        factory.on("create", function(arg){ scope.emit.call(scope, "create", arg); });
-        factory.on("bind", function(arg){ scope.emit.call(scope, "bind", arg); });
-        factory.on("unbind", function(arg){ scope.emit.call(scope, "unbind", arg); }); 
-        factory.on("destroy", function(arg){ scope.emit.call(scope, "destroy", arg); });
+        factory.on("create", function(i, e){ scope.emitEvent.call(scope, "create", [ i, e ]); });
+        factory.on("bind", function(arg){ scope.emitEvent.call(scope, "bind", [ arg ]); });
+        factory.on("unbind", function(arg){ scope.emitEvent.call(scope, "unbind", [ arg ]); }); 
+        factory.on("destroy", function(arg){ scope.emitEvent.call(scope, "destroy", [ arg ]); });
 
         //
         // code executed before jquery mobile add the elements to

@@ -70,6 +70,57 @@ describe("RouterSpec", function () {
 
 
 
+    async.it("Instance parameters should be (context, element, data)", function (done) {
+
+        var event = EventEmitterObjMock.event;
+        Injector.mock('js-utils/JQueryMobile/PageTracker', Squire.Helpers.returns(EventEmitterObjMock.obj) );
+        Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
+
+        var actionRun = false;
+        var action = function(context, element, data){
+            
+            expect(context).not.toBe(null);
+            expect(context.one).toBe(1);
+            expect(element).not.toBe(null);
+            expect(data).not.toBe(null);
+
+            actionRun = true;
+        };
+
+        runs(function(){
+
+            Injector.require(["src/JQueryMobile/Router.js"], function(Router){
+
+                var router = new Router(
+                    { 
+                        "default$": function(){ 
+                            return action; 
+                        } 
+                    }, 
+                    { context: { one: 1 } }
+                );
+
+                event.emit("changing", "default");
+                event.emit("change", {}, {});
+
+            });
+
+        });
+
+        waitsFor(function () { return actionRun; }, "Timeout", 5000);
+
+        runs(function(){
+
+            expect(actionRun).toBeTruthy();
+            done();
+
+        });
+            
+
+    });
+
+
+
     async.it("action should be called for a given empty string route when changing the page", function (done) {
 
         var event = EventEmitterObjMock.event;
@@ -215,7 +266,9 @@ describe("RouterSpec", function () {
                     
                 });
 
-                router.on("create", function(){
+                router.on("create", function(instance, element){
+                    expect(instance).not.toBe(null);
+                    expect(element).not.toBe(null);
                     isDone = true;
                 });
 
@@ -255,7 +308,8 @@ describe("RouterSpec", function () {
                     
                 });
 
-                router.on("bind", function(){
+                router.on("bind", function(historyRecord){
+                    expect(historyRecord).not.toBe(null);
                     isDone = true;
                 });
 
@@ -296,7 +350,8 @@ describe("RouterSpec", function () {
                     
                 });
 
-                router.on("destroy", function(){
+                router.on("destroy", function(historyRecord){
+                    expect(historyRecord).not.toBe(null);
                     isDone = true;
                 });
 
