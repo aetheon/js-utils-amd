@@ -1,6 +1,12 @@
 define([
-    "require"
+    "require",
+    "EventEmitter",
+    "js-utils/OOP/index"
     ], function(require){
+
+
+        var OOP = require("js-utils/OOP/index"),
+            EventEmitter = require("EventEmitter");
 
 
         /*
@@ -11,6 +17,8 @@ define([
          * @param {Object} data - The page data
          */
         var Page = function(routerContext, element, data){
+
+            OOP.super(this, EventEmitter);
 
             this.context = routerContext;
             this.element = element;
@@ -98,6 +106,8 @@ define([
 
         };
 
+
+        Page.prototype = OOP.protoInheritFrom(Page, EventEmitter);
 
         return Page;
 
