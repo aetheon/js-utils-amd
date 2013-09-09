@@ -150,7 +150,7 @@ define([
                     // page role ('page', 'dialog', ...)
                     role: "",
                     // page transition data
-                    data: {},
+                    data: null,
                     // page element
                     element: {},
                     // page controller type
