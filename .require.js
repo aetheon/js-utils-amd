@@ -28,6 +28,7 @@ requirejs.config({
         'persistence-websql': 'lib/persistence/persistence.store.websql',
 
         'lawnchair': 'lib/lawnchair/lawnchair-latest',
+        'jsuri': 'lib/jsuri/jsuri-latest',
 
         // js-utils base path
         'js-utils': './src/',

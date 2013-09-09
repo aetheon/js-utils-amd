@@ -11,7 +11,8 @@ define([
     "jquery", 
     "lodash", 
     "knockout", 
-    "EventEmitter", 
+    "EventEmitter",
+    "jsuri", 
     
     "js-utils/Arguments/index", 
     "js-utils/JQueryMobile/index", 
@@ -38,7 +39,8 @@ define([
         Safe = require("js-utils/Safe/index"),
         Log = require("js-utils/Log/index"),
         ArrayHelper = require("js-utils/Array/index"),
-        EventEmitter = require("EventEmitter");
+        EventEmitter = require("EventEmitter"),
+        URI = require("jsuri");
 
 
     var log = new Log.Logger("js-utils/JQueryMobile/Router");
@@ -184,8 +186,10 @@ define([
          */
         getRule: function(url){
 
-            // get action from routes hash
-            
+            // get action from routes hash, ignoring base path and 
+            // query string parameters
+            url = Url.normalize(url);
+            url = new URI(url).path();
             var selectedRule = null;
 
             _.each(

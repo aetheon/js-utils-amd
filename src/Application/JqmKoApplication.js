@@ -227,10 +227,13 @@ define([
                 );
 
                 router.on(
-                    "create",
-                    function(instance, element){
-                        // when instance created auto bind it with the element
-                        element = jQuery(element)[0];
+                    "bind",
+                    function(args){
+                        // when instance is binded in router we must 
+                        // apply the ko binding. This works will newly created 
+                        // instances or reused ones.
+                        var element = jQuery(args.element)[0],
+                            instance = args.instance;
                         ko.applyBindings(instance, element);
                     }
                 );

@@ -16,7 +16,12 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
 
             var jqmDefs = {
                 ajaxEnabled: true,
+                
+                // this should be false because jqm must not keep in
+                // dom the pages. The state should be save into instances that 
+                // will be later binded
                 domCache: false,
+                
                 autoInitializePage: false,
                 defaultPageTransition: 'none', // no animations
                 defaultDialogTransition: 'none'

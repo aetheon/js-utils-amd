@@ -186,5 +186,52 @@ describe("Ajax", function () {
 
 
 
+    async.it(".isForbiddenStatus()", function (done) {
+
+        Injector.require(["src/Ajax/index.js", "jquery"], function(Ajax){
+            
+            expect(Ajax.isForbiddenStatus(401)).toBe(true);
+            expect(Ajax.isForbiddenStatus(403)).toBe(true);
+            expect(Ajax.isForbiddenStatus(null)).toBe(false);
+            expect(Ajax.isForbiddenStatus([])).toBe(false);
+            done();
+
+        });
+
+    });
+
+
+    async.it(".isErrorStatus()", function (done) {
+
+        Injector.require(["src/Ajax/index.js", "jquery"], function(Ajax){
+            
+            expect(Ajax.isErrorStatus(500)).toBe(true);
+            expect(Ajax.isErrorStatus(403)).toBe(true);
+            expect(Ajax.isErrorStatus(200)).toBe(false);
+            expect(Ajax.isErrorStatus([])).toBe(false);
+            done();
+
+        });
+
+    });
+
+
+    async.it(".isOKStatus()", function (done) {
+
+        Injector.require(["src/Ajax/index.js", "jquery"], function(Ajax){
+            
+            expect(Ajax.isOKStatus(200)).toBe(true);
+            expect(Ajax.isOKStatus(403)).toBe(false);
+            expect(Ajax.isOKStatus(500)).toBe(false);
+            expect(Ajax.isOKStatus([])).toBe(false);
+            done();
+
+        });
+
+    });
+
+
+
+
 
 });

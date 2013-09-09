@@ -4,7 +4,7 @@
  * 
  */
 
-define(["js-utils/Globals/window", "jquery", "lodash"], function(window, $, _){
+define(["require", "js-utils/Globals/window", "jquery", "lodash", "js-utils/Type/index"], function(require, window, $, _, Type){
     "use strict";
 
 
@@ -13,8 +13,33 @@ define(["js-utils/Globals/window", "jquery", "lodash"], function(window, $, _){
      *
      * @return{String} the current url
      */
-    function get() {
+    function get(url) {
+        
         return window.location.href;
+
+    }
+
+
+
+    /**
+     *  normalize url
+     *
+     * @return{String} the current url
+     */
+    function normalize(url) {
+        
+        if(!url) return "";
+
+        if(url.indexOf("://")>=0){
+            return url;
+        }
+
+        if(url.indexOf("/")===0){
+            return url;
+        }
+
+        return "/" + url;
+
     }
 
     /**
@@ -87,7 +112,8 @@ define(["js-utils/Globals/window", "jquery", "lodash"], function(window, $, _){
 
         get: get,
         getQueryString: getQueryString,
-        getQueryStringObject: getQueryStringObject
+        getQueryStringObject: getQueryStringObject,
+        normalize: normalize
         
     };
 

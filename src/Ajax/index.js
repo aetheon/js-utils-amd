@@ -21,6 +21,43 @@ define(["require", "jquery", "EventEmitter", "js-utils/Arguments/index", "js-uti
 
 
         /*
+         * Test if the given status code is forbidden
+         *
+         * @param {Number} status
+         * @return {Boolean} True|False
+         */
+        isForbiddenStatus: function(status){
+          if(!Type.isNumber(status)) return false;
+          if(status === 401 || status === 403) return true;
+          return false;
+        },
+
+        /*
+         * Test if the given status code is error
+         *
+         * @param {Number} status
+         * @return {Boolean} True|False
+         */
+        isErrorStatus: function(status){
+          if(!Type.isNumber(status)) return false;
+          if(status !== 200) return true;
+          return false;
+        },
+
+        /*
+         * Test if the given status code is ok
+         *
+         * @param {Number} status
+         * @return {Boolean} True|False
+         */
+        isOKStatus: function(status){
+          if(!Type.isNumber(status)) return false;
+          if(status === 200) return true;
+          return false;
+        },
+
+
+        /*
          * Global subscribe response events
          *
          * @param {Function} fn The function to subscrive
@@ -78,6 +115,9 @@ define(["require", "jquery", "EventEmitter", "js-utils/Arguments/index", "js-uti
             );
 
             // make the call
+
+            log.d("Ajax call to: " + options.url);
+
             $.ajax(options)
             .always(
                 function (data, textStatus, errorThrown) {

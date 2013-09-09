@@ -82,6 +82,21 @@ describe("UrlSpec", function () {
     });
 
 
+    async.it(".normalize()", function (done) {
+
+        Injector.require(["src/Url/index.js"], function(Url){
+
+            expect(Url.normalize("http://a.com/")).toEqual("http://a.com/");
+            expect(Url.normalize("")).toEqual("");
+            expect(Url.normalize("default")).toEqual("/default");
+            
+            done();
+
+        });
+
+    });
+
+
 
 
 
