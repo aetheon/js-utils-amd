@@ -51,7 +51,15 @@ define([
      *  . takes care of page tracking
      *
      */
-    var RouterFactory = function () {
+    var RouterFactory = function (options) {
+
+        options = Arguments.get(
+            options,
+            {
+                // router context
+                context: null
+            }
+        );
 
         var scope = this;
 
@@ -65,8 +73,8 @@ define([
              * @return {Object} intance of the given type
              */
             create: function(InstanceType, element, data){
-                var instance = new InstanceType(element, data);
-                scope.emit.call(scope, CREATE_EVENT_NAME);
+                var instance = new InstanceType(options.context, element, data);
+                scope.emitEvent.call(scope, CREATE_EVENT_NAME, [instance, element]);
                 return instance;
             },
             /*
@@ -76,7 +84,7 @@ define([
             bind: function(historyRecord){
                 if(historyRecord && historyRecord.instance) {
                     Safe.call(historyRecord.instance.bind, { scope: historyRecord.instance });
-                    scope.emit.call(scope, BIND_EVENT_NAME, _.clone(historyRecord));
+                    scope.emitEvent.call(scope, BIND_EVENT_NAME, [ _.clone(historyRecord) ]);
                 }
             },
             /*
@@ -86,7 +94,7 @@ define([
             unbind: function(historyRecord){
                 if(historyRecord && historyRecord.instance) {
                     Safe.call(historyRecord.instance.unbind, { scope: historyRecord.instance });
-                    scope.emit.call(scope, UNBIND_EVENT_NAME, _.clone(historyRecord));
+                    scope.emitEvent.call(scope, UNBIND_EVENT_NAME, [ _.clone(historyRecord) ]);
                 }
             },
             /*
@@ -110,7 +118,7 @@ define([
             destroy: function(historyRecord){
                 if(historyRecord && historyRecord.instance) {
                     Safe.call(historyRecord.instance.destroy, { scope: historyRecord.instance });
-                    scope.emit.call(scope, DESTROY_EVENT_NAME, _.clone(historyRecord));
+                    scope.emitEvent.call(scope, DESTROY_EVENT_NAME, [ _.clone(historyRecord) ]);
                     // remove the element from the dom
                     JQueryMobile.remove(historyRecord.element);
                 }

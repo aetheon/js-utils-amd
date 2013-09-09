@@ -56,7 +56,15 @@ define([
      * @event destroy
      *
      */
-    var Router = function (routes) {
+    var Router = function (routes, options) {
+
+        options = Arguments.get(
+            options,
+            {
+                // router context
+                context: null
+            }
+        );
 
         // call .ctor
         OOP.super(this, EventEmitter);

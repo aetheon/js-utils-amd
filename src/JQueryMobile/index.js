@@ -214,6 +214,7 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
     JQueryMobile.remove = function (pageElement) {
 
         if(pageElement){
+            $(pageElement).find("*").each(function () { $(this).unbind(); });
             $(pageElement).remove();
         }
 

@@ -32,7 +32,7 @@ describe("JqmKoApplication", function () {
         Injector.require(["src/Application/JqmKoApplication", "jquery"], function(Application, $){
 
             new Application({
-                controller: function(){},
+                routes: function(){},
                 domainServices: []
             });
 
@@ -44,7 +44,7 @@ describe("JqmKoApplication", function () {
 
 
 
-    async.it("Application shoul load controller definitions", function (done) {
+    async.it("Application shoul load routes definitions", function (done) {
 
         // no dependencies are loaded
         Injector.mock('js-utils/Boilerplate/JQMobileAppDependencies', Squire.Helpers.returns(function(){}));
@@ -54,7 +54,7 @@ describe("JqmKoApplication", function () {
 
             var runned = false;
 
-            var Controller = function(ctx){
+            var Routes = function(ctx){
                 runned = true;
                 return {
                     routes: {
@@ -65,7 +65,7 @@ describe("JqmKoApplication", function () {
             };
 
             new Application({
-                controller: Controller,
+                routes: Routes,
                 domainServices: []
             });
 
@@ -99,7 +99,7 @@ describe("JqmKoApplication", function () {
             ];
 
             var app = new Application({
-                    controller: function(){},
+                    routes: function(){},
                     domainServices: services
                 });
 
@@ -137,7 +137,7 @@ describe("JqmKoApplication", function () {
             ];
 
             var app = new Application({
-                    controller: function(){},
+                    routes: function(){},
                     domainServices: services
                 });
 
@@ -167,7 +167,7 @@ describe("JqmKoApplication", function () {
             var runned = false;
 
             var app = new Application({
-                controller: function(){},
+                routes: function(){},
                 domainServices: []
             }, { one: 1 });
 

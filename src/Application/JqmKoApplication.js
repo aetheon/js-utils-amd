@@ -24,7 +24,6 @@ define([
         "js-utils/UI/Accessibility",
         "js-utils/JQueryMobile/index",
         "js-utils/JQueryMobile/Router",
-        "js-utils/KO/ViewModelFactory",
 
         // touch optimization (remove 300msec delay between taps)
         "fastclick",
@@ -45,7 +44,10 @@ define([
         "lawnchair",
 
         // UI - jQueryMobile    
-        "jqm"
+        "jqm",
+
+        // data binding using knockout
+        "knockout"
 
         // use GPU animated on jquery animate
         //"jquery.animate-enhanced"
@@ -96,7 +98,7 @@ define([
             options = Arguments.get(options, {
                 
                 // route controller ( see JQueryMobile/Routes )
-                controller: function(){},
+                routes: function(){},
 
                 // domain service available
                 domainServices: 
@@ -210,29 +212,36 @@ define([
              */
             
             var Router = require("js-utils/JQueryMobile/Router"),
-                Controller = options.controller;
+                Routes = options.routes;
 
-            if(Controller){
+            if(Routes){
 
-                // view model factory have context to app 
-                // variables
-                var ViewModelFactory = require("js-utils/KO/ViewModelFactory"),
-                    viewModelFactoryInstance = new ViewModelFactory(_this);
+                var ko = require("knockout");
 
-                // customize the way view models are created
-                // when route rules are applied
-                var ActionResultFactory = {
-                    createActionResult: viewModelFactoryInstance.createViewModel,
-                    destroyActionResult: viewModelFactoryInstance.destroyViewModel,
-                    destroyElement: viewModelFactoryInstance.destroyViewModelElement
-                };
+                var routes = new Routes(_this);
 
-                new Router(new Controller(_this), ActionResultFactory);
+                // initialize router
+                var router = new Router(
+                    routes,
+                    { context: _this }
+                );
 
-                // Remove old element from the dom
-                // when using knockout this is required because bindings cannot be 
-                // applied twice
-                //router.on("previous", ActionResultFactory.destroyElement);
+                router.on(
+                    "create",
+                    function(instance, element){
+                        // when instance created auto bind it with the element
+                        ko.applyBindings(instance, element);
+                    }
+                );
+
+                router.on(
+                    "destroy",
+                    function(instance, element){
+                        // when instance is destroyed remove ko bindings
+                        ko.cleanNode(element);
+                    }
+                );
+
             }
 
 
