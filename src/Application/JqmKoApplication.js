@@ -230,14 +230,16 @@ define([
                     "create",
                     function(instance, element){
                         // when instance created auto bind it with the element
-                        ko.applyBindings(instance, jQuery(element)[0]);
+                        element = jQuery(element)[0];
+                        ko.applyBindings(instance, element);
                     }
                 );
 
                 router.on(
                     "destroy",
-                    function(instance, element){
+                    function(args){
                         // when instance is destroyed remove ko bindings
+                        var element = jQuery(args.element)[0];
                         ko.cleanNode(element);
                     }
                 );
