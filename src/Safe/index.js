@@ -88,6 +88,10 @@ define([
          */
         Safe.getNumber = function(value){
             
+            // convert to value
+            /* jshint -W041 */
+            value = (value != null) ? Number(value) : null;
+
             if(Type.isNumber(value)){
                 return value;
             }

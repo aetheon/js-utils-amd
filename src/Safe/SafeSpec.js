@@ -271,9 +271,8 @@ describe("SafeSpec", function () {
 
         Injector.require(["src/Safe/index"], function(Safe){
 
-            var number = Safe.getNumber(1);
-
-            expect(number).toBe(1);
+            expect(Safe.getNumber(1)).toBe(1);
+            expect(Safe.getNumber("1")).toBe(1);
 
             done();
 
