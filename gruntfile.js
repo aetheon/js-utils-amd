@@ -9,10 +9,8 @@ module.exports = function(grunt) {
       files: [
         'gruntfile.js',
         '.require.js',
-        BasePath + 'src/*',
-        BasePath + 'src/**/*.js',
-        BasePath + 'src/**/**/*.js',
-        BasePath + 'src/**/**/**/*.js'
+        BasePath + 'src/client-js/*',
+        BasePath + 'src/client-js/**/*.js'
       ]
     },
 
@@ -31,10 +29,8 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: [
-          BasePath + 'src/*',
-          BasePath + 'src/**/*.js',
-          BasePath + 'src/**/**/*.js',
-          BasePath + 'src/**/**/**/*.js',
+          BasePath + 'src/client-js/*',
+          BasePath + 'src/client-js/**/*.js',
 
           BasePath + 'spec/*Spec.js'
         ],
@@ -55,7 +51,7 @@ module.exports = function(grunt) {
         options: {
                 
                 specs: [
-                    'src/**/*Spec.js'
+                    'src/client-js/**/*Spec.js'
                 ],
                 
                 outfile: '.tests.html',

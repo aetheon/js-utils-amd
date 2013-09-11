@@ -1,6 +1,6 @@
 
 requirejs.config({
-    
+
     paths: {
 
         //core libraries:
@@ -30,9 +30,13 @@ requirejs.config({
         'lawnchair': 'lib/lawnchair/lawnchair-latest',
         'jsuri': 'lib/jsuri/jsuri-latest',
 
+        'squire': 'lib/squire/squire-latest',
+
         // js-utils base path
-        'js-utils': './src/',
-        'js-mocks': './spec/mocks/'
+        'js-utils': './src/client-js/',
+        'js-mocks': './spec/mocks/',
+        'src': './src/client-js/'
+
     },
 
     shim: {
