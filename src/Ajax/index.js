@@ -116,7 +116,7 @@ define(["require", "jquery", "EventEmitter", "js-utils/Arguments/index", "js-uti
 
             // make the call
 
-            log.d("Ajax call to: " + options.url);
+            log.d("Ajax call: " + options.type + " " + options.url);
 
             $.ajax(options)
             .always(
@@ -141,9 +141,9 @@ define(["require", "jquery", "EventEmitter", "js-utils/Arguments/index", "js-uti
                           d = data;
                       }
 
-                      log.d("Response url: " + options.url);
+                      log.d("Ajax Response: " + options.url);
                       /* jshint -W030 */
-                      status == 200 ? log.d("Response status: " + status) : log.w("Response status: " + status);
+                      status == 200 ? log.d("Ajax Response status: " + status) : log.w("Ajax Response status: " + status);
 
                       // trigger global event
                       ajaxEvent.emit(
