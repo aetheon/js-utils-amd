@@ -4,34 +4,33 @@
  * 
  */
 
-define(["jquery", "js-utils/Type/index"], function($, Type){
+define(["jquery", "js-utils/Type/index", "js-utils/Safe/index"], function($, Type, Safe){
     "use strict";
     
     var OOP = {
 
 
         /*
-         * helper to extend the given object with the one's from the base 
+         * Inherit method - merge prototype og the given arguments
          *
-         * @param{classObj} the object
-         * @param{baseClass} the object base class
+         * @param {Function} objClass - pagination options
+         * @param {Function} baseClass - pagination options
          *
-         * @return The extend object
          *
+         * @return {Object} - The extendended prototype
          */
-        protoInheritFrom: function (classObj, baseClass) {
+        inherit: function(objClass, baseClass){
 
-            if(Type.isFunction(classObj)){
-                classObj = classObj.prototype;
-            }
+            objClass = Safe.getObject(objClass);
+            baseClass = Safe.getObject(baseClass);
 
-            if(Type.isFunction(baseClass)){
-                baseClass = baseClass.prototype;
-            }
+            /*if(!Type.isObject(objClass) && !Type.isObject(baseClass))
+                return;*/
 
-            return $.extend(true, {}, baseClass, classObj);
+            $.extend(true, objClass, baseClass, objClass);
+
+            return objClass;
         },
-
 
         /*
          * call super .ctor with the given args

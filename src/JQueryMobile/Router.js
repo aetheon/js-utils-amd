@@ -261,7 +261,7 @@ define([
     };
 
     // inherit from event emitter
-    Router.prototype = OOP.protoInheritFrom(Router, EventEmitter);
+    OOP.inherit(Router.prototype, EventEmitter.prototype);
 
     return Router;
 

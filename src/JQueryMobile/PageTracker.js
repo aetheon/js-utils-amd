@@ -189,7 +189,7 @@ define([
 
 
     // inherit from event model
-    PageTracker.prototype = OOP.protoInheritFrom(PageTracker, EventEmitter);
+    OOP.inherit(PageTracker.prototype, EventEmitter.prototype);
 
     return PageTracker;
 

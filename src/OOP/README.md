@@ -36,7 +36,7 @@ Class.protoype = {
     }
 };
 
-Class.protoype = OOP.protoInheritFrom(Class, BaseClass);
+OOP.inherit(Class, BaseClass);
 
 
 // eg:

@@ -20,7 +20,7 @@ describe("OOP Spec", function () {
     });
 
     
-    async.it(".protoInheritFrom should extend prototype", function (done) {
+    async.it(".inherit should extend prototype", function (done) {
 
         Injector.require(["src/OOP/index.js"], function(OOP){
 
@@ -34,7 +34,7 @@ describe("OOP Spec", function () {
                 two: 2
             };
 
-            var c = OOP.protoInheritFrom(B, A);
+            var c = OOP.inherit(B.prototype, A.prototype);
 
             expect(c.one).toBe(1);
             expect(c.two).toBe(2);
@@ -46,7 +46,7 @@ describe("OOP Spec", function () {
     });
 
 
-    async.it(".protoInheritFrom with null arguments should return result", function (done) {
+    async.it(".inherit with null arguments should return result", function (done) {
 
         Injector.require(["src/OOP/index.js"], function(OOP){
 
@@ -57,7 +57,7 @@ describe("OOP Spec", function () {
 
             var B = null;
 
-            var c = OOP.protoInheritFrom(B, A);
+            var c = OOP.inherit(B, A.prototype);
 
             expect(c.one).toBe(1);
 
@@ -67,16 +67,38 @@ describe("OOP Spec", function () {
 
     });
     
-    async.it(".protoInheritFrom with both null arguments should not be null", function (done) {
+    async.it(".inherit with both null arguments should not be null", function (done) {
 
         Injector.require(["src/OOP/index.js"], function(OOP){
 
             var A = null;
             var B = null;
 
-            var c = OOP.protoInheritFrom(B, A);
+            var c = OOP.inherit(B, A);
 
             expect(c).not.toBe(null);
+
+            done();
+
+        });
+
+    });
+
+
+     async.it(".inherit shoul change the base class hash", function (done) {
+
+        Injector.require(["src/OOP/index.js"], function(OOP){
+
+            var A = {
+                one: 1
+            };
+            var B = {
+                one: 2
+            };
+
+            var c = OOP.inherit(A, B);
+
+            expect(A.one).toBe(2);
 
             done();
 

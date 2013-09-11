@@ -126,7 +126,7 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
 
 
     // extent this from EventEmitter
-    WindowScroll.prototype = OOP.protoInheritFrom(WindowScroll, EventEmitter);
+    OOP.inherit(WindowScroll.prototype, EventEmitter.prototype);
 
     return WindowScroll;
 

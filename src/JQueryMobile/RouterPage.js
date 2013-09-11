@@ -107,7 +107,7 @@ define([
         };
 
 
-        Page.prototype = OOP.protoInheritFrom(Page, EventEmitter);
+        OOP.inherit(Page.prototype, EventEmitter.prototype);
 
         return Page;
 
