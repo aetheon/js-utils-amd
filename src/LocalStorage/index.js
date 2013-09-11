@@ -4,12 +4,13 @@
  * 
  */
 
-define(["require", "lodash", "jquery", "lawnchair", "EventEmitter", "js-utils/Arguments/index", "js-utils/Log/index"], function(require){
+define(["require", "lodash", "jquery", "lawnchair", "EventEmitter", "js-utils/Type/index", "js-utils/Arguments/index", "js-utils/Log/index"], function(require){
     "use strict";
 
     var _ = require("lodash"),
         $ = require("jquery"),
         Log = require("js-utils/Log/index"),
+        Type = require("js-utils/Type/index"),
         Arguments = require("js-utils/Arguments/index"),
         Lawnchair = require("lawnchair"),
         EventEmitter = require("EventEmitter");
@@ -52,7 +53,7 @@ define(["require", "lodash", "jquery", "lawnchair", "EventEmitter", "js-utils/Ar
             );
 
             // return right away
-            if(options.value){
+            if(Type.isDefined(options.value)){
                 dfd.resolve(options.value);
                 return dfd.promise();
             }

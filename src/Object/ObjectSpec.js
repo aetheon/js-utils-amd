@@ -310,6 +310,93 @@ describe("ObjectSpec", function () {
     });
 
 
+    async.it(".fill() should set the default value when a string field is null", function (done) {
+
+        Injector.require(["src/Object/index.js"], function(Options){
+
+            var o = Options.fill(
+            
+                {
+                    "val": {
+                        "one": "",
+                    }
+                },
+
+                {
+                    "val": {
+                        "one": null
+                    }
+                }
+
+            );
+            
+            expect(o.val.one).toBe("");
+            
+            done();
+
+        });
+
+    });
+
+
+    async.it(".fill() should set the default value when a object field is null", function (done) {
+
+        Injector.require(["src/Object/index.js"], function(Options){
+
+            var o = Options.fill(
+            
+                {
+                    "val": {
+                        "one": {},
+                    }
+                },
+
+                {
+                    "val": {
+                        "one": null
+                    }
+                }
+
+            );
+            
+            expect(o.val.one).not.toBe(null);
+            
+            done();
+
+        });
+
+    });
+
+
+    async.it(".fill() should set the default value when a array field is null", function (done) {
+
+        Injector.require(["src/Object/index.js"], function(Options){
+
+            var o = Options.fill(
+            
+                {
+                    "val": {
+                        "one": [],
+                    }
+                },
+
+                {
+                    "val": {
+                        "one": null
+                    }
+                }
+
+            );
+            
+            expect(o.val.one).not.toBe(null);
+            
+            done();
+
+        });
+
+    });
+
+
 
 
 

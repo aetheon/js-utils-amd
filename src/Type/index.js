@@ -200,6 +200,34 @@ define(["lodash"], function(_){
     };
 
 
+    /*
+     * Test if the value is defined or not
+     *
+     * @param {void} value - The value to test
+     *
+     * @return {Boolean}
+     */
+    Type.isDefined = function(value){
+
+        if(Type.isObject(value) || Type.isArray(value)){
+            
+            for (var key in value) {
+                // cancel iteration because it has some data
+                return true;
+            }
+
+            return false;
+
+        }
+
+        // don't want to change the way conditional expressions 
+        // are calculated by javascript ( eg. 0 returns false )
+
+        return !!value;
+
+    };
+
+
 
     return Type;
 

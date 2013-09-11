@@ -64,6 +64,38 @@ define(["lodash", "js-utils/Type/index"], function(_, Type){
                 }
 
                 //
+                // rules for null values ( value default's )
+                // 
+                /* jshint -W041 */
+                if( value == null ){
+
+                    switch(Type.of(obj[key])){
+
+                        case "string":
+                            value = "";
+                            break;
+
+                        case "array":
+                            value = [];
+                            break;
+
+                        case "object":
+                            value = {};
+                            break;
+
+                        
+                        // If the value is set to null what is suposed to be the 
+                        // default value?
+
+                        // I don't think that should be a default value when
+                        // the type should be a: number, boolean or function
+
+                    }
+
+                }
+
+
+                //
                 // guards - make sure the value are from the same type
                 // if obj[key] is null ignore the testing
                 //
@@ -78,7 +110,7 @@ define(["lodash", "js-utils/Type/index"], function(_, Type){
                 /* jshint -W041 */
                 if(  obj[key] != null && Type.of(obj[key]) == "object"){
                     // if is object deep copy
-                    var copy = Obj.fill(obj[key], from[key] || null);
+                    var copy = Obj.fill(obj[key], from[key] || {});
                     obj[key] = copy;
                 }
                 else{

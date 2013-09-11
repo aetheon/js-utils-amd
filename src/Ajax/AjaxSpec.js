@@ -84,31 +84,6 @@ describe("Ajax", function () {
     });
 
 
-
-    async.it(".call() without the needed arguments shoul throw an exception", function (done) {
-
-        Injector.require(["src/Ajax/index.js", "jquery"], function(Ajax){
-
-
-            var call = function(){
-                Ajax.call(
-                    {
-                        type: "GET",
-                        url: "spec/data/notexists.json"
-                    }
-                );
-            };
-
-            expect(call).toThrow();
-
-            done();
-
-        });
-
-    });
-
-
-
     async.it(".onAjaxResponse global event should be called", function (done) {
 
         Injector.require(["src/Ajax/index.js", "jquery"], function(Ajax){

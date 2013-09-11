@@ -1,5 +1,5 @@
 
-describe("ArgumentsSpec", function () {
+describe("TypeSpec", function () {
 
     var Squire = null,
         Injector = null,
@@ -300,6 +300,55 @@ describe("ArgumentsSpec", function () {
         });
         
     });
+
+
+    async.it("Type.isDefined({}|[]) should return false if the given structure is empty", function (allDone) {
+
+        Injector.require( [ "js-utils/Type/index" ], function(Type){
+
+            var isDefined = Type.isDefined({});
+            expect(isDefined).not.toBeTruthy();
+
+            isDefined = Type.isDefined([]);
+            expect(isDefined).not.toBeTruthy();
+
+            isDefined = Type.isDefined(null);
+            expect(isDefined).not.toBeTruthy();
+
+            isDefined = Type.isDefined();
+            expect(isDefined).not.toBeTruthy();
+            
+            allDone();
+
+        });
+        
+    });
+
+
+    async.it("Type.isDefined({}|[]) should return true if the given structure is not empty", function (allDone) {
+
+        Injector.require( [ "js-utils/Type/index" ], function(Type){
+
+            var isDefined = Type.isDefined({ 1: 1 });
+            expect(isDefined).toBeTruthy();
+
+            isDefined = Type.isDefined([1,2,3]);
+            expect(isDefined).toBeTruthy();
+
+            isDefined = Type.isDefined(1);
+            expect(isDefined).toBeTruthy();
+
+            isDefined = Type.isDefined(true);
+            expect(isDefined).toBeTruthy();
+            
+            allDone();
+
+        });
+        
+    });
+
+
+    
 
 
 
