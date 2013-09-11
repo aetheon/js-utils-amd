@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+        <meta name="format-detection" content="telephone=no" /> 
+
+
+        {% block HeadJs %}
+        {% endblock %}
+
+        {% block HeadCss %}
+        {% endblock %}
+
+
+        <link rel="stylesheet" href="css/libs.css" />
+        <link rel="stylesheet" href="css/{{project}}.css" />
+
+        <script data-main='scripts/sps-mobile-{{project}}.js' src="lib/require.js"></script>
+
+        {% if isCordova %}
+        <script src="cordova.js"></script>
+        {% endif %}
+
+        <title>{{title}}</title>
+    </head>
+    <body>
+        
+        {% block BodyContent %}
+            <div id="{{pageName}}-page" data-role="page" class="{{pageCss}} {{pageName}}-page" data-viewmodel="{{pageViewModel}}" {% if allowAnonymous === true %}allow-anonymous{% endif %} data-dom-cache="false">
+
+                {% block PagePanel %}
+                <div data-role="panel" id="{{pageName}}-panel" data-position="right" data-display="push">
+                    {% block PagePanelContent %}{% endblock %}
+                </div>
+                {% endblock %}
+
+                {% block PageHeader %}
+                <div data-id="header" data-role="header" data-position="fixed" data-tap-toggle="false">
+            
+                    <div class="header-content clearfix">    
+                    {% block PageHeaderContent %}
+                    
+                        {% if hasBackButton %}
+                        <a href="#" data-rel="back" class="back-icon pull-left"></a>
+                        {% endif %}
+
+                        <div class="logo-icon icon pull-left">
+                        </div>
+
+                        <h1 class="title pull-left">{{pageTitle}}</h1>
+
+                        {% if hasMenuButton %}
+                        <a href="#{{pageName}}-panel">
+                            <div class="menu-icon icon pull-right"></div>
+                        </a>
+                        {% endif %}
+
+                        <div class="button-wrapper pull-right">
+                        {% block HeaderMenu %}
+                        {% endblock %}
+                        </div>
+
+                    {% endblock %}
+                    </div>
+
+                
+                    <!--<div class="header-bottom">
+                        <span class="bg"></span>
+                    </div>-->
+                
+
+                </div>
+                {% endblock %}
+            
+            
+                <div data-role="content" class="">
+
+                    {% block PageContent %}
+                    {% endblock %}
+                
+                </div>
+        
+                {% block PageFooterContent %}
+                {% endblock %}
+
+            </div>
+        
+            {% block BodyEndJs %}
+            {% endblock %}
+
+        {% endblock %}
+    </body>
+</html>
