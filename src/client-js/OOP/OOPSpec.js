@@ -26,18 +26,21 @@ describe("OOP Spec", function () {
 
             var A = function(){};
             A.prototype = {
-                one: 1
+                one: 1,
+                override: false
             };
 
             var B = function(){};
             B.prototype = {
-                two: 2
+                two: 2,
+                override: true
             };
 
             var c = OOP.inherit(B.prototype, A.prototype);
 
             expect(c.one).toBe(1);
             expect(c.two).toBe(2);
+            expect(c.override).toBe(true);
 
             done();
 
@@ -85,7 +88,7 @@ describe("OOP Spec", function () {
     });
 
 
-     async.it(".inherit shoul change the base class hash", function (done) {
+     async.it(".inherit should change the base class hash", function (done) {
 
         Injector.require(["src/OOP/index"], function(OOP){
 
@@ -98,7 +101,7 @@ describe("OOP Spec", function () {
 
             var c = OOP.inherit(A, B);
 
-            expect(A.one).toBe(2);
+            expect(A.one).toBe(1);
 
             done();
 

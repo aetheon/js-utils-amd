@@ -30,7 +30,7 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
             // do not initializa page automatically
             $.extend($.mobile, jqmDefs);
             $.mobile.phonegapNavigationEnabled = true;
-            
+
             // ignore render for buttons
             $.mobile.page.prototype.options.keepNative = 'button,input[type=button],a';
             

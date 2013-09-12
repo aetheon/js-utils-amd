@@ -27,7 +27,14 @@ define(["jquery", "js-utils/Type/index", "js-utils/Safe/index"], function($, Typ
             /*if(!Type.isObject(objClass) && !Type.isObject(baseClass))
                 return;*/
 
-            $.extend(true, objClass, baseClass, objClass);
+            // create the extended object
+            var extended = $.extend(true, {}, baseClass, objClass);
+
+            // delete all object
+            for (var member in objClass) delete objClass[member];
+
+            // copy all extended objects back again
+            $.extend(true, objClass, extended);
 
             return objClass;
         },

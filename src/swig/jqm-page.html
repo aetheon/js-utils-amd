@@ -31,12 +31,6 @@
         {% block BodyContent %}
             <div id="{{pageName}}-page" data-role="page" class="{{pageCss}} {{pageName}}-page" data-viewmodel="{{pageViewModel}}" {% if allowAnonymous === true %}allow-anonymous{% endif %} data-dom-cache="false">
 
-                {% block PagePanel %}
-                <div data-role="panel" id="{{pageName}}-panel" data-position="right" data-display="push">
-                    {% block PagePanelContent %}{% endblock %}
-                </div>
-                {% endblock %}
-
                 {% block PageHeader %}
                 <div data-id="header" data-role="header" data-position="fixed" data-tap-toggle="false">
             
@@ -75,15 +69,20 @@
                 </div>
                 {% endblock %}
             
-            
+
                 <div data-role="content" class="">
 
                     {% block PageContent %}
                     {% endblock %}
                 
                 </div>
+                
         
-                {% block PageFooterContent %}
+                {% block PageFooter %}
+                {% endblock %}
+
+
+                {% block PagePanel %}
                 {% endblock %}
 
             </div>
