@@ -98,13 +98,13 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
             content.css(css_rulename, content_height + "px");
 
             // for every child with explicit-size attribute
-            jQuery("[explicit-size]", content).each(
+            /*jQuery("[explicit-size]", content).each(
                 function(){
                     var elem = jQuery(this);
                     elem.addClass("explicit-size");
                     elem.css(css_rulename, content_height + "px");
                     //elem.css("width", elem.width() + "px");
-            });
+            });*/
         };
 
         $(document).bind("pagechange", set_content_height);
