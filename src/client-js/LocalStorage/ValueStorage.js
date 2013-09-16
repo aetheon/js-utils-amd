@@ -61,6 +61,13 @@ define(["require", "lodash", "js-utils/Arguments/index", "js-utils/LocalStorage/
             save: function(value){
 
                 var dfd = $.Deferred();
+                
+                // never save null references
+                /* jshint -W041 */
+                if( value == null ){
+                    dfd.resolve(null);
+                    return dfd.promise();
+                }
 
                 return LocalStorage.save({ key: instanceOptions.key, value: value });
 
