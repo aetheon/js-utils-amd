@@ -12,8 +12,41 @@ define(["require", "lodash", "jquery", "js-utils/Arguments/index"], function(req
         Arguments = require("js-utils/Arguments/index");
     
 
-
     var Element = {
+
+
+        /*
+         * Height the element
+         *
+         * @param {Object} element - The element 
+         *
+         * @return {Number}
+         */
+        height: function(element){
+
+            if(!element) element = "body";
+
+            var height = $(element).height();
+            return height;
+
+        },
+
+
+        /*
+         * Width of the element
+         *
+         * @param {Object} element - The element 
+         *
+         * @return {Number}
+         */
+        width: function(element){
+
+            if(!element) element = "body";
+
+            var height = $(element).width();
+            return height;
+
+        },
 
         
         /*

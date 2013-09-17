@@ -1,9 +1,11 @@
 
-define(["require", "jquery"], function(require){
+define(["require", "jquery", "js-utils/Dom/Window", "js-utils/Dom/Element"], function(require){
     "use strict";
 
 
-    var $ = require("jquery");
+    var $ = require("jquery"),
+        Element = require("js-utils/Dom/Element"),
+        Window = require("js-utils/Dom/Window");
 
 
     /*
@@ -15,7 +17,7 @@ define(["require", "jquery"], function(require){
      * @param {Object} element - The HtmlElement
      *
      */
-    var ElementOverlay = function(element){
+    var ElementOverlay = function(element, options){
 
         var baseElement = $(element).length ? element : "body";
 
@@ -27,10 +29,14 @@ define(["require", "jquery"], function(require){
         var get = function(){
 
             var overlay = $(baseElement).children(".element-overlay");
-            if(overlay.length){
+            if(!overlay.length){
                 overlay = $("<div class='element-overlay' style='display:none;'></div>");
-                $(baseElement).add(overlay);
+                $(baseElement).append(overlay);
             }
+
+            var vHeight = Window.getViewportHeight();
+            $(overlay).css("height", vHeight);
+            $(overlay).css("width", "100%");
 
             return overlay;
 

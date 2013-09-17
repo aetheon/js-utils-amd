@@ -23,6 +23,7 @@ define([
         "js-utils/Device/index",
         "js-utils/UI/Accessibility",
         "js-utils/JQueryMobile/index",
+        "js-utils/JQueryMobile/PageTracker",
         "js-utils/JQueryMobile/Router",
 
         // touch optimization (remove 300msec delay between taps)
@@ -210,7 +211,7 @@ define([
              * Add routing to application. 
              * 
              */
-            
+
             var Router = require("js-utils/JQueryMobile/Router"),
                 Routes = options.routes;
 

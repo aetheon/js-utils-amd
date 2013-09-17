@@ -64,7 +64,8 @@ define([
             if(data.prevPage.length)
                 prevPage = data.prevPage[0];
 
-            jqmEvents.emit("show", e, data); 
+            jqmEvents.emit("show", e, data);
+
             return true;
         });
 
@@ -105,7 +106,7 @@ define([
 
 
         /*
-         * pagebeforechange
+         * 1. pagebeforechange
          *
          */
         jqmEvents.on(
@@ -141,7 +142,32 @@ define([
 
 
         /*
-         * onPageChage
+         * 2. pageshow
+         *
+         */
+        jqmEvents.on(
+            "show", 
+            function (event, data) {
+
+                var currentPage = JQueryMobile.currentPage.getElement();
+                
+                // variable hoisted at top
+                if (prevPage) {
+
+                    // emit event
+                    Safe.callFunction(
+                        function(){
+                            this.emit("show", prevPage, currentPage);
+                        }, { scope: scope }
+                    );
+
+                }
+
+        });
+
+
+        /*
+         * 3. onPageChage
          *
          */
         jqmEvents.on(
@@ -164,29 +190,6 @@ define([
 
 
 
-        /*
-         * pageshow
-         *
-         */
-        jqmEvents.on(
-            "show", 
-            function (event, data) {
-
-                var currentPage = JQueryMobile.currentPage.getElement();
-                
-                // variable hoisted at top
-                if (prevPage) {
-
-                    // emit event
-                    Safe.callFunction(
-                        function(){
-                            this.emit("show", prevPage, currentPage);
-                        }, { scope: scope }
-                    );
-
-                }
-
-        });
 
 
         return this;

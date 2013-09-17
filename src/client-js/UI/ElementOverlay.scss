@@ -1,0 +1,10 @@
+/*
+ * js-utils/dom/ElementOverlay.js
+ *
+ */
+body > .element-overlay {
+    position: fixed;
+    z-index: 200;
+    background: #FFF;
+    opacity: 0.5;
+}
