@@ -356,9 +356,9 @@ describe("RouterSpec", function () {
                 });
 
                 event.emit("changing", "/default");
-                event.emit("change", {}, {});
+                event.emit("change", $("<a id='1'></a>"), {});
                 event.emit("changing", "/default2");
-                event.emit("change", {}, {});
+                event.emit("change", $("<a id='2'></a>"), {});
 
             });
 

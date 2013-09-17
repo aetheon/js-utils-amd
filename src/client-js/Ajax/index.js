@@ -110,7 +110,8 @@ define(["require", "jquery", "EventEmitter", "js-utils/Arguments/index", "js-uti
                     data: null,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
-                    headers: { }
+                    headers: { },
+                    timeout: 20000
                 }
             );
 

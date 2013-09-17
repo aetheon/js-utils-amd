@@ -169,9 +169,14 @@ define([
                 // memory low
                 if(JQueryMobile.isPage(options.element)){
 
-                    if(factory.canBeDestroyed(last)){
+                    var lastElementId = $(last.element).attr("id");
+                    var currentElementId = $(options.element).attr("id");
+
+                    if(lastElementId !== currentElementId && factory.canBeDestroyed(last)){
+    
                         log.d("Calling factory.destroy on " + $(last.element).attr("id") );
                         factory.destroy(last);
+                    
                     }
                     else {
                         // save instance for later reuse

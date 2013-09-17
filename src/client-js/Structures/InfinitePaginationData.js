@@ -61,6 +61,19 @@ define(["require", "lodash", "js-utils/Arguments/index", "js-utils/Array/index",
             },
 
             /*
+             * Get pagination data
+             *
+             * @return {Array} The pagination data
+             */
+            clear: function(){
+
+                data.Data = [];
+                data.firstIndex = 0;
+                data.thereIsNoMoreData = false;
+
+            },
+
+            /*
              * Returns the index range of the current list
              *
              * @return {Object} The { from: Index, to: Index }

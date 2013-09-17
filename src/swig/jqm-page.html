@@ -41,8 +41,9 @@
                         <a href="#" data-rel="back" class="back-icon pull-left"></a>
                         {% endif %}
 
-                        <div class="logo-icon icon pull-left">
-                        </div>
+                        <a href="index.html">
+                            <div class="logo-icon icon pull-left"></div>
+                        </a>
 
                         <h1 class="title pull-left">{{pageTitle}}</h1>
 
@@ -56,6 +57,10 @@
                         {% block HeaderMenu %}
                         {% endblock %}
                         </div>
+
+                        <div class="header-extra">{% block HeaderExtra %}{% endblock %}</div>
+
+                        <div class="clearfix"></div>
 
                     {% endblock %}
                     </div>

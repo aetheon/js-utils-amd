@@ -135,7 +135,7 @@ describe("RouterFactorySpec", function () {
                     rule: "teste",
                     role: "page",
                     data: {},
-                    element: {},
+                    element: $("<a id='1'></a>"),
                     instanceType: function(){ return {}; }
                 });
 
@@ -144,7 +144,7 @@ describe("RouterFactorySpec", function () {
                     rule: "teste2",
                     role: "page",
                     data: {},
-                    element: {},
+                    element: $("<a id='2'></a>"),
                     instanceType: function(){ return {}; }
                 });
                 
@@ -282,7 +282,7 @@ describe("RouterFactorySpec", function () {
                     rule: "teste",
                     role: "page",
                     data: {},
-                    element: {},
+                    element: $("<a id='1'></a>"),
                     instanceType: function(){ 
                         return {
                             "destroy": function(){ isDone = true; }
@@ -294,7 +294,7 @@ describe("RouterFactorySpec", function () {
                     rule: "teste2",
                     role: "page",
                     data: {},
-                    element: {},
+                    element: $("<a id='2'></a>"),
                     instanceType: function(){ 
                     }
                 });
@@ -522,7 +522,7 @@ describe("RouterFactorySpec", function () {
                 rule: "teste",
                 role: "page",
                 data: {},
-                element: {},
+                element: $("<a id='1'></a>"),
                 instanceType: function(){ 
                     return {
                         "teste": 1,
@@ -543,7 +543,7 @@ describe("RouterFactorySpec", function () {
                 rule: "teste2",
                 role: "page",
                 data: {},
-                element: {},
+                element: $("<a id='2'></a>"),
                 instanceType: function(){ 
                     return {
                         "bind": function(){ 
@@ -559,7 +559,7 @@ describe("RouterFactorySpec", function () {
                 rule: "teste",
                 role: "page",
                 data: {},
-                element: {},
+                element: $("<a id='1'></a>"),
                 instanceType: function(){ 
                     return {
                         "teste": 1,
