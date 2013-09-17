@@ -35,6 +35,8 @@ define([
         prevPage = null;
 
 
+    // JQM: Before Page Change
+    // At this point we can cancel the navigation
     $(document).bind(
         "pagebeforechange", 
         function(e, data){ 
@@ -53,15 +55,8 @@ define([
             return true;
         });
 
-
-    $(document).bind(
-        "pagechange", 
-        function(e, data){ 
-            jqmEvents.emit("change", e, data); 
-            return true;
-        });
-
-
+    // JQM: New Page is already in Dom
+    // At this stage transitions where fired
     $(document).bind(
         "pageshow", 
         function(e, data){ 
@@ -70,6 +65,16 @@ define([
                 prevPage = data.prevPage[0];
 
             jqmEvents.emit("show", e, data); 
+            return true;
+        });
+
+
+    // JQM: New Page is already in Dom
+    // At this stage all JQM page change where done!
+    $(document).bind(
+        "pagechange", 
+        function(e, data){ 
+            jqmEvents.emit("change", e, data); 
             return true;
         });
 
