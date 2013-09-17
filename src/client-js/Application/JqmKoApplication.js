@@ -26,6 +26,9 @@ define([
         "js-utils/JQueryMobile/PageTracker",
         "js-utils/JQueryMobile/Router",
 
+        /* add overlay between page transitions */
+        "js-utils/JQueryMobile/PageTransitionOverlay",
+
         // touch optimization (remove 300msec delay between taps)
         "fastclick",
 

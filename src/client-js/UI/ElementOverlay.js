@@ -19,20 +19,27 @@ define(["require", "jquery", "js-utils/Dom/Window", "js-utils/Dom/Element"], fun
      */
     var ElementOverlay = function(element, options){
 
-        var baseElement = $(element).length ? element : "body";
+        var baseElement = $(element).length ? element : "body",
+            overlay = null;
 
 
-        /*
-         * Gets the overlay
-         * 
-         */
+        // init overlay Element on the Dom
+        var initOverlay = function(){
+            var overlayElement = $("> .element-overlay", baseElement);
+            if(!overlayElement.length){
+                overlay = $("<div class='element-overlay' style='display:none;'></div>");
+                $(baseElement).append(overlay);    
+            }else{
+                overlay = overlayElement;
+            }
+        };
+
+
+        // Gets the overlay
         var get = function(){
 
-            var overlay = $(baseElement).children(".element-overlay");
-            if(!overlay.length){
-                overlay = $("<div class='element-overlay' style='display:none;'></div>");
-                $(baseElement).append(overlay);
-            }
+            if(!overlay) 
+                initOverlay();
 
             var vHeight = Window.getViewportHeight();
             $(overlay).css("height", vHeight);
@@ -64,8 +71,12 @@ define(["require", "jquery", "js-utils/Dom/Window", "js-utils/Dom/Element"], fun
              */
             hide: function(){
 
-                var element = get();
-                element.toggle(false);
+                setTimeout(
+                    function(){
+                        var element = get();
+                        element.toggle(false);
+                    },
+                    1000);
                 
             }
 

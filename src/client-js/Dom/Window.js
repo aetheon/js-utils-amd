@@ -18,6 +18,8 @@ define(["require", "lodash", "jquery", "js-utils/Arguments/index", "js-utils/Glo
 
 
     // Viewport globals
+    // Optimization for access viewport size values
+
 
     var viewportHeight = 0,
         viewportWidth = 0;
