@@ -1,4 +1,7 @@
 
-define(["require"], function(require){
-    return cordova;
+define(["require", "js-utils/Globals/Window"], function(require, Window){
+    "use strict";
+    
+    return Window.cordova;
+    
 });
