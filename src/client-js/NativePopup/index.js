@@ -4,7 +4,7 @@
  * 
  */
 
-define(["require", "js-utils/Globals/window", "js-utils/Arguments/index", "js-utils/Type/index", "jquery", "EventEmitter", "lodash" ], 
+define(["require", "js-utils/Globals/Window", "js-utils/Arguments/index", "js-utils/Type/index", "jquery", "EventEmitter", "lodash" ], 
     function(require){
         "use strict";    
 
@@ -13,7 +13,7 @@ define(["require", "js-utils/Globals/window", "js-utils/Arguments/index", "js-ut
         var EventEmitter = require("EventEmitter");
         var Type = require("js-utils/Type/index");
         var Arguments = require("js-utils/Arguments/index");
-        var window = require("js-utils/Globals/window");
+        var Window = require("js-utils/Globals/Window");
 
 
         /*
@@ -40,17 +40,17 @@ define(["require", "js-utils/Globals/window", "js-utils/Arguments/index", "js-ut
                 }
             );
 
-            this.windowReference = null;
+            this.WindowReference = null;
 
             this.on("closed", function(){
-                scope.windowReference = null;
+                scope.WindowReference = null;
             });
             
         };
             
 
         /*
-         * Static method to return the window feature string from the given Hash
+         * Static method to return the Window feature string from the given Hash
          *
          * @param{options} An options hash
          * @return{String} A string with all the options
@@ -92,34 +92,34 @@ define(["require", "js-utils/Globals/window", "js-utils/Arguments/index", "js-ut
         WindowPopup.prototype = {
 
             /*
-             * Opens the url on a new window
+             * Opens the url on a new Window
              *
-             * @throws {Error} if already exits a window open.
+             * @throws {Error} if already exits a Window open.
              *
              * @param{url} The url to open
-             * @param{windowName} The window's name
+             * @param{WindowName} The Window's name
              */
-            open: function(url, windowName){
+            open: function(url, WindowName){
                 
-                if(this.windowReference)
-                    throw new Error("[js-utils/NativePopup/index] already exists a window open. Must close() first.");
+                if(this.WindowReference)
+                    throw new Error("[js-utils/NativePopup/index] already exists a Window open. Must close() first.");
 
-                this.windowReference = 
-                    window.open(
+                this.WindowReference = 
+                    Window.open(
                         url, 
-                        windowName,
+                        WindowName,
                         WindowPopup.getWindowFeaturesString(this.options)
                     );
 
                 var scope = this,
                     intervalId = 0;
 
-                // set interval to check if the window is open
+                // set interval to check if the Window is open
                 intervalId = setInterval(
                     function(){
                         (function(){
                             
-                            var isClosed = scope.windowReference.closed;
+                            var isClosed = scope.WindowReference.closed;
                             if(isClosed){
                                 // clear check interval and fire closed event
                                 clearInterval(intervalId);
@@ -135,13 +135,13 @@ define(["require", "js-utils/Globals/window", "js-utils/Arguments/index", "js-ut
             },
 
             /*
-             * Close window
+             * Close Window
              *
              */
             close: function(){
 
-                if(this.windowReference)
-                    this.windowReference.close();
+                if(this.WindowReference)
+                    this.WindowReference.close();
 
             }
 

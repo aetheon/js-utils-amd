@@ -6,14 +6,14 @@
  *  . ....
  */
 
-define(["require", "lodash", "jquery", "js-utils/Arguments/index", "js-utils/Globals/window", "js-utils/Globals/document"], function(require){
+define(["require", "lodash", "jquery", "js-utils/Arguments/index", "js-utils/Globals/Window", "js-utils/Globals/Document"], function(require){
     "use strict";
 
     var _ = require("lodash"),
         $ = require("jquery"),
         Arguments = require("js-utils/Arguments/index"),
-        DocumentElement = require("js-utils/Globals/document"),
-        WindowElement = require("js-utils/Globals/window");
+        Document = require("js-utils/Globals/Document"),
+        Window = require("js-utils/Globals/Window");
     
 
 
@@ -25,14 +25,13 @@ define(["require", "lodash", "jquery", "js-utils/Arguments/index", "js-utils/Glo
         viewportWidth = 0;
 
     var updateViewportSize = function(){
-        viewportWidth = $(WindowElement).width();
-        viewportHeight = $(WindowElement).height();
+        viewportWidth = $(Window).width();
+        viewportHeight = $(Window).height();
     };
 
     // initialize viewport height/width
-    $(WindowElement).resize(updateViewportSize);
+    $(Window).resize(updateViewportSize);
     updateViewportSize();
-
 
 
 
@@ -60,7 +59,7 @@ define(["require", "lodash", "jquery", "js-utils/Arguments/index", "js-utils/Glo
             // if bottom => position should be equal to the total
             // height of the document
             if(options.bottom)
-                options.position = $(DocumentElement).height();
+                options.position = $(Document).height();
 
             // scroll dom to position
             $('html,body').animate(

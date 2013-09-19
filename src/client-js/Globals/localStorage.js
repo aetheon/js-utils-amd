@@ -1,6 +1,6 @@
 
 
-define(["js-utils/Globals/window"], function(Window){
+define(["require", "js-utils/Globals/Window"], function(require, Window){
     
     return Window.localStorage;
 

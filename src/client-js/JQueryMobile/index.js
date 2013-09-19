@@ -4,13 +4,13 @@
  * 
  */
 
-define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodash"], function(window, document, $, _){
+define(["js-utils/Globals/Window", "js-utils/Globals/Document", "jquery", "lodash"], function(Window, Document, $, _){
     "use strict";
     
 
     // Hate when jQM does auto initialization? me too...
     // This disables the behaviour. Jusk make sure this is loaded before JQM
-    $(document).bind(
+    $(Document).bind(
         "mobileinit", 
         function(){ 
 
@@ -69,7 +69,7 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
             if(pageType == "dialog") return;
 
             var content = $("div[data-role='content']", page);
-            var viewport_height = $(window).height();
+            var viewport_height = $(Window).height();
 
             // subtract all page elements height, except the content
             var content_height = viewport_height;
@@ -107,8 +107,8 @@ define(["js-utils/Globals/window", "js-utils/Globals/document", "jquery", "lodas
             });*/
         };
 
-        $(document).bind("pagechange", set_content_height);
-        $(window).bind("resize", set_content_height);
+        $(Document).bind("pagechange", set_content_height);
+        $(Window).bind("resize", set_content_height);
 
     };
 

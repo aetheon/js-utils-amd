@@ -4,7 +4,7 @@
  * 
  */
 
-define(["require", "js-utils/Globals/window", "jquery", "lodash", "js-utils/Type/index"], function(require, window, $, _, Type){
+define(["require", "js-utils/Globals/Window", "jquery", "lodash", "js-utils/Type/index"], function(require, Window, $, _, Type){
     "use strict";
 
 
@@ -15,7 +15,7 @@ define(["require", "js-utils/Globals/window", "jquery", "lodash", "js-utils/Type
      */
     function get(url) {
         
-        return window.location.href;
+        return Window.location.href;
 
     }
 
@@ -51,7 +51,7 @@ define(["require", "js-utils/Globals/window", "jquery", "lodash", "js-utils/Type
      */
     function getQueryString(href, separator) {
 
-        href = href || window.location.href;
+        href = href || Window.location.href;
         separator = separator || '?';
 
         var hrefSplit = href.split(separator) || [];
@@ -81,7 +81,7 @@ define(["require", "js-utils/Globals/window", "jquery", "lodash", "js-utils/Type
      */
     function getQueryStringObject(href, separator) {
         
-        href = href || window.location.href;
+        href = href || Window.location.href;
 
         var qString = getQueryString(href, separator),
             values = {};

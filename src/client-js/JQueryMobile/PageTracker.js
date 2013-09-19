@@ -8,7 +8,7 @@ define([
     "jquery", 
     "EventEmitter", 
     
-    "js-utils/Globals/document", 
+    "js-utils/Globals/Document", 
     "js-utils/Url/index", 
     "js-utils/Arguments/index", 
     "js-utils/OOP/index", 
@@ -19,7 +19,7 @@ define([
     function(require, $, EventEmitter){
     "use strict";
 
-    var document = require("js-utils/Globals/document"),
+    var Document = require("js-utils/Globals/Document"),
         JQueryMobile = require("js-utils/JQueryMobile/index"),
         Url = require("js-utils/Url/index"),
         Arguments = require("js-utils/Arguments/index"),
@@ -37,7 +37,7 @@ define([
 
     // JQM: Before Page Change
     // At this point we can cancel the navigation
-    $(document).bind(
+    $(Document).bind(
         "pagebeforechange", 
         function(e, data){ 
 
@@ -57,7 +57,7 @@ define([
 
     // JQM: New Page is already in Dom
     // At this stage transitions where fired
-    $(document).bind(
+    $(Document).bind(
         "pageshow", 
         function(e, data){ 
             
@@ -72,7 +72,7 @@ define([
 
     // JQM: New Page is already in Dom
     // At this stage all JQM page change where done!
-    $(document).bind(
+    $(Document).bind(
         "pagechange", 
         function(e, data){ 
             jqmEvents.emit("change", e, data); 

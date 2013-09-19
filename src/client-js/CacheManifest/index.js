@@ -4,7 +4,7 @@
  * 
  */
 
-define(["js-utils/Globals/window"], function(window){
+define(["js-utils/Globals/Window"], function(Window){
     "use strict";
 
     var CacheManifest = function () {};
@@ -20,7 +20,7 @@ define(["js-utils/Globals/window"], function(window){
          */
         getState: function () {
 
-            var appCache = window.applicationCache;
+            var appCache = Window.applicationCache;
 
             switch (appCache.status) {
                 case appCache.UNCACHED: // UNCACHED == 0

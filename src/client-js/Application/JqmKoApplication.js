@@ -17,7 +17,7 @@ define([
         // js-utils dependencies
         "js-utils/Safe/index",
         "js-utils/Type/index",
-        "js-utils/Globals/window",
+        "js-utils/Globals/Window",
         "js-utils/Arguments/index",
         "js-utils/Url/index",
         "js-utils/Device/index",

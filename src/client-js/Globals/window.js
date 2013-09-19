@@ -1,4 +1,4 @@
 
-define([], function(){
-	return window;  // real global window object	
+define(["require"], function(require){
+	return window;
 });

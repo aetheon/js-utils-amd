@@ -5,13 +5,14 @@
  */
 
 define([
-    "js-utils/Globals/window", 
+    "js-utils/Globals/Window",
+    "js-utils/Globals/Document", 
     "ua-parser",
     "js-utils/Safe/index",
     "js-utils/Chainify/if"
     ], 
 
-    function(window, UAParser, Safe){
+    function(Window, Document, UAParser, Safe){
     "use strict";
 
 
@@ -21,7 +22,7 @@ define([
      */
 
      var isCordova = false;
-     document.addEventListener(
+     Document.addEventListener(
         "deviceready", 
         function(){
             isCordova = true;
@@ -36,8 +37,8 @@ define([
       */
     var isOnline = false;
 
-    window.addEventListener("offline", function(e) { isOnline = false; });
-    window.addEventListener("online", function(e) { isOnline = true; });
+    Window.addEventListener("offline", function(e) { isOnline = false; });
+    Window.addEventListener("online", function(e) { isOnline = true; });
 
     var Device = {
 
@@ -60,12 +61,12 @@ define([
          */
         getConnectionType: function () {
 
-            if (window.navigator.connection) {
+            if (Window.navigator.connection) {
                 //
                 // android framework isOnline testing
                 // (navigator.connection.type) -> UNKNOWN, ETHERNET, WIFI, CELL_2G, CELL_3G
                 //
-                return window.navigator.connection.type;
+                return Window.navigator.connection.type;
             }
             else {
                 return null;
