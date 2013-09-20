@@ -29,6 +29,7 @@ describe("_skeletonSpec", function () {
         
         Injector.require(["src/_skeleton/index", "jquery"], function(Module, $){
 
+            expect(!!Module).not.toBe(null);
             //expect("value").toEqual("value");
 
             done();

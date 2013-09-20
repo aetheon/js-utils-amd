@@ -4,9 +4,12 @@
  * 
  */
 
-define(["js-utils/Globals/Window", "js-utils/Globals/Document", "jquery", "lodash"], function(Window, Document, $, _){
+define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-utils/Globals/Document", "js-utils/Dom/Window"], function(require, $, _){
     "use strict";
     
+    var Window = require("js-utils/Globals/Window"),
+        Document = require("js-utils/Globals/Document"),
+        DomWindow = require("js-utils/Dom/Window");
 
     // Hate when jQM does auto initialization? me too...
     // This disables the behaviour. Jusk make sure this is loaded before JQM
@@ -53,6 +56,51 @@ define(["js-utils/Globals/Window", "js-utils/Globals/Document", "jquery", "lodas
 
 
     /*
+     * Get current page component heights
+     *
+     * @return {Object} { footer: , header: , content: }
+     */
+    JQueryMobile.getPageHeights = function(){
+
+        var heights = {
+            "footer": 0,
+            "header": 0,
+            "content": 0
+        };
+
+        var page = JQueryMobile.currentPage.getElement(),
+            viewport_height = DomWindow.getViewportHeight(),
+            content_height = viewport_height;
+
+        // subtract all page elements height, except the content
+        $("> div[data-role]", page).each(
+            function(){
+                var role = $(this).attr("data-role");
+                
+                // ignore content
+                if(role === 'content' || role === 'panel' || role === 'popup' ) 
+                    return;
+
+                var elementHeight = $(this).height();
+
+                // save pageSize for later
+                heights[role] = elementHeight;
+
+                // decrease height
+                content_height -= elementHeight;
+            }
+        );
+
+        // set the height value to be an integer
+        content_height = Math.floor(content_height) - 0.1;
+        heights.content = content_height;
+
+        return heights;
+
+    };
+
+
+    /*
     * Auto set jqm pages to occupy the fullscreen. Also reacts to
     * resize events
     *
@@ -62,32 +110,16 @@ define(["js-utils/Globals/Window", "js-utils/Globals/Document", "jquery", "lodas
 
         var set_content_height = function () {
 
-            var page = $(".ui-page-active");
+            var page = $(JQueryMobile.currentPage.getElement());
             var pageType = page.attr("data-role");
             
             // ignore dialogs
             if(pageType == "dialog") return;
 
-            var content = $("div[data-role='content']", page);
-            var viewport_height = $(Window).height();
-
-            // subtract all page elements height, except the content
-            var content_height = viewport_height;
-            $("div[data-role]", page).each(
-                function(){
-                    var role = $(this).attr("data-role");
-                    
-                    // ignore content
-                    if(role === 'content' || role === 'panel' || role === 'popup' ) 
-                        return;
-
-                    var elementHeight = $(this).height();
-                    content_height -= elementHeight;
-                }
-            );
-
-            // set the height value to be an integer
-            content_height = Math.floor(content_height) - 0.1;
+            // get page sizes
+            var content = $("div[data-role='content']", page),
+                pageHeights = JQueryMobile.getPageHeights();
+            
 
             // find wich css rule to apply
             var css_rulename = "min-height";
@@ -95,16 +127,12 @@ define(["js-utils/Globals/Window", "js-utils/Globals/Document", "jquery", "lodas
                 css_rulename = "height";
             }
 
-            content.css(css_rulename, content_height + "px");
+            // apply min-height to the page
+            content.css(css_rulename, pageHeights.content + "px");
 
-            // for every child with explicit-size attribute
-            /*jQuery("[explicit-size]", content).each(
-                function(){
-                    var elem = jQuery(this);
-                    elem.addClass("explicit-size");
-                    elem.css(css_rulename, content_height + "px");
-                    //elem.css("width", elem.width() + "px");
-            });*/
+            
+
+            
         };
 
         $(Document).bind("pagechange", set_content_height);
