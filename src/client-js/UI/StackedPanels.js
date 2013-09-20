@@ -39,7 +39,12 @@ define([
             options = Arguments.get(
                 options,
                 {
-                    stackWidth: 0.9
+                    // the width percentage of the viewport to apply the panel
+                    panelWidthPercentage: 0.9,
+
+                    // the stack panel height
+                    panelHeight: 0
+
                 }
             );
 
@@ -51,7 +56,7 @@ define([
 
             // module variables definition
             var viewport = viewportElement,
-                viewportHeight = ElementHelper.height(viewport) || WindowHelper.getViewportHeight(),
+                viewportHeight = options.panelHeight || ElementHelper.height(viewport) || WindowHelper.getViewportHeight(),
                 viewportWidth = ElementHelper.width(viewport),
                 // module data structures
                 historyIndex = [],
@@ -96,7 +101,7 @@ define([
             // show panel
             var showPanel = function(element, index){
                 // next panel animation
-                var tranlationWidth = Math.floor( (viewportWidth * index) - (viewportWidth - (viewportWidth * options.stackWidth)) );
+                var tranlationWidth = Math.floor( (viewportWidth * index) - (viewportWidth - (viewportWidth * options.panelWidthPercentage)) );
                 $(element).css({ 
                     transform: 'translate3d(-' + tranlationWidth + 'px, 0, 0)',
                     "-webkit-transition-duration": "1000ms"
@@ -160,6 +165,10 @@ define([
 
                     // remove current panel
                     $(currentPanelElement).removeClass("active").addClass("prev");
+
+                    // remove the nextPanel overlay before applying the transition
+                    new ElementOverlay(nextPanelElement).hide();
+
                     // if current element is available
                     // show overlay on the previous panel and put the panel as main screen
                     if(currentPanelElement){
@@ -169,7 +178,6 @@ define([
 
                     // show next panel
                     $(nextPanelElement).addClass("active");
-                    new ElementOverlay(nextPanelElement).hide();
 
                     // next panel animation
                     showPanel(nextPanelElement, index);

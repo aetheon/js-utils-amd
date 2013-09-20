@@ -188,17 +188,23 @@ describe("StackedPanelsSpec", function () {
                             .append("<div class='stacked-panel'></div>")
                             .append("<div class='stacked-panel'></div>");
 
-            var panel = new StackedPanels(element);
+            var panel = new StackedPanels(element, { panelHeight: 200 });
             
 
             expect( $( $(element).children()[0] ).hasClass("active") ).toEqual(true);
             expect( $( $(element).children()[0] ).css("left") ).toEqual("0px");
             expect( $( $(element).children()[1] ).css("left") ).toEqual("100px");
 
+            expect( $( $(element).children()[0] ).css("min-height") ).toBe("200px");
+            expect( $( $(element).children()[1] ).css("min-height") ).toBe("200px");
+
+            expect( $( $(element).children()[0] ).css("-webkit-transition") ).toEqual("1000ms");
+
+
+            var panel2 = new StackedPanels(element, { });            
+
             expect( $( $(element).children()[0] ).css("min-height") ).not.toBe(null);
             expect( $( $(element).children()[1] ).css("min-height") ).not.toBe(null);
-
-            expect( $( $(element).children()[0] ).css("-webkit-transition") ).toEqual("1000ms");            
             
             done();
 
