@@ -1,0 +1,33 @@
+
+.stacked-panel {
+    
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+
+    position: absolute;
+    top: 0px;
+    background: #FFF;
+}
+
+
+.stacked-panel .element-overlay {
+    position: absolute;
+    top: 0px;
+    background: #DDD;
+    opacity: 0.7;
+    z-index: 3;
+}
+
+
+/* previous panel */
+.stacked-panel.prev {
+    -webkit-transform: translate3d(0, 0, 0);
+}
+
+/* active panel */
+.stacked-panel.active {
+    /* let the stacked panel change the scroller.
+       if position is absoulute the scrolling dont work */
+    position: relative;
+
+}

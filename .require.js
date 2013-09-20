@@ -1,6 +1,7 @@
 
 requirejs.config({
 
+
     paths: {
 
         //core libraries:
@@ -33,9 +34,9 @@ requirejs.config({
         'squire': 'lib/squire/squire-latest',
 
         // js-utils base path
-        'js-utils': './src/client-js/',
-        'js-mocks': './spec/mocks/',
-        'src': './src/client-js/'
+        'js-utils': 'src/client-js/',
+        'js-mocks': 'spec/mocks/',
+        'src': 'src/client-js/'
 
     },
 

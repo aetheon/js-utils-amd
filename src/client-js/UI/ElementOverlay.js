@@ -1,10 +1,11 @@
 
-define(["require", "jquery", "js-utils/Dom/Window", "js-utils/Dom/Element"], function(require){
+define(["require", "jquery", "js-utils/Dom/Window", "js-utils/Dom/Element", "js-utils/Arguments/index"], function(require){
     "use strict";
 
 
     var $ = require("jquery"),
         Element = require("js-utils/Dom/Element"),
+        Arguments = require("js-utils/Arguments/index"),
         Window = require("js-utils/Dom/Window");
 
 
@@ -28,6 +29,7 @@ define(["require", "jquery", "js-utils/Dom/Window", "js-utils/Dom/Element"], fun
             var overlayElement = $("> .element-overlay", baseElement);
             if(!overlayElement.length){
                 overlay = $("<div class='element-overlay' style='display:none;'></div>");
+                overlay.height(Window.getViewportHeight());
                 $(baseElement).append(overlay);    
             }else{
                 overlay = overlayElement;
@@ -36,13 +38,22 @@ define(["require", "jquery", "js-utils/Dom/Window", "js-utils/Dom/Element"], fun
 
 
         // Gets the overlay
-        var get = function(){
+        var get = function(options){
+
+            options = Arguments.get(
+                options,
+                {
+                    height: 0
+                }
+            );
 
             if(!overlay) 
                 initOverlay();
 
-            var vHeight = Window.getViewportHeight();
-            $(overlay).css("height", vHeight);
+            if(options.height){
+                $(overlay).css("height", options.height);
+            }
+
             $(overlay).css("width", "100%");
 
             return overlay;
@@ -57,9 +68,9 @@ define(["require", "jquery", "js-utils/Dom/Window", "js-utils/Dom/Element"], fun
              * show
              *
              */
-            show: function(){
+            show: function(options){
 
-                var element = get();
+                var element = get(options);
                 element.toggle(true);
 
             },
@@ -77,7 +88,7 @@ define(["require", "jquery", "js-utils/Dom/Window", "js-utils/Dom/Element"], fun
                         element.toggle(false);
                     },
                     1000);
-                
+                       
             }
 
 
