@@ -5,13 +5,16 @@ describe("JQueryMobile/indexSpec", function () {
         Injector = null,
         async = new AsyncSpec(this);
 
+    var $ = null;
 
     async.beforeEach(function (done) {
 
-        require(["require", "squire" /*, "js-mocks/MOCK"*/], function(require){
+        require(["require", "squire", "jquery" /*, "js-mocks/MOCK"*/], function(require){
             
             Squire = require("squire");
             Injector = new Squire();
+
+            $ = require("jquery");
 
             done();
 
@@ -34,6 +37,23 @@ describe("JQueryMobile/indexSpec", function () {
             done();
 
         });
+
+    });
+
+
+    async.it("jqm lib initializePage should be called explicitly", function (done) {
+        // This test assures that the jqm lib is not executing initializePage 
+        // When dom is ready.
+
+        Injector.require(["src/JQueryMobile/index"], function(JQueryMobile){
+
+            expect(JQueryMobile.currentPage.getElement()).toBe(null);
+
+            done();
+
+        });
+
+
 
     });
 

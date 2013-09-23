@@ -49,9 +49,7 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
     *
     */
     JQueryMobile.init = function () {
-
-        $.mobile.initializePage();
-        
+        $.mobile.initializePage();   
     };
 
 
@@ -130,9 +128,6 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
             // apply min-height to the page
             content.css(css_rulename, pageHeights.content + "px");
 
-            
-
-            
         };
 
         $(Document).bind("pagechange", set_content_height);
