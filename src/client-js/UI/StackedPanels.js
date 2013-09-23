@@ -40,10 +40,13 @@ define([
                 options,
                 {
                     // the width percentage of the viewport to apply the panel
-                    panelWidthPercentage: 0.9,
+                    panelWidthPercentage: 0.8,
 
                     // the stack panel height
-                    panelHeight: 0
+                    panelMinHeight: 0,
+
+                    // animation durations
+                    animDurationMsec: 1000
 
                 }
             );
@@ -56,7 +59,6 @@ define([
 
             // module variables definition
             var viewport = viewportElement,
-                viewportHeight = options.panelHeight || ElementHelper.height(viewport) || WindowHelper.getViewportHeight(),
                 viewportWidth = ElementHelper.width(viewport),
                 // module data structures
                 historyIndex = [],
@@ -67,19 +69,56 @@ define([
             $(viewport).addClass("stacked-panels");
 
             
+
+
             // prepare stacked panel function
             var prepareStackedPanel = function(element, index){
                 
-                // set element size
-                $(element).width(viewportWidth);
-                if(viewportHeight) 
-                    $(element).css("min-height", viewportHeight);
+                var cssRules = {
+                    "width": viewportWidth,
+                    "left": index * viewportWidth
+                };
 
-                $(element).css("left", index * viewportWidth);
+                // apply a min height to the panel
+                var vHeight = ElementHelper.height(viewportElement);
+                if(options.panelMinHeight || vHeight){
+                    cssRules["min-height"] = vHeight > options.panelMinHeight ? vHeight : options.panelMinHeight;
+                }
+
+                $(element).css(cssRules);
 
             };
 
-            // hidePanel 
+            // get the overlay height
+            var getOverlayHeight = function(element){
+
+                var height = ElementHelper.height(element),
+                    viewportHeight = ElementHelper.height(viewportElement);
+
+                if(viewportHeight > height)
+                    return viewportHeight;
+
+                return height;
+
+            };
+
+            // show panel
+            var showPanel = function(element, index){
+                // next panel animation
+                var tranlationWidth = Math.floor( (viewportWidth * index) - (viewportWidth - (viewportWidth * options.panelWidthPercentage)) );
+                
+                var cssRules = {
+                    "min-height": $(viewportElement).height(),
+                    "-webkit-transition-duration": options.animDurationMsec + "ms",
+                    "transform": 'translate3d(-' + tranlationWidth + 'px, 0, 0)'
+                };
+
+                $(element).css(cssRules)
+                          .addClass("active");
+
+            };
+
+            // hidePanel
             var hidePanel = function(element, index, options){
 
                 options = Arguments.get(
@@ -89,25 +128,17 @@ define([
                     }
                 );
 
+                var cssRules = {
+                    "-webkit-transition-duration": options.animDurationMsec + "ms",
+                    transform: 'translate3d(' + options.translationX + 'px, 0, 0)'
+                };
+
                 // show overlay on the previous panel and put the panel 
                 // as main screen
-                $(element).css({ 
-                    transform: 'translate3d(' + options.translationX + 'px, 0, 0)',
-                    "-webkit-transition-duration": "1000ms"
-                });
+                $(element).css(cssRules)
+                          .removeClass("active");
 
             };
-
-            // show panel
-            var showPanel = function(element, index){
-                // next panel animation
-                var tranlationWidth = Math.floor( (viewportWidth * index) - (viewportWidth - (viewportWidth * options.panelWidthPercentage)) );
-                $(element).css({ 
-                    transform: 'translate3d(-' + tranlationWidth + 'px, 0, 0)',
-                    "-webkit-transition-duration": "1000ms"
-                });
-            };
-
 
             // add Panel
             var add = function(jQueryExpression){
@@ -128,6 +159,8 @@ define([
                 });
 
             };
+
+
 
 
             /* 
@@ -164,7 +197,7 @@ define([
                     $(panels).removeClass("prev");
 
                     // remove current panel
-                    $(currentPanelElement).removeClass("active").addClass("prev");
+                    $(currentPanelElement).addClass("prev");
 
                     // remove the nextPanel overlay before applying the transition
                     new ElementOverlay(nextPanelElement).hide();
@@ -172,7 +205,7 @@ define([
                     // if current element is available
                     // show overlay on the previous panel and put the panel as main screen
                     if(currentPanelElement){
-                        new ElementOverlay(currentPanelElement).show({ height: ElementHelper.height(nextPanelElement) });
+                        new ElementOverlay(currentPanelElement).show({ height: getOverlayHeight(nextPanelElement) });
                         hidePanel(currentPanelElement, currentPanelIndex);
                     }
 

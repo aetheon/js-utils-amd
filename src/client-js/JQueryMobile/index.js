@@ -54,51 +54,6 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
 
 
     /*
-     * Get current page component heights
-     *
-     * @return {Object} { footer: , header: , content: }
-     */
-    JQueryMobile.getPageHeights = function(){
-
-        var heights = {
-            "footer": 0,
-            "header": 0,
-            "content": 0
-        };
-
-        var page = JQueryMobile.currentPage.getElement(),
-            viewport_height = DomWindow.getViewportHeight(),
-            content_height = viewport_height;
-
-        // subtract all page elements height, except the content
-        $("> div[data-role]", page).each(
-            function(){
-                var role = $(this).attr("data-role");
-                
-                // ignore content
-                if(role === 'content' || role === 'panel' || role === 'popup' ) 
-                    return;
-
-                var elementHeight = $(this).height();
-
-                // save pageSize for later
-                heights[role] = elementHeight;
-
-                // decrease height
-                content_height -= elementHeight;
-            }
-        );
-
-        // set the height value to be an integer
-        content_height = Math.floor(content_height) - 0.1;
-        heights.content = content_height;
-
-        return heights;
-
-    };
-
-
-    /*
     * Auto set jqm pages to occupy the fullscreen. Also reacts to
     * resize events
     *
@@ -108,7 +63,11 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
 
         var set_content_height = function () {
 
-            var page = $(JQueryMobile.currentPage.getElement());
+            var current = JQueryMobile.currentPage();
+            if(!element)    
+                return;
+
+            var page = current.getElement();
             var pageType = page.attr("data-role");
             
             // ignore dialogs
@@ -184,158 +143,183 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
 
 
     /*
-     * Get Page role String
-     * 
-     * @param{Element|null} pageElement - The page element to query
-     *
-     * @return{String} returns the given or current page role
-     */
-    JQueryMobile.getPageRole = function (pageElement) {
-
-        if(!pageElement)
-            pageElement = JQueryMobile.currentPage.getElement();
-
-        var role = $(pageElement).attr("data-role");
-        return role;
-
-    };
-
-
-    /*
-     * Is Dialog
-     * 
-     * @param{Element|null} pageElement - The page element to query
-     *
-     * @return{Boolean} returns the given or current page role
-     */
-    JQueryMobile.isDialog = function (pageElement) {
-
-        var role = JQueryMobile.getPageRole(pageElement);
-        
-        return role === "dialog";
-
-    };
-
-
-    /*
-     * Is Page
-     * 
-     * @param{Element|null} pageElement - The page element to query
-     *
-     * @return{Boolean} returns the given or current page role
-     */
-    JQueryMobile.isPage = function (pageElement) {
-
-        var role = JQueryMobile.getPageRole(pageElement);
-        
-        return role === "page";
-
-    };
-
-
-    /*
-     * Remove page element from dom
-     * 
-     * @param{Element|null} pageElement - The page element to query
-     *
-     */
-    JQueryMobile.remove = function (pageElement) {
-
-        if(pageElement){
-            $(pageElement).find("*").each(function () { $(this).unbind(); });
-            $(pageElement).remove();
-        }
-
-    };
-
-
-
-    /*
      * .currentPage
      * created to hold all methods in currentPage scope
      *
      */
-    JQueryMobile.currentPage = {};
-
-
-    /*
-     * get current page HMTL element
-     *
-     * @return{HTMLElement}
-     */
-    JQueryMobile.currentPage.getElement = function(){
+    JQueryMobile.currentPage = function(){
         
+        var element = null;
         if($.mobile.activePage && $.mobile.activePage.length)
-          return $.mobile.activePage[0];
+          return JQueryMobile.Page(element);
         
         return null;
 
     };
 
+
+
+
+
     /*
-     * get header
+     * JQMobile Page abstraction. Provide helper methods for page 
+     * operations
      *
-     * @return{HTMLElement}
      */
-    JQueryMobile.currentPage.getHeader = function(){
-        return $(".ui-header", $.mobile.activePage);
-    };
+    JQueryMobile.Page = function(element){
+
+
+        return {
+
+            /*
+             * get current page HMTL element
+             *
+             * @return{HTMLNode}
+             *
+             */
+            getElement: function(){
+
+                if($.mobile.activePage && $.mobile.activePage.length)
+                  return $.mobile.activePage[0];
+                
+                return null;
+
+            },
+
+            /*
+             * get the page header
+             *
+             * @return{HTMLNode}
+             *
+             */
+            getHeader: function(){
+                return $(".ui-header", element);
+            },
+
+
+            /*
+             * get the page footer
+             *
+             * @return{HTMLNode}
+             *
+             */
+            getFooter: function(){
+                return $(".ui-footer", element);
+            },
+
+
+            /*
+             * Get current page component heights
+             *
+             * @return {Object} { footer: , header: , content: }
+             */
+            getHeight: function(){
+
+                var heights = {
+                    "footer": 0,
+                    "header": 0,
+                    "content": 0
+                };
+
+                var page = element,
+                    viewport_height = DomWindow.getViewportHeight(),
+                    content_height = viewport_height;
+
+                // subtract all page elements height, except the content
+                $("> div[data-role]", page).each(
+                    function(){
+                        var role = $(this).attr("data-role");
+                        
+                        // ignore content
+                        if(role === 'content' || role === 'panel' || role === 'popup' ) 
+                            return;
+
+                        var elementHeight = $(this).height();
+
+                        // save pageSize for later
+                        heights[role] = elementHeight;
+
+                        // decrease height
+                        content_height -= elementHeight;
+                    }
+                );
+
+                // set the height value to be an integer
+                content_height = Math.floor(content_height) - 0.1;
+                heights.content = content_height;
+
+                return heights;
+
+            },
+
+
+            /*
+             * Get Page role String
+             * 
+             * @param{Element|null} pageElement - The page element to query
+             *
+             * @return{String} returns the given or current page role
+             */
+            getPageRole: function () {
+
+                var role = $(element).attr("data-role");
+                return role;
+
+            },
+
+
+            /*
+             * Is Page
+             * 
+             * @param{Element|null} pageElement - The page element to query
+             *
+             * @return{Boolean} returns the given or current page role
+             */
+            isPage: function (pageElement) {
+
+                var role = this.getPageRole();
+                
+                return role === "page";
+
+            },
+
+
+            /*
+             * Is Dialog
+             * 
+             * @param{Element|null} pageElement - The page element to query
+             *
+             * @return{Boolean} returns the given or current page role
+             */
+            isDialog: function (pageElement) {
+
+                var role = this.getPageRole();
+                
+                return role === "dialog";
+
+            },
+
+
+            /*
+             * Remove page element from dom
+             * 
+             * @param{Element|null} pageElement - The page element to query
+             *
+             */
+            remove: function () {
     
+                $(element).find("*").each(function () { $(this).unbind(); });
+                $(element).remove();
+            
+            }
 
-    /*
-     * Hide's the page header
-     *
-     * @return{HTMLElement}
-     */
-    JQueryMobile.currentPage.hideHeader = function(){
-        
-        var currentPage = JQueryMobile.currentPage.getElement();
-        var element = $("> [data-role='header']", currentPage);
 
-        // get the padding-top of the current page
-        // JQM includes it when creating the page
-        var currentPagePaddingTop = currentPage.css("padding-top");
-        var currentPageDisplay = currentPage.css("display");
 
-        // already hided
-        if(currentPagePaddingTop === "0px") return;
+        };
 
-        // hide the element and remove padding from page
-        element.css("display", "none");
-        currentPage
-            .data("currentPage-padding-top", currentPagePaddingTop)
-            .data("currentPage-display", currentPagePaddingTop)
-            .css("padding-top", 0);
 
     };
 
-
-    /*
-     * Show's the page header
-     *
-     * @return{HTMLElement}
-     */
-    JQueryMobile.currentPage.showHeader = function(){
-        
-        var currentPage = JQueryMobile.currentPage.getElement();
-        var element = $("> [data-role='header']", currentPage);
-
-        // get the padding-top of the current page
-        var currentPagePaddingTop = currentPage.css("padding-top");
-
-        // already shown
-        if(currentPagePaddingTop !== "0px") return;
-
-        var savedPaddingTop = currentPage.data("currentPage-padding-top");
-
-        // not have a saved padding. weird!
-        if(!savedPaddingTop) return;
-
-        // hide the element and remove padding from page
-        currentPage.css("padding-top", savedPaddingTop);
-        element.css("display", "");        
-
-    };
 
 
     return JQueryMobile;

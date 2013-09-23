@@ -47,7 +47,7 @@ describe("JQueryMobile/indexSpec", function () {
 
         Injector.require(["src/JQueryMobile/index"], function(JQueryMobile){
 
-            expect(JQueryMobile.currentPage.getElement()).toBe(null);
+            expect(JQueryMobile.currentPage()).toBe(null);
 
             done();
 
@@ -58,7 +58,7 @@ describe("JQueryMobile/indexSpec", function () {
     });
 
 
-    async.it(".getPageHeights() should return heights Objects", function (done) {
+    async.it(".getHeight() should return heights Objects", function (done) {
 
         /*var Mock = require("js-mocks/MOCK");
 
@@ -67,7 +67,8 @@ describe("JQueryMobile/indexSpec", function () {
         
         Injector.require(["src/JQueryMobile/index", "jquery"], function(Module, $){
 
-            var pageHeights = Module.getPageHeights();
+            var jqmPage = new Module.Page();
+            var pageHeights = jqmPage.getHeight();
 
             expect(pageHeights).not.toBe(null);
             expect(pageHeights.content).not.toBe(null);

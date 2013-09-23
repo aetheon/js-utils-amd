@@ -82,12 +82,8 @@ define(["require", "jquery", "js-utils/Dom/Window", "js-utils/Dom/Element", "js-
              */
             hide: function(){
 
-                setTimeout(
-                    function(){
-                        var element = get();
-                        element.toggle(false);
-                    },
-                    1000);
+                var element = get();
+                element.toggle(false);
                        
             }
 

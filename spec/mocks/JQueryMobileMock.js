@@ -13,18 +13,27 @@ define(["js-utils/Arguments/index"], function(Arguments){
         var JQueryMobile = Arguments.get(
             options,
             {
+                
+            });
+
+
+        JQueryMobile.Page = function(){
+
+            return Arguments.get(
+            options,
+            {
                 getPageRole: function() { return "page" },
                 isPage: function(){ return true; },
                 remove: function(){}
             });
 
-        JQueryMobile.currentPage = {
+        };
 
-            getElement: function(){
-                return {};
-            }
 
-         };
+        JQueryMobile.currentPage = function(){
+            return new JQueryMobile.Page();
+        };
+
 
          return JQueryMobile;
 

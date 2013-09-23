@@ -143,7 +143,8 @@ define([
                 // only instanciate actionResult if is a function
                 if(Type.isFunction(current.Type)){
 
-                    var role = JQMHelper.getPageRole(element);
+                    var jqmPage = new JQMHelper.Page(element);
+                    var role = jqmPage.getPageRole();
 
                     // let factory take care of the instance initialization / reuse
                     factory.page({

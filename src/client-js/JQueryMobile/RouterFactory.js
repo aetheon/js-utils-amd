@@ -120,7 +120,9 @@ define([
                     Safe.call(historyRecord.instance.destroy, { scope: historyRecord.instance });
                     scope.emitEvent.call(scope, DESTROY_EVENT_NAME, [ _.clone(historyRecord) ]);
                     // remove the element from the dom
-                    JQueryMobile.remove(historyRecord.element);
+                    var jqmPage = new JQueryMobile.Page(historyRecord.element);
+                    if(jqmPage)
+                        jqmPage.remove();
                 }
             }
 
@@ -167,7 +169,9 @@ define([
 
                 // if the page then we can destroy it for keep
                 // memory low
-                if(JQueryMobile.isPage(options.element)){
+                var jqmPage = new JQueryMobile.Page(options.element);
+
+                if(jqmPage.isPage()){
 
                     var lastElementId = $(last.element).attr("id");
                     var currentElementId = $(options.element).attr("id");

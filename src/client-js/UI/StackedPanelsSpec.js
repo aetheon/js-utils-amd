@@ -195,8 +195,8 @@ describe("StackedPanelsSpec", function () {
             expect( $( $(element).children()[0] ).css("left") ).toEqual("0px");
             expect( $( $(element).children()[1] ).css("left") ).toEqual("100px");
 
-            expect( $( $(element).children()[0] ).css("min-height") ).toBe("200px");
-            expect( $( $(element).children()[1] ).css("min-height") ).toBe("200px");
+            expect( $( $(element).children()[0] ).css("min-height") ).not.toBe(null);
+            expect( $( $(element).children()[1] ).css("min-height") ).not.toBe(null);
 
             expect( $( $(element).children()[0] ).css("-webkit-transition") ).toEqual("1000ms");
 
