@@ -64,10 +64,10 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
         var set_content_height = function () {
 
             var current = JQueryMobile.currentPage();
-            if(!element)    
+            if(!current)    
                 return;
 
-            var page = current.getElement();
+            var page = $(current.getElement());
             var pageType = page.attr("data-role");
             
             // ignore dialogs
@@ -75,7 +75,7 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
 
             // get page sizes
             var content = $("div[data-role='content']", page),
-                pageHeights = JQueryMobile.getPageHeights();
+                pageHeights = current.getHeight();
             
 
             // find wich css rule to apply

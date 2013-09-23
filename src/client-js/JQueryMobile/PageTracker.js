@@ -149,7 +149,10 @@ define([
             "show", 
             function (event, data) {
 
-                var currentPage = JQueryMobile.currentPage.getElement();
+                var jqmPage = JQueryMobile.currentPage();
+                var currentPage = null;
+                if(jqmPage)
+                    currentPage = jqmPage.getElement();
                 
                 // variable hoisted at top
                 if (prevPage) {
