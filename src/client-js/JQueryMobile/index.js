@@ -74,7 +74,7 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
             if(pageType == "dialog") return;
 
             // get page sizes
-            var content = $("div[data-role='content']", page),
+            var content = $(current.getContent()),
                 pageHeights = current.getHeight();
             
 
@@ -151,14 +151,11 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
         
         var element = null;
         if($.mobile.activePage && $.mobile.activePage.length)
-          return JQueryMobile.Page(element);
+          return JQueryMobile.Page($.mobile.activePage[0]);
         
         return null;
 
     };
-
-
-
 
 
     /*
@@ -179,10 +176,7 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
              */
             getElement: function(){
 
-                if($.mobile.activePage && $.mobile.activePage.length)
-                  return $.mobile.activePage[0];
-                
-                return null;
+                return element;
 
             },
 
@@ -193,9 +187,8 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
              *
              */
             getHeader: function(){
-                return $(".ui-header", element);
+                return $("> .ui-header", element);
             },
-
 
             /*
              * get the page footer
@@ -204,9 +197,18 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
              *
              */
             getFooter: function(){
-                return $(".ui-footer", element);
+                return $("> .ui-footer", element);
             },
 
+             /*
+             * get the page content area
+             *
+             * @return{HTMLNode}
+             *
+             */
+            getContent: function(){
+                return $("> .ui-content", element);
+            },
 
             /*
              * Get current page component heights
@@ -234,7 +236,7 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
                         if(role === 'content' || role === 'panel' || role === 'popup' ) 
                             return;
 
-                        var elementHeight = $(this).height();
+                        var elementHeight = $(this).outerHeight();
 
                         // save pageSize for later
                         heights[role] = elementHeight;
@@ -252,7 +254,6 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
 
             },
 
-
             /*
              * Get Page role String
              * 
@@ -266,7 +267,6 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
                 return role;
 
             },
-
 
             /*
              * Is Page
@@ -283,7 +283,6 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
 
             },
 
-
             /*
              * Is Dialog
              * 
@@ -298,7 +297,6 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
                 return role === "dialog";
 
             },
-
 
             /*
              * Remove page element from dom

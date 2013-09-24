@@ -1,16 +1,10 @@
 
-.stacked-panel {
-    
-    -webkit-backface-visibility: hidden;
-    -webkit-perspective: 1000;
+.stacked-panels {
 
-    position: absolute;
-    top: 0px;
-    background: #FFF;
 }
 
-
-.stacked-panel .element-overlay {
+/* stacked-panel overlay */
+.stacked-panels .element-overlay {
     position: absolute;
     top: 0px;
     background: #DDD;
@@ -18,16 +12,38 @@
     z-index: 3;
 }
 
+.stacked-panel {
+    
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+
+    /* inner must be on top of overlay */
+    position: absolute;
+    top: 0px;
+    
+    background: #FFF;
+}
+
+.stacked-panel .inner {
+    
+}
+
+
 
 /* previous panel */
 .stacked-panel.prev {
     -webkit-transform: translate3d(0, 0, 0);
+    /* */
+    z-index: 1;
 }
+
 
 /* active panel */
 .stacked-panel.active {
     /* let the stacked panel change the scroller.
        if position is absoulute the scrolling dont work */
     position: relative;
+    z-index: 4;
 
 }
+

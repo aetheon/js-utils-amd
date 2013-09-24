@@ -30,6 +30,11 @@ define([
          * The visible panels are arranged as "previous" and "active". To go to previous Panel a click on the previous 
          * overlay must be done.
          *
+            <div class="stacked-panel">
+                <div class="inner">
+                </div>    
+            </div>
+         *
          * @param {Object} viewportElement - The viewportElement element (Window is taken if none is provided)
          *
          * @return {Object}
@@ -60,6 +65,9 @@ define([
             // module variables definition
             var viewport = viewportElement,
                 viewportWidth = ElementHelper.width(viewport),
+                // back overlay
+                backOverlay = new ElementOverlay(viewportElement),
+
                 // module data structures
                 historyIndex = [],
                 panels = [];
@@ -90,7 +98,7 @@ define([
             };
 
             // get the overlay height
-            var getOverlayHeight = function(element){
+            var getPanelHeight = function(element){
 
                 var height = ElementHelper.height(element),
                     viewportHeight = ElementHelper.height(viewportElement);
@@ -104,39 +112,56 @@ define([
 
             // show panel
             var showPanel = function(element, index){
+
                 // next panel animation
-                var tranlationWidth = Math.floor( (viewportWidth * index) - (viewportWidth - (viewportWidth * options.panelWidthPercentage)) );
+                var marginLeft = viewportWidth - (viewportWidth * options.panelWidthPercentage);
+                var tranlationWidth = Math.floor(viewportWidth * index - marginLeft);
                 
+                var panelHeight = getPanelHeight(element);
+
                 var cssRules = {
-                    "min-height": $(viewportElement).height(),
+                    "min-height": panelHeight,
                     "-webkit-transition-duration": options.animDurationMsec + "ms",
                     "transform": 'translate3d(-' + tranlationWidth + 'px, 0, 0)'
                 };
 
-                $(element).css(cssRules)
-                          .addClass("active");
+                $(element).addClass("active").css(cssRules);
+
+                // apply css to inner container
+                $("> .inner", element).css({ "width": viewportWidth - marginLeft });
+
+                // create an absoulte overlay to allow opacity on the bottom stack
+                if(index > 0){
+                    backOverlay.show({ height: panelHeight });
+                }
 
             };
 
             // hidePanel
-            var hidePanel = function(element, index, options){
+            var hidePanel = function(element, index, soptions){
 
-                options = Arguments.get(
-                    options,
+                soptions = Arguments.get(
+                    soptions,
                     {
-                        translationX: "-" + Math.floor( (viewportWidth * index) )
+                        translationX: "-" + Math.floor( (viewportWidth * index) ),
+                        height: 0
                     }
                 );
 
                 var cssRules = {
-                    "-webkit-transition-duration": options.animDurationMsec + "ms",
-                    transform: 'translate3d(' + options.translationX + 'px, 0, 0)'
+                    "-webkit-transition-duration": soptions.animDurationMsec + "ms",
+                    transform: 'translate3d(' + soptions.translationX + 'px, 0, 0)'
                 };
+
+                // when the new panel is bigger then the one to hide its needed 
+                // an adjustment to heights
+                if(soptions.height){
+                    cssRules["min-height"] = soptions.height;
+                }
 
                 // show overlay on the previous panel and put the panel 
                 // as main screen
-                $(element).css(cssRules)
-                          .removeClass("active");
+                $(element).css(cssRules).removeClass("active");
 
             };
 
@@ -199,18 +224,12 @@ define([
                     // remove current panel
                     $(currentPanelElement).addClass("prev");
 
-                    // remove the nextPanel overlay before applying the transition
-                    new ElementOverlay(nextPanelElement).hide();
-
                     // if current element is available
                     // show overlay on the previous panel and put the panel as main screen
                     if(currentPanelElement){
-                        new ElementOverlay(currentPanelElement).show({ height: getOverlayHeight(nextPanelElement) });
+                        // show overlay over the current element with the height of the 
                         hidePanel(currentPanelElement, currentPanelIndex);
                     }
-
-                    // show next panel
-                    $(nextPanelElement).addClass("active");
 
                     // next panel animation
                     showPanel(nextPanelElement, index);
@@ -292,7 +311,7 @@ define([
             var previousFn = function StackedPanels_previous(){
                 Manager.previous();    
             };
-            $(viewport).on("click", "> .stacked-panel > .element-overlay", previousFn);
+            $(viewport).on("click", "> .element-overlay", previousFn);
 
 
 
