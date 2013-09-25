@@ -11,7 +11,7 @@ define(
         "js-utils/Dom/WindowScrollListener", 
         "js-utils/Array/index", 
         "js-utils/Dom/Window", 
-        "js-utils/Structures/InfinitePaginationData",
+        "js-utils/DataStructures/InfinitePaginationData",
         "js-utils/JQueryMobile/index",
         "js-utils/UI/StackedPanels"
     ],
@@ -24,7 +24,7 @@ define(
             Arguments = require("js-utils/Arguments/index"),
             WindowScrollListener = require("js-utils/Dom/WindowScrollListener"),
             ArrayHelper = require("js-utils/Array/index"),
-            InfinitePaginationData = require("js-utils/Structures/InfinitePaginationData");
+            InfinitePaginationData = require("js-utils/DataStructures/InfinitePaginationData");
 
 
         // transaction event name 

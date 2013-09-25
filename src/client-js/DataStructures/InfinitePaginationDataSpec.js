@@ -1,5 +1,5 @@
 
-describe("Structures/InfinitePaginationData", function () {
+describe("DataDataStructures/InfinitePaginationData", function () {
 
     var Squire = null,
         Injector = null,
@@ -23,7 +23,7 @@ describe("Structures/InfinitePaginationData", function () {
     
     async.it(".getIndexRange() should return a range with all zeros", function (done) {
  
-        Injector.require(["src/Structures/InfinitePaginationData"], function(InfinitePaginationData){
+        Injector.require(["src/DataStructures/InfinitePaginationData"], function(InfinitePaginationData){
 
             var infinitePaginationData = new InfinitePaginationData({ PageSize: 1, MaxSize: 2});
 
@@ -43,7 +43,7 @@ describe("Structures/InfinitePaginationData", function () {
 
     async.it(".getIndexRange() should return a valid range after addAfter", function (done) {
  
-        Injector.require(["src/Structures/InfinitePaginationData"], function(InfinitePaginationData){
+        Injector.require(["src/DataStructures/InfinitePaginationData"], function(InfinitePaginationData){
 
             var infinitePaginationData = new InfinitePaginationData({ PageSize: 1, MaxSize: 2});
 
@@ -70,7 +70,7 @@ describe("Structures/InfinitePaginationData", function () {
 
     async.it(".getIndexRange() should return a valid range after addBefore", function (done) {
  
-        Injector.require(["src/Structures/InfinitePaginationData"], function(InfinitePaginationData){
+        Injector.require(["src/DataStructures/InfinitePaginationData"], function(InfinitePaginationData){
 
             var infinitePaginationData = new InfinitePaginationData({ PageSize: 1, MaxSize: 2});
 
@@ -99,7 +99,7 @@ describe("Structures/InfinitePaginationData", function () {
 
     async.it(".isInIndexRange() should return a true if is in the current list range", function (done) {
  
-        Injector.require(["src/Structures/InfinitePaginationData"], function(InfinitePaginationData){
+        Injector.require(["src/DataStructures/InfinitePaginationData"], function(InfinitePaginationData){
 
             var infinitePaginationData = new InfinitePaginationData({ PageSize: 1, MaxSize: 2});
 
@@ -123,7 +123,7 @@ describe("Structures/InfinitePaginationData", function () {
 
     async.it(".isInIndexRange() should return a false when it's not is in the current list range", function (done) {
  
-        Injector.require(["src/Structures/InfinitePaginationData"], function(InfinitePaginationData){
+        Injector.require(["src/DataStructures/InfinitePaginationData"], function(InfinitePaginationData){
 
             var infinitePaginationData = new InfinitePaginationData({ PageSize: 1, MaxSize: 2});
 
@@ -146,7 +146,7 @@ describe("Structures/InfinitePaginationData", function () {
 
     async.it(".getPrevIndex() should return the previous index", function (done) {
  
-        Injector.require(["src/Structures/InfinitePaginationData"], function(InfinitePaginationData){
+        Injector.require(["src/DataStructures/InfinitePaginationData"], function(InfinitePaginationData){
 
             var infinitePaginationData = new InfinitePaginationData({ PageSize: 1, MaxSize: 2});
 
@@ -168,7 +168,7 @@ describe("Structures/InfinitePaginationData", function () {
 
     async.it(".getPrevIndex() should return null when there is no prevIndex", function (done) {
  
-        Injector.require(["src/Structures/InfinitePaginationData"], function(InfinitePaginationData){
+        Injector.require(["src/DataStructures/InfinitePaginationData"], function(InfinitePaginationData){
 
             var infinitePaginationData = new InfinitePaginationData({ PageSize: 1, MaxSize: 2});
 
@@ -190,7 +190,7 @@ describe("Structures/InfinitePaginationData", function () {
 
     async.it(".getNextIndex() should return the next index", function (done) {
  
-        Injector.require(["src/Structures/InfinitePaginationData"], function(InfinitePaginationData){
+        Injector.require(["src/DataStructures/InfinitePaginationData"], function(InfinitePaginationData){
 
             var infinitePaginationData = new InfinitePaginationData({ PageSize: 1, MaxSize: 2});
 
@@ -211,7 +211,7 @@ describe("Structures/InfinitePaginationData", function () {
 
     async.it(".getNextIndex() should return null when there is no more data after", function (done) {
  
-        Injector.require(["src/Structures/InfinitePaginationData"], function(InfinitePaginationData){
+        Injector.require(["src/DataStructures/InfinitePaginationData"], function(InfinitePaginationData){
 
             var infinitePaginationData = new InfinitePaginationData({ PageSize: 1, MaxSize: 2});
 
