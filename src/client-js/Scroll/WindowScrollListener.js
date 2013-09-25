@@ -45,13 +45,10 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
         // last scrolling position detected
         var scrollPositionPx = 0,
             // is scrolling down flag
-            isScrollingDown = true;
+            isScrollingDown = true,
+            // instance events
+            events = new EventEmitter();
 
-
-        // initialize EventEmitter
-        OOP.super(this, EventEmitter);
-        OOP.inherit(this, EventEmitter.prototype);
-        
         
         /*
          * bind to window scroll events
@@ -72,17 +69,17 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
                 }
 
                 // fire scroll event
-                this.emit(SCROLL_EVENT, this);
+                events.emit(SCROLL_EVENT, this);
 
                 if(options.element){
                     
                     if(Element.isNearBottom(options.element)){
-                        this.emit(SCROLL_BOTTOM_EVENT, this);
+                        events.emit(SCROLL_BOTTOM_EVENT, this);
                         return;
                     }
 
                     if(Element.isNearTop(options.element)){
-                        this.emit(SCROLL_TOP_EVENT, this);
+                        events.emit(SCROLL_TOP_EVENT, this);
                         return;
                     }
 
@@ -122,6 +119,16 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
             },
 
             /*
+             * Subscribe for events
+             *
+             * @param {String} evnName - event name
+             * @param {Function} evnFn - event function
+             */
+            on: function(evnName, evnFn){
+                events.on(evnName, evnFn);
+            },
+
+            /*
              * destroy the control
              *
              */
@@ -133,9 +140,7 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
         };
 
 
-        // inherit from EventEmitter
-        OOP.inherit(instance, scope);
-
+        // subscribe events from scroller
         WindowScrollListener.on(scroller);
         
         return instance;

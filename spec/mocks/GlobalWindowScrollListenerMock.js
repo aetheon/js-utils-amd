@@ -27,7 +27,6 @@ define(["require", "EventEmitter"], function(require, EventEmitter){
          *
          */
         off: function(fn){
-            if(!Type.isFunction(fn)) return;
             scrollEvent.off("scroll", fn);
         },
 

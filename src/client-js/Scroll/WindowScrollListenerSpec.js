@@ -81,4 +81,54 @@ describe("Scroll/WindowScrollListener", function () {
 
 
 
+    async.it("scroll event should not be fired on pause", function (done) {
+        
+        Injector.mock("js-utils/Scroll/GlobalWindowScrollListener", Squire.Helpers.returns(GlobalWindowScrollListenerMock) );
+        
+        var instance = null,
+            isDone = false,
+            wasCalled = false;
+            
+
+        runs(function(){
+
+            Injector.require(["src/Scroll/WindowScrollListener"], function(WindowScrollListener){
+
+                instance = new WindowScrollListener();
+                
+                instance.on("scroll", function(){
+                    wasCalled = true;
+                });
+
+                instance.pause();
+
+                // mock scroll event
+                GlobalWindowScrollListenerMock.event.emit("scroll");
+
+                setTimeout(function(){ 
+                    isDone = true; 
+                }, 2000);
+                
+            });
+
+        });
+
+        waitsFor(function() { return isDone; }, 5000);
+
+        runs(function(){
+
+            expect(wasCalled).toBe(false);
+
+            instance.destroy();
+                
+            done();
+
+        });
+
+        
+
+    });
+
+
+
 });
