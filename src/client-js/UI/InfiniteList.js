@@ -48,7 +48,7 @@ define(
                 {
                     element: null,
                     Max: 40,
-                    PageSize: 10
+                    PageSize: 20
                 }
             );
 
@@ -146,6 +146,26 @@ define(
                 getNextPageNumber: function(){
 
                     return list.getNextIndex();
+                },
+
+
+                add: function(moptions){
+
+                    moptions = Arguments.get(
+                        moptions,
+                        {
+                            next: true,
+                            data: []
+                        });
+
+
+                    if(moptions.next){
+                        this.addAfter( { data: moptions.data } );
+                    }
+                    else {
+                        this.addBefore( { data: moptions.data } );   
+                    }
+
                 },
 
 

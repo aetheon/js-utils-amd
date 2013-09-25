@@ -2,7 +2,8 @@
 define([
         "require", 
         "lodash", 
-        "jquery", 
+        "jquery",
+        "EventEmitter", 
 
         "js-utils/Arguments/index",
         "js-utils/Safe/index",
@@ -11,7 +12,7 @@ define([
         "js-utils/Dom/Element",
         "js-utils/UI/ElementOverlay"
     ],
-    function(require, _, $){
+    function(require, _, $, EventEmitter){
         "use strict";
 
 
@@ -36,6 +37,8 @@ define([
             </div>
          *
          * @param {Object} viewportElement - The viewportElement element (Window is taken if none is provided)
+         *
+         * @event "show" - fired when a panel is shown
          *
          * @return {Object}
          */
@@ -70,7 +73,11 @@ define([
 
                 // module data structures
                 historyIndex = [],
-                panels = [];
+                panels = [],
+
+                // event emmiter
+                events = new EventEmitter();
+
 
 
             // initialize viewport class
@@ -135,6 +142,9 @@ define([
                 if(index > 0){
                     backOverlay.show({ height: panelHeight });
                 }
+
+                // emit show event 
+                events.emitEvent("show", [{ index: index }]);
 
             };
 
@@ -242,6 +252,7 @@ define([
 
                 },
 
+
                 /*
                  * Show next stack panel
                  *
@@ -260,6 +271,7 @@ define([
                     return true;
 
                 },
+
 
                 /*
                  * Show previous stack panel
@@ -289,6 +301,7 @@ define([
 
                 },
 
+
                 /*
                  * Return current index
                  *
@@ -296,6 +309,37 @@ define([
                  */
                 currentIndex: function(){
                     return historyIndex.length ? historyIndex[historyIndex.length-1] : 0;
+                },
+
+
+                /*
+                 * Register onShow subscriber
+                 *
+                 */
+                onShow: function(fn){
+                    events.on("show", fn);
+                },
+
+
+                /*
+                 * unregister Show subscriber
+                 *
+                 */
+                offShow: function(fn){
+                    events.off("show", fn);
+                },
+
+
+                /*
+                 * Destroy the instance
+                 *
+                 */
+                destroy: function(){
+
+                    // remove Listeners
+                    var listeners = events.getListeners();
+                    events.removeListeners(null, listeners);
+
                 }
 
             };

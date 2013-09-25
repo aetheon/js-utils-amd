@@ -213,6 +213,115 @@ describe("StackedPanelsSpec", function () {
     });
     
 
+    async.it("onShow() should be called when show event is fired", function (done) {
+
+        var eventArgs = null; 
+
+       
+        var isShow = function(options){
+            eventArgs = options;
+        };
+
+
+        runs(function(){
+
+            Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+
+                var element = $("<div style='width:100px'></div>")
+                                .append("<div class='stacked-panel'></div>")
+                                .append("<div class='stacked-panel'></div>");
+
+                var panel = new StackedPanels(element, { panelHeight: 200 });
+                panel.onShow(isShow);
+
+                // show
+                panel.show(1);
+
+            });
+
+        });
+
+        waitsFor(function() { return !!eventArgs; }, 5000);
+
+        runs(function(){
+
+            expect(eventArgs).not.toBe(null);
+            expect(eventArgs.index).toBe(1);
+
+            done();
+
+        });
+
+
+    });
+
+
+    async.it("offShow() should unsubscribe event", function (done) {
+
+        var isDone = false,
+            eventArgs = null; 
+
+       
+        var isShow = function(options){
+            eventArgs = options;
+        };
+
+
+        runs(function(){
+
+            Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+
+                var element = $("<div style='width:100px'></div>")
+                                .append("<div class='stacked-panel'></div>")
+                                .append("<div class='stacked-panel'></div>");
+
+                var panel = new StackedPanels(element, { panelHeight: 200 });
+                panel.onShow(isShow);
+                panel.offShow(isShow);
+
+                // show
+                panel.show(1);
+
+                setTimeout(function(){
+                    isDone = true;
+                }, 3000);
+
+            });
+
+        });
+
+        waitsFor(function() { return isDone; }, 5000);
+
+        runs(function(){
+
+            expect(eventArgs).toBe(null);
+            
+            done();
+
+        });
+
+
+    });
+
+
+    async.it("destroy()", function (done) {
+
+        Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+
+            var element = $("<div style='width:100px'></div>")
+                            .append("<div class='stacked-panel'></div>")
+                            .append("<div class='stacked-panel'></div>");
+
+            var panel = new StackedPanels(element, { panelHeight: 200 });
+            panel.destroy();
+            
+            done();
+
+        });
+
+
+    });
+
 
 
 });
