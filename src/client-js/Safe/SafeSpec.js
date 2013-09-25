@@ -296,6 +296,33 @@ describe("SafeSpec", function () {
     });
 
 
+    async.it("debouncedCall()", function (done) {
+        
+        Injector.require(["src/Safe/index"], function(Safe){
+
+            var scope = { one: 1 };
+
+            Safe.debouncedCall(
+                function(arg1, arg2){
+
+                    expect(arg1).toBe(1);
+                    expect(arg2).toBe(2);
+                    expect(scope.one).toBe(1);
+
+                    done();
+
+                },
+                {
+                    scope: scope,
+                    args: [1, 2]
+                }
+            );
+
+        });        
+
+    });
+
+
     
 
 

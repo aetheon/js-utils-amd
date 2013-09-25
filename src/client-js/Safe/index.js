@@ -173,6 +173,39 @@ define([
         Safe.call = Safe.callFunction;
 
 
+
+        /*
+         * Debounced call of the function
+         *
+         * @param {Function} fn - the function to be executed
+         * @param {Object} options - the Safe.call options
+         *
+         */
+        Safe.debouncedCall = function(fn, options){
+
+            options = Arguments.get(
+                options,
+                {
+                    scope: this,
+
+                    args: [],
+
+                    // msec of delay to exec
+                    delay: 200
+
+                }
+            );
+
+            setTimeout(
+                function(){
+                    Safe.call(fn, { scope: options.scope, args: options.args });
+                },
+                options.delay
+            );
+
+        };
+
+
         return Safe;
 
 });
