@@ -134,7 +134,7 @@ describe("UI/InfiniteList Spec", function () {
         var isDone = false,
             infiniteList = null;
 
-        Injector.mock('js-utils/Scroll/WindowScrollListener', Squire.Helpers.returns( EventEmitterObjMock.obj ) );
+        Injector.mock('js-utils/Dom/WindowScrollListener', Squire.Helpers.returns( EventEmitterObjMock.obj ) );
         
         runs(function() {
 

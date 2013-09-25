@@ -1,10 +1,5 @@
 
-/*
- * Scroller listener
- * 
- */
-
-define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index", "js-utils/Log/index", "js-utils/Scroll/GlobalWindowScrollListener", 
+define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index", "js-utils/Log/index", "js-utils/Dom/GlobalWindowScrollListener", 
         "js-utils/Dom/Element", "js-utils/OOP/index"], 
     function(require){
     "use strict";
@@ -15,7 +10,7 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
         EventEmitter = require("EventEmitter"),
         Arguments = require("js-utils/Arguments/index"),
         Element = require("js-utils/Dom/Element"),
-        WindowScrollListener = require("js-utils/Scroll/GlobalWindowScrollListener"),
+        WindowScrollListener = require("js-utils/Dom/GlobalWindowScrollListener"),
         Log = require("js-utils/Log/index");
 
 
@@ -27,7 +22,11 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
 
 
     /*
-     * Element scroller listener
+     * Window Scroll Listener Object. Provides API for getting scrolling events / information.
+     * 
+     * It uses the debounced GlobalWindowScrollListener for scrolling events for performance 
+     * gains.
+     * 
      *
      * @param {Object} options - The 
      */

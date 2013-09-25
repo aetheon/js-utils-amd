@@ -1,5 +1,5 @@
 
-describe("Scroll/WindowScrollListener", function () {
+describe("Dom/WindowScrollListener", function () {
 
     var Squire = null,
         Injector = null,
@@ -28,7 +28,7 @@ describe("Scroll/WindowScrollListener", function () {
     
     async.it("Window .ctor should get a new instance", function (done) {
         
-        Injector.require(["src/Scroll/WindowScrollListener"], function(WindowScrollListener){
+        Injector.require(["src/Dom/WindowScrollListener"], function(WindowScrollListener){
 
             var instance = new WindowScrollListener();
             instance.destroy();
@@ -42,7 +42,7 @@ describe("Scroll/WindowScrollListener", function () {
 
     async.it("scroll event should be fired", function (done) {
         
-        Injector.mock("js-utils/Scroll/GlobalWindowScrollListener", Squire.Helpers.returns(GlobalWindowScrollListenerMock) );
+        Injector.mock("js-utils/Dom/GlobalWindowScrollListener", Squire.Helpers.returns(GlobalWindowScrollListenerMock) );
         
         var instance = null,
             wasCalled = false;
@@ -50,7 +50,7 @@ describe("Scroll/WindowScrollListener", function () {
 
         runs(function(){
 
-            Injector.require(["src/Scroll/WindowScrollListener"], function(WindowScrollListener){
+            Injector.require(["src/Dom/WindowScrollListener"], function(WindowScrollListener){
 
                 instance = new WindowScrollListener();
                 
@@ -83,7 +83,7 @@ describe("Scroll/WindowScrollListener", function () {
 
     async.it("scroll event should not be fired on pause", function (done) {
         
-        Injector.mock("js-utils/Scroll/GlobalWindowScrollListener", Squire.Helpers.returns(GlobalWindowScrollListenerMock) );
+        Injector.mock("js-utils/Dom/GlobalWindowScrollListener", Squire.Helpers.returns(GlobalWindowScrollListenerMock) );
         
         var instance = null,
             isDone = false,
@@ -92,7 +92,7 @@ describe("Scroll/WindowScrollListener", function () {
 
         runs(function(){
 
-            Injector.require(["src/Scroll/WindowScrollListener"], function(WindowScrollListener){
+            Injector.require(["src/Dom/WindowScrollListener"], function(WindowScrollListener){
 
                 instance = new WindowScrollListener();
                 
