@@ -9,7 +9,7 @@ define(
         "js-utils/Safe/index", 
         "js-utils/Arguments/index", 
         "js-utils/Dom/WindowScrollListener", 
-        "js-utils/Array/index", 
+        "js-utils/DataStructures/Array", 
         "js-utils/Dom/Window", 
         "js-utils/DataStructures/InfinitePaginationData",
         "js-utils/JQueryMobile/index",
@@ -23,7 +23,7 @@ define(
         var Safe = require("js-utils/Safe/index"),
             Arguments = require("js-utils/Arguments/index"),
             WindowScrollListener = require("js-utils/Dom/WindowScrollListener"),
-            ArrayHelper = require("js-utils/Array/index"),
+            ArrayHelper = require("js-utils/DataStructures/Array"),
             InfinitePaginationData = require("js-utils/DataStructures/InfinitePaginationData");
 
 

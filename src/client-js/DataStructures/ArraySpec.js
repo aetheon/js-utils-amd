@@ -24,7 +24,7 @@ describe("ArraySpec", function () {
     async.it(".add(,,{ after: true }) should add the value into the end of the given array", function (done) {
 
         
-        Injector.require(["src/Array/index"], function(ArrayHelper){
+        Injector.require(["src/DataStructures/Array"], function(ArrayHelper){
 
             var arr = [1,2];
             
@@ -42,7 +42,7 @@ describe("ArraySpec", function () {
     async.it(".add(,[],{ after: true }) should add the value into the end of the given array", function (done) {
 
         
-        Injector.require(["src/Array/index"], function(ArrayHelper){
+        Injector.require(["src/DataStructures/Array"], function(ArrayHelper){
 
             var arr = [1,2];
             
@@ -63,7 +63,7 @@ describe("ArraySpec", function () {
     async.it(".add(,,{ after: false }) should add the value into the begin of the given array", function (done) {
 
         
-        Injector.require(["src/Array/index"], function(ArrayHelper){
+        Injector.require(["src/DataStructures/Array"], function(ArrayHelper){
 
             var arr = [1,2];
             
@@ -82,7 +82,7 @@ describe("ArraySpec", function () {
     async.it(".add(,[],{ after: false }) should add the value into the begin of the given array", function (done) {
 
         
-        Injector.require(["src/Array/index"], function(ArrayHelper){
+        Injector.require(["src/DataStructures/Array"], function(ArrayHelper){
 
             var arr = [1,2];
             
@@ -103,7 +103,7 @@ describe("ArraySpec", function () {
     async.it(".removeFirst() should remove the first N elements of the array", function (done) {
 
         
-        Injector.require(["src/Array/index"], function(ArrayHelper){
+        Injector.require(["src/DataStructures/Array"], function(ArrayHelper){
 
             var arr = [1,2,3];
             
@@ -122,7 +122,7 @@ describe("ArraySpec", function () {
     async.it(".removeLast() should remove all elements when the N specified is bigger then the length", function (done) {
 
         
-        Injector.require(["src/Array/index"], function(ArrayHelper){
+        Injector.require(["src/DataStructures/Array"], function(ArrayHelper){
 
             var arr = [1,2,3];
             
@@ -141,7 +141,7 @@ describe("ArraySpec", function () {
     async.it(".index() should return the right value", function (done) {
 
         
-        Injector.require(["src/Array/index"], function(ArrayHelper){
+        Injector.require(["src/DataStructures/Array"], function(ArrayHelper){
 
             var arr = [1,2,3];
             
@@ -159,7 +159,7 @@ describe("ArraySpec", function () {
     async.it(".index() should return the zero index value when the argument is not specified", function (done) {
 
         
-        Injector.require(["src/Array/index"], function(ArrayHelper){
+        Injector.require(["src/DataStructures/Array"], function(ArrayHelper){
 
             var arr = [1,2,3];
             
@@ -178,7 +178,7 @@ describe("ArraySpec", function () {
     async.it(".index() should return null when the index does not exists", function (done) {
 
         
-        Injector.require(["src/Array/index"], function(ArrayHelper){
+        Injector.require(["src/DataStructures/Array"], function(ArrayHelper){
 
             var arr = [1,2,3];
             
@@ -196,7 +196,7 @@ describe("ArraySpec", function () {
     async.it(".first() should return the first element of the array", function (done) {
 
         
-        Injector.require(["src/Array/index"], function(ArrayHelper){
+        Injector.require(["src/DataStructures/Array"], function(ArrayHelper){
 
             var arr = [1,2,3];
             
@@ -214,7 +214,7 @@ describe("ArraySpec", function () {
     async.it(".first() should return null when there is no array", function (done) {
 
         
-        Injector.require(["src/Array/index"], function(ArrayHelper){
+        Injector.require(["src/DataStructures/Array"], function(ArrayHelper){
 
             var arr = [];
             
@@ -232,7 +232,7 @@ describe("ArraySpec", function () {
     async.it(".last() should return the last element of the array", function (done) {
 
         
-        Injector.require(["src/Array/index"], function(ArrayHelper){
+        Injector.require(["src/DataStructures/Array"], function(ArrayHelper){
 
             var arr = [1,2,3];
             
@@ -250,7 +250,7 @@ describe("ArraySpec", function () {
     async.it(".last() should return null when there is no array", function (done) {
 
         
-        Injector.require(["src/Array/index"], function(ArrayHelper){
+        Injector.require(["src/DataStructures/Array"], function(ArrayHelper){
 
             var arr = [];
             
@@ -268,7 +268,7 @@ describe("ArraySpec", function () {
     async.it(".removeIndex() should remove the given index", function (done) {
 
         
-        Injector.require(["src/Array/index"], function(ArrayHelper){
+        Injector.require(["src/DataStructures/Array"], function(ArrayHelper){
 
             
             var arr = [1,2,3];
@@ -307,7 +307,7 @@ describe("ArraySpec", function () {
     async.it(".removeIndex() that not exists should not modify the array", function (done) {
 
         
-        Injector.require(["src/Array/index"], function(ArrayHelper){
+        Injector.require(["src/DataStructures/Array"], function(ArrayHelper){
 
             
             var arr = [1,2,3];

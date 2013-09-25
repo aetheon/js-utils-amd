@@ -13,7 +13,7 @@ define([
     "js-utils/Arguments/index", 
     "js-utils/Type/index",
     "js-utils/Safe/index",
-    "js-utils/Array/index", 
+    "js-utils/DataStructures/Array", 
     "js-utils/Log/index"
 
     ], 
@@ -25,7 +25,7 @@ define([
         Type = require("js-utils/Type/index"),
         Safe = require("js-utils/Safe/index"),
         Log = require("js-utils/Log/index"),
-        ArrayHelper = require("js-utils/Array/index");
+        ArrayHelper = require("js-utils/DataStructures/Array");
 
 
     var log = new Log.Logger("js-utils/JQueryMobile/RouterHistory");

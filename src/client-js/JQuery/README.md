@@ -6,7 +6,7 @@
 
 ```javascript
 
-var Object = require("js-utils/Object/index.js");
+var Object = require("js-utils/JQuery/index.js");
 
 //TODO
 

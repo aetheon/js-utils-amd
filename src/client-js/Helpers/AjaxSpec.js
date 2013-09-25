@@ -23,7 +23,7 @@ describe("AjaxSpec", function () {
     
     async.it(".call() to json should return json data", function (done) {
 
-        Injector.require(["src/Ajax/index", "jquery"], function(Ajax){
+        Injector.require(["src/Helpers/Ajax", "jquery"], function(Ajax){
 
 
             Ajax.call(
@@ -55,7 +55,7 @@ describe("AjaxSpec", function () {
 
     async.it(".call() to not found file should not return 200 status", function (done) {
 
-        Injector.require(["src/Ajax/index", "jquery"], function(Ajax){
+        Injector.require(["src/Helpers/Ajax", "jquery"], function(Ajax){
 
 
             Ajax.call(
@@ -86,7 +86,7 @@ describe("AjaxSpec", function () {
 
     async.it(".onAjaxResponse global event should be called", function (done) {
 
-        Injector.require(["src/Ajax/index", "jquery"], function(Ajax){
+        Injector.require(["src/Helpers/Ajax", "jquery"], function(Ajax){
 
             var call = function(response){
                 expect(response.url).not.toBe(null);
@@ -114,7 +114,7 @@ describe("AjaxSpec", function () {
 
     async.it(".offAjaxResponse global event should unsubscribe", function (done) {
 
-        Injector.require(["src/Ajax/index", "jquery"], function(Ajax){
+        Injector.require(["src/Helpers/Ajax", "jquery"], function(Ajax){
 
             var numberOfCalls = 0;
 
@@ -163,7 +163,7 @@ describe("AjaxSpec", function () {
 
     async.it(".isForbiddenStatus()", function (done) {
 
-        Injector.require(["src/Ajax/index", "jquery"], function(Ajax){
+        Injector.require(["src/Helpers/Ajax", "jquery"], function(Ajax){
             
             expect(Ajax.isForbiddenStatus(401)).toBe(true);
             expect(Ajax.isForbiddenStatus(403)).toBe(true);
@@ -178,7 +178,7 @@ describe("AjaxSpec", function () {
 
     async.it(".isErrorStatus()", function (done) {
 
-        Injector.require(["src/Ajax/index", "jquery"], function(Ajax){
+        Injector.require(["src/Helpers/Ajax", "jquery"], function(Ajax){
             
             expect(Ajax.isErrorStatus(500)).toBe(true);
             expect(Ajax.isErrorStatus(403)).toBe(true);
@@ -193,7 +193,7 @@ describe("AjaxSpec", function () {
 
     async.it(".isOKStatus()", function (done) {
 
-        Injector.require(["src/Ajax/index", "jquery"], function(Ajax){
+        Injector.require(["src/Helpers/Ajax", "jquery"], function(Ajax){
             
             expect(Ajax.isOKStatus(200)).toBe(true);
             expect(Ajax.isOKStatus(403)).toBe(false);

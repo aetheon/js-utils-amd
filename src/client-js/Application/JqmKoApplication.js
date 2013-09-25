@@ -19,7 +19,7 @@ define([
         "js-utils/Type/index",
         "js-utils/Globals/Window",
         "js-utils/Arguments/index",
-        "js-utils/Url/index",
+        "js-utils/Helpers/Url",
         "js-utils/Device/index",
         "js-utils/UI/Accessibility",
         "js-utils/JQueryMobile/index",
@@ -66,7 +66,7 @@ define([
         jQuery.mobile.autoInitializePage = false;
 
         var Arguments = require("js-utils/Arguments/index"),
-            Url = require("js-utils/Url/index"),
+            Url = require("js-utils/Helpers/Url"),
             Device = require("js-utils/Device/index"),
             Safe = require("js-utils/Safe/index"),
             Type = require("js-utils/Type/index");

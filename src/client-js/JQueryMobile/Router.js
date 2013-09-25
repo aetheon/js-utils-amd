@@ -19,10 +19,10 @@ define([
     "js-utils/JQueryMobile/PageTracker", 
     "js-utils/JQueryMobile/RouterFactory",
     "js-utils/Type/index",
-    "js-utils/Url/index",
+    "js-utils/Helpers/Url",
     "js-utils/OOP/index",
     "js-utils/Safe/index",
-    "js-utils/Array/index", 
+    "js-utils/DataStructures/Array", 
     "js-utils/Log/index"
 
     ], 
@@ -33,12 +33,12 @@ define([
         JQMHelper = require("js-utils/JQueryMobile/index"),
         PageTracker = require("js-utils/JQueryMobile/PageTracker"),
         RouterFactory = require("js-utils/JQueryMobile/RouterFactory"),
-        Url = require("js-utils/Url/index"),
+        Url = require("js-utils/Helpers/Url"),
         OOP = require("js-utils/OOP/index"),
         Type = require("js-utils/Type/index"),
         Safe = require("js-utils/Safe/index"),
         Log = require("js-utils/Log/index"),
-        ArrayHelper = require("js-utils/Array/index"),
+        ArrayHelper = require("js-utils/DataStructures/Array"),
         EventEmitter = require("EventEmitter"),
         URI = require("jsuri");
 

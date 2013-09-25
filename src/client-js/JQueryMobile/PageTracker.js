@@ -9,7 +9,7 @@ define([
     "EventEmitter", 
     
     "js-utils/Globals/Document", 
-    "js-utils/Url/index", 
+    "js-utils/Helpers/Url", 
     "js-utils/Arguments/index", 
     "js-utils/OOP/index", 
     "js-utils/Safe/index", 
@@ -21,7 +21,7 @@ define([
 
     var Document = require("js-utils/Globals/Document"),
         JQueryMobile = require("js-utils/JQueryMobile/index"),
-        Url = require("js-utils/Url/index"),
+        Url = require("js-utils/Helpers/Url"),
         Arguments = require("js-utils/Arguments/index"),
         OOP = require("js-utils/OOP/index"),
         Safe = require("js-utils/Safe/index"),
