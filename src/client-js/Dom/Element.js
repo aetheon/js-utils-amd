@@ -4,7 +4,7 @@
  * 
  */
 
-define(["require", "lodash", "jquery", "js-utils/Arguments/index"], function(require){
+define(["require", "lodash", "jquery", "js-utils/Arguments/index", "js-utils/Dom/Window"], function(require){
     "use strict";
 
     var _ = require("lodash"),
@@ -115,6 +115,25 @@ define(["require", "lodash", "jquery", "js-utils/Arguments/index"], function(req
 
             return isNearTop;
         },
+
+
+        /*
+         * Scroll to element
+         *
+         * @param {HTMLNode} element
+         *
+         */
+        scrollTo : function(element){
+
+            var Window = require("js-utils/Dom/Window");
+
+            var top = $(element).offset().top - 50;
+            if(top<0)
+                top = 0;
+
+            Window.scrollTo({ position: 0 });
+            
+        }
 
     };    
 

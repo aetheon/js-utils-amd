@@ -125,6 +125,7 @@ define([
                     "transform": 'translate3d(-' + tranlationWidth + 'px, 0, 0)'
                 };
 
+                // add active class to panel
                 $(element).addClass("active").css(cssRules);
 
                 // apply css to inner container

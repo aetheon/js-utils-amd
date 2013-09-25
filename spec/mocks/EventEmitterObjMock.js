@@ -8,6 +8,9 @@ define(["EventEmitter", "src/OOP/index"], function(EventEmitter, OOP){
 
     var event = new EventEmitter();
 
+    // add destroy method
+    event.destroy = function(){};
+
     return {
         obj: function(){ return event; },
         event: event

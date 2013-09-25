@@ -32,6 +32,19 @@ describe("Dom/ElementSpec", function () {
         });
 
     });
+
+
+    async.it("scrollTo()", function (done) {
+
+        Injector.require(["src/Dom/Element", "jquery"], function(Element, $){
+
+            Element.scrollTo($("<div></div>"));
+
+            done();
+
+        });
+
+    });
     
 
 

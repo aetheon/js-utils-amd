@@ -5,14 +5,14 @@
  */
 
 define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index", "js-utils/Log/index", "js-utils/Scroll/GlobalWindowScrollListener", 
-        "js-utils/OOP/index", "js-utils/Dom/Element"], 
+        "js-utils/Dom/Element", "js-utils/OOP/index"], 
     function(require){
     "use strict";
 
     var $ = require("jquery"),
         _ = require("lodash"),
-        EventEmitter = require("EventEmitter"),
         OOP = require("js-utils/OOP/index"),
+        EventEmitter = require("EventEmitter"),
         Arguments = require("js-utils/Arguments/index"),
         Element = require("js-utils/Dom/Element"),
         WindowScrollListener = require("js-utils/Scroll/GlobalWindowScrollListener"),
@@ -35,7 +35,7 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
 
         var scope = this;
 
-        this.options = Arguments.get(
+        options = Arguments.get(
             options,
             {
                 element: null
@@ -43,41 +43,45 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
 
 
         // last scrolling position detected
-        this.scrollPositionPx = 0;
-        // is scrolling down flag
-        this.isScrollingDown = true;
+        var scrollPositionPx = 0,
+            // is scrolling down flag
+            isScrollingDown = true;
+
+
+        // initialize EventEmitter
+        OOP.super(this, EventEmitter);
+        OOP.inherit(this, EventEmitter.prototype);
         
         
         /*
          * bind to window scroll events
          *
          */
-
          var scroller = function(){
 
             (function(){
 
                 // save scrolling state
-                var lastScrollPositionPx = this.scrollPositionPx;
-                this.scrollPositionPx = $(window).scrollTop();
+                var lastScrollPositionPx = scrollPositionPx;
+                scrollPositionPx = $(window).scrollTop();
 
-                if (lastScrollPositionPx > this.scrollPositionPx)
-                    this.isScrollingDown = false;
+                if (lastScrollPositionPx > scrollPositionPx)
+                    isScrollingDown = false;
                 else {
-                    this.isScrollingDown = true;
+                    isScrollingDown = true;
                 }
 
                 // fire scroll event
                 this.emit(SCROLL_EVENT, this);
 
-                if(this.options.element){
+                if(options.element){
                     
-                    if(Element.isNearBottom(this.options.element)){
+                    if(Element.isNearBottom(options.element)){
                         this.emit(SCROLL_BOTTOM_EVENT, this);
                         return;
                     }
 
-                    if(Element.isNearTop(this.options.element)){
+                    if(Element.isNearTop(options.element)){
                         this.emit(SCROLL_TOP_EVENT, this);
                         return;
                     }
@@ -89,44 +93,55 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
          };
 
 
-         // bind to Window scroll listener
-         // wait a little to not trigger right away 
-         // the scroller events
-         setTimeout(
-            function(){
+        // instance data
+        var instance = {
+
+            /*
+             * Pause the scroller listener
+             *
+             */
+            pause: function(){
+                WindowScrollListener.off(scroller);
+            },
+
+            /*
+             * Resume scrolling
+             *
+             */
+            resume: function(){
                 WindowScrollListener.on(scroller);
             },
-            1000);
+
+             /*
+             * Test if the scroller is scrolling down
+             *
+             * @return{True|False}
+             */
+            isScrollingDown: function () {
+                return isScrollingDown;
+            },
+
+            /*
+             * destroy the control
+             *
+             */
+            destroy: function(){
+                WindowScrollListener.off(scroller);
+            }
 
 
-        /*
-         * Destroy method
-         *
-         */
-         this.destroy = function(){
-            WindowScrollListener.off(scroller);
-         };
+        };
+
+
+        // inherit from EventEmitter
+        OOP.inherit(instance, scope);
+
+        WindowScrollListener.on(scroller);
+        
+        return instance;
 
         
     };
-
-
-    WindowScroll.prototype = {
-
-        /*
-         * Test if the scroller is scrolling down
-         *
-         * @return{True|False}
-         */
-        isScrollingDown: function () {
-            return this.isScrollingDown;
-        }
-
-    };
-
-
-    // extent this from EventEmitter
-    OOP.inherit(WindowScroll.prototype, EventEmitter.prototype);
 
     return WindowScroll;
 
