@@ -132,14 +132,7 @@ define([
              */
 
             require("js-utils/UI/Accessibility").enableInputKeys();   // eg: when enter is pressed call blur
-
-
-            /*
-             * All pages should occupy at least all the screen
-             *
-             */
-            var JQMHelper = require("js-utils/JQueryMobile/index");
-            JQMHelper.setFullScreenPages();
+            
 
      
             /*
@@ -255,6 +248,7 @@ define([
 
 
             // time to init JQMobile
+            var JQMHelper = require("js-utils/JQueryMobile/index");
             JQMHelper.init();
 
 

@@ -17,7 +17,7 @@ define(["require", "EventEmitter"], function(require, EventEmitter){
          * Subscribe to scroll event
          *
          */
-        on: function(fn){
+        onScroll: function(fn){
             scrollEvent.on("scroll", fn);
         },
 
@@ -26,7 +26,7 @@ define(["require", "EventEmitter"], function(require, EventEmitter){
          * Unsubscribe to scroll event
          *
          */
-        off: function(fn){
+        offScroll: function(fn){
             scrollEvent.off("scroll", fn);
         },
 

@@ -11,6 +11,8 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
         Document = require("js-utils/Globals/Document"),
         DomWindow = require("js-utils/Dom/Window");
 
+
+
     // Hate when jQM does auto initialization? me too...
     // This disables the behaviour. Jusk make sure this is loaded before JQM
     $(Document).bind(
@@ -41,27 +43,29 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
 
 
     
-    var JQueryMobile = {};
-
-
     /*
-    * initialiaze JQM
+    * Auto set ui-content to occupy the min-height of the screen
     *
     */
-    JQueryMobile.init = function () {
-        $.mobile.initializePage();   
-    };
+    (function () {
 
 
-    /*
-    * Auto set jqm pages to occupy the fullscreen. Also reacts to
-    * resize events
-    *
-    * eg: <div data-role="page" data-fixed-height>
-    */
-    JQueryMobile.setFullScreenPages = function () {
+        // create the dynamic style element for apllying the 
+        // height rule
+        var styleElement = $("#js-utils-jqm-setFullScreenPages", "body");
+        if(styleElement.length === 0){
+            styleElement = $("<style id='js-utils-jqm-setFullScreenPages' type='text/css'></style>");
+            $("body").append(styleElement);
+        }
 
-        var set_content_height = function () {
+        // set page min-height on style element
+        var setPageMinHeight = function(height){
+            styleElement.html("[data-role='page'] > [data-role='content'] { min-height:" + height + "px; }");
+        };
+
+
+        // on Height Change
+        var onHeightChange = function () {
 
             var current = JQueryMobile.currentPage();
             if(!current)    
@@ -85,13 +89,39 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
             }
 
             // apply min-height to the page
-            content.css(css_rulename, pageHeights.content + "px");
+            //content.css(css_rulename, pageHeights.content + "px");
+            setPageMinHeight(pageHeights.content);
 
         };
 
-        $(Document).bind("pagechange", set_content_height);
-        $(Window).bind("resize", set_content_height);
+        // subscribe JQM page change event
+        // the page could have a different header / footer etc...
+        $(Document).bind("pagechange", onHeightChange);
 
+        // subscribe for the dom resize
+        // orientation change etc ...
+        DomWindow.onResize(onHeightChange);
+
+
+    })();
+
+
+
+
+    /*
+     * Simplify JQueryMobile API
+     *
+     *
+     */
+    var JQueryMobile = {};
+
+
+    /*
+    * initialiaze JQM
+    *
+    */
+    JQueryMobile.init = function () {
+        $.mobile.initializePage();   
     };
 
 
@@ -217,13 +247,14 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
              */
             getHeight: function(){
 
-                var heights = {
+                var result = {
                     "footer": 0,
                     "header": 0,
                     "content": 0
                 };
 
                 var page = element,
+                    contentElement = null,
                     viewport_height = DomWindow.getViewportHeight(),
                     content_height = viewport_height;
 
@@ -232,14 +263,18 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
                     function(){
                         var role = $(this).attr("data-role");
                         
+                        // save content element
+                        if(role === 'content') 
+                            contentElement = this;
+
                         // ignore content
-                        if(role === 'content' || role === 'panel' || role === 'popup' ) 
+                        if(role === 'content' || role === 'panel' || role === 'popup' )
                             return;
 
                         var elementHeight = $(this).outerHeight();
 
                         // save pageSize for later
-                        heights[role] = elementHeight;
+                        result[role] = elementHeight;
 
                         // decrease height
                         content_height -= elementHeight;
@@ -247,10 +282,16 @@ define(["require", "jquery", "lodash", "jqm", "js-utils/Globals/Window", "js-uti
                 );
 
                 // set the height value to be an integer
-                content_height = Math.floor(content_height) - 0.1;
-                heights.content = content_height;
+                content_height = content_height;
 
-                return heights;
+                // add or remove margin top values to content height
+                var cMargin = ($(contentElement).css("margin-top") || "").replace("px","");
+                content_height = content_height + ( -Number(cMargin) );
+
+                // update the result
+                result.content = content_height;
+
+                return result;
 
             },
 

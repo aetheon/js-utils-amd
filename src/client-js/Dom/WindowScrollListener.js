@@ -1,5 +1,5 @@
 
-define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index", "js-utils/Log/index", "js-utils/Dom/GlobalWindowScrollListener", 
+define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index", "js-utils/Log/index", "js-utils/Dom/Window", 
         "js-utils/Dom/Element", "js-utils/OOP/index"], 
     function(require){
     "use strict";
@@ -10,7 +10,7 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
         EventEmitter = require("EventEmitter"),
         Arguments = require("js-utils/Arguments/index"),
         Element = require("js-utils/Dom/Element"),
-        WindowScrollListener = require("js-utils/Dom/GlobalWindowScrollListener"),
+        Window = require("js-utils/Dom/Window"),
         Log = require("js-utils/Log/index");
 
 
@@ -24,7 +24,7 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
     /*
      * Window Scroll Listener Object. Provides API for getting scrolling events / information.
      * 
-     * It uses the debounced GlobalWindowScrollListener for scrolling events for performance 
+     * It uses the debounced Window.onScroll for scrolling events for performance 
      * gains.
      * 
      * Note: Make sure you run resume() for starting listening for events.
@@ -98,7 +98,7 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
              *
              */
             pause: function(){
-                WindowScrollListener.off(scroller);
+                Window.offScroll(scroller);
             },
 
             /*
@@ -106,7 +106,7 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
              *
              */
             resume: function(){
-                WindowScrollListener.on(scroller);
+                Window.onScroll(scroller);
             },
 
              /*
@@ -133,7 +133,7 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
              *
              */
             destroy: function(){
-                WindowScrollListener.off(scroller);
+                Window.offScroll(scroller);
             }
 
 

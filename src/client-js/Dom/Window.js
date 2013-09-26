@@ -9,20 +9,26 @@
 define([
     "require", 
     "lodash", 
-    "jquery", 
+    "jquery",
+    "EventEmitter", 
     "js-utils/Arguments/index", 
     "js-utils/Globals/Window", 
-    "js-utils/Globals/Document"
+    "js-utils/Globals/Document",
+    "js-utils/Log/index"
     ], function(require){
         "use strict";
 
 
         var _ = require("lodash"),
             $ = require("jquery"),
+            EventEmitter = require("EventEmitter"),
             Arguments = require("js-utils/Arguments/index"),
             Document = require("js-utils/Globals/Document"),
-            Window = require("js-utils/Globals/Window");
+            Window = require("js-utils/Globals/Window"),
+            Log = require("js-utils/Log/index");
         
+
+        var log = new Log.Logger("js-utils/Dom/Window");
 
 
         // Viewport globals
@@ -43,6 +49,58 @@ define([
 
 
 
+        // 
+        // Debounced Events
+        //
+
+        var DEBOUNCED_TIMEOUT = 500;
+
+        var events = new EventEmitter(),
+            // window on ResizeEvent reference
+            windowOnResizeTimeout = null;
+
+
+        // resize event
+        $(window).bind("resize", function(){
+
+            if (windowOnResizeTimeout) { clearTimeout(windowOnResizeTimeout); }
+            windowOnResizeTimeout = setTimeout(function () {
+
+                log.d("onResize event with " + events.getListeners("resize").length + " listeners");
+
+                // emit event
+                events.emit("resize");
+
+            }, DEBOUNCED_TIMEOUT);
+
+        });
+
+
+        // onScroll event
+        $(window).bind("scroll", function(){
+
+            if (windowOnResizeTimeout) { clearTimeout(windowOnResizeTimeout); }
+            windowOnResizeTimeout = setTimeout(function () {
+
+                log.d("onScroll event with " + events.getListeners("scroll").length + " listeners");
+
+                // emit event
+                events.emit("scroll");
+
+            }, DEBOUNCED_TIMEOUT);
+
+        });
+
+
+
+
+
+
+
+        /*
+         * Simplified Dom Window operations API
+         *
+         */            
         var WindowOperations = {
 
             /*
@@ -98,8 +156,48 @@ define([
              */
             getViewportWidth: function(){
                 return viewportWidth;
-            }
+            },
 
+
+            /*
+             * subscribe to onResize event
+             *
+             * @param {Function} fn - the function to subscribe
+             *
+             */
+            onResize: function(fn){
+                events.on("resize", fn);
+            },
+
+            /*
+             * unsubscribe to onResize event
+             *
+             * @param {Function} fn - the function to subscribe
+             *
+             */
+            offResize: function(fn){
+                events.off("resize", fn);
+            },
+
+            /*
+             * subscribe to onScroll event
+             *
+             * @param {Function} fn - the function to subscribe
+             *
+             */
+            onScroll: function(fn){
+                events.on("scroll", fn);
+            },
+
+            /*
+             * unsubscribe to onScroll event
+             *
+             * @param {Function} fn - the function to subscribe
+             *
+             */
+            offScroll: function(fn){
+                events.off("scroll", fn);
+            }
 
 
         };    

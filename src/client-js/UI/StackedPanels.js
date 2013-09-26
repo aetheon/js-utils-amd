@@ -85,13 +85,16 @@ define([
 
             
 
-
             // prepare stacked panel function
             var prepareStackedPanel = function(element, index){
                 
                 var cssRules = {
                     "width": viewportWidth,
-                    "left": index * viewportWidth
+                    "left": index * viewportWidth,
+
+                    // make sure the element is visible
+                    "display": "block",
+                    "visibility": "visible"
                 };
 
                 // apply a min height to the panel

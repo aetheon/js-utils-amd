@@ -6,17 +6,17 @@ describe("Dom/WindowScrollListener", function () {
         async = new AsyncSpec(this);
 
 
-    var GlobalWindowScrollListenerMock = null;
+    var WindowMockMock = null;
 
 
     async.beforeEach(function (done) {
 
-        require(["require", "squire", "js-mocks/GlobalWindowScrollListenerMock"], function(require){
+        require(["require", "squire", "js-mocks/WindowMock"], function(require){
             
             Squire = require("squire");
             Injector = new Squire();
 
-            GlobalWindowScrollListenerMock = require("js-mocks/GlobalWindowScrollListenerMock");
+            WindowMockMock = require("js-mocks/WindowMock");
 
             done();
 
@@ -42,7 +42,7 @@ describe("Dom/WindowScrollListener", function () {
 
     async.it("scroll event should be fired", function (done) {
         
-        Injector.mock("js-utils/Dom/GlobalWindowScrollListener", Squire.Helpers.returns(GlobalWindowScrollListenerMock) );
+        Injector.mock("js-utils/Dom/Window", Squire.Helpers.returns(WindowMockMock) );
         
         var instance = null,
             wasCalled = false;
@@ -60,7 +60,7 @@ describe("Dom/WindowScrollListener", function () {
                 });
 
                 // mock scroll event
-                GlobalWindowScrollListenerMock.event.emit("scroll");
+                WindowMockMock.event.emit("scroll");
                 
             });
 
@@ -84,7 +84,7 @@ describe("Dom/WindowScrollListener", function () {
 
     async.it("scroll event should not be fired on pause", function (done) {
         
-        Injector.mock("js-utils/Dom/GlobalWindowScrollListener", Squire.Helpers.returns(GlobalWindowScrollListenerMock) );
+        Injector.mock("js-utils/Dom/Window", Squire.Helpers.returns(WindowMockMock) );
         
         var instance = null,
             isDone = false,
@@ -104,7 +104,7 @@ describe("Dom/WindowScrollListener", function () {
                 instance.pause();
 
                 // mock scroll event
-                GlobalWindowScrollListenerMock.event.emit("scroll");
+                WindowMockMock.event.emit("scroll");
 
                 setTimeout(function(){ 
                     isDone = true; 
