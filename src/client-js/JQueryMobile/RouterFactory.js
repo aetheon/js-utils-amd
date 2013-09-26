@@ -217,8 +217,10 @@ define([
                 });
 
 
+                // late bind for performance gains
                 log.d("Calling factory.bind on " + $(options.element).attr("id") );    
                 factory.bind(newHistoryRecord);
+
 
             }
 

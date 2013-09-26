@@ -53,6 +53,7 @@ describe("Dom/WindowScrollListener", function () {
             Injector.require(["src/Dom/WindowScrollListener"], function(WindowScrollListener){
 
                 instance = new WindowScrollListener();
+                instance.resume();
                 
                 instance.on("scroll", function(){
                     wasCalled = true;

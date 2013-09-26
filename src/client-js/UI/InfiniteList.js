@@ -58,21 +58,14 @@ define(
                 list = new InfinitePaginationData({ Data: [], PageSize: options.PageSize, MaxSize: options.Max  }),
                 // internal events
                 events = new EventEmitter();
-            
+
+
             /*
              * subscribe events
              *
              */
 
-             // emit onScroll event
-            var onScroll = function(options){
-                events.emitEvent(EVENT_SCROLL, [options]);
-            };
 
-            windowScrollListener.on("scroll-top", function(){ onScroll({ next: true }); });
-            windowScrollListener.on("scroll-bottom", function(){ onScroll({ next: false }); });
-           
-             
             var instance = {
 
 
@@ -232,6 +225,22 @@ define(
 
                 
              };
+
+
+
+              // emit onScroll event
+            var onScroll = function(options){
+                
+                if(!options.next && instance.getPrevPageNumber() === null )
+                    return;
+
+                events.emitEvent(EVENT_SCROLL, [options]);
+
+            };
+
+            // init events
+            windowScrollListener.on("scroll-top", function(){ onScroll.call(scope, { next: false }); });
+            windowScrollListener.on("scroll-bottom", function(){ onScroll.call(scope, { next: true }); });
 
 
              return instance;

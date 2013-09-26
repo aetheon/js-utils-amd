@@ -27,6 +27,7 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
      * It uses the debounced GlobalWindowScrollListener for scrolling events for performance 
      * gains.
      * 
+     * Note: Make sure you run resume() for starting listening for events.
      *
      * @param {Object} options - The 
      */
@@ -139,9 +140,6 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
         };
 
 
-        // subscribe events from scroller
-        WindowScrollListener.on(scroller);
-        
         return instance;
 
         
