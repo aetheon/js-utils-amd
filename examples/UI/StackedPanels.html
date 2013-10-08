@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+        <script data-main='' src="../../lib/require/require-latest.js"></script>
+        <link rel="stylesheet" href="StackedPanels.css" />
+
+    </head>
+
+    <body>
+        
+        <div class="stacked-panels">
+            <div class="stacked-panel">
+                <div class="inner">
+                    Hello1
+                </div>    
+            </div>
+
+            <div class="stacked-panel">
+                <div class="inner">
+                    Hello2
+                </div>    
+            </div>
+
+            <div class="stacked-panel">
+                <div class="inner">
+                    Hello3
+                </div>    
+            </div>
+
+        <div>
+
+
+
+
+        <script type="text/javascript">
+        
+            require(["../../.require.js"], function(){
+                
+                // reset the base url
+                require.config({
+                    baseUrl: "../../"
+                });
+
+                // load the example file
+                require(["StackedPanels.js"], function(){});
+
+            });
+
+        </script>
+        
+
+    </body>
+
+
+</html>

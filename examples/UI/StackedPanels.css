@@ -1,0 +1,42 @@
+/* line 3, ../../src/client-js/UI/StackedPanels.scss */
+.stacked-panels {
+  position: relative;
+  overflow: hidden;
+}
+
+/* stacked-panel overlay */
+/* line 9, ../../src/client-js/UI/StackedPanels.scss */
+.stacked-panels .element-overlay {
+  position: absolute;
+  top: 0px;
+  background: #FFF;
+  opacity: 0;
+  z-index: 3;
+}
+
+/* line 17, ../../src/client-js/UI/StackedPanels.scss */
+.stacked-panel {
+  -webkit-backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  /* inner must be on top of overlay */
+  position: absolute;
+  top: 0px;
+  background: #FFF;
+}
+
+/* previous panel */
+/* line 34, ../../src/client-js/UI/StackedPanels.scss */
+.stacked-panel.prev {
+  -webkit-transform: translate3d(0, 0, 0);
+  /* */
+  z-index: 1;
+}
+
+/* active panel */
+/* line 42, ../../src/client-js/UI/StackedPanels.scss */
+.stacked-panel.active {
+  /* let the stacked panel change the scroller.
+     if position is absoulute the scrolling dont work */
+  position: relative;
+  z-index: 4;
+}

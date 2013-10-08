@@ -102,7 +102,10 @@ module.exports = function(grunt) {
             //runInBAckground: true
         }
 
-     }
+     },
+
+
+     compass: require("./.grunt-tasks/compass.js"),
     
 
 
@@ -114,13 +117,15 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-http-server');
+  grunt.loadNpmTasks('grunt-contrib-compass');
   /*grunt.loadNpmTasks('grunt-jsdoc-plugin');*/
   
   grunt.registerTask(
     'default', 
     [
       'jshint',
-      'jasmine'/*,
+      'jasmine', 
+      'compass' /*,
       //'requirejs'*/
     ]);
 

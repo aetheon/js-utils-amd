@@ -22,6 +22,7 @@
     "grunt-contrib-requirejs": "*",
     "grunt-contrib-watch": "*",
     "grunt-contrib-jasmine": "*",
+    "grunt-contrib-compass": "*",
     "grunt-template-jasmine-requirejs": "*",
     "grunt-http-server": "*"
   },

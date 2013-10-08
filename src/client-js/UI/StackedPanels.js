@@ -37,9 +37,18 @@ define([
          * The visible panels are arranged as "previous" and "active". To go to previous Panel a click on the previous 
          * overlay must be done.
          *
-            <div class="stacked-panel">
-                <div class="inner">
-                </div>    
+            <div class="stacked-panels">
+                
+                <div class="stacked-panel">
+                    <div class="inner">
+                    </div>    
+                </div>
+                
+                <div class="stacked-panel">
+                    <div class="inner">
+                    </div>    
+                </div>
+
             </div>
          *
          * @param {Object} viewportElement - The viewportElement element (Window is taken if none is provided)

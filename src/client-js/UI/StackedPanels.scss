@@ -2,6 +2,7 @@
 
 .stacked-panels {
     position: relative;
+    overflow: hidden;
 }
 
 /* stacked-panel overlay */
@@ -28,8 +29,6 @@
 .stacked-panel .inner {
     
 }
-
-
 
 /* previous panel */
 .stacked-panel.prev {
