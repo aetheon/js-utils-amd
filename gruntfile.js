@@ -120,13 +120,20 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-compass');
   /*grunt.loadNpmTasks('grunt-jsdoc-plugin');*/
   
+  
+  grunt.registerTask(
+    'travis', 
+    [
+      'jshint',
+      'jasmine'
+    ]);
+
+  
   grunt.registerTask(
     'default', 
     [
-      'jshint',
-      'jasmine', 
-      'compass' /*,
-      //'requirejs'*/
+      'travis',
+      'compass'
     ]);
 
 
