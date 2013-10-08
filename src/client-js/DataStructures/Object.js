@@ -52,6 +52,7 @@ define(["lodash", "js-utils/Type/index"], function(_, Type){
                         case "boolean":
                         case "number":
                         case "function":
+                        case "string":
                         case "array":
                             // sets the default value to be the one from the left
                             value = obj[key];

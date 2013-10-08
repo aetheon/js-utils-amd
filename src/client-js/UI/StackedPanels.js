@@ -10,7 +10,9 @@ define([
         "js-utils/Globals/Window",
         "js-utils/Dom/Window",
         "js-utils/Dom/Element",
+        "js-utils/UI/Panel",
         "js-utils/UI/ElementOverlay"
+
     ],
     function(require, _, $, EventEmitter){
         "use strict";
@@ -21,7 +23,11 @@ define([
             ElementHelper = require("js-utils/Dom/Element"),
             ElementOverlay = require("js-utils/UI/ElementOverlay"),
             WindowHelper = require("js-utils/Dom/Window"),
-            Safe = require("js-utils/Safe/index");
+            Safe = require("js-utils/Safe/index"),
+            Panel = require("js-utils/UI/Panel");
+
+
+
 
 
         /*
@@ -73,7 +79,9 @@ define([
 
                 // module data structures
                 historyIndex = [],
+                // panel elements
                 panels = [],
+                panelElements = [],
 
                 // event emmiter
                 events = new EventEmitter();
@@ -85,65 +93,20 @@ define([
 
             
 
-            // prepare stacked panel function
-            var prepareStackedPanel = function(element, index){
-                
-                var cssRules = {
-                    "width": viewportWidth,
-                    "left": index * viewportWidth,
-
-                    // make sure the element is visible
-                    "display": "block",
-                    "visibility": "visible"
-                };
-
-                // apply a min height to the panel
-                var vHeight = ElementHelper.height(viewportElement);
-                if(options.panelMinHeight || vHeight){
-                    cssRules["min-height"] = vHeight > options.panelMinHeight ? vHeight : options.panelMinHeight;
-                }
-
-                $(element).css(cssRules);
-
-            };
-
-            // get the overlay height
-            var getPanelHeight = function(element){
-
-                var height = ElementHelper.height(element),
-                    viewportHeight = ElementHelper.height(viewportElement);
-
-                if(viewportHeight > height)
-                    return viewportHeight;
-
-                return height;
-
-            };
-
             // show panel
-            var showPanel = function(element, index){
+            var showPanel = function(panel, index){
 
-                // next panel animation
-                var marginLeft = viewportWidth - (viewportWidth * options.panelWidthPercentage);
-                var tranlationWidth = Math.floor(viewportWidth * index - marginLeft);
-                
-                var panelHeight = getPanelHeight(element);
+                var marginLeft = viewportWidth - (viewportWidth * options.panelWidthPercentage),
+                    tranlationX = Math.floor(viewportWidth * index - marginLeft);
 
-                var cssRules = {
-                    "min-height": panelHeight,
-                    "-webkit-transition-duration": options.animDurationMsec + "ms",
-                    "transform": 'translate3d(-' + tranlationWidth + 'px, 0, 0)'
-                };
-
-                // add active class to panel
-                $(element).addClass("active").css(cssRules);
-
-                // apply css to inner container
-                $("> .inner", element).css({ "width": viewportWidth - marginLeft });
+                panel.show({
+                    "margin-left": marginLeft,
+                    "translate3d-x": tranlationX < 0 ? 0 : -tranlationX
+                });
 
                 // create an absoulte overlay to allow opacity on the bottom stack
                 if(index > 0){
-                    backOverlay.show({ height: panelHeight });
+                    backOverlay.show({ });
                 }
 
                 // emit show event 
@@ -152,30 +115,18 @@ define([
             };
 
             // hidePanel
-            var hidePanel = function(element, index, soptions){
+            var hidePanel = function(panel, index, moptions){
 
-                soptions = Arguments.get(
-                    soptions,
+                moptions = Arguments.get(
+                    moptions,
                     {
-                        translationX: "-" + Math.floor( (viewportWidth * index) ),
-                        height: 0
+                        "translate3d-x": -Math.floor( (viewportWidth * index) )
                     }
                 );
 
-                var cssRules = {
-                    "-webkit-transition-duration": soptions.animDurationMsec + "ms",
-                    transform: 'translate3d(' + soptions.translationX + 'px, 0, 0)'
-                };
-
-                // when the new panel is bigger then the one to hide its needed 
-                // an adjustment to heights
-                if(soptions.height){
-                    cssRules["min-height"] = soptions.height;
-                }
-
-                // show overlay on the previous panel and put the panel 
-                // as main screen
-                $(element).css(cssRules).removeClass("active");
+                panel.hide({
+                    "translate3d-x": moptions["translate3d-x"]
+                });
 
             };
 
@@ -188,18 +139,20 @@ define([
                     return;
 
                 var elements = $(jQueryExpression, viewport);
-                _.each(elements, function(panelElement){
+                _.each(elements, function(panelElement, index){
                     
-                    // se stacked panel
-                    prepareStackedPanel(panelElement, panels.length);
+                    // stacked panel
+                    //prepareStackedPanel(panelElement, panels.length);
+                    var left = viewportWidth * index;
+                    var panel = new Panel(panelElement, { "left": left, "width": viewportWidth });
+
                     // add panel to panel
-                    panels.push(panelElement);
+                    panels.push(panel);
+                    panelElements.push(panelElement);
 
                 });
 
             };
-
-
 
 
             /* 
@@ -223,17 +176,19 @@ define([
 
                     // get current Panel index ( default is 0 )
                     var currentPanelIndex = historyIndex.length ? historyIndex[historyIndex.length-1] : 0;
-                    var currentPanelElement = panels[currentPanelIndex];
+                    
+                    var currentPanel = panels[currentPanelIndex],
+                        currentPanelElement = currentPanel.getElement();
 
                     // get next panel element
-                    var nextPanelElement = panels.length ? panels[index] : null;
+                    var nextPanel = panels.length ? panels[index] : null;
 
                     // if trying to show the the same page ignore
                     if(index === currentPanelIndex)
                         currentPanelElement = null;
 
                     // remove any definition of previous
-                    $(panels).removeClass("prev");
+                    $(panelElements).removeClass("prev");
 
                     // remove current panel
                     $(currentPanelElement).addClass("prev");
@@ -242,11 +197,11 @@ define([
                     // show overlay on the previous panel and put the panel as main screen
                     if(currentPanelElement){
                         // show overlay over the current element with the height of the 
-                        hidePanel(currentPanelElement, currentPanelIndex);
+                        hidePanel(currentPanel, currentPanelIndex);
                     }
 
                     // next panel animation
-                    showPanel(nextPanelElement, index);
+                    showPanel(nextPanel, index);
 
                     // set current / prev structures
                     historyIndex.push(index);
@@ -297,7 +252,7 @@ define([
                     var prevPanelElement = panels[prevPanelElementIndex];
 
                     // hide current panel
-                    hidePanel(currentPanelElement, currentPanelElementIndex, { translationX: "0" });
+                    hidePanel(currentPanelElement, currentPanelElementIndex, { "translate3d-x": 0 });
                     
                     // show the previous panel
                     return Manager.show(prevPanelElementIndex);
@@ -342,6 +297,14 @@ define([
                     // remove Listeners
                     var listeners = events.getListeners();
                     events.removeListeners(null, listeners);
+
+                    // destroy panels
+                    _.each(panels, function(panel){
+                        panel.destroy();
+                    });
+
+                    // clear panel elements
+                    panelElements = [];
 
                 }
 

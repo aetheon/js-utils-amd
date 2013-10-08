@@ -1,0 +1,245 @@
+define([
+        "require", 
+        "lodash", 
+        "jquery",
+        "EventEmitter", 
+
+        "js-utils/Arguments/index",
+        "js-utils/Safe/index",
+        "js-utils/Globals/Window",
+        "js-utils/Dom/Window",
+        "js-utils/Dom/Element",
+        "js-utils/UI/ElementOverlay"
+    ],
+    function(require, _, $, EventEmitter){
+        "use strict";
+
+
+        var Window = require("js-utils/Globals/Window"),
+            Arguments = require("js-utils/Arguments/index"),
+            ElementHelper = require("js-utils/Dom/Element"),
+            ElementOverlay = require("js-utils/UI/ElementOverlay"),
+            WindowHelper = require("js-utils/Dom/Window"),
+            Safe = require("js-utils/Safe/index");
+
+
+
+
+        /*
+         * Panel information/operations. This object is used to save the panel 
+         * information.
+         * Every Panel is configured to be a GPU accelerated element (composite layer)!
+         *
+         * <div class="panel">
+         *  <div class="inner"></div>
+         * </div> 
+         *
+         * @param {HTMLElement} element The panel element 
+         * @param {Object} options The panel options
+         *
+         */
+        var Panel = function(element, options){
+
+            // get the options of the panel
+            options = Arguments.get(
+                options,
+                {
+
+                    // saves the scroll top element
+                    scrollTop: 0,
+
+                    left: 0,
+                    width: 0,
+                    "min-height": "",
+
+                    "transition-duration": "1000ms"
+
+                });
+
+
+            // variables
+            var events = new EventEmitter();
+
+
+            var _this = {
+
+                /*
+                 * Get the panel element
+                 *
+                 * @return {Object} The state object hash
+                 *
+                 */
+                getElement: function(){
+                    return element;
+                },
+
+                /*
+                 * Get the state reference hash
+                 *
+                 * @return {Object} The state object hash
+                 *
+                 */
+                getState: function(){
+                    return state;
+                },
+
+
+                /*
+                 * Sync Panel css properties of like width, height, etc ...
+                 * Usefull for dom resize events....
+                 *
+                 *
+                 */
+                domSync: function(){
+
+                    // set default height
+                    var height = ElementHelper.height(element),
+                        viewportHeight = ElementHelper.height();
+
+                    if(viewportHeight > height)
+                            height = viewportHeight;
+
+                    options["min-height"] = height;
+                
+
+                    // apply css rules
+                    var cssRules = {
+                        "min-height": options["min-height"],
+                        "width": options.width
+                    };
+
+                    $(element).addClass("panel").css(cssRules);
+
+                },
+
+                /*
+                 * Show panel operation.
+                 *
+                 */
+                show: function(moptions){
+
+                    moptions = Arguments.get(
+                        moptions,
+                        {
+                            "margin-left": 0,
+                            
+                            "transition": "200ms",
+                            "translate3d-x": 0,
+                        });
+
+                    
+                    var cssRules = {
+                        "min-height": options["min-height"],
+                        "-webkit-transition-duration": options.animDurationMsec + "ms",
+                    };
+
+
+                    if(moptions["translate3d-x"]){
+                        cssRules.transform = 'translate3d(' + moptions["translate3d-x"] + 'px, 0, 0)';
+                    }
+
+                    // add active class to panel
+                    $(element).addClass("active").css(cssRules);
+
+                    // apply css to inner container
+                    $("> .inner", element).css({ 
+                        "width": options.width - moptions["margin-left"]
+                    });
+
+                    // emit show event 
+                    events.emitEvent("show", [this]);
+
+                },
+
+                /*
+                 * Hide panel operation.
+                 *
+                 */
+                hide: function(moptions){
+
+                    moptions = Arguments.get(
+                        moptions,
+                        {
+                            "height": "",
+                            "translate3d-x": 0
+                        }
+                    );
+
+                    var cssRules = {
+                    };
+
+
+                    /* jshint -W041 */
+                    if(moptions["translate3d-x"] != null){
+                        cssRules.transform = 'translate3d(' + moptions["translate3d-x"] + 'px, 0, 0)';
+                    }
+
+                    // when the new panel is bigger then the one to hide its needed 
+                    // an adjustment to heights
+                    if(moptions.height){
+                        cssRules["min-height"] = moptions.height;
+                    }
+
+                    // show overlay on the previous panel and put the panel 
+                    // as main screen
+                    $(element).css(cssRules).removeClass("active");
+
+                    // emit show event 
+                    events.emitEvent("hide", [this]);
+                        
+                },
+
+
+                /*
+                 * Destroy
+                 *
+                 */
+                destroy: function(){
+
+                    // remove Listeners
+                    var listeners = events.getListeners();
+                    events.removeListeners(null, listeners);
+
+                }
+
+            };
+
+
+
+
+            // initialize
+
+            var cssRules = {
+
+                "left": options.left,
+                "width": options.width,
+
+                // make sure the element is visible
+                "display": "block",
+                "visibility": "visible",
+
+                // create GPU accelerated compositing layer
+                // http://www.chromium.org/developers/design-documents/gpu-accelerated-compositing-in-chrome
+                "transform" : "translate3d(0, 0, 0)",
+                "transition-property": "transform",
+                "transition-duration": options["transition-duration"]
+            };
+
+            $(element).css(cssRules);
+
+
+            // sync element width / height
+            _this.domSync();
+
+
+            return _this;
+
+        };
+
+
+
+
+        return Panel;
+
+
+    });
