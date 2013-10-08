@@ -3,6 +3,8 @@
 .stacked-panels {
     position: relative;
     overflow: hidden;
+    margin: 0px;
+    box-sizing: border-box;
 }
 
 /* stacked-panel overlay */
@@ -22,8 +24,8 @@
     /* inner must be on top of overlay */
     position: absolute;
     top: 0px;
-    
-    background: #FFF;
+
+    background: #eee;
 }
 
 .stacked-panel .inner {

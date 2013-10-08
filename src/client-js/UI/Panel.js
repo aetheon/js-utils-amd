@@ -223,6 +223,7 @@ define([
                 "transform" : "translate3d(0, 0, 0)",
                 "transition-property": "transform",
                 "transition-duration": options["transition-duration"]
+                
             };
 
             $(element).css(cssRules);

@@ -76,13 +76,17 @@ define([
 
 
             // take window as a viewportElement if none is given
-            if(!$(viewport).length)
-                viewport = Window;
+            // initialize viewport
+            if(!$(viewportElement).length)
+                viewportElement = Window;
+
+            var viewport = viewportElement;
+            $(viewport).addClass("stacked-panels");
 
 
             // module variables definition
-            var viewport = viewportElement,
-                viewportWidth = ElementHelper.width(viewport),
+            var viewportWidth = ElementHelper.width(viewport),
+
                 // back overlay
                 backOverlay = new ElementOverlay(viewportElement),
 
@@ -95,12 +99,6 @@ define([
                 // event emmiter
                 events = new EventEmitter();
 
-
-
-            // initialize viewport class
-            $(viewport).addClass("stacked-panels");
-
-            
 
             // show panel
             var showPanel = function(panel, index){

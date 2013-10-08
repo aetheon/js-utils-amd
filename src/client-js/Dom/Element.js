@@ -24,7 +24,7 @@ define(["require", "lodash", "jquery", "js-utils/Arguments/index", "js-utils/Dom
          */
         height: function(element){
 
-            if(!element) element = "body";
+            if(!element) element = window;
 
             var height = $(element).height();
             return height;
