@@ -12,6 +12,10 @@
     "node": ">=0.8.0"
   },
 
+  "devDependencies": {
+    "grunt-contrib-compass": "*",
+  },
+
   "dependencies": {
     
     "grunt": "~0.4.0",
@@ -22,9 +26,10 @@
     "grunt-contrib-requirejs": "*",
     "grunt-contrib-watch": "*",
     "grunt-contrib-jasmine": "*",
-    "grunt-contrib-compass": "*",
+    
     "grunt-template-jasmine-requirejs": "*",
     "grunt-http-server": "*"
+    
   },
 
   "scripts": {
