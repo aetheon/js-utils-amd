@@ -13,7 +13,7 @@
   },
 
   "devDependencies": {
-    "grunt-contrib-compass": "*",
+    "grunt-contrib-compass": "*"
   },
 
   "dependencies": {
