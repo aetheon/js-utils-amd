@@ -30,9 +30,11 @@ define([
          * information.
          * Every Panel is configured to be a GPU accelerated element (composite layer)!
          *
+         * @example
+         *
          * <div class="panel">
          *  <div class="inner"></div>
-         * </div> 
+         * </div>
          *
          * @param {HTMLElement} element The panel element 
          * @param {Object} options The panel options
@@ -52,7 +54,9 @@ define([
                     width: 0,
                     "min-height": "",
 
-                    "transition-duration": "1000ms"
+                    // create GPU accelerated compositing layer
+                    // http://www.chromium.org/developers/design-documents/gpu-accelerated-compositing-in-chrome
+                    "transform" : "translate3d(0, 0, 0)",
 
                 });
 
@@ -107,8 +111,13 @@ define([
                         "min-height": options["min-height"],
                         "width": options.width
                     };
+                    
 
-                    $(element).addClass("panel").css(cssRules);
+                    $(element)
+                        .addClass("panel")
+                        .css(cssRules)
+                        // always set the panel has visible. avoid display:none
+                        .css("display", "block");
 
                 },
 
@@ -122,8 +131,6 @@ define([
                         moptions,
                         {
                             "margin-left": 0,
-                            
-                            "transition": "200ms",
                             "translate3d-x": 0,
                         });
 
@@ -189,6 +196,33 @@ define([
                         
                 },
 
+                /*
+                 * get height of the Panel element
+                 *
+                 * @return {Number} The height of the element
+                 */
+                getHeight: function(){
+
+                    return ElementHelper.height(element);
+
+                },
+
+                /*
+                 * set height of the Panel element
+                 *
+                 * @param {Number} value The height of the element to set
+                 *
+                 * @return {Number} The height of the element
+                 */
+                setHeight: function(value){
+
+                    // if value is 0, null, undef then set to null
+                    if(!value) value = "";
+
+                    // set the height
+                    $(element).css("height", value);
+
+                },
 
                 /*
                  * Destroy
@@ -214,16 +248,7 @@ define([
                 "left": options.left,
                 "width": options.width,
 
-                // make sure the element is visible
-                "display": "block",
-                "visibility": "visible",
-
-                // create GPU accelerated compositing layer
-                // http://www.chromium.org/developers/design-documents/gpu-accelerated-compositing-in-chrome
-                "transform" : "translate3d(0, 0, 0)",
-                "transition-property": "transform",
-                "transition-duration": options["transition-duration"]
-                
+                "transform" : options.transform
             };
 
             $(element).css(cssRules);

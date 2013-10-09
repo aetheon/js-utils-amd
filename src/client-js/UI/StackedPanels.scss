@@ -2,7 +2,7 @@
 
 .stacked-panels {
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
     margin: 0px;
     box-sizing: border-box;
 }
@@ -12,7 +12,7 @@
     position: absolute;
     top: 0px;
     background: #FFF;
-    opacity: 0;
+    opacity: 0.5;
     z-index: 3;
 }
 
@@ -20,12 +20,14 @@
     
     -webkit-backface-visibility: hidden;
     -webkit-perspective: 1000;
+    transition: -webkit-transform 500ms;
 
     /* inner must be on top of overlay */
     position: absolute;
     top: 0px;
 
     background: #eee;
+
 }
 
 .stacked-panel .inner {
@@ -34,11 +36,8 @@
 
 /* previous panel */
 .stacked-panel.prev {
-    -webkit-transform: translate3d(0, 0, 0);
-    /* */
     z-index: 1;
 }
-
 
 /* active panel */
 .stacked-panel.active {

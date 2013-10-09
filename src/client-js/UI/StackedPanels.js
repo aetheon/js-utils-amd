@@ -29,7 +29,6 @@ define([
 
 
 
-
         /*
          * Stacked Panels UI - Stacked Panels allows for creation Screen Panels Stacks ( like dialogs but provide 
          * more context ). Just like spotify UI.
@@ -80,6 +79,8 @@ define([
             if(!$(viewportElement).length)
                 viewportElement = Window;
 
+
+            // initialize viewport element
             var viewport = viewportElement;
             $(viewport).addClass("stacked-panels");
 
@@ -94,14 +95,18 @@ define([
                 historyIndex = [],
                 // panel elements
                 panels = [],
-                panelElements = [],
 
                 // event emmiter
                 events = new EventEmitter();
 
 
-            // show panel
-            var showPanel = function(panel, index){
+            /*
+             * Show panel animation
+             * @param {Number} index The panel index to show
+             */
+            var showPanelAnimation = function(index){
+
+                var panel = panels[index];
 
                 var marginLeft = viewportWidth - (viewportWidth * options.panelWidthPercentage),
                     tranlationX = Math.floor(viewportWidth * index - marginLeft);
@@ -111,18 +116,26 @@ define([
                     "translate3d-x": tranlationX < 0 ? 0 : -tranlationX
                 });
 
-                // create an absoulte overlay to allow opacity on the bottom stack
-                if(index > 0){
-                    backOverlay.show({ });
-                }
+                // remove old prev panels
+                //$("> .stacked-panel.active", viewport).removeClass("active");
+
+                var element = $(panel.getElement());
+                element.css("display", "block")
+                       .addClass("active");
 
                 // emit show event 
                 events.emitEvent("show", [{ index: index }]);
 
             };
 
-            // hidePanel
-            var hidePanel = function(panel, index, moptions){
+            /*
+             * Hide panel animation
+             * @param {Number} index The panel index to show
+             * @param {Object} moptions The operations object
+             */
+            var hidePanelAnimation = function(index, moptions){
+
+                var panel = panels[index];
 
                 moptions = Arguments.get(
                     moptions,
@@ -131,14 +144,80 @@ define([
                     }
                 );
 
+                // remove old prev panels
+                //$("> .stacked-panel.prev", viewport).removeClass("prev");
+
+                // add prev class to panel
+                var element = $(panel.getElement());
+                element.css("display", "block")
+                       .addClass("prev");
+
                 panel.hide({
                     "translate3d-x": moptions["translate3d-x"]
                 });
 
             };
 
-            // add Panel
-            var add = function(jQueryExpression){
+
+            /*
+             * Set panel height dimensions. This always reset the previous panel height.
+             * @param {Number} index The panel index to show
+             */
+            var setPanelsHeight = function(index){
+
+                var currentPanel = panels[index],
+                    prevPanel = currentPanel;
+
+                prevPanel = index > 0 ? panels[index-1] : prevPanel;
+
+                currentPanel.setHeight(null);
+                prevPanel.setHeight(null);
+
+
+                // set the max height of the panels to overcome on scrolling issues
+                // This must be set after show because 
+                var prevPanelHeight = prevPanel.getHeight(),
+                    currentPanelHeight = currentPanel.getHeight(),
+                    panelsHeight = prevPanelHeight > currentPanelHeight ? prevPanelHeight : currentPanelHeight;
+
+                //
+                prevPanel.setHeight(panelsHeight);
+                currentPanel.setHeight(panelsHeight);
+
+            };
+
+
+            /*
+             * Show overlay
+             * @param {Number} index The panel index to show
+             */
+            var showOverlay = function(index){
+
+                var currentPanel = panels[index],
+                    panelsHeight = currentPanel.getHeight();
+
+                // show overlay
+                if(index > 0){
+                    backOverlay.show({ height: panelsHeight });
+                }
+
+            };
+
+            
+            /*
+             * Show overlay
+             * @param {Number} index The panel index to show
+             */
+            var hideOverlay = function(){
+                backOverlay.hide();
+            };
+
+
+            /*
+             * Add panels
+             * @param {String} jQueryExpression The jquery expression to get the stack panels
+             */
+            var addPanels = function(jQueryExpression){
 
                 // arguments
                 jQueryExpression = Safe.getString(jQueryExpression);
@@ -155,11 +234,13 @@ define([
 
                     // add panel to panel
                     panels.push(panel);
-                    panelElements.push(panelElement);
 
                 });
 
             };
+
+
+
 
 
             /* 
@@ -182,33 +263,29 @@ define([
                         return false;
 
                     // get current Panel index ( default is 0 )
-                    var currentPanelIndex = historyIndex.length ? historyIndex[historyIndex.length-1] : 0;
-                    
-                    var currentPanel = panels[currentPanelIndex],
-                        currentPanelElement = currentPanel.getElement();
-
-                    // get next panel element
-                    var nextPanel = panels.length ? panels[index] : null;
+                    var currentPanelIndex = historyIndex.length ? historyIndex[historyIndex.length-1] : null;
 
                     // if trying to show the the same page ignore
-                    if(index === currentPanelIndex)
-                        currentPanelElement = null;
-
-                    // remove any definition of previous
-                    $(panelElements).removeClass("prev");
-
-                    // remove current panel
-                    $(currentPanelElement).addClass("prev");
-
-                    // if current element is available
-                    // show overlay on the previous panel and put the panel as main screen
-                    if(currentPanelElement){
-                        // show overlay over the current element with the height of the 
-                        hidePanel(currentPanel, currentPanelIndex);
+                    if(index === currentPanelIndex){
+                        hideOverlay();
+                        return false;
                     }
 
+                    // After validation set the current index to zero
+                    if(currentPanelIndex === null) currentPanelIndex = 0;
+
+                    // show overlay over the current element with the height of the 
+                    hidePanelAnimation(currentPanelIndex);
+                    
                     // next panel animation
-                    showPanel(nextPanel, index);
+                    showPanelAnimation(index);
+
+                    // set the panel dimensions
+                    setPanelsHeight(index);
+
+                    // show overlay
+                    if(index > 0)
+                        showOverlay(index);
 
                     // set current / prev structures
                     historyIndex.push(index);
@@ -243,7 +320,7 @@ define([
                  *
                  * @return {Boolean} True|False
                  */
-                previous : function(){
+                prev : function(){
 
                     // get current panel
                     var currentPanelElementIndex = historyIndex.pop();
@@ -259,7 +336,7 @@ define([
                     var prevPanelElement = panels[prevPanelElementIndex];
 
                     // hide current panel
-                    hidePanel(currentPanelElement, currentPanelElementIndex, { "translate3d-x": 0 });
+                    hidePanelAnimation(currentPanelElementIndex, { "translate3d-x": 0 });
                     
                     // show the previous panel
                     return Manager.show(prevPanelElementIndex);
@@ -310,16 +387,13 @@ define([
                         panel.destroy();
                     });
 
-                    // clear panel elements
-                    panelElements = [];
-
                 }
 
             };
 
 
             // auto add all childs stacked panels
-            add("> .stacked-panel", viewportElement);
+            addPanels("> .stacked-panel", viewportElement);
             // auto show
             Manager.show(0);
 
@@ -327,7 +401,7 @@ define([
             // on previous click:
             // trigger previous function
             var previousFn = function StackedPanels_previous(){
-                Manager.previous();    
+                Manager.prev();    
             };
             $(viewport).on("click", "> .element-overlay", previousFn);
 

@@ -81,7 +81,7 @@ describe("StackedPanelsSpec", function () {
     });
 
 
-    async.it(".previous() should return true", function (done) {
+    async.it(".prev() should return true", function (done) {
  
         Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
 
@@ -90,8 +90,8 @@ describe("StackedPanelsSpec", function () {
                             .append("<div class='stacked-panel'></div>");
 
             var panel = new StackedPanels(element);
-            var next = panel.next();
-            var previous = panel.previous();
+            panel.next();
+            var previous = panel.prev();
 
             expect(previous).toEqual(true);
             expect(panel.currentIndex()).toEqual(0);
@@ -103,7 +103,7 @@ describe("StackedPanelsSpec", function () {
     });
 
 
-    async.it(".previous() should return false", function (done) {
+    async.it(".prev() should return false", function (done) {
  
         Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
 
@@ -112,8 +112,8 @@ describe("StackedPanelsSpec", function () {
                             .append("<div class='stacked-panel'></div>");
 
             var panel = new StackedPanels(element);
-            var previous = panel.previous();
-            previous = panel.previous();
+            var previous = panel.prev();
+            previous = panel.prev();
 
             expect(previous).toEqual(false);
             expect(panel.currentIndex()).toEqual(0);
@@ -167,11 +167,7 @@ describe("StackedPanelsSpec", function () {
             expect(show).toEqual(false);
             expect(panel.currentIndex()).toEqual(0);
 
-            expect( $( $(element).children()[0] ).hasClass("prev") ).toEqual(false);
-            expect( $( $(element).children()[1] ).hasClass("prev") ).toEqual(false);
-
             expect( $( $(element).children()[0] ).hasClass("active") ).toEqual(true);
-            expect( $( $(element).children()[1] ).hasClass("active") ).toEqual(false);
 
             done();
 
@@ -197,8 +193,6 @@ describe("StackedPanelsSpec", function () {
 
             expect( $( $(element).children()[0] ).css("min-height") ).not.toBe(null);
             expect( $( $(element).children()[1] ).css("min-height") ).not.toBe(null);
-
-            expect( $( $(element).children()[0] ).css("transition") ).toEqual("1000ms");
 
 
             var panel2 = new StackedPanels(element, { });            
