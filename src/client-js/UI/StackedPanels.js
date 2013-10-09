@@ -151,12 +151,12 @@ define([
                 // add prev class to panel
                 var element = $(panel.getElement());
                 element.css("display", "block")
-                       .addClass("active")
                        .addClass("prev");
 
                 // hide the panel
                 panel.hide({
-                    "translate3d-x": moptions["translate3d-x"]
+                    "translate3d-x": moptions["translate3d-x"],
+                    "display": "block"
                 });
 
             };

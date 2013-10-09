@@ -70,24 +70,14 @@ define([
                 /*
                  * Get the panel element
                  *
-                 * @return {Object} The state object hash
+                 * @return {Object} The Dom Element
                  *
                  */
                 getElement: function(){
                     return element;
                 },
 
-                /*
-                 * Get the state reference hash
-                 *
-                 * @return {Object} The state object hash
-                 *
-                 */
-                getState: function(){
-                    return state;
-                },
-
-
+                
                 /*
                  * Sync Panel css properties of like width, height, etc ...
                  * Usefull for dom resize events....
@@ -124,6 +114,7 @@ define([
                 /*
                  * Show panel operation.
                  *
+                 * @param {moptions} the show options
                  */
                 show: function(moptions){
 
@@ -132,18 +123,20 @@ define([
                         {
                             "margin-left": 0,
                             "translate3d-x": 0,
+                            "display": "block"
                         });
 
                     
                     var cssRules = {
-                        "min-height": options["min-height"],
-                        "-webkit-transition-duration": options.animDurationMsec + "ms",
+                        "min-height": options["min-height"]
                     };
 
 
-                    if(moptions["translate3d-x"]){
+                    if(moptions["translate3d-x"])
                         cssRules.transform = 'translate3d(' + moptions["translate3d-x"] + 'px, 0, 0)';
-                    }
+                    
+                    if(moptions.display) 
+                        cssRules.display = moptions.display;
 
                     // add active class to panel
                     $(element).addClass("active").css(cssRules);
@@ -161,14 +154,16 @@ define([
                 /*
                  * Hide panel operation.
                  *
+                 * @param {moptions} the show options
                  */
                 hide: function(moptions){
 
                     moptions = Arguments.get(
                         moptions,
                         {
-                            "height": "",
-                            "translate3d-x": 0
+                            "min-height": "",
+                            "translate3d-x": 0,
+                            "display": "none"
                         }
                     );
 
@@ -183,9 +178,11 @@ define([
 
                     // when the new panel is bigger then the one to hide its needed 
                     // an adjustment to heights
-                    if(moptions.height){
-                        cssRules["min-height"] = moptions.height;
-                    }
+                    if(moptions["min-height"]) 
+                        cssRules["min-height"] = moptions["min-height"];
+                    
+                    if(moptions.display) 
+                        cssRules.display = moptions.display;
 
                     // show overlay on the previous panel and put the panel 
                     // as main screen
