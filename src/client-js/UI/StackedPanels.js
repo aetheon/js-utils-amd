@@ -116,9 +116,6 @@ define([
                     "translate3d-x": tranlationX < 0 ? 0 : -tranlationX
                 });
 
-                // remove old prev panels
-                //$("> .stacked-panel.active", viewport).removeClass("active");
-
                 var element = $(panel.getElement());
                 element.css("display", "block")
                        .addClass("active");
@@ -145,13 +142,19 @@ define([
                 );
 
                 // remove old prev panels
-                //$("> .stacked-panel.prev", viewport).removeClass("prev");
+                // Note that this inserts a display none on the old
+                // prev element. This fix's big scrolling coming from old elements
+                var previousElement = $("> .stacked-panel.prev", viewport)
+                    .removeClass("prev")
+                    .css("display", "none");
 
                 // add prev class to panel
                 var element = $(panel.getElement());
                 element.css("display", "block")
+                       .addClass("active")
                        .addClass("prev");
 
+                // hide the panel
                 panel.hide({
                     "translate3d-x": moptions["translate3d-x"]
                 });
