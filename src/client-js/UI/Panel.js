@@ -28,7 +28,11 @@ define([
         /*
          * Panel information/operations. This object is used to save the panel 
          * information.
-         * Every Panel is configured to be a GPU accelerated element (composite layer)!
+         *
+         * Remarks:
+         *  - Every Panel is configured to be a GPU accelerated element (composite layer)!
+         *  - The min-height of the panel is applied to the element if given, otherwise the viewport 
+         *  height is used!
          *
          * @example
          *
@@ -52,7 +56,7 @@ define([
 
                     left: 0,
                     width: 0,
-                    "min-height": "",
+                    "min-height": 0,
 
                     // create GPU accelerated compositing layer
                     // http://www.chromium.org/developers/design-documents/gpu-accelerated-compositing-in-chrome
@@ -86,19 +90,16 @@ define([
                  */
                 domSync: function(){
 
-                    // set default height
-                    var height = ElementHelper.height(element),
-                        viewportHeight = ElementHelper.height();
+                    var minHeight = options["min-height"];
 
-                    if(viewportHeight > height)
-                            height = viewportHeight;
-
-                    options["min-height"] = height;
-                
+                    if(!minHeight){
+                        // use viewport height
+                        minHeight = ElementHelper.height();
+                    }
 
                     // apply css rules
                     var cssRules = {
-                        "min-height": options["min-height"],
+                        "min-height": minHeight,
                         "width": options.width
                     };
                     
@@ -127,10 +128,8 @@ define([
                         });
 
                     
-                    var cssRules = {
-                        "min-height": options["min-height"]
-                    };
-
+                    // css rules to apply
+                    var cssRules = { };
 
                     if(moptions["translate3d-x"])
                         cssRules.transform = 'translate3d(' + moptions["translate3d-x"] + 'px, 0, 0)';

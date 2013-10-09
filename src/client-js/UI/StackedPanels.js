@@ -233,7 +233,7 @@ define([
                     // stacked panel
                     //prepareStackedPanel(panelElement, panels.length);
                     var left = viewportWidth * index;
-                    var panel = new Panel(panelElement, { "left": left, "width": viewportWidth });
+                    var panel = new Panel(panelElement, { "left": left, "width": viewportWidth, "min-height": options.panelMinHeight });
 
                     // add panel to panel
                     panels.push(panel);

@@ -24,17 +24,18 @@
   /* inner must be on top of overlay */
   position: absolute;
   top: 0px;
+  overflow: auto;
   background: #eee;
 }
 
 /* previous panel */
-/* line 38, ../../src/client-js/UI/StackedPanels.scss */
+/* line 39, ../../src/client-js/UI/StackedPanels.scss */
 .stacked-panel.prev {
   z-index: 1;
 }
 
 /* active panel */
-/* line 43, ../../src/client-js/UI/StackedPanels.scss */
+/* line 44, ../../src/client-js/UI/StackedPanels.scss */
 .stacked-panel.active {
   /* let the stacked panel change the scroller.
      if position is absoulute the scrolling dont work */

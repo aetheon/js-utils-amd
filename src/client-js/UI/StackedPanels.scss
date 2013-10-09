@@ -25,6 +25,7 @@
     /* inner must be on top of overlay */
     position: absolute;
     top: 0px;
+    overflow: auto;
 
     background: #eee;
 
