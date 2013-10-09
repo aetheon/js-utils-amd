@@ -5,6 +5,7 @@
     overflow-x: hidden;
     margin: 0px;
     box-sizing: border-box;
+    width: 100%;
 }
 
 /* stacked-panel overlay */
@@ -25,7 +26,6 @@
     /* inner must be on top of overlay */
     position: absolute;
     top: 0px;
-    overflow: auto;
 
     background: #eee;
 

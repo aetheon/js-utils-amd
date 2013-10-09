@@ -176,16 +176,21 @@ define([
                 currentPanel.setHeight(null);
                 prevPanel.setHeight(null);
 
+                // if panel index is not the first.
+                // FIX: android 2.2
+                if(index){
 
-                // set the max height of the panels to overcome on scrolling issues
-                // This must be set after show because 
-                var prevPanelHeight = prevPanel.getHeight(),
-                    currentPanelHeight = currentPanel.getHeight(),
-                    panelsHeight = prevPanelHeight > currentPanelHeight ? prevPanelHeight : currentPanelHeight;
+                    // set the max height of the panels to overcome on scrolling issues
+                    // This must be set after show because 
+                    var prevPanelHeight = prevPanel.getHeight(),
+                        currentPanelHeight = currentPanel.getHeight(),
+                        panelsHeight = prevPanelHeight > currentPanelHeight ? prevPanelHeight : currentPanelHeight;
 
-                //
-                prevPanel.setHeight(panelsHeight);
-                currentPanel.setHeight(panelsHeight);
+                    
+                    prevPanel.setHeight(panelsHeight);
+                    currentPanel.setHeight(panelsHeight);
+
+                }
 
             };
 
