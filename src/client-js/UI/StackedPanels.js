@@ -52,7 +52,6 @@ define([
 
                     "-webkit-backface-visibility": "hidden",
                     "-webkit-perspective": 1000,
-                    "transition": "-webkit-transform 500ms",
 
                     // inner must be on top of overlay
                     "position": "absolute",
@@ -72,7 +71,8 @@ define([
                     /* let the stacked panel change the scroller.
                        if position is absoulute the scrolling dont work */
                     "position": "relative",
-                    "z-index": 4
+                    "z-index": 4,
+                    "transition": "-webkit-transform 500ms"
                 }
 
             });
@@ -138,6 +138,7 @@ define([
 
             // module variables definition
             var viewportWidth = ElementHelper.width(viewport),
+                viewportHeight = options.panelMinHeight,
 
                 // back overlay
                 backOverlay = new ElementOverlay(viewportElement),
@@ -163,7 +164,7 @@ define([
                 var panel = panels[index];
 
                 var marginLeft = viewportWidth - (viewportWidth * options.panelWidthPercentage),
-                    tranlationX = Math.floor(viewportWidth * index - marginLeft);
+                    tranlationX = index ? Math.floor(viewportWidth - marginLeft) : 0;
 
                 panel.show({
                     "margin-left": marginLeft,
@@ -199,8 +200,7 @@ define([
                 // Note that this inserts a display none on the old
                 // prev element. This fix's big scrolling coming from old elements
                 var previousElement = $("> .stacked-panel.prev", viewport)
-                    .removeClass("prev")
-                    .css("display", "none");
+                    .removeClass("prev");
 
                 // add prev class to panel
                 var element = $(panel.getElement());
@@ -276,6 +276,28 @@ define([
 
 
             /*
+             * Set the panel on their position
+             * 
+             */
+            var setPanelsInPosition = function(){
+
+                // recalculates the instance viewport width / height
+                viewportWidth = ElementHelper.width(viewport);
+                // height fallback to window height if the viewport element height is 0
+                viewportHeight = ElementHelper.height(viewport) || ElementHelper.height();
+
+                _.each(
+                    panels,
+                    function(panel, index){
+
+                        var panelElement = panel.getElement();
+                        $(panelElement).css({ "left": !!index ? viewportWidth : 0, "width": viewportWidth, "min-height": viewportHeight });
+
+                    });
+
+            };
+
+            /*
              * Add panels
              * @param {String} jQueryExpression The jquery expression to get the stack panels
              */
@@ -290,14 +312,14 @@ define([
                 _.each(elements, function(panelElement, index){
                     
                     // stacked panel
-                    //prepareStackedPanel(panelElement, panels.length);
-                    var left = viewportWidth * index;
-                    var panel = new Panel(panelElement, { "left": left, "width": viewportWidth, "min-height": options.panelMinHeight });
+                    var panel = new Panel(panelElement);
 
                     // add panel to panel
                     panels.push(panel);
 
                 });
+
+                setPanelsInPosition();
 
             };
 

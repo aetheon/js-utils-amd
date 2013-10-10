@@ -141,9 +141,8 @@ define([
                     $(element).addClass("active").css(cssRules);
 
                     // apply css to inner container
-                    $("> .inner", element).css({ 
-                        "width": options.width - moptions["margin-left"]
-                    });
+                    var innerWidth = options.width - moptions["margin-left"];
+                    $("> .inner", element).css({ "width": innerWidth > 0 ? innerWidth : "100%" });
 
                     // emit show event 
                     events.emitEvent("show", [this]);
@@ -185,7 +184,7 @@ define([
 
                     // show overlay on the previous panel and put the panel 
                     // as main screen
-                    $(element).css(cssRules).removeClass("active");
+                    $(element).removeClass("active").css(cssRules);
 
                     // emit show event 
                     events.emitEvent("hide", [this]);
