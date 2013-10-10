@@ -27,6 +27,7 @@ define([
             Panel = require("js-utils/UI/Panel");
 
 
+        // initialize the style related to this module
         WindowHelper.setNamedStyle(
             "UI/StackedPanels",
             {

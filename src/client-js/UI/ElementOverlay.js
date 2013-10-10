@@ -9,6 +9,25 @@ define(["require", "jquery", "js-utils/Dom/Window", "js-utils/Dom/Element", "js-
         Window = require("js-utils/Dom/Window");
 
 
+
+    // initialize the style related to this module
+    Window.setNamedStyle(
+        "UI/ElementOverlay",
+        {
+            
+            "body > .element-overlay": {
+                "position": "fixed",
+                "z-index": 200,
+                "background": "#FFF",
+                "opacity": 0.5
+            }
+
+        });
+
+
+
+
+
     /*
      * ElementOverlay Api
      *  show and hide ".element-overlay" elements. If the element does not exists on

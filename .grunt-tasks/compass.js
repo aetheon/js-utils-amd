@@ -1,7 +1,7 @@
 
 var compass = {
 
-    StackedPanelsExample: {
+    /*StackedPanelsExample: {
 
         options: {
 
@@ -18,7 +18,7 @@ var compass = {
 
         }
 
-    }
+    }*/
 
 };
 
