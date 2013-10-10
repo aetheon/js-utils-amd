@@ -151,11 +151,14 @@ define([
                 events = new EventEmitter();
 
 
+
+
+
             /*
-             * Show panel animation
+             * Show panel
              * @param {Number} index The panel index to show
              */
-            var showPanelAnimation = function(index){
+            var showPanel = function(index){
 
                 var panel = panels[index];
 
@@ -177,11 +180,11 @@ define([
             };
 
             /*
-             * Hide panel animation
+             * Hide panel
              * @param {Number} index The panel index to show
              * @param {Object} moptions The operations object
              */
-            var hidePanelAnimation = function(index, moptions){
+            var hidePanel = function(index, moptions){
 
                 var panel = panels[index];
 
@@ -238,7 +241,7 @@ define([
                         panelsHeight = prevPanelHeight > currentPanelHeight ? prevPanelHeight : currentPanelHeight;
 
                     
-                    prevPanel.setHeight(panelsHeight);
+                    prevPanel.setHeight(currentPanelHeight);
                     currentPanel.setHeight(panelsHeight);
 
                 }
@@ -308,6 +311,32 @@ define([
              */
             var Manager = {
 
+
+                /*
+                 * Repaint the stacked panels.
+                 * Note: this method is usefull for handling DOM resize's, etc...
+                 *
+                 */
+                repaint: function(){
+
+                    var index = this.currentIndex();
+
+                    // position 
+                    showPanel(index);
+
+                    // next panel animation
+                    showPanel(index);
+
+                    // set the panel dimensions
+                    setPanelsHeight(index);
+
+                    // show overlay
+                    if(index > 0)
+                        showOverlay(index);
+
+                },
+
+
                 /*
                  * Show index
                  *
@@ -334,20 +363,13 @@ define([
                     if(currentPanelIndex === null) currentPanelIndex = 0;
 
                     // show overlay over the current element with the height of the 
-                    hidePanelAnimation(currentPanelIndex);
+                    hidePanel(currentPanelIndex);
                     
-                    // next panel animation
-                    showPanelAnimation(index);
-
-                    // set the panel dimensions
-                    setPanelsHeight(index);
-
-                    // show overlay
-                    if(index > 0)
-                        showOverlay(index);
-
                     // set current / prev structures
                     historyIndex.push(index);
+
+                    // repaint the dom with the current panel
+                    this.repaint();
 
                     return true;
 
@@ -395,7 +417,7 @@ define([
                     var prevPanelElement = panels[prevPanelElementIndex];
 
                     // hide current panel
-                    hidePanelAnimation(currentPanelElementIndex, { "translate3d-x": 0 });
+                    hidePanel(currentPanelElementIndex, { "translate3d-x": 0 });
                     
                     // show the previous panel
                     return Manager.show(prevPanelElementIndex);
