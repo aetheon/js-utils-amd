@@ -133,6 +133,52 @@ define(["require", "lodash", "jquery", "js-utils/Arguments/index", "js-utils/Dom
 
             Window.scrollTo({ position: 0 });
             
+        },
+
+
+        /*
+         * Get element css styles
+         *
+         * @param {HTMLNode|String} element
+         * @return {Object} The element styles
+         */
+        getStyles: function(element){
+
+            element = $(element);
+            
+            if(!element.length) return;
+            element = element[0];
+
+            var result = {},
+                styles = window.getComputedStyle(element);
+            
+            for( var style in styles ){
+                var value = styles.getPropertyValue(style);
+                if(value) result[style] = value;
+            }
+
+            return result;
+
+        },
+
+        /*
+         * Get element css style
+         *
+         * @param {HTMLNode|String} element
+         * @param {HTM} style
+         * @return {Object} The element styles
+         */
+        getStyle: function(element, style){
+
+            element = $(element);
+            
+            if(!element.length) return;
+            element = element[0];
+
+            var styles = window.getComputedStyle(element);
+            
+            return styles.getPropertyValue(style);
+
         }
 
     };    

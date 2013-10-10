@@ -18,6 +18,8 @@ define([
         "use strict";
 
 
+        // TODO: onResize
+
         // TODO: First panel is always visible! When some panels are above 
         // the first panel is seen
 

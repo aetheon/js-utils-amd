@@ -45,6 +45,37 @@ describe("Dom/ElementSpec", function () {
         });
 
     });
+
+
+    async.it("getStyles()", function (done) {
+
+        Injector.require(["src/Dom/Element", "jquery"], function(Element, $){
+
+            var styles = Element.getStyles($("body"));
+
+            expect(styles).not.toBe(null);
+            expect(styles.color).not.toBe(null);
+
+            done();
+
+        });
+
+    });
+
+
+    async.it("getStyle()", function (done) {
+
+        Injector.require(["src/Dom/Element", "jquery"], function(Element, $){
+
+            var styles = Element.getStyle($("body"), "color");
+
+            expect(styles).not.toBe(null);
+
+            done();
+
+        });
+
+    });
     
 
 

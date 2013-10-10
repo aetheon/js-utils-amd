@@ -242,7 +242,6 @@ define([
                     sheet.insertRule(selector + '{' + propStr + '}', sheet.cssRules.length);
                 }
 
- 
             }
 
 

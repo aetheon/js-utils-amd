@@ -176,7 +176,7 @@ describe("StackedPanelsSpec", function () {
     });
 
 
-    async.it("panels should set css", function (done) {
+    async.it("test panels css", function (done) {
  
         Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
 
@@ -187,13 +187,16 @@ describe("StackedPanelsSpec", function () {
             var panel = new StackedPanels(element, { panelHeight: 200 });
             
 
+            // test panel css
+            
             expect( $( $(element).children()[0] ).hasClass("active") ).toEqual(true);
             expect( $( $(element).children()[0] ).css("left") ).toEqual("0px");
             expect( $( $(element).children()[1] ).css("left") ).toEqual("100px");
-
             expect( $( $(element).children()[0] ).css("min-height") ).not.toBe(null);
             expect( $( $(element).children()[1] ).css("min-height") ).not.toBe(null);
 
+
+            // new panel
 
             var panel2 = new StackedPanels(element, { });            
 
