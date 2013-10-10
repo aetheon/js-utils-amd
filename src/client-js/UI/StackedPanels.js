@@ -137,8 +137,8 @@ define([
 
 
             // module variables definition
-            var viewportWidth = ElementHelper.width(viewport),
-                viewportHeight = options.panelMinHeight,
+            var viewportWidth = ElementHelper.width(viewport) || ElementHelper.width(),
+                viewportHeight = options.panelMinHeight || ElementHelper.height(),
 
                 // back overlay
                 backOverlay = new ElementOverlay(viewportElement),
@@ -282,7 +282,7 @@ define([
             var setPanelsInPosition = function(){
 
                 // recalculates the instance viewport width / height
-                viewportWidth = ElementHelper.width(viewport);
+                viewportWidth = ElementHelper.width();
                 // height fallback to window height if the viewport element height is 0
                 viewportHeight = ElementHelper.height(viewport) || ElementHelper.height();
 

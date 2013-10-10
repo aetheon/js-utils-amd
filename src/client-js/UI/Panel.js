@@ -100,7 +100,7 @@ define([
                     // apply css rules
                     var cssRules = {
                         "min-height": minHeight,
-                        "width": options.width
+                        "width": options.width || "100%"
                     };
                     
 
