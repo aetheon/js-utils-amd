@@ -18,6 +18,18 @@ define([
         "use strict";
 
 
+        // TODO: First panel is always visible! When some panels are above 
+        // the first panel is seen
+
+        // TODO: Save prev panel offset's
+        // TODO: On prev panel set "top" to the scrolling top offset
+        // TODO: recover panel scroll after navigating
+
+
+
+
+
+
         var Window = require("js-utils/Globals/Window"),
             Arguments = require("js-utils/Arguments/index"),
             ElementHelper = require("js-utils/Dom/Element"),
@@ -34,7 +46,7 @@ define([
                 
                 ".stacked-panels": {
                     "position": "relative",
-                    "overflow-x": "hidden",
+                    "overflow": "hidden",   // hide scrolls. On panels the relative positioned wins the scroll
                     "margin": "0px",
                     "box-sizing": "border-box",
                     "width": "100%"
@@ -137,8 +149,8 @@ define([
 
 
             // module variables definition
-            var viewportWidth = ElementHelper.width(viewport) || ElementHelper.width(),
-                viewportHeight = options.panelMinHeight || ElementHelper.height(),
+            var viewportWidth = null,
+                viewportHeight = null,
 
                 // back overlay
                 backOverlay = new ElementOverlay(viewportElement),
@@ -164,7 +176,12 @@ define([
                 var panel = panels[index];
 
                 var marginLeft = viewportWidth - (viewportWidth * options.panelWidthPercentage),
-                    tranlationX = index ? Math.floor(viewportWidth - marginLeft) : 0;
+                    tranlationX = index ? Math.floor(viewportWidth - marginLeft) : 0,
+                    panelWidth = index ? viewportWidth - marginLeft : viewportWidth;
+
+
+                // set the width of the panel
+                panel.setWidth(panelWidth);
 
                 panel.show({
                     "margin-left": marginLeft,
@@ -238,11 +255,17 @@ define([
                     // This must be set after show because 
                     var prevPanelHeight = prevPanel.getHeight(),
                         currentPanelHeight = currentPanel.getHeight(),
-                        panelsHeight = prevPanelHeight > currentPanelHeight ? prevPanelHeight : currentPanelHeight;
+                        panelsHeight = currentPanelHeight;
 
-                    
+                    // TODO
+                    // IMPORTANT: The height of the panel must not be trusted 
+                    // because if some elements are added to the current panel 
+                    // its height will grow and there is no manner to tell if it as
+                    // grown 
+
+                    //
                     prevPanel.setHeight(currentPanelHeight);
-                    currentPanel.setHeight(panelsHeight);
+                    //currentPanel.setHeight(panelsHeight);
 
                 }
 
@@ -274,6 +297,16 @@ define([
                 backOverlay.hide();
             };
 
+            
+            /*
+             * Reload the panels dimensions from DOM
+             * @return {Number} the height of the panels
+             */
+            var reloadPanelsDimension = function(){
+                viewportHeight = options.panelMinHeight || ElementHelper.height();
+                viewportWidth = ElementHelper.width(viewport) || ElementHelper.width();
+            };
+
 
             /*
              * Set the panel on their position
@@ -281,17 +314,14 @@ define([
              */
             var setPanelsInPosition = function(){
 
-                // recalculates the instance viewport width / height
-                viewportWidth = ElementHelper.width();
-                // height fallback to window height if the viewport element height is 0
-                viewportHeight = ElementHelper.height(viewport) || ElementHelper.height();
+                reloadPanelsDimension();
 
                 _.each(
                     panels,
                     function(panel, index){
 
                         var panelElement = panel.getElement();
-                        $(panelElement).css({ "left": !!index ? viewportWidth : 0, "width": viewportWidth, "min-height": viewportHeight });
+                        $(panelElement).css({ "left": !!index ? viewportWidth : 0, "min-height": viewportHeight });
 
                     });
 
@@ -344,9 +374,6 @@ define([
                     var index = this.currentIndex();
 
                     // position 
-                    showPanel(index);
-
-                    // next panel animation
                     showPanel(index);
 
                     // set the panel dimensions

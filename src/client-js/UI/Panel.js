@@ -220,6 +220,24 @@ define([
                 },
 
                 /*
+                 * set width of the Panel element
+                 *
+                 * @param {Number} value The width of the element to set
+                 *
+                 * @return {Number} The height of the element
+                 */
+                setWidth: function(value){
+
+                    if(!value) return;
+
+                    $(element).css("width", value);
+                    $("> .inner", element).css("width", value);
+
+                    return value;
+
+                },
+
+                /*
                  * Destroy
                  *
                  */
