@@ -4,10 +4,11 @@
   overflow-x: hidden;
   margin: 0px;
   box-sizing: border-box;
+  width: 100%;
 }
 
 /* stacked-panel overlay */
-/* line 11, ../../src/client-js/UI/StackedPanels.scss */
+/* line 12, ../../src/client-js/UI/StackedPanels.scss */
 .stacked-panels .element-overlay {
   position: absolute;
   top: 0px;
@@ -16,7 +17,7 @@
   z-index: 3;
 }
 
-/* line 19, ../../src/client-js/UI/StackedPanels.scss */
+/* line 20, ../../src/client-js/UI/StackedPanels.scss */
 .stacked-panel {
   -webkit-backface-visibility: hidden;
   -webkit-perspective: 1000;
@@ -24,7 +25,6 @@
   /* inner must be on top of overlay */
   position: absolute;
   top: 0px;
-  overflow: auto;
   background: #eee;
 }
 

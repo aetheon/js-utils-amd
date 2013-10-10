@@ -197,7 +197,54 @@ define([
              */
             offScroll: function(fn){
                 events.off("scroll", fn);
+            },
+
+            /*
+             * set dynamic named style to dom, creating a dynamic style html node 
+             * and append it to the body.
+             *
+             * @param {String} name - the name of the rule
+             * @param {Object} cssRules - css object rules
+             *
+             */
+            setNamedStyle: function(name, cssRules){
+                
+                if(!name) return;
+
+                // sanitize style name
+                name = "jscss-" + name.replace(/[\s-_\/\\]/g, "");
+
+                // search for 
+                var styleElement = $("> style#" + name, "body");
+                if(styleElement.length === 0){
+                    styleElement = $("<style id='" + name + "' type='text/css'></style>");
+                    $("body").append(styleElement);
+                }
+
+
+                // apply rules to sheet using .insertRule
+                var sheet = styleElement[0].sheet;
+                for(var selector in cssRules) {
+                    
+                    var props = cssRules[selector];
+                    var propStr = '';
+                    for(var propName in props) {
+                      var propVal = props[propName];
+                      var propImportant = '';
+                      if(propVal[1] === true) {
+                        // propVal is an array of value/important, rather than a string.
+                        propVal = propVal[0];
+                        propImportant = ' !important';
+                      }
+                      propStr += propName + ':' + propVal + propImportant + ';\n';
+                    }
+
+                    sheet.insertRule(selector + '{' + propStr + '}', sheet.cssRules.length);
+                }
+
+ 
             }
+
 
 
         };    

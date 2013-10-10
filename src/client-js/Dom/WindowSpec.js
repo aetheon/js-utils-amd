@@ -32,6 +32,21 @@ describe("Dom/WindowSpec", function () {
         });
 
     });
+
+
+    async.it(".setNamedStyle()", function (done) {
+
+        Injector.require(["src/Dom/Window", "jquery" ], function(Window, $){
+
+            Window.setNamedStyle("name", { "background": "red" });
+
+            expect($("style#jscss-name").length).toBe(1);
+
+            done();
+
+        });
+
+    });
     
 
 

@@ -27,6 +27,56 @@ define([
             Panel = require("js-utils/UI/Panel");
 
 
+        WindowHelper.setNamedStyle(
+            "UI/StackedPanels",
+            {
+                
+                ".stacked-panels": {
+                    "position": "relative",
+                    "overflow-x": "hidden",
+                    "margin": "0px",
+                    "box-sizing": "border-box",
+                    "width": "100%"
+                },
+
+                ".stacked-panels .element-overlay": {
+                    "position": "absolute",
+                    "top": "0px",
+                    "background": "#FFF",
+                    "opacity": 0.5,
+                    "z-index": 3
+                },
+
+                ".stacked-panel": {
+
+                    "-webkit-backface-visibility": "hidden",
+                    "-webkit-perspective": 1000,
+                    "transition": "-webkit-transform 500ms",
+
+                    // inner must be on top of overlay
+                    "position": "absolute",
+                    "top": "0px",
+
+                    "background": "#eee"
+
+                },
+
+                /* previous panel */
+                ".stacked-panel.prev": {
+                    "z-index": "1"
+                },
+
+                /* active panel */
+                ".stacked-panel.active": {
+                    /* let the stacked panel change the scroller.
+                       if position is absoulute the scrolling dont work */
+                    "position": "relative",
+                    "z-index": 4
+                }
+
+            });
+
+
 
 
         /*
