@@ -11,7 +11,7 @@ define([
         "js-utils/Dom/Window",
         "js-utils/Dom/Element",
         "js-utils/UI/Panel",
-        "js-utils/UI/ElementOverlay"
+        "js-utils/UI/Overlay"
 
     ],
     function(require, _, $, EventEmitter){
@@ -35,7 +35,7 @@ define([
         var Window = require("js-utils/Globals/Window"),
             Arguments = require("js-utils/Arguments/index"),
             ElementHelper = require("js-utils/Dom/Element"),
-            ElementOverlay = require("js-utils/UI/ElementOverlay"),
+            Overlay = require("js-utils/UI/Overlay"),
             WindowHelper = require("js-utils/Dom/Window"),
             Safe = require("js-utils/Safe/index"),
             Panel = require("js-utils/UI/Panel");
@@ -155,7 +155,7 @@ define([
                 viewportHeight = null,
 
                 // back overlay
-                backOverlay = new ElementOverlay(viewportElement),
+                backOverlay = new Overlay(viewportElement),
 
                 // module data structures
                 historyIndex = [],

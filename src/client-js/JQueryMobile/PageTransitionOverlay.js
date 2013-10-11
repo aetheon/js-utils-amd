@@ -1,12 +1,12 @@
 
-define(["require", "js-utils/JQueryMobile/PageTracker", "js-utils/UI/ElementOverlay"], function(require){
+define(["require", "js-utils/JQueryMobile/PageTracker", "js-utils/UI/Overlay"], function(require){
     "use strict";
 
     var PageTracker = require("js-utils/JQueryMobile/PageTracker"),
-        ElementOverlay = require("js-utils/UI/ElementOverlay");
+        Overlay = require("js-utils/UI/Overlay");
 
     var tracker = new PageTracker(),
-        overlay = new ElementOverlay();
+        overlay = new Overlay();
 
     tracker.on("changing", function(){
         overlay.show();

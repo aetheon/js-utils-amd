@@ -8,8 +8,7 @@ define([
         "js-utils/Safe/index",
         "js-utils/Globals/Window",
         "js-utils/Dom/Window",
-        "js-utils/Dom/Element",
-        "js-utils/UI/ElementOverlay"
+        "js-utils/Dom/Element"
     ],
     function(require, _, $, EventEmitter){
         "use strict";
@@ -18,7 +17,6 @@ define([
         var Window = require("js-utils/Globals/Window"),
             Arguments = require("js-utils/Arguments/index"),
             ElementHelper = require("js-utils/Dom/Element"),
-            ElementOverlay = require("js-utils/UI/ElementOverlay"),
             WindowHelper = require("js-utils/Dom/Window"),
             Safe = require("js-utils/Safe/index");
 

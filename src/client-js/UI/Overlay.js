@@ -20,7 +20,7 @@ define([
 
     // initialize the style related to this module
     Window.setNamedStyle(
-        "UI/ElementOverlay",
+        "UI/Overlay",
         {
             
             "body > .element-overlay": {
@@ -37,7 +37,7 @@ define([
 
 
     /*
-     * ElementOverlay Api
+     * Creates an Overlay on the element
      *  show and hide ".element-overlay" elements. If the element does not exists on
      *  the "element" direct children then its created.
      *
@@ -45,7 +45,7 @@ define([
      * @param {Object} element - The HtmlElement
      *
      */
-    var ElementOverlay = function(element, options){
+    var Overlay = function(element, options){
 
         var baseElement = $(element).length ? element : "body",
             overlay = null;
@@ -77,11 +77,19 @@ define([
             if(!overlay) 
                 initOverlay();
 
+
+            // always update css information
+
+            var cssRules = { "width": "100%" };
+
             if(options.height){
-                $(overlay).css("height", options.height);
+                cssRules.height = options.height;
             }
 
-            $(overlay).css("width", "100%");
+            Window.domWrite(function(){ 
+                $(overlay).css(cssRules);
+            });
+            
 
             return overlay;
 
@@ -99,7 +107,9 @@ define([
 
                 var element = get(options);
                 
-                element.toggle(true);
+                Window.domWrite(function(){ 
+                    element.toggle(true);
+                });
 
             },
 
@@ -111,7 +121,10 @@ define([
             hide: function(){
 
                 var element = get();
-                element.toggle(false);
+
+                Window.domWrite(function(){ 
+                    element.toggle(false);
+                });
                        
             }
 
@@ -122,7 +135,7 @@ define([
     };
 
 
-    return ElementOverlay;
+    return Overlay;
 
 
 

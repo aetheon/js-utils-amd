@@ -1,5 +1,5 @@
 
-describe("Dom/ElementOverlaySpec", function () {
+describe("Dom/OverlaySpec", function () {
 
     var Squire = null,
         Injector = null,
@@ -23,9 +23,9 @@ describe("Dom/ElementOverlaySpec", function () {
     
     async.it("show()", function (done) {
 
-        Injector.require(["src/UI/ElementOverlay", "jquery"], function(ElementOverlay, $){
+        Injector.require(["src/UI/Overlay", "jquery"], function(Overlay, $){
 
-            var overlay = new ElementOverlay();
+            var overlay = new Overlay();
             overlay.show();
 
             done();
@@ -37,9 +37,9 @@ describe("Dom/ElementOverlaySpec", function () {
 
     async.it("hide()", function (done) {
 
-        Injector.require(["src/UI/ElementOverlay", "jquery"], function(ElementOverlay, $){
+        Injector.require(["src/UI/Overlay", "jquery"], function(Overlay, $){
 
-            var overlay = new ElementOverlay();
+            var overlay = new Overlay();
             overlay.show();
             overlay.hide();
 
