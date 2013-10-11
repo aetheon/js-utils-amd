@@ -199,9 +199,6 @@ describe("StackedPanelsSpec", function () {
             expect( $( $(element).children()[1] ).css("min-height") ).not.toBe(null);
 
 
-            // test scrollers hidden
-            expect( Element.getStyle(element, "overflow") ).toEqual("hidden");
-
             // new panel
 
             var panel2 = new StackedPanels(element, { });            

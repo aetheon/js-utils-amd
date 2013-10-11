@@ -47,6 +47,69 @@ describe("Dom/WindowSpec", function () {
         });
 
     });
+
+
+
+    async.it(".domRead()", function (done) {
+
+        var readed = false;
+
+        runs(function(){
+            
+            Injector.require(["src/Dom/Window", "jquery" ], function(Window, $){
+
+                Window.domRead(function(){})
+                    .done(
+                        function(){
+                            readed = true;
+                        }
+                    );
+
+                done();
+
+            });
+
+        });
+
+        waitsFor(function() { return readed; }, 1000);
+
+        runs(function(){
+            expect(readed).toBe(true);
+            done();
+        });
+
+    });
+
+
+    async.it(".domWrite()", function (done) {
+
+        var writed = false;
+
+        runs(function(){
+            
+            Injector.require(["src/Dom/Window", "jquery" ], function(Window, $){
+
+                Window.domWrite(function(){})
+                    .done(
+                        function(){
+                            writed = true;
+                        }
+                    );
+
+                done();
+
+            });
+
+        });
+
+        waitsFor(function() { return writed; }, 1000);
+
+        runs(function(){
+            expect(writed).toBe(true);
+            done();
+        });
+
+    });
     
 
 

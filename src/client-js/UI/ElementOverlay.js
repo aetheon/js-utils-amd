@@ -1,12 +1,20 @@
 
-define(["require", "jquery", "js-utils/Dom/Window", "js-utils/Dom/Element", "js-utils/Arguments/index"], function(require){
+define([
+        "require", 
+        "jquery", 
+        "fastdom",
+        "js-utils/Dom/Window", 
+        "js-utils/Dom/Element", 
+        "js-utils/Arguments/index"
+    ], function(require){
     "use strict";
 
 
     var $ = require("jquery"),
         Element = require("js-utils/Dom/Element"),
         Arguments = require("js-utils/Arguments/index"),
-        Window = require("js-utils/Dom/Window");
+        Window = require("js-utils/Dom/Window"),
+        FastDom = require("js-utils/Dom/Window");
 
 
 
@@ -90,6 +98,7 @@ define(["require", "jquery", "js-utils/Dom/Window", "js-utils/Dom/Element", "js-
             show: function(options){
 
                 var element = get(options);
+                
                 element.toggle(true);
 
             },

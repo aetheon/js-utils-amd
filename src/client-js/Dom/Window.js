@@ -10,7 +10,8 @@ define([
     "require", 
     "lodash", 
     "jquery",
-    "EventEmitter", 
+    "EventEmitter",
+    "fastdom", 
     "js-utils/Arguments/index", 
     "js-utils/Globals/Window", 
     "js-utils/Globals/Document",
@@ -28,7 +29,9 @@ define([
             Log = require("js-utils/Log/index");
         
 
-        var log = new Log.Logger("js-utils/Dom/Window");
+        var log = new Log.Logger("js-utils/Dom/Window"),
+            // singleton fastdom implementation
+            fastdom = require("fastdom");
 
 
         // Viewport globals
@@ -103,43 +106,7 @@ define([
          */            
         var WindowOperations = {
 
-            /*
-             * Scroll window to top 
-             *
-             * @param {Object} options - operation options
-             *
-             * @return {Object} JQueryPromise - resolved when scroll is finished
-             */
-            scrollTo: function (options) {
-
-                var dfd = $.Deferred();
-
-                options = Arguments.get(
-                    options,
-                    {
-                        bottom: false,
-                        position: 0,
-                        duration: 0
-                    });
-
-                // if bottom => position should be equal to the total
-                // height of the document
-                if(options.bottom)
-                    options.position = $(Document).height();
-
-                // scroll dom to position
-                $('html,body').animate(
-                    { 
-                        scrollTop: options.position,
-                        complete: function() { dfd.resolve(); }
-                    }, 
-                    options.duration
-                );
-
-                return dfd.promise();
-            },
-
-
+            
             /*
              * Get the current height of the Viewport
              *
@@ -199,6 +166,44 @@ define([
                 events.off("scroll", fn);
             },
 
+
+            /*
+             * Scroll window to top 
+             *
+             * @param {Object} options - operation options
+             *
+             * @return {Object} JQueryPromise - resolved when scroll is finished
+             */
+            scrollTo: function (options) {
+
+                var dfd = $.Deferred();
+
+                options = Arguments.get(
+                    options,
+                    {
+                        bottom: false,
+                        position: 0,
+                        duration: 0
+                    });
+
+                // if bottom => position should be equal to the total
+                // height of the document
+                if(options.bottom)
+                    options.position = $(Document).height();
+
+                // scroll dom to position
+                $('html,body').animate(
+                    { 
+                        scrollTop: options.position,
+                        complete: function() { dfd.resolve(); }
+                    }, 
+                    options.duration
+                );
+
+                return dfd.promise();
+            },
+
+
             /*
              * set dynamic named style to dom, creating a dynamic style html node 
              * and append it to the body.
@@ -242,8 +247,51 @@ define([
                     sheet.insertRule(selector + '{' + propStr + '}', sheet.cssRules.length);
                 }
 
-            }
+            },
 
+
+            /*
+             * Async dom read. This is optimized using fastdom for debounced events
+             *
+             * @param {Function} cb The async read callback
+             * @return {JQueryDefered} cb The async read callback
+             */
+             domRead: function(cb){
+                if(!cb) return;
+
+                var dfd = $.Deferred();
+
+                fastdom.read(
+                    function(){
+                        cb();
+                        dfd.resolve();
+                    }
+                );
+
+                return dfd.promise();
+             },
+
+
+             /*
+             * Async dom write. This is optimized using fastdom for debounced events
+             *
+             * @param {Function} cb The async read callback
+             * @return {JQueryDefered} cb The async read callback
+             */
+             domWrite: function(cb){
+                if(!cb) return;
+
+                var dfd = $.Deferred();
+
+                fastdom.write(
+                    function(){
+                        cb();
+                        dfd.resolve();
+                    }
+                );
+
+                return dfd.promise();
+             }
 
 
         };    
