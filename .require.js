@@ -16,6 +16,7 @@ requirejs.config({
         'json5': 'lib/json5/json5',
         'mustache': 'lib/mustache/mustache-latest',
         'fastclick': 'lib/fastclick/fastclick-latest',
+        'fastdom': 'lib/fastdom/fastdom-latest',
         'intravenous': 'lib/intravenous/intravenous-latest',
 
         'knockout': 'lib/knockout/knockout-latest',

@@ -3,15 +3,18 @@ describe("StackedPanelsSpec", function () {
 
     var Squire = null,
         Injector = null,
-        async = new AsyncSpec(this);
+        async = new AsyncSpec(this),
+        Element = null;
 
 
     async.beforeEach(function (done) {
 
-        require(["require", "squire" /*, "js-mocks/MOCK"*/], function(require){
+        require(["require", "squire", "src/Dom/Element" /*, "js-mocks/MOCK"*/], function(require){
             
             Squire = require("squire");
             Injector = new Squire();
+
+            Element = require("src/Dom/Element");
 
             done();
 
@@ -188,13 +191,16 @@ describe("StackedPanelsSpec", function () {
             
 
             // test panel css
-            
+
             expect( $( $(element).children()[0] ).hasClass("active") ).toEqual(true);
             expect( $( $(element).children()[0] ).css("left") ).toEqual("0px");
             expect( $( $(element).children()[1] ).css("left") ).toEqual("100px");
             expect( $( $(element).children()[0] ).css("min-height") ).not.toBe(null);
             expect( $( $(element).children()[1] ).css("min-height") ).not.toBe(null);
 
+
+            // test scrollers hidden
+            expect( Element.getStyle(element, "overflow") ).toEqual("hidden");
 
             // new panel
 
