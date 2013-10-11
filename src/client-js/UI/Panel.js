@@ -101,12 +101,15 @@ define([
                         "width": options.width || "100%"
                     };
                     
-
-                    $(element)
-                        .addClass("panel")
-                        .css(cssRules)
-                        // always set the panel has visible. avoid display:none
-                        .css("display", "block");
+                    WindowHelper.domWrite(
+                        function(){
+                            $(element)
+                                .addClass("panel")
+                                .css(cssRules)
+                                // always set the panel has visible. avoid display:none
+                                .css("display", "block");
+                        }
+                    );
 
                 },
 
@@ -135,12 +138,14 @@ define([
                     if(moptions.display) 
                         cssRules.display = moptions.display;
 
-                    // add active class to panel
-                    $(element).addClass("active").css(cssRules);
-
                     // apply css to inner container
-                    var innerWidth = options.width - moptions["margin-left"];
-                    $("> .inner", element).css({ "width": innerWidth > 0 ? innerWidth : "100%" });
+                    var innerWidth = options.width - moptions["margin-left"],
+                        innerElement = $("> .inner", element);
+
+                    WindowHelper.domWrite( function(){ 
+                        $(element).addClass("active").css(cssRules);
+                        innerElement.css({ "width": innerWidth > 0 ? innerWidth : "100%" });
+                    });
 
                     // emit show event 
                     events.emitEvent("show", [this]);
@@ -182,8 +187,10 @@ define([
 
                     // show overlay on the previous panel and put the panel 
                     // as main screen
-                    $(element).removeClass("active").css(cssRules);
-
+                    WindowHelper.domWrite( function(){ 
+                        $(element).removeClass("active").css(cssRules);
+                    });
+                
                     // emit show event 
                     events.emitEvent("hide", [this]);
                         
@@ -228,8 +235,12 @@ define([
 
                     if(!value) return;
 
-                    $(element).css("width", value);
-                    $("> .inner", element).css("width", value);
+                    var innerElement = $("> .inner", element);
+
+                    WindowHelper.domWrite( function(){ 
+                        $(element).css("width", value);
+                        innerElement.css("width", value);
+                    });
 
                     return value;
 
@@ -262,7 +273,9 @@ define([
                 "transform" : options.transform
             };
 
-            $(element).css(cssRules);
+            WindowHelper.domWrite( function(){ 
+                $(element).css(cssRules);
+            });
 
 
             // sync element width / height

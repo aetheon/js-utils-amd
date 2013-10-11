@@ -130,24 +130,37 @@ describe("StackedPanelsSpec", function () {
 
     async.it(".show() should return true", function (done) {
  
-        Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+        var ready = false,
+            element = $("<div></div>")
+                        .append("<div class='stacked-panel'></div>")
+                        .append("<div class='stacked-panel'></div>");
 
-            var element = $("<div></div>")
-                            .append("<div class='stacked-panel'></div>")
-                            .append("<div class='stacked-panel'></div>");
+        runs(function(){
 
-            var panel = new StackedPanels(element);
-            var show = panel.show(1);
-            
-            expect(show).toEqual(true);
-            expect(panel.currentIndex()).toEqual(1);
-            
+            Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+
+                var panel = new StackedPanels(element);
+                var show = panel.show(1);
+                
+                expect(show).toEqual(true);
+                expect(panel.currentIndex()).toEqual(1);
+
+                // wait for domWrite to set the style
+                setTimeout( function(){ ready = true; }, 500 );
+
+            });
+
+        });
+
+        waitsFor(function() { return ready; }, 2000);
+
+        runs(function(){
+
             expect( $( $(element).children()[0] ).hasClass("prev") ).toEqual(true);
             expect( $( $(element).children()[1] ).hasClass("prev") ).toEqual(false);
 
             expect( $( $(element).children()[0] ).hasClass("active") ).toEqual(false);
             expect( $( $(element).children()[1] ).hasClass("active") ).toEqual(true);
-
 
             done();
 
@@ -158,17 +171,31 @@ describe("StackedPanelsSpec", function () {
 
     async.it(".show() should return false", function (done) {
  
-        Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+        var ready = false,
+            element = $("<div></div>")
+                        .append("<div class='stacked-panel'></div>")
+                        .append("<div class='stacked-panel'></div>");
 
-            var element = $("<div></div>")
-                            .append("<div class='stacked-panel'></div>")
-                            .append("<div class='stacked-panel'></div>");
+        runs(function(){             
 
-            var panel = new StackedPanels(element);
-            var show = panel.show(2);
-            
-            expect(show).toEqual(false);
-            expect(panel.currentIndex()).toEqual(0);
+            Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+
+                var panel = new StackedPanels(element);
+                var show = panel.show(2);
+                
+                expect(show).toEqual(false);
+                expect(panel.currentIndex()).toEqual(0);
+
+                // wait for domWrite to set the style
+                setTimeout( function(){ ready = true; }, 500 );
+
+            });
+
+        });
+
+        waitsFor(function() { return ready; }, 2000);
+
+        runs(function(){
 
             expect( $( $(element).children()[0] ).hasClass("active") ).toEqual(true);
 
@@ -181,34 +208,44 @@ describe("StackedPanelsSpec", function () {
 
     async.it("test panels css", function (done) {
  
-        Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+        var ready = false,
+            element = $("<div style='width:100px'></div>")
+                        .append("<div class='stacked-panel'></div>")
+                        .append("<div class='stacked-panel'></div>");
 
-            var element = $("<div style='width:100px'></div>")
-                            .append("<div class='stacked-panel'></div>")
-                            .append("<div class='stacked-panel'></div>");
+        runs(function(){ 
 
-            var panel = new StackedPanels(element, { panelHeight: 200 });
-            
+            Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+
+                var panel = new StackedPanels(element, { panelHeight: 200 });
+
+                // wait for domWrite to set the style
+                setTimeout( function(){ ready = true; }, 500 );
+                
+            });
+
+        });
+
+        waitsFor(function() { return ready; }, 2000);
+
+        runs(function(){
+
+            var firstPanel = $(element).children()[0],
+                secondPanel = $(element).children()[1];
 
             // test panel css
 
-            expect( $( $(element).children()[0] ).hasClass("active") ).toEqual(true);
-            expect( $( $(element).children()[0] ).css("left") ).toEqual("0px");
-            expect( $( $(element).children()[1] ).css("left") ).toEqual("100px");
-            expect( $( $(element).children()[0] ).css("min-height") ).not.toBe(null);
-            expect( $( $(element).children()[1] ).css("min-height") ).not.toBe(null);
+            expect( $( firstPanel ).hasClass("active") ).toEqual(true);
+            expect( $( firstPanel ).css("left") ).toEqual("0px");
+            expect( $( firstPanel ).css("min-height") ).not.toBe(null);
 
+            expect( $( secondPanel ).css("left") ).toEqual("100px");
+            expect( $( secondPanel ).css("min-height") ).not.toBe(null);
 
-            // new panel
-
-            var panel2 = new StackedPanels(element, { });            
-
-            expect( $( $(element).children()[0] ).css("min-height") ).not.toBe(null);
-            expect( $( $(element).children()[1] ).css("min-height") ).not.toBe(null);
-            
             done();
 
         });
+
 
     });
     

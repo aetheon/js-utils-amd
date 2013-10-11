@@ -191,8 +191,13 @@ define([
                 });
 
                 var element = $(panel.getElement());
-                element.css("display", "block")
-                       .addClass("active");
+
+                WindowHelper.domWrite(function(){
+                    
+                    element.css("display", "block")
+                           .addClass("active");
+
+                });
 
                 // emit show event 
                 events.emitEvent("show", [{ index: index }]);
@@ -323,7 +328,9 @@ define([
                     function(panel, index){
 
                         var panelElement = panel.getElement();
-                        $(panelElement).css({ "left": !!index ? viewportWidth : 0, "min-height": viewportHeight });
+                        WindowHelper.domWrite(function(){
+                            $(panelElement).css({ "left": (!!index ? viewportWidth : 0) + "px", "min-height": viewportHeight });
+                        });
 
                     });
 
