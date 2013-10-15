@@ -1,0 +1,70 @@
+
+
+/*
+ * @name no-bullets
+ *  Remove the bullets from the given element
+ *
+ * @example
+
+    @include "../mixins.scss";
+    ul {
+        @include no-bullets()
+    }
+
+ */
+@mixin no-bullets {
+    list-style: none;
+    > li {
+        list-style: none;
+    }
+}
+
+
+/*
+ * @name apply-scrolling-format
+ *  Apply scrolling format to the given cssRule
+ *
+ * @example
+
+    @include "../mixins.scss";
+    body {
+        @include apply-scrolling-format($width: 20px, $bg:#FFF, $thumbBg:#CCC)
+    }
+
+ */
+ @mixin apply-scrolling-format ($width:15px, $bg:transparent, $thumbBg:#CCC) {
+
+
+    &::-webkit-scrollbar {
+        overflow: visible;
+        width: $width;
+        background: $bg;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        width: $width;
+        background-color: $thumbBg;
+        box-shadow: inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
+    }
+
+    &::-webkit-scrollbar-button {
+        height: 0;
+        width: 0;
+    }
+
+    &::-webkit-scrollbar-track {
+        border: solid transparent;
+        background: none;
+    }
+
+    &::-webkit-scrollbar-track-piece {
+        background: transparent;
+    }
+
+    &::-webkit-search-decoration element
+    &::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+
+
+}
