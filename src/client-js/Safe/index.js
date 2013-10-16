@@ -180,6 +180,15 @@ define([
          * @param {Function} fn - the function to be executed
          * @param {Object} options - the Safe.call options
          *
+         * @return {Object} The Chain
+         *
+         * @example
+            var fn = Safe.debouncedCall(function(){});
+            fn.called();
+            fn.stop();
+            fn.reset();
+
+         *
          */
         Safe.debouncedCall = function(fn, options){
 
@@ -191,17 +200,49 @@ define([
                     args: [],
 
                     // msec of delay to exec
-                    delay: 200
+                    delay: 200,
+
+                    // unique call of the function
+                    unique: true
 
                 }
             );
 
-            setTimeout(
-                function(){
-                    Safe.call(fn, { scope: options.scope, args: options.args });
+            var called = false;
+            var tid = null;
+
+            var debounce = function(){
+
+                tid = setTimeout(
+                    function(){
+                        Safe.call(fn, { scope: options.scope, args: options.args });
+                        called = true;
+                    },
+                    options.delay
+                );
+
+            };
+
+            // call the function
+            debounce();
+            
+            return {
+                
+                called: function(){
+                    return called;
                 },
-                options.delay
-            );
+
+                stop: function(){
+                    window.clearTimeout(tid);
+                },
+
+                reset: function(){
+                    window.clearTimeout(tid);
+                    debounce();
+                }
+
+            };
+
 
         };
 

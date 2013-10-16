@@ -302,7 +302,7 @@ describe("SafeSpec", function () {
 
             var scope = { one: 1 };
 
-            Safe.debouncedCall(
+            var chain = Safe.debouncedCall(
                 function(arg1, arg2){
 
                     expect(arg1).toBe(1);
@@ -318,12 +318,84 @@ describe("SafeSpec", function () {
                 }
             );
 
+            expect(chain).not.toBe(null);
+
         });        
 
     });
 
 
-    
+    async.it("debouncedCall().reset()", function (done) {
+        
+        Injector.require(["src/Safe/index"], function(Safe){
+
+            var scope = { one: 1 };
+
+            var chain = Safe.debouncedCall(
+                function(arg1, arg2){
+
+                    expect(arg1).toBe(1);
+                    expect(arg2).toBe(2);
+                    expect(scope.one).toBe(1);
+
+                    done();
+
+                },
+                {
+                    scope: scope,
+                    args: [1, 2]
+                }
+            ).reset();
+
+        });        
+
+    });
+
+
+    async.it("debouncedCall().stop()", function (done) {
+        
+        var called = false,
+            wait = false;
+
+        runs(function(){
+
+            Injector.require(["src/Safe/index"], function(Safe){
+
+                var scope = { one: 1 };
+
+                Safe.debouncedCall(
+                    function(arg1, arg2){
+
+                        called = true;
+
+                    },
+                    {
+                        scope: scope,
+                        args: [1, 2]
+                    }
+                ).stop();
+
+                setTimeout(function(){ 
+                    wait = true; 
+                }, 1000);
+
+            });
+
+
+        });
+
+
+        waitsFor(function() { return wait; }, 5000);
+
+
+        runs(function(){
+            
+            expect(called).toBe(false);
+            done();
+
+        });
+
+    });
 
 
 
