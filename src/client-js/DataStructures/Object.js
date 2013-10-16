@@ -4,7 +4,7 @@
  * 
  */
 
-define(["lodash", "js-utils/Type/index"], function(_, Type){
+define(["require", "lodash", "js-utils/Type/index"], function(require, _, Type){
     "use strict";
     
     var Obj = {
@@ -122,7 +122,11 @@ define(["lodash", "js-utils/Type/index"], function(_, Type){
 
 
             return obj;
-        }
+        },
+
+
+
+        
 
     };
 

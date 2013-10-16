@@ -193,6 +193,64 @@ describe("OOP Spec", function () {
     });
 
 
+
+    async.it(".getMutators(obj)", function (done) {
+
+        Injector.require(["src/OOP/index"], function(OOP){
+
+            var o = OOP.getMutators(
+                {   "value1": "1",
+                    "value2": "2" }
+            );
+            
+
+            expect(o.getValue1).not.toBe(null);
+            expect(o.getValue2).not.toBe(null);
+            expect(o.setValue1).not.toBe(null);
+            expect(o.setValue2).not.toBe(null);
+
+            expect(o.getValue1()).toBe("1");
+            expect(o.getValue2()).toBe("2");
+
+            o.setValue1("0");
+            o.setValue2("-1");
+
+            expect(o.getValue1()).toBe("0");
+            expect(o.getValue2()).toBe("-1");
+            
+            done();
+
+        });
+
+    });
+
+
+    async.it(".getMutators(obj, filter)", function (done) {
+
+        Injector.require(["src/OOP/index"], function(OOP){
+
+            var o = OOP.getMutators(
+                {   "value1": "1",
+                    "value2": "2" },
+                [ "value1" ]
+            );
+            
+
+            expect(o.getValue1).not.toBe(null);
+            expect(o.getValue2).toBe(undefined);
+            expect(o.setValue1).not.toBe(null);
+            expect(o.setValue2).toBe(undefined);
+
+            expect(o.getValue1()).toBe("1");
+            o.setValue1("0");
+            expect(o.getValue1()).toBe("0");
+            
+            done();
+
+        });
+
+    });
+
     
 
 
