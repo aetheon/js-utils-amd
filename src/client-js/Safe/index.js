@@ -200,10 +200,7 @@ define([
                     args: [],
 
                     // msec of delay to exec
-                    delay: 200,
-
-                    // unique call of the function
-                    unique: true
+                    delay: 200
 
                 }
             );
