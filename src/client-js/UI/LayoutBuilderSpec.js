@@ -1,5 +1,5 @@
 
-describe("UI/LayoutRenderer", function () {
+describe("UI/LayoutBuilder", function () {
 
     var Squire = null,
         Injector = null,
@@ -20,12 +20,12 @@ describe("UI/LayoutRenderer", function () {
     });
 
 
-    async.it("LayoutRenderer() should return table", function (done) {
+    async.it("LayoutBuilder() should return table", function (done) {
 
         
-        Injector.require(["src/UI/LayoutRenderer"], function(LayoutRenderer){
+        Injector.require(["src/UI/LayoutBuilder"], function(LayoutBuilder){
 
-            var layout = new LayoutRenderer(
+            var layout = new LayoutBuilder(
                 
                 [
                     {
@@ -77,12 +77,12 @@ describe("UI/LayoutRenderer", function () {
 
 
 
-    async.it("LayoutRenderer() should return null if no more tags exists and leaf has childs", function (done) {
+    async.it("LayoutBuilder() should return null if no more tags exists and leaf has childs", function (done) {
 
         
-        Injector.require(["src/UI/LayoutRenderer"], function(LayoutRenderer){
+        Injector.require(["src/UI/LayoutBuilder"], function(LayoutBuilder){
 
-            var layout = new LayoutRenderer(
+            var layout = new LayoutBuilder(
                 
                 [
                     {
