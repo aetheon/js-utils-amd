@@ -52,7 +52,7 @@ define(["require", "jquery", "lodash", "js-utils/Arguments/index", "js-utils/Saf
      *
      * @example
 
-        var layout = new LayoutRenderer(
+        var layout = new LayoutBuilder(
             [
                 {
                     width: "100%",
@@ -95,7 +95,7 @@ define(["require", "jquery", "lodash", "js-utils/Arguments/index", "js-utils/Saf
         var leafsList = layouts.leafs;
 
      */
-    var LayoutRenderer = function (layoutJson, tags) {
+    var LayoutBuilder = function (layoutJson, tags) {
 
 
         var create = function(parent){
@@ -214,7 +214,7 @@ define(["require", "jquery", "lodash", "js-utils/Arguments/index", "js-utils/Saf
     };
 
 
-    return LayoutRenderer;
+    return LayoutBuilder;
 
 });
 
