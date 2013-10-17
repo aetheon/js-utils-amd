@@ -195,7 +195,7 @@ define([
             options = Arguments.get(
                 options,
                 {
-                    scope: this,
+                    scope: null,
 
                     args: [],
 
