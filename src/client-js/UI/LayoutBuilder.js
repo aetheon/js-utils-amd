@@ -113,7 +113,8 @@ define(["require", "jquery", "lodash", "js-utils/Arguments/index", "js-utils/Saf
                     {
                         width: "",
                         height: "",
-                        border: "none"
+                        border: "",
+                        padding: ""
                     });
 
                 // compute the styles from the args
