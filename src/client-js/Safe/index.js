@@ -223,7 +223,7 @@ define([
             // call the function
             debounce();
             
-            return {
+            var _this = {
                 
                 called: function(){
                     return called;
@@ -231,6 +231,7 @@ define([
 
                 stop: function(){
                     window.clearTimeout(tid);
+                    return _this;
                 },
 
                 reset: function(){
@@ -239,6 +240,8 @@ define([
                 }
 
             };
+
+            return _this;
 
 
         };

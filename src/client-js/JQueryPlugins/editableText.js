@@ -209,8 +209,8 @@ define([
                         $this.val($(this).html());
                     });
 
-
                     $contenteditable.blur(function() {
+
                         if (settings['auto-hide-toolbar']) {
                             /*
                              * if ather 250ms the toolbar was not clicked, hide it
@@ -221,6 +221,23 @@ define([
                                 $toolbar.data('clicked', false);
                             });
                          }
+
+
+                    });
+
+
+                    // fire chhange event on element
+                    $($contenteditable).on('focus', function() {
+                        var $this = $(this);
+                        $this.data('before', $this.html());
+                        return $this;
+                    }).on('blur keyup paste', function() {
+                        var $this = $(this);
+                        if ($this.data('before') !== $this.html()) {
+                            $this.data('before', $this.html());
+                            $this.trigger('change');
+                        }
+                        return $this;
                     });
 
                     $toolbar.find('ul li a').click(function () {
