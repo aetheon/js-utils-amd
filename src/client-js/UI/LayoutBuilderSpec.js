@@ -31,14 +31,14 @@ describe("UI/LayoutBuilder", function () {
                     {
                         width: "100%",
                         
-                        childs: [
+                        children: [
 
                             // row
                             {
                                 width: "100%",
                                 height: "100%",
 
-                                childs: [
+                                children: [
 
                                     // column
                                     {
@@ -77,7 +77,7 @@ describe("UI/LayoutBuilder", function () {
 
 
 
-    async.it("LayoutBuilder() should return null if no more tags exists and leaf has childs", function (done) {
+    async.it("LayoutBuilder() should return null if no more tags exists and leaf has children", function (done) {
 
         
         Injector.require(["src/UI/LayoutBuilder"], function(LayoutBuilder){
@@ -88,7 +88,7 @@ describe("UI/LayoutBuilder", function () {
                     {
                         width: "100%",
                         
-                        childs: [
+                        children: [
 
                             // row
                             {

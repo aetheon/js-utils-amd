@@ -57,7 +57,7 @@ define(["require", "jquery", "lodash", "js-utils/Arguments/index", "js-utils/Saf
                 {
                     width: "100%",
                     
-                    childs: [
+                    children: [
 
                         // row
                         {
@@ -65,7 +65,7 @@ define(["require", "jquery", "lodash", "js-utils/Arguments/index", "js-utils/Saf
                             width: "100%",
                             height: "100%",
 
-                            childs: [
+                            children: [
 
                                 // column
                                 {
@@ -154,7 +154,7 @@ define(["require", "jquery", "lodash", "js-utils/Arguments/index", "js-utils/Saf
 
                 // validates the 
                 if(!tag && childList.length)
-                    throw new Error("Missing tags on tagList. Found inner childs: []");
+                    throw new Error("Missing tags on tagList. Found inner children: []");
 
 
                 _.each(
@@ -165,11 +165,11 @@ define(["require", "jquery", "lodash", "js-utils/Arguments/index", "js-utils/Saf
                         setStyle(element, childObj);
 
 
-                        var childs = Safe.getArray(childObj.childs);
-                        if(childs.length){
+                        var children = Safe.getArray(childObj.children);
+                        if(children.length){
                             
                             // recursive call to build layout
-                            crateElements(element, childObj.childs, innerTags);
+                            crateElements(element, childObj.children, innerTags);
                             
                         }
                         else {
