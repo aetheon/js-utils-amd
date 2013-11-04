@@ -30,7 +30,7 @@ describe("KO/Mapper Spec", function () {
             var SrcClass = function(){
                 this.str = ko.observable("");
                 this.object = ko.observable({});
-                this.array = ko.observable([]);
+                this.array = ko.observableArray([]);
             };
 
             var src = new SrcClass();
