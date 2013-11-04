@@ -112,6 +112,9 @@ define(["require", "jquery", "lodash", "js-utils/Arguments/index", "js-utils/Saf
                     rulesObj,
                     {
                         width: "",
+                        'max-width': "",
+                        'overflow': "",
+                        'vertical-align': "top",
                         height: "",
                         border: "",
                         padding: ""
