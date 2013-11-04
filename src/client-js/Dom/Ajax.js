@@ -133,7 +133,7 @@ define(["require", "jquery", "EventEmitter", "js-utils/Arguments/index", "js-uti
                           // when a parseerror occurs the status is 200 but 
                           // this may be confusing
                           d = errorThrown;
-                          status = data.status === 200 ? 500 : data.status;
+                          if(data) status = data.status === 200 ? 500 : data.status;
 
                       }
 
