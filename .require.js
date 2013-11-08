@@ -32,6 +32,9 @@ requirejs.config({
         'lawnchair': 'lib/lawnchair/lawnchair-latest',
         'jsuri': 'lib/jsuri/jsuri-latest',
 
+        // Q Promises Librarie
+        'q': 'lib/q/q-latest',
+
         'squire': 'lib/squire/squire-latest',
 
         // js-utils base path
