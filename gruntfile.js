@@ -5,14 +5,8 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     
-    jshint: {
-      files: [
-        'gruntfile.js',
-        '.require.js',
-        BasePath + 'src/client-js/*',
-        BasePath + 'src/client-js/**/*.js'
-      ]
-    },
+
+    jshint: require("./.grunt-tasks/jshint.js"),
 
 
     /*requirejs: {
@@ -80,6 +74,8 @@ module.exports = function(grunt) {
     },
 
 
+    'mocha-server': require("./.grunt-tasks/mocha-server.js"),
+
     /*
     jsdoc : {
         dist : {
@@ -117,6 +113,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-http-server');
+  grunt.loadNpmTasks('grunt-server-mocha');
   //grunt.loadNpmTasks('grunt-contrib-compass');
   /*grunt.loadNpmTasks('grunt-jsdoc-plugin');*/
   
@@ -125,7 +122,8 @@ module.exports = function(grunt) {
     'travis', 
     [
       'jshint',
-      'jasmine'
+      'jasmine',
+      'mocha-server'
     ]);
 
   
