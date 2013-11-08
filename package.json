@@ -31,7 +31,7 @@
     "requirejs": ">=2.1.9"
   },
 
-  "main": "src/node-js/index.js",
+  "main": "src/js-node/index.js",
 
   "scripts": {
     "test": "grunt travis --verbose"

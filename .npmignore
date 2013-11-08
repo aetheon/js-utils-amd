@@ -1,7 +1,7 @@
 .grunt
 .grunt-tasks
-examples
-iconsets
+examples/
+iconsets/
 lib
 spec
 src/client-js
