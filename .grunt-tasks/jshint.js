@@ -8,11 +8,11 @@ module.exports = {
     'src/client-js/*',
     'src/client-js/**/*.js',
     
-    'src/node-js/*',
-    'src/node-js/**/*.js',
+    'src/js-node/*',
+    'src/js-node/**/*.js',
     
-    'src/all-js/*',
-    'src/all-js/**/*.js',
+    'src/js/*',
+    'src/js/**/*.js',
 
     'spec/mocha/*',
     'src/mocha/**/*.js'
