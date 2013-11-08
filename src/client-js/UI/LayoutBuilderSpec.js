@@ -114,6 +114,73 @@ describe("UI/LayoutBuilder", function () {
         });
 
     });
+
+
+
+    async.it("LayoutBuilder() should apply styles", function (done) {
+
+        
+        Injector.require(["src/UI/LayoutBuilder"], function(LayoutBuilder){
+
+
+            var layout = new LayoutBuilder(
+                
+                [
+                    {
+                        width: "100%",
+                        
+                        children: [
+
+                            // row
+                            {
+                                width: "100%",
+                                height: "100%",
+
+                                children: [
+
+                                    // column
+                                    {
+                                        width: "100%",
+                                        height: "100%",
+                                        column: 1
+                                    }
+
+                                ]
+                            }
+
+                        ]
+
+                    }
+                ],
+
+                [ "table", "tr", "td" ],
+
+                {
+                    "": {
+                        "width": "100px",
+                        "height": "100px"
+                    },
+
+                    "table": {
+                        "background-color": "red"
+                    }
+                }
+
+            );
+
+            expect(layout.element).not.toBe(null);
+            expect(layout.leafs.length).toBe(1);
+
+            var table = $("> table", layout.element);
+            expect($(table).css("height")).toBe("100px");
+            expect($(table).css("width")).toBe("100%");
+            expect($(table).css("background-color")).toBe("red");
+
+            done();
+
+        });
+
+    });
     
 
 

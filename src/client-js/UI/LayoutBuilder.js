@@ -7,6 +7,7 @@ define(["require", "jquery", "lodash", "js-utils/Arguments/index", "js-utils/Saf
     var _ = require("lodash"),
         $ = require("jquery"),
         Safe = require("js-utils/Safe/index"),
+        Type = require("js-utils/Type/index"),
         Arguments = require("js-utils/Arguments/index");
     
 
@@ -87,7 +88,20 @@ define(["require", "jquery", "lodash", "js-utils/Arguments/index", "js-utils/Saf
                 "table",
                 "tr",
                 "td"
-            ]
+            ],
+
+            // default attributes
+            {
+                // apply to all elements
+                "": {
+    
+                },
+
+                "table" : {
+                    min-height: ""
+                }
+
+            }
 
         );
 
@@ -95,8 +109,10 @@ define(["require", "jquery", "lodash", "js-utils/Arguments/index", "js-utils/Saf
         var leafsList = layouts.leafs;
 
      */
-    var LayoutBuilder = function (layoutJson, tags) {
+    var LayoutBuilder = function (layoutJson, tags, defaultTagsAttributes) {
 
+        // sanitize arguments
+        defaultTagsAttributes = defaultTagsAttributes || {};
 
         var create = function(parent){
 
@@ -107,34 +123,25 @@ define(["require", "jquery", "lodash", "js-utils/Arguments/index", "js-utils/Saf
 
                 element = $(element);
 
-                // get from option only what we need
-                var args = Arguments.get(
-                    rulesObj,
-                    {
-                        width: "",
-                        'max-width': "",
-                        'overflow': "",
-                        'vertical-align': "top",
-                        height: "",
-                        border: "",
-                        padding: ""
-                    });
+                var elementTagName = element.prop('tagName').toLowerCase();
 
+                // the default attributes
+                var defaultAttributes = defaultTagsAttributes[""] || {},
+                    tagsAttributes = defaultTagsAttributes[elementTagName] || {};
+
+                // get from option only what we need
+                var styles = _.assign(tagsAttributes, defaultAttributes);
+                
                 // compute the styles from the args
-                var styles = {};
                 _.each(
-                    _.keys(args),
+                    _.keys(rulesObj),
                     function(arg){
 
                         var key = arg,
-                            value = args[arg];
+                            value = rulesObj[arg];
 
-                        switch(arg){
-                            default:
-                                break;
-                        }
-
-                        styles[key] = value;
+                        if(Type.isString(value))
+                            styles[key] = value;
 
                     }
                 );
