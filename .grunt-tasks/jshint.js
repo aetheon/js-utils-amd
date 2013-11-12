@@ -5,16 +5,16 @@ module.exports = {
     'gruntfile.js',
     '.require.js',
     
-    'src/client-js/*',
+    'src/client-js/*.js',
     'src/client-js/**/*.js',
     
-    'src/js-node/*',
+    'src/js-node/*.js',
     'src/js-node/**/*.js',
     
-    'src/js/*',
+    'src/js/*.js',
     'src/js/**/*.js',
 
-    'spec/mocha/*',
+    'spec/mocha/*.js',
     'src/mocha/**/*.js'
 
   ]

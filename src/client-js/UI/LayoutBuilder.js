@@ -130,7 +130,7 @@ define(["require", "jquery", "lodash", "js-utils/Arguments/index", "js-utils/Saf
                     tagsAttributes = defaultTagsAttributes[elementTagName] || {};
 
                 // get from option only what we need
-                var styles = _.assign(tagsAttributes, defaultAttributes);
+                var styles = _.assign({}, tagsAttributes, defaultAttributes);
                 
                 // compute the styles from the args
                 _.each(
