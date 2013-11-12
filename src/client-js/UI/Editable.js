@@ -147,6 +147,9 @@ define([
                     // apply the format
                     $formater.format(this, rule);
 
+                    // trigger the change on editable
+                    $contenteditable.trigger('change');
+
                 });
 
 
