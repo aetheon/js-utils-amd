@@ -17,12 +17,14 @@ define([
     "jquery",
     "lodash",
     "js-utils/Dom/RichTextFormatter",
-    "js-utils/Safe/index"
+    "js-utils/Safe/index",
+    "js-utils/Type/index"
     ],
     function(require, $, _){
 
 
         var Safe = require("js-utils/Safe/index"),
+            Type = require("js-utils/Type/index"),
             RichTextFormatter = require("js-utils/Dom/RichTextFormatter");
 
         // static variables
@@ -126,9 +128,29 @@ define([
                     var $toolbarItems = $('<div class="btn-group" role="toolbar"></div>')
                         .appendTo($toolbar);
 
+                    var control = null;
+
                     $.each(items, function(index2, item) {
-                        $('<button type="button" class="btn btn-default" data-rule=' + item[0] +'>'+item[1]+'</button>')
-                        .appendTo($toolbarItems);
+
+                        var type = Type.of(item[1]);
+                        switch(type){
+
+                            case "array":
+                                control = $('<select class="btn btn-default"></select>');
+                                control.append("<option>"+item[2]+"</option>");
+                                _.each(item[1], function(option){
+                                    control.append("<option value='" + option[0] + "'>" + option[1] + "</option>");
+                                });
+                                break;
+
+
+                            default:
+                                control = $('<button type="button" class="btn btn-default" data-rule=' + item[0] +'>'+item[1]+'</button>');
+                                break;
+
+                        }
+
+                        control.appendTo($toolbarItems);
 
                     });
 
@@ -136,7 +158,7 @@ define([
 
 
                 // when a button is clicked
-                $toolbar.on("click", '.btn', function () {
+                $toolbar.on("click", 'button.btn', function () {
                     
                     // save the clicked status of the toolbar               
                     $toolbar.data('clicked', true);
@@ -152,23 +174,46 @@ define([
 
                 });
 
+                // on select click
+                $toolbar.on("click", 'select.btn', function () {
+                    $toolbar.data('ignorehide', true);
+                });
+
+                // when select is clicked
+                $toolbar.on("change", 'select.btn', function () {
+                    // save the clicked status of the toolbar               
+                    $toolbar.data('clicked', true);
+                    
+
+                    // get the option value
+                    var value = $(":selected", this).val();
+                    
+                    // set the value 
+                    $formater.format(this, "html", value);
+
+                    // trigger the change on editable
+                    $contenteditable.trigger('change');
+
+                });
+
+
+
 
                 // initialize data
                 $toolbar.data('auto-hide-toolbar', settings['auto-hide-toolbar']);
                 $toolbar.data('clicked', false);
 
 
-                // OPTIONS: auto-hide-toolbar 
-                if (settings['auto-hide-toolbar']) {
-                    $toolbar.hide();
+                // OPTIONS: auto-hide-toolbar
+                $toolbar.hide();
 
-                    $contenteditable.focus(function () {
-                        // hide all same toolbars
-                        $("." + settings.toolbarCssClass, $(settings.toolbarContainer)).hide();
-                        // show toolbar on focus
-                        $toolbar.show();
-                    });
-                }
+                $contenteditable.focus(function () {
+                    // hide all same toolbars
+                    $("." + settings.toolbarCssClass, $(settings.toolbarContainer)).hide();
+                    // show toolbar on focus
+                    $toolbar.show();
+                });
+                
 
                 return $toolbar;
                 
@@ -184,23 +229,24 @@ define([
                 });
 
                 // lost focus workaround
-                $contenteditable.blur(function() {
+                $contenteditable.blur(function() {                   
 
-                    if (settings['auto-hide-toolbar']) {
-                        
-                        /*
-                         * if ather 250ms the toolbar was not clicked, hide it
-                         * TODO: find a better way do to this, didn't hide toolbar when editor lose focus for the toolbar 
-                         */
-                         Safe.debouncedCall(
-                            function() {
-                                
-                                if (! $toolbar.data('clicked')) $toolbar.fadeOut();
-                                $toolbar.data('clicked', false);
+                    /*
+                     * if ather 250ms the toolbar was not clicked, hide it
+                     * TODO: find a better way do to this, didn't hide toolbar when editor lose focus for the toolbar 
+                     */
+                     Safe.debouncedCall(
+                        function() {
 
-                            }, { delay: 300 });
+                            if($toolbar.data('ignorehide')){
+                                $toolbar.data('ignorehide', false);
+                                return;
+                            }
+                            
+                            if (! $toolbar.data('clicked')) $toolbar.fadeOut();
+                            $toolbar.data('clicked', false);
 
-                     }
+                        }, { delay: 300 });                     
 
                 });
 

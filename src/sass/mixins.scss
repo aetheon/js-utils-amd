@@ -32,7 +32,7 @@
     }
 
  */
- @mixin apply-scrolling-format ($width:15px, $bg:transparent, $thumbBg:#CCC) {
+ @mixin apply-scrolling-format ($width:15px, $bg:transparent, $thumbBg:#F1F1F1) {
 
 
     &::-webkit-scrollbar {

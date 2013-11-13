@@ -58,6 +58,9 @@ define([
                     console.log(videoEmbedCode);
                     document.execCommand('insertHTML', false, videoEmbedCode);
                 },
+                insertHTML: function(html) {
+                    document.execCommand('insertHTML', false, html);
+                },
                 formatBlock: function(block) {
                     document.execCommand("FormatBlock", null, block);
                 },
@@ -71,9 +74,14 @@ define([
             return {
 
 
-                "format": function(element, rule){
+                "format": function(element, rule, extra){
 
                     switch(rule) {
+
+                        case 'html':
+                            methods.removeFormat.apply(element);
+                            methods.insertHTML.apply(element, [extra]);
+                            break;
                     
                         case 'p':
                             methods.formatBlock.apply(element, ["<p>"]);
