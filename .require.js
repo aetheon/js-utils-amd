@@ -18,6 +18,7 @@ requirejs.config({
         'fastclick': 'lib/fastclick/fastclick-latest',
         'fastdom': 'lib/fastdom/fastdom-latest',
         'intravenous': 'lib/intravenous/intravenous-latest',
+        'ajaxforms': 'lib/jquery-ajaxforms/latest',
 
         'knockout': 'lib/knockout/knockout-latest',
         'knockout-validation': 'lib/knockout/knockout.validation',
