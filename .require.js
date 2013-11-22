@@ -18,7 +18,6 @@ requirejs.config({
         'fastclick': 'lib/fastclick/fastclick-latest',
         'fastdom': 'lib/fastdom/fastdom-latest',
         'intravenous': 'lib/intravenous/intravenous-latest',
-        'ajaxforms': 'lib/jquery-ajaxforms/latest',
 
         'knockout': 'lib/knockout/knockout-latest',
         'knockout-validation': 'lib/knockout/knockout.validation',
@@ -37,6 +36,9 @@ requirejs.config({
         'q': 'lib/q/q-latest',
 
         'squire': 'lib/squire/squire-latest',
+
+        'FileAPI': 'lib/FileAPI/FileAPI.min.js'
+        'FileAPI.JQuery': 'lib/FileAPI/jquery.fileapi.js'
 
         // js-utils base path
         'js-utils': 'src/client-js/',
