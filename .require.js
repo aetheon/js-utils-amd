@@ -37,8 +37,9 @@ requirejs.config({
 
         'squire': 'lib/squire/squire-latest',
 
-        'FileAPI': 'lib/FileAPI/FileAPI.min.js'
-        'FileAPI.JQuery': 'lib/FileAPI/jquery.fileapi.js'
+        // HTML 5 Uploader
+        'FileAPI': 'lib/FileAPI/FileAPI',
+        'FileAPI.JQuery': 'lib/FileAPI/jquery.fileapi',
 
         // js-utils base path
         'js-utils': 'src/client-js/',
@@ -63,6 +64,10 @@ requirejs.config({
 
         'knockout': {
             exports: [ "ko" ]
+        },
+
+        'FileAPI.JQuery': {
+            deps: ['jquery']
         }
 
     }
