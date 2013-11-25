@@ -41,6 +41,9 @@ requirejs.config({
         'FileAPI': 'lib/FileAPI/FileAPI',
         'FileAPI.JQuery': 'lib/FileAPI/jquery.fileapi',
 
+        // Crop
+        'jCrop': 'lib/jCrop/jquery.Jcrop.js',
+
         // js-utils base path
         'js-utils': 'src/client-js/',
         'js-mocks': 'spec/mocks/',
@@ -68,6 +71,10 @@ requirejs.config({
 
         'FileAPI.JQuery': {
             deps: ['jquery']
+        },
+
+        'jCrop': {
+            exports: [ "jquery" ]
         }
 
     }
