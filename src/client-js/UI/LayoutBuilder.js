@@ -179,7 +179,7 @@ define(["require", "jquery", "lodash", "js-utils/Arguments/index", "js-utils/Saf
                         if(children.length){
                             
                             // recursive call to build layout
-                            crateElements(element, childObj.children, innerTags);
+                            crateElements(element, childObj.children, _.clone(innerTags));
                             
                         }
                         else {

@@ -45,6 +45,28 @@ describe("UI/LayoutBuilder", function () {
                                         width: "100%",
                                         height: "100%",
                                         column: 1
+                                    },
+
+                                    {
+                                        width: "100%",
+                                        height: "100%",
+                                        column: 1
+                                    }
+
+                                ]
+                            },
+
+                            {
+                                width: "100%",
+                                height: "100%",
+
+                                children: [
+
+                                    // column
+                                    {
+                                        width: "100%",
+                                        height: "100%",
+                                        column: 1
                                     }
 
                                 ]
@@ -61,7 +83,7 @@ describe("UI/LayoutBuilder", function () {
 
 
             expect(layout.element).not.toBe(null);
-            expect(layout.leafs.length).toBe(1);
+            expect(layout.leafs.length).toBe(3);
 
             var leaf = layout.leafs[0];
 
