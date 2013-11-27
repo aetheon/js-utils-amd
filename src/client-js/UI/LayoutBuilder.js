@@ -149,6 +149,12 @@ define(["require", "jquery", "lodash", "js-utils/Arguments/index", "js-utils/Saf
                 // set the styles
                 element.css(styles);
 
+                //support to tr/td attributes
+                if(elementTagName == "tr" || elementTagName == "td"){
+                    var attrs = Arguments.get(styles, { "colSpan": "1", "rowSpan": "1" });
+                    element.attr(attrs);
+                }
+
             };
 
 
