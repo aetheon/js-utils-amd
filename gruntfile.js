@@ -1,8 +1,5 @@
 module.exports = function(grunt) {
 
-  var BasePath = "";
-  var SpecBuildPath = ".Spec";
-
   grunt.initConfig({
     
 
@@ -20,61 +17,14 @@ module.exports = function(grunt) {
     },*/
 
 
-    watch: {
-      scripts: {
-        files: [
-          BasePath + 'src/client-js/*',
-          BasePath + 'src/client-js/**/*.js',
-
-          BasePath + 'spec/*Spec.js'
-        ],
-        tasks: [
-          'default'
-        ],
-        options: {
-          interrupt: true,
-        }
-      }
-    },
+    watch: require("./.grunt-tasks/watch.js"),
 
 
-
-    jasmine: {
-
-      tests: {
-        options: {
-                
-                specs: [
-                    'src/client-js/**/*Spec.js'
-                ],
-                
-                outfile: '.tests.html',
-                
-                // use custom template to fix test describing templating
-                template: require('grunt-template-jasmine-requirejs'),
-
-                keepRunner: true,
-
-                templateOptions: {
-                  requireConfigFile: '.require.js'
-                },
-
-                vendor: [
-
-                    // jasmine async
-                    "lib/jasmine/jasmine.async-latest.js"
-
-                ]
-
-
-            }
-
-      }
-
-    },
+    jasmine: require("./.grunt-tasks/jasmine.js"),
 
 
     'mocha-server': require("./.grunt-tasks/mocha-server.js"),
+
 
     /*
     jsdoc : {
@@ -87,7 +37,6 @@ module.exports = function(grunt) {
             }
         }
     },*/
-
 
 
     'http-server': {

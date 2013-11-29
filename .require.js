@@ -45,9 +45,9 @@ requirejs.config({
         'jCrop': 'lib/jCrop/jquery.Jcrop',
 
         // js-utils base path
-        'js-utils': 'src/client-js/',
+        'js-utils': 'src/js-client/',
         'js-mocks': 'spec/mocks/',
-        'src': 'src/client-js/'
+        'src': 'src/js-client/'
 
     },
 

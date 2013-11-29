@@ -5,8 +5,8 @@ module.exports = {
     'gruntfile.js',
     '.require.js',
     
-    'src/client-js/*.js',
-    'src/client-js/**/*.js',
+    'src/js-client/*.js',
+    'src/js-client/**/*.js',
     
     'src/js-node/*.js',
     'src/js-node/**/*.js',
