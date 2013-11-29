@@ -1,12 +1,19 @@
 {
-  "name": "js-utils",
-  "description": "Javascript Server/Client Library ",
+  "name": "js-utils-server",
+  "description": "Nodejs Utility Library",
   "version": "0.0.1",
   
   "author": {
     "name": "Oscar Brito",
     "url": "https://twitter.com/aetheon"
   },
+
+  "repository" : { 
+    "type" : "git", 
+    "url" : "git@github.com:aetheon/js-utils.git"
+  },
+
+  "main": "src/js-node/index.js",
 
   "engines": {
     "node": ">=0.8.0"

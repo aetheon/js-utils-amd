@@ -4,7 +4,15 @@ examples/
 iconsets/
 lib
 spec
-src/client-js
+src/js-client
 src/img
 src/sass
 src/swig
+.gitignore
+.groc.json
+.jshintrc
+.npmignore
+.require.js
+.tests.html
+.travis.yml
+gruntfile.js
