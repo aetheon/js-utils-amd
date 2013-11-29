@@ -7,3 +7,11 @@ requirejs.config({
 });
 
 
+/*
+ * return the require instance
+ *
+ */
+module.exports = {
+    require: requirejs
+};
+

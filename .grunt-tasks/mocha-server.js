@@ -4,7 +4,10 @@ var mocha = {
     all: {
         
         // Test files
-        src: [ 'spec/mocha/*Spec.js' ],
+        src: [ 
+            'spec/mocha/*Spec.js',
+            'src/js-node/*Spec.js' 
+        ],
 
         options: {
             ui: 'bdd',
