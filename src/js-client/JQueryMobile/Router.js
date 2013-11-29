@@ -22,7 +22,7 @@ define([
     "js-utils/Helpers/Url",
     "js-utils/OOP/index",
     "js-utils/Safe/index",
-    "js-utils/DataStructures/Array", 
+    "js-utils-lib/DataStructures/Array", 
     "js-utils/Log/index"
 
     ], 
@@ -38,7 +38,7 @@ define([
         Type = require("js-utils/Type/index"),
         Safe = require("js-utils/Safe/index"),
         Log = require("js-utils/Log/index"),
-        ArrayHelper = require("js-utils/DataStructures/Array"),
+        ArrayHelper = require("js-utils-lib/DataStructures/Array"),
         EventEmitter = require("EventEmitter"),
         URI = require("jsuri");
 

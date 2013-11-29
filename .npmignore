@@ -7,6 +7,7 @@ spec
 src/js-client
 src/img
 src/sass
+src/*Spec.js
 src/swig
 .gitignore
 .groc.json

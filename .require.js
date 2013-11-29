@@ -46,6 +46,8 @@ requirejs.config({
 
         // js-utils base path
         'js-utils': 'src/js-client/',
+        'js-utils-lib': 'src/js/',
+
         'js-mocks': 'spec/mocks/',
         'src': 'src/js-client/'
 

@@ -5,7 +5,8 @@ var jasmine = {
         options: {
                 
                 specs: [
-                    'src/js-client/**/*Spec.js'
+                    'src/js-client/**/*Spec.js',
+                    'src/js/**/*Spec.js'
                 ],
                 
                 outfile: '.tests.html',
