@@ -4,8 +4,8 @@ define([
         "jquery",
         "EventEmitter", 
 
-        "js-utils/Arguments/index",
-        "js-utils/Safe/index",
+        "js-utils-lib/Arguments",
+        "js-utils-lib/Safe",
         "js-utils/Globals/Window",
         "js-utils/Dom/Window",
         "js-utils/Dom/Element"
@@ -15,10 +15,10 @@ define([
 
 
         var Window = require("js-utils/Globals/Window"),
-            Arguments = require("js-utils/Arguments/index"),
+            Arguments = require("js-utils-lib/Arguments"),
             ElementHelper = require("js-utils/Dom/Element"),
             WindowHelper = require("js-utils/Dom/Window"),
-            Safe = require("js-utils/Safe/index");
+            Safe = require("js-utils-lib/Safe");
 
 
 

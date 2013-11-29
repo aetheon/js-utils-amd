@@ -23,7 +23,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.parseVersionNumber should return a number", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var version = Type.parseVersionNumber("2.1.1");
 
@@ -47,7 +47,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.parseVersionNumber with invalid argument should return zero", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var version = Type.parseVersionNumber("adasdasdas");
 
@@ -76,7 +76,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.isArray(Array) returns true", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isArray = Type.isArray(["adasdasdas"]);
 
@@ -92,7 +92,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.isArray(null) returns false", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isArray = Type.isArray(null);
 
@@ -108,7 +108,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.isArray(Obj) returns false", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isArray = Type.isArray({});
 
@@ -124,7 +124,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.isFunction(fn) returns true", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isArray = Type.isFunction(function(){});
 
@@ -139,7 +139,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.isFunction(null) returns false", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isArray = Type.isFunction(null);
 
@@ -154,7 +154,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.isFunction(Obj) returns false", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isArray = Type.isFunction({});
 
@@ -169,7 +169,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.isString(string) returns true", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isString = Type.isString("asass");
 
@@ -184,7 +184,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.isString(Obj) returns false", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isString = Type.isString({});
 
@@ -199,7 +199,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.isObject(Obj) returns true", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isObject = Type.isObject({});
 
@@ -214,7 +214,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.isObject(null) returns false", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isObject = Type.isObject(null);
 
@@ -229,7 +229,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.isObject(Str) returns false", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isObject = Type.isObject("");
 
@@ -244,7 +244,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.isObject(Array) returns false", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isObject = Type.isObject([]);
 
@@ -259,7 +259,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.isNumber(Number) returns true", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isNumber = Type.isNumber(1);
 
@@ -274,7 +274,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.isNumber(null) returns false", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isNumber = Type.isNumber(null);
             
@@ -289,7 +289,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.isNumber({}) returns false", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isNumber = Type.isNumber({});
             
@@ -304,7 +304,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.isDefined({}|[]) should return false if the given structure is empty", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isDefined = Type.isDefined({});
             expect(isDefined).not.toBeTruthy();
@@ -327,7 +327,7 @@ describe("TypeSpec", function () {
 
     async.it("Type.isDefined({}|[]) should return true if the given structure is not empty", function (allDone) {
 
-        Injector.require( [ "js-utils/Type/index" ], function(Type){
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isDefined = Type.isDefined({ 1: 1 });
             expect(isDefined).toBeTruthy();

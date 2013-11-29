@@ -27,7 +27,7 @@ describe("Dom/NativePopup", function () {
         Injector.mock('ua-parser', Squire.Helpers.returns(new UAParserMock("Android", "2.0", "tablet")) );
         */
         
-        Injector.require(["src/Dom/NativePopup", "jquery"], function(Module, $){
+        Injector.require(["js-utils/Dom/NativePopup", "jquery"], function(Module, $){
 
             expect(!!Module).not.toBe(null);
             //expect("value").toEqual("value");

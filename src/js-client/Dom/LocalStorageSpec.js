@@ -23,7 +23,7 @@ describe("LocalStorageSpec", function () {
     
     async.it(".get() should return null when key does not exists", function (done) {
         
-        Injector.require(["src/Dom/LocalStorage"], function(LocalStorage){
+        Injector.require(["js-utils/Dom/LocalStorage"], function(LocalStorage){
 
             LocalStorage.get({ "key": "key", "value": null }).done(
                 function(value){
@@ -39,7 +39,7 @@ describe("LocalStorageSpec", function () {
 
     async.it(".get() should return right away when the value is given", function (done) {
         
-        Injector.require(["src/Dom/LocalStorage"], function(LocalStorage){
+        Injector.require(["js-utils/Dom/LocalStorage"], function(LocalStorage){
 
             LocalStorage.get({ "key": "key", "value": { one: 1} }).done(
                 function(value){
@@ -57,7 +57,7 @@ describe("LocalStorageSpec", function () {
 
     async.it(".save() should saves the value", function (done) {
         
-        Injector.require(["src/Dom/LocalStorage"], function(LocalStorage){
+        Injector.require(["js-utils/Dom/LocalStorage"], function(LocalStorage){
 
             // localStorage is sync ( ignoring callback)
             LocalStorage.save({ key: "key", value: { one: 1 } })
@@ -83,7 +83,7 @@ describe("LocalStorageSpec", function () {
 
     async.it(".remove() should remove the value", function (done) {
         
-        Injector.require(["src/Dom/LocalStorage"], function(LocalStorage){
+        Injector.require(["js-utils/Dom/LocalStorage"], function(LocalStorage){
 
             // localStorage is sync ( ignoring callback)
             LocalStorage.save({ key: "key", value: { one: 1 } })

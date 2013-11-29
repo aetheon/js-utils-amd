@@ -5,11 +5,11 @@
  * 
  */
 
-define(["require", "lodash", "js-utils/Arguments/index", "js-utils/Dom/LocalStorage"], function(require){
+define(["require", "lodash", "js-utils-lib/Arguments", "js-utils/Dom/LocalStorage"], function(require){
     "use strict";
 
     var _ = require("lodash"),
-        Arguments = require("js-utils/Arguments/index"),
+        Arguments = require("js-utils-lib/Arguments"),
         LocalStorage = require("js-utils/Dom/LocalStorage");
 
 

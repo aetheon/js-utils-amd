@@ -28,7 +28,7 @@ describe("Dom/WindowScrollListener", function () {
     
     async.it("Window .ctor should get a new instance", function (done) {
         
-        Injector.require(["src/Dom/WindowScrollListener"], function(WindowScrollListener){
+        Injector.require(["js-utils/Dom/WindowScrollListener"], function(WindowScrollListener){
 
             var instance = new WindowScrollListener();
             instance.destroy();
@@ -50,7 +50,7 @@ describe("Dom/WindowScrollListener", function () {
 
         runs(function(){
 
-            Injector.require(["src/Dom/WindowScrollListener"], function(WindowScrollListener){
+            Injector.require(["js-utils/Dom/WindowScrollListener"], function(WindowScrollListener){
 
                 instance = new WindowScrollListener();
                 instance.resume();
@@ -93,7 +93,7 @@ describe("Dom/WindowScrollListener", function () {
 
         runs(function(){
 
-            Injector.require(["src/Dom/WindowScrollListener"], function(WindowScrollListener){
+            Injector.require(["js-utils/Dom/WindowScrollListener"], function(WindowScrollListener){
 
                 instance = new WindowScrollListener();
                 

@@ -33,7 +33,7 @@ describe("RouterFactorySpec", function () {
 
             Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
 
-            Injector.require(["src/JQueryMobile/RouterFactory"], function(RouterFactory){
+            Injector.require(["js-utils/JQueryMobile/RouterFactory"], function(RouterFactory){
 
                 var factory = new RouterFactory();
                     
@@ -76,7 +76,7 @@ describe("RouterFactorySpec", function () {
 
             Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
 
-            Injector.require(["src/JQueryMobile/RouterFactory"], function(RouterFactory){
+            Injector.require(["js-utils/JQueryMobile/RouterFactory"], function(RouterFactory){
 
                 
                 var factory = new RouterFactory();
@@ -120,7 +120,7 @@ describe("RouterFactorySpec", function () {
 
             Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
 
-            Injector.require(["src/JQueryMobile/RouterFactory"], function(RouterFactory){
+            Injector.require(["js-utils/JQueryMobile/RouterFactory"], function(RouterFactory){
 
                 
                 var factory = new RouterFactory();
@@ -174,7 +174,7 @@ describe("RouterFactorySpec", function () {
 
             Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
 
-            Injector.require(["src/JQueryMobile/RouterFactory"], function(RouterFactory){
+            Injector.require(["js-utils/JQueryMobile/RouterFactory"], function(RouterFactory){
 
                 
                 var factory = new RouterFactory();
@@ -227,7 +227,7 @@ describe("RouterFactorySpec", function () {
 
             Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
 
-            Injector.require(["src/JQueryMobile/RouterFactory"], function(RouterFactory){
+            Injector.require(["js-utils/JQueryMobile/RouterFactory"], function(RouterFactory){
 
                 
                 var factory = new RouterFactory();
@@ -271,7 +271,7 @@ describe("RouterFactorySpec", function () {
 
             Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
 
-            Injector.require(["src/JQueryMobile/RouterFactory"], function(RouterFactory){
+            Injector.require(["js-utils/JQueryMobile/RouterFactory"], function(RouterFactory){
 
                 
                 var factory = new RouterFactory();
@@ -323,7 +323,7 @@ describe("RouterFactorySpec", function () {
 
             Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock()) );
 
-            Injector.require(["src/JQueryMobile/RouterFactory"], function(RouterFactory){
+            Injector.require(["js-utils/JQueryMobile/RouterFactory"], function(RouterFactory){
 
                 
                 var factory = new RouterFactory();
@@ -378,7 +378,7 @@ describe("RouterFactorySpec", function () {
 
             Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock( { isPage: function(){ return isPage; }} )) );
 
-            Injector.require(["src/JQueryMobile/RouterFactory"], function(RouterFactory){
+            Injector.require(["js-utils/JQueryMobile/RouterFactory"], function(RouterFactory){
 
                 
                 var factory = new RouterFactory();
@@ -445,7 +445,7 @@ describe("RouterFactorySpec", function () {
 
             Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock( { isPage: function(){ return isPage; }} )) );
 
-            Injector.require(["src/JQueryMobile/RouterFactory"], function(RouterFactory){
+            Injector.require(["js-utils/JQueryMobile/RouterFactory"], function(RouterFactory){
 
                 
                 var factory = new RouterFactory();
@@ -511,7 +511,7 @@ describe("RouterFactorySpec", function () {
 
         Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock( { isPage: function(){ return isPage; }} )) );
 
-        Injector.require(["src/JQueryMobile/RouterFactory"], function(RouterFactory){
+        Injector.require(["js-utils/JQueryMobile/RouterFactory"], function(RouterFactory){
 
             
             var factory = new RouterFactory();
@@ -592,7 +592,7 @@ describe("RouterFactorySpec", function () {
 
         Injector.mock('js-utils/JQueryMobile/index', Squire.Helpers.returns(JQueryMobileMock( { isPage: function(){ return isPage; }} )) );
 
-        Injector.require(["src/JQueryMobile/RouterFactory"], function(RouterFactory){
+        Injector.require(["js-utils/JQueryMobile/RouterFactory"], function(RouterFactory){
 
             
             var factory = new RouterFactory();

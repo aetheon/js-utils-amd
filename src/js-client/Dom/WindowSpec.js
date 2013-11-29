@@ -23,7 +23,7 @@ describe("Dom/WindowSpec", function () {
     
     async.it("Dom/Window should get loaded", function (done) {
 
-        Injector.require(["src/Dom/Window" ], function(Window){
+        Injector.require(["js-utils/Dom/Window" ], function(Window){
 
             expect(Window).not.toBe(null);
 
@@ -36,7 +36,7 @@ describe("Dom/WindowSpec", function () {
 
     async.it(".setNamedStyle()", function (done) {
 
-        Injector.require(["src/Dom/Window", "jquery" ], function(Window, $){
+        Injector.require(["js-utils/Dom/Window", "jquery" ], function(Window, $){
 
             Window.setNamedStyle("name", { "background": "red" });
 
@@ -56,7 +56,7 @@ describe("Dom/WindowSpec", function () {
 
         runs(function(){
             
-            Injector.require(["src/Dom/Window", "jquery" ], function(Window, $){
+            Injector.require(["js-utils/Dom/Window", "jquery" ], function(Window, $){
 
                 Window.domRead(function(){})
                     .done(
@@ -87,7 +87,7 @@ describe("Dom/WindowSpec", function () {
 
         runs(function(){
             
-            Injector.require(["src/Dom/Window", "jquery" ], function(Window, $){
+            Injector.require(["js-utils/Dom/Window", "jquery" ], function(Window, $){
 
                 Window.domWrite(function(){})
                     .done(

@@ -4,14 +4,14 @@
  * 
  */
 
-define(["require", "lodash", "jquery", "lawnchair", "EventEmitter", "js-utils/Type/index", "js-utils/Arguments/index", "js-utils/Log/index"], function(require){
+define(["require", "lodash", "jquery", "lawnchair", "EventEmitter", "js-utils-lib/Type", "js-utils-lib/Arguments", "js-utils/Log/index"], function(require){
     "use strict";
 
     var _ = require("lodash"),
         $ = require("jquery"),
         Log = require("js-utils/Log/index"),
-        Type = require("js-utils/Type/index"),
-        Arguments = require("js-utils/Arguments/index"),
+        Type = require("js-utils-lib/Type"),
+        Arguments = require("js-utils-lib/Arguments"),
         Lawnchair = require("lawnchair"),
         EventEmitter = require("EventEmitter");
 

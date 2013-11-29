@@ -27,7 +27,7 @@ describe("RichTextFormatterSpec", function () {
         Injector.mock('ua-parser', Squire.Helpers.returns(new UAParserMock("Android", "2.0", "tablet")) );
         */
         
-        Injector.require(["src/Dom/RichTextFormatter"], function(Module){
+        Injector.require(["js-utils/Dom/RichTextFormatter"], function(Module){
 
             expect(!!Module).not.toBe(null);
 

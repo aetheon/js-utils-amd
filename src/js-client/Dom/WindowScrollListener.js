@@ -1,5 +1,5 @@
 
-define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index", "js-utils/Log/index", "js-utils/Dom/Window", 
+define(["require", "jquery", "EventEmitter", "lodash", "js-utils-lib/Arguments", "js-utils/Log/index", "js-utils/Dom/Window", 
         "js-utils/Dom/Element", "js-utils/OOP/index"], 
     function(require){
     "use strict";
@@ -8,7 +8,7 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils/Arguments/index
         _ = require("lodash"),
         OOP = require("js-utils/OOP/index"),
         EventEmitter = require("EventEmitter"),
-        Arguments = require("js-utils/Arguments/index"),
+        Arguments = require("js-utils-lib/Arguments"),
         Element = require("js-utils/Dom/Element"),
         Window = require("js-utils/Dom/Window"),
         Log = require("js-utils/Log/index");

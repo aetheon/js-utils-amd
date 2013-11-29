@@ -23,7 +23,7 @@ describe("UI/LayoutBuilder", function () {
     async.it("LayoutBuilder() should return table", function (done) {
 
         
-        Injector.require(["src/UI/LayoutBuilder"], function(LayoutBuilder){
+        Injector.require(["js-utils/UI/LayoutBuilder"], function(LayoutBuilder){
 
             var layout = new LayoutBuilder(
                 
@@ -102,7 +102,7 @@ describe("UI/LayoutBuilder", function () {
     async.it("LayoutBuilder() should return null if no more tags exists and leaf has children", function (done) {
 
         
-        Injector.require(["src/UI/LayoutBuilder"], function(LayoutBuilder){
+        Injector.require(["js-utils/UI/LayoutBuilder"], function(LayoutBuilder){
 
             var layout = new LayoutBuilder(
                 
@@ -142,7 +142,7 @@ describe("UI/LayoutBuilder", function () {
     async.it("LayoutBuilder() should apply styles", function (done) {
 
         
-        Injector.require(["src/UI/LayoutBuilder"], function(LayoutBuilder){
+        Injector.require(["js-utils/UI/LayoutBuilder"], function(LayoutBuilder){
 
 
             var layout = new LayoutBuilder(

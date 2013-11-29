@@ -42,7 +42,7 @@ describe("RouterSpec", function () {
 
         runs(function(){
 
-            Injector.require(["src/JQueryMobile/Router"], function(Router){
+            Injector.require(["js-utils/JQueryMobile/Router"], function(Router){
 
                 var router = new Router({
                     
@@ -89,7 +89,7 @@ describe("RouterSpec", function () {
 
         runs(function(){
 
-            Injector.require(["src/JQueryMobile/Router"], function(Router){
+            Injector.require(["js-utils/JQueryMobile/Router"], function(Router){
 
                 var router = new Router(
                     { 
@@ -134,7 +134,7 @@ describe("RouterSpec", function () {
 
         runs(function(){
 
-            Injector.require(["src/JQueryMobile/Router"], function(Router){
+            Injector.require(["js-utils/JQueryMobile/Router"], function(Router){
 
                 var router = new Router({
                     
@@ -174,7 +174,7 @@ describe("RouterSpec", function () {
 
         runs(function(){
 
-            Injector.require(["src/JQueryMobile/Router"], function(Router){
+            Injector.require(["js-utils/JQueryMobile/Router"], function(Router){
 
                 var router = new Router({
                     
@@ -220,7 +220,7 @@ describe("RouterSpec", function () {
 
         runs(function(){
 
-            Injector.require(["src/JQueryMobile/Router"], function(Router){
+            Injector.require(["js-utils/JQueryMobile/Router"], function(Router){
 
                 var router = new Router({
                     
@@ -258,7 +258,7 @@ describe("RouterSpec", function () {
 
         runs(function(){
 
-            Injector.require(["src/JQueryMobile/Router"], function(Router){
+            Injector.require(["js-utils/JQueryMobile/Router"], function(Router){
 
                 var router = new Router({
                     
@@ -300,7 +300,7 @@ describe("RouterSpec", function () {
 
         runs(function(){
 
-            Injector.require(["src/JQueryMobile/Router"], function(Router){
+            Injector.require(["js-utils/JQueryMobile/Router"], function(Router){
 
                 var router = new Router({
                     
@@ -341,7 +341,7 @@ describe("RouterSpec", function () {
 
         runs(function(){
 
-            Injector.require(["src/JQueryMobile/Router"], function(Router){
+            Injector.require(["js-utils/JQueryMobile/Router"], function(Router){
 
                 var router = new Router({
                 

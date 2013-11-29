@@ -4,13 +4,13 @@
  * 
  */
 
-define(["require", "lodash", "js-utils/Arguments/index", "js-utils/Type/index", "js-utils/Safe/index"], function(require){
+define(["require", "lodash", "js-utils-lib/Arguments", "js-utils-lib/Type", "js-utils-lib/Safe"], function(require){
     "use strict";
 
     var _ = require("lodash"),
-        Arguments = require("js-utils/Arguments/index"),
-        Type = require("js-utils/Type/index"),
-        Safe = require("js-utils/Safe/index");
+        Arguments = require("js-utils-lib/Arguments"),
+        Type = require("js-utils-lib/Type"),
+        Safe = require("js-utils-lib/Safe");
     
     var ArrayHelper = {
 

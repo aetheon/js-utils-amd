@@ -23,7 +23,7 @@ describe("Dom/ElementSpec", function () {
     
     async.it("Element should get loaded", function (done) {
 
-        Injector.require(["src/Dom/Element" ], function(Element){
+        Injector.require(["js-utils/Dom/Element" ], function(Element){
 
             expect(Element).not.toBe(null);
 
@@ -36,7 +36,7 @@ describe("Dom/ElementSpec", function () {
 
     async.it("scrollTo()", function (done) {
 
-        Injector.require(["src/Dom/Element", "jquery"], function(Element, $){
+        Injector.require(["js-utils/Dom/Element", "jquery"], function(Element, $){
 
             Element.scrollTo($("<div></div>"));
 
@@ -49,7 +49,7 @@ describe("Dom/ElementSpec", function () {
 
     async.it("getStyles()", function (done) {
 
-        Injector.require(["src/Dom/Element", "jquery"], function(Element, $){
+        Injector.require(["js-utils/Dom/Element", "jquery"], function(Element, $){
 
             var styles = Element.getStyles($("body"));
 
@@ -65,7 +65,7 @@ describe("Dom/ElementSpec", function () {
 
     async.it("getStyle()", function (done) {
 
-        Injector.require(["src/Dom/Element", "jquery"], function(Element, $){
+        Injector.require(["js-utils/Dom/Element", "jquery"], function(Element, $){
 
             var styles = Element.getStyle($("body"), "color");
 

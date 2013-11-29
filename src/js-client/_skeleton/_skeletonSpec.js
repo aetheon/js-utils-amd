@@ -27,7 +27,7 @@ describe("_skeletonSpec", function () {
         Injector.mock('ua-parser', Squire.Helpers.returns(new UAParserMock("Android", "2.0", "tablet")) );
         */
         
-        Injector.require(["src/_skeleton/index", "jquery"], function(Module, $){
+        Injector.require(["js-utils/_skeleton/index", "jquery"], function(Module, $){
 
             expect(!!Module).not.toBe(null);
             //expect("value").toEqual("value");

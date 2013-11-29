@@ -1,4 +1,4 @@
-define(["js-utils/Arguments/index"], function(Arguments){
+define(["js-utils-lib/Arguments"], function(Arguments){
 
     /*
      * returns a hash with the obj function and its

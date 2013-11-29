@@ -1,11 +1,11 @@
 
-define(["require", "jquery", "lodash", "EventEmitter", "js-utils/Arguments/index", "js-utils/Type/index"], function(require){
+define(["require", "jquery", "lodash", "EventEmitter", "js-utils-lib/Arguments", "js-utils-lib/Type"], function(require){
     "use strict";
 
     var _ = require("lodash"),
         EventEmitter = require("EventEmitter"),
-        Arguments = require("js-utils/Arguments/index"),
-        Type = require("js-utils/Type/index");
+        Arguments = require("js-utils-lib/Arguments"),
+        Type = require("js-utils-lib/Type");
     
 
     /*

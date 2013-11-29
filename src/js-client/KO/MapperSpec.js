@@ -24,7 +24,7 @@ describe("KO/Mapper Spec", function () {
     async.it(".from() should map the viewmodel observables from the src", function (done) {
 
 
-        Injector.require(["knockout", "src/KO/Mapper"], function(ko, Mapper){
+        Injector.require(["knockout", "js-utils/KO/Mapper"], function(ko, Mapper){
 
 
             var SrcClass = function(){
@@ -56,7 +56,7 @@ describe("KO/Mapper Spec", function () {
     async.it(".from() should not change the viewmodel when the src is null", function (done) {
 
 
-        Injector.require(["knockout", "src/KO/Mapper"], function(ko, Mapper){
+        Injector.require(["knockout", "js-utils/KO/Mapper"], function(ko, Mapper){
 
 
             var SrcClass = function(){
@@ -84,7 +84,7 @@ describe("KO/Mapper Spec", function () {
     async.it(".from() should expand __FieldType", function (done) {
 
 
-        Injector.require(["knockout", "src/KO/Mapper"], function(ko, Mapper){
+        Injector.require(["knockout", "js-utils/KO/Mapper"], function(ko, Mapper){
 
             var InnerClass = function(){
                 this.str = ko.observable("");
@@ -126,7 +126,7 @@ describe("KO/Mapper Spec", function () {
     async.it(".from() should expand __FieldType when src has an array", function (done) {
 
 
-        Injector.require(["knockout", "src/KO/Mapper"], function(ko, Mapper){
+        Injector.require(["knockout", "js-utils/KO/Mapper"], function(ko, Mapper){
 
             var InnerClass = function(){
                 this.str = ko.observable("");
@@ -166,7 +166,7 @@ describe("KO/Mapper Spec", function () {
     async.it(".from() should map the viewmodel observables from the src Array", function (done) {
 
 
-        Injector.require(["knockout", "src/KO/Mapper"], function(ko, Mapper){
+        Injector.require(["knockout", "js-utils/KO/Mapper"], function(ko, Mapper){
 
 
             var SrcClass = function(){
@@ -194,7 +194,7 @@ describe("KO/Mapper Spec", function () {
     async.it(".from() should map the viewmodel observables from the src Object", function (done) {
 
 
-        Injector.require(["knockout", "src/KO/Mapper"], function(ko, Mapper){
+        Injector.require(["knockout", "js-utils/KO/Mapper"], function(ko, Mapper){
 
 
             var SrcClass = function(){

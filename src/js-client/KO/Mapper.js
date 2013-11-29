@@ -1,5 +1,5 @@
 
-define([ "require", "lodash", "knockout", "js-utils/AutoMapping/AutoMapper", "js-utils/Type/index", 
+define([ "require", "lodash", "knockout", "js-utils/AutoMapping/AutoMapper", "js-utils-lib/Type", 
          "js-utils/Log/index" ], 
     function(require, _, ko){
         "use strict";
@@ -7,7 +7,7 @@ define([ "require", "lodash", "knockout", "js-utils/AutoMapping/AutoMapper", "js
 
 
         var AutoMapper = require("js-utils/AutoMapping/AutoMapper"),
-            Type = require("js-utils/Type/index"),
+            Type = require("js-utils-lib/Type"),
             Log = require("js-utils/Log/index");
 
         var MAPPER_SRC_KEY = "koAutoMapperHelperSrc",

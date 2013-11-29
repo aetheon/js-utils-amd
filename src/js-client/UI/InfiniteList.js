@@ -6,8 +6,8 @@ define(
         "jquery", 
         "EventEmitter",
 
-        "js-utils/Safe/index", 
-        "js-utils/Arguments/index", 
+        "js-utils-lib/Safe", 
+        "js-utils-lib/Arguments", 
         "js-utils/Dom/WindowScrollListener", 
         "js-utils-lib/DataStructures/Array", 
         "js-utils/Dom/Window", 
@@ -20,8 +20,8 @@ define(
         "use strict";
 
 
-        var Safe = require("js-utils/Safe/index"),
-            Arguments = require("js-utils/Arguments/index"),
+        var Safe = require("js-utils-lib/Safe"),
+            Arguments = require("js-utils-lib/Arguments"),
             WindowScrollListener = require("js-utils/Dom/WindowScrollListener"),
             ArrayHelper = require("js-utils-lib/DataStructures/Array"),
             InfinitePaginationData = require("js-utils/DataStructures/InfinitePaginationData");

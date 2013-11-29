@@ -4,15 +4,15 @@
  * 
  */
 
-define(["require", "js-utils/Globals/Window", "js-utils/Arguments/index", "js-utils/Type/index", "jquery", "EventEmitter", "lodash" ], 
+define(["require", "js-utils/Globals/Window", "js-utils-lib/Arguments", "js-utils-lib/Type", "jquery", "EventEmitter", "lodash" ], 
     function(require){
         "use strict";    
 
         var $ = require("jquery");
         var _ = require("lodash");
         var EventEmitter = require("EventEmitter");
-        var Type = require("js-utils/Type/index");
-        var Arguments = require("js-utils/Arguments/index");
+        var Type = require("js-utils-lib/Type");
+        var Arguments = require("js-utils-lib/Arguments");
         var Window = require("js-utils/Globals/Window");
 
 

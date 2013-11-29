@@ -23,7 +23,7 @@ describe("Dom/ValueStorageSpec", function () {
     
     async.it(".get() should return null when key does not exists", function (done) {
         
-        Injector.require(["src/DataStructures/ValueStorage"], function(ValueLocalStorage){
+        Injector.require(["js-utils/DataStructures/ValueStorage"], function(ValueLocalStorage){
 
             storage = new ValueLocalStorage({ "key": "key" });
 
@@ -41,7 +41,7 @@ describe("Dom/ValueStorageSpec", function () {
 
     async.it(".get() should return right away when the value is given", function (done) {
         
-        Injector.require(["src/DataStructures/ValueStorage"], function(ValueLocalStorage){
+        Injector.require(["js-utils/DataStructures/ValueStorage"], function(ValueLocalStorage){
 
             storage = new ValueLocalStorage({ "key": "key" });
 
@@ -61,7 +61,7 @@ describe("Dom/ValueStorageSpec", function () {
 
     async.it(".save() should saves the value", function (done) {
         
-        Injector.require(["src/DataStructures/ValueStorage"], function(ValueLocalStorage){
+        Injector.require(["js-utils/DataStructures/ValueStorage"], function(ValueLocalStorage){
 
             storage = new ValueLocalStorage({ "key": "key" });
 
@@ -89,7 +89,7 @@ describe("Dom/ValueStorageSpec", function () {
 
     async.it(".remove() should remove the value", function (done) {
         
-        Injector.require(["src/DataStructures/ValueStorage"], function(ValueLocalStorage){
+        Injector.require(["js-utils/DataStructures/ValueStorage"], function(ValueLocalStorage){
 
             storage = new ValueLocalStorage({ "key": "key" });
 

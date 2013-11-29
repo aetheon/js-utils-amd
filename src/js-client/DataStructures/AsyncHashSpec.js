@@ -24,7 +24,7 @@ describe("AsyncHashSpec", function () {
 
     async.it(".get() should return a value", function (done) {
 
-        Injector.require(["src/DataStructures/AsyncHash"], function(AsyncHash){
+        Injector.require(["js-utils/DataStructures/AsyncHash"], function(AsyncHash){
 
             var hash = new AsyncHash();
             hash.set("key", "value").done(
@@ -51,7 +51,7 @@ describe("AsyncHashSpec", function () {
 
     async.it(".set() should return a value on the callback", function (done) {
 
-        Injector.require(["src/DataStructures/AsyncHash"], function(AsyncHash){
+        Injector.require(["js-utils/DataStructures/AsyncHash"], function(AsyncHash){
 
             var hash = new AsyncHash();
             hash.set("key", "value").done(
@@ -74,7 +74,7 @@ describe("AsyncHashSpec", function () {
 
     async.it(".setWithResultOf() should set the key value with the return of the deferred function", function (done) {
 
-        Injector.require(["src/DataStructures/AsyncHash"], function(AsyncHash){
+        Injector.require(["js-utils/DataStructures/AsyncHash"], function(AsyncHash){
 
             var hash = new AsyncHash();
 
@@ -103,7 +103,7 @@ describe("AsyncHashSpec", function () {
 
     async.it(".remove() should remove the value", function (done) {
 
-        Injector.require(["src/DataStructures/AsyncHash"], function(AsyncHash){
+        Injector.require(["js-utils/DataStructures/AsyncHash"], function(AsyncHash){
 
             var hash = new AsyncHash({ "key": "value" });
 
@@ -131,7 +131,7 @@ describe("AsyncHashSpec", function () {
 
     async.it(".keys() should return all the hash keys", function (done) {
 
-        Injector.require(["src/DataStructures/AsyncHash"], function(AsyncHash){
+        Injector.require(["js-utils/DataStructures/AsyncHash"], function(AsyncHash){
 
             var hash = new AsyncHash({ "key1": "value", "key2": "value" });
 
@@ -153,7 +153,7 @@ describe("AsyncHashSpec", function () {
 
     async.it(".clear() should clear all the hash keys", function (done) {
 
-        Injector.require(["src/DataStructures/AsyncHash"], function(AsyncHash){
+        Injector.require(["js-utils/DataStructures/AsyncHash"], function(AsyncHash){
 
             var hash = new AsyncHash({ "key1": "value", "key2": "value" });
 

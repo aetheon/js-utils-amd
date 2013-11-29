@@ -4,7 +4,7 @@
  * 
  */
 
-define(["require","js-utils/Type/index"], function(require, Type){
+define(["require","js-utils-lib/Type"], function(require, Type){
     "use strict";
 
     var _ = require("lodash");

@@ -30,7 +30,7 @@ describe("JQueryMobile/indexSpec", function () {
         Injector.mock('ua-parser', Squire.Helpers.returns(new UAParserMock("Android", "2.0", "tablet")) );
         */
         
-        Injector.require(["src/JQueryMobile/index", "jquery"], function(Module, $){
+        Injector.require(["js-utils/JQueryMobile/index", "jquery"], function(Module, $){
 
             expect(!!Module).not.toBe(null);
 
@@ -45,7 +45,7 @@ describe("JQueryMobile/indexSpec", function () {
         // This test assures that the jqm lib is not executing initializePage 
         // When dom is ready.
 
-        Injector.require(["src/JQueryMobile/index"], function(JQueryMobile){
+        Injector.require(["js-utils/JQueryMobile/index"], function(JQueryMobile){
 
             expect(JQueryMobile.currentPage()).toBe(null);
 
@@ -65,7 +65,7 @@ describe("JQueryMobile/indexSpec", function () {
         Injector.mock('ua-parser', Squire.Helpers.returns(new UAParserMock("Android", "2.0", "tablet")) );
         */
         
-        Injector.require(["src/JQueryMobile/index", "jquery"], function(Module, $){
+        Injector.require(["js-utils/JQueryMobile/index", "jquery"], function(Module, $){
 
             var jqmPage = new Module.Page();
             var pageHeights = jqmPage.getHeight();

@@ -24,7 +24,7 @@ describe("Spec", function () {
     /*
     async.it(".get() should return a value", function (done) {
 
-        Injector.require(["src/AsyncHash/index"], function(AsyncHash){
+        Injector.require(["js-utils/AsyncHash/index"], function(AsyncHash){
 
             expect("value").toEqual("value");
 

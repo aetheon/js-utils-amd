@@ -30,7 +30,7 @@ describe("UI/PanelSpec", function () {
 
         runs(function(){
 
-            Injector.require(["src/UI/Panel", "jquery"], function(Panel){
+            Injector.require(["js-utils/UI/Panel", "jquery"], function(Panel){
 
                 var panel = new Panel(element);
 
@@ -70,7 +70,7 @@ describe("UI/PanelSpec", function () {
 
         runs(function(){
 
-            Injector.require(["src/UI/Panel", "jquery"], function(Panel, $){
+            Injector.require(["js-utils/UI/Panel", "jquery"], function(Panel, $){
 
                 var element = $("<div></div>");
 
@@ -106,7 +106,7 @@ describe("UI/PanelSpec", function () {
         var ready = false,
             element = $("<div></div>");
 
-        Injector.require(["src/UI/Panel", "jquery"], function(Panel, $){
+        Injector.require(["js-utils/UI/Panel", "jquery"], function(Panel, $){
 
             var element = $("<div></div>");
 
@@ -127,7 +127,7 @@ describe("UI/PanelSpec", function () {
  
         runs(function(){
 
-            Injector.require(["src/UI/Panel", "jquery"], function(Panel, $){
+            Injector.require(["js-utils/UI/Panel", "jquery"], function(Panel, $){
                 
                 var panel = new Panel(element);
                 panel.show({ "translate3d-x": 1 });
@@ -163,7 +163,7 @@ describe("UI/PanelSpec", function () {
 
         runs(function(){
 
-            Injector.require(["src/UI/Panel", "jquery"], function(Panel, $){
+            Injector.require(["js-utils/UI/Panel", "jquery"], function(Panel, $){
 
                 var panel = new Panel(element);
                 panel.hide();

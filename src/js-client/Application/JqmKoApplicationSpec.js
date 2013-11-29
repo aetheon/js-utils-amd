@@ -29,7 +29,7 @@ describe("JqmKoApplication", function () {
         Injector.mock('js-utils/Boilerplate/JQMobileAppDependencies', Squire.Helpers.returns(function(){}));
 
 
-        Injector.require(["src/Application/JqmKoApplication", "jquery"], function(Application, $){
+        Injector.require(["js-utils/Application/JqmKoApplication", "jquery"], function(Application, $){
 
             new Application({
                 routes: function(){},
@@ -50,7 +50,7 @@ describe("JqmKoApplication", function () {
         Injector.mock('js-utils/Boilerplate/JQMobileAppDependencies', Squire.Helpers.returns(function(){}));
 
 
-        Injector.require(["src/Application/JqmKoApplication", "jquery"], function(Application, $){
+        Injector.require(["js-utils/Application/JqmKoApplication", "jquery"], function(Application, $){
 
             var runned = false;
 
@@ -85,7 +85,7 @@ describe("JqmKoApplication", function () {
         Injector.mock('js-utils/Boilerplate/JQMobileAppDependencies', Squire.Helpers.returns(function(){}));
 
 
-        Injector.require(["src/Application/JqmKoApplication", "jquery"], function(Application, $){
+        Injector.require(["js-utils/Application/JqmKoApplication", "jquery"], function(Application, $){
 
             var runned = false;
 
@@ -123,7 +123,7 @@ describe("JqmKoApplication", function () {
         Injector.mock('js-utils/Boilerplate/JQMobileAppDependencies', Squire.Helpers.returns(function(){}));
 
 
-        Injector.require(["src/Application/JqmKoApplication", "jquery"], function(Application, $){
+        Injector.require(["js-utils/Application/JqmKoApplication", "jquery"], function(Application, $){
 
             var runned = false;
 
@@ -162,7 +162,7 @@ describe("JqmKoApplication", function () {
         Injector.mock('js-utils/Boilerplate/JQMobileAppDependencies', Squire.Helpers.returns(function(){}));
 
 
-        Injector.require(["src/Application/JqmKoApplication", "jquery"], function(Application, $){
+        Injector.require(["js-utils/Application/JqmKoApplication", "jquery"], function(Application, $){
 
             var runned = false;
 

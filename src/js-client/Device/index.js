@@ -8,7 +8,7 @@ define([
     "js-utils/Globals/Window",
     "js-utils/Globals/Document", 
     "ua-parser",
-    "js-utils/Safe/index",
+    "js-utils-lib/Safe",
     "js-utils/Chainify/if"
     ], 
 

@@ -23,7 +23,7 @@ describe("PageTransitionOverlaySpec", function () {
     
     async.it("module should be loaded", function (done) {
 
-        Injector.require(["src/JQueryMobile/PageTransitionOverlay"], function(){
+        Injector.require(["js-utils/JQueryMobile/PageTransitionOverlay"], function(){
 
             done();
 

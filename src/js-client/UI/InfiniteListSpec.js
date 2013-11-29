@@ -29,7 +29,7 @@ describe("UI/InfiniteList Spec", function () {
         Injector.mock('ua-parser', Squire.Helpers.returns(new UAParserMock("Android", "2.0", "tablet")) );
         */
         
-        Injector.require(["src/UI/InfiniteList", "jquery"], function(InfiniteList, $){
+        Injector.require(["js-utils/UI/InfiniteList", "jquery"], function(InfiniteList, $){
 
             var options = {
                 element: $("<div></div>")
@@ -51,7 +51,7 @@ describe("UI/InfiniteList Spec", function () {
 
     async.it("getData() should return the list", function (done) {
 
-        Injector.require(["src/UI/InfiniteList", "jquery"], function(InfiniteList, $){
+        Injector.require(["js-utils/UI/InfiniteList", "jquery"], function(InfiniteList, $){
 
             var options = {
                 element: $("<div></div>")
@@ -78,7 +78,7 @@ describe("UI/InfiniteList Spec", function () {
 
     async.it("getPrevPageNumber/getNextPageNumber() should return correct index", function (done) {
 
-        Injector.require(["src/UI/InfiniteList", "jquery"], function(InfiniteList, $){
+        Injector.require(["js-utils/UI/InfiniteList", "jquery"], function(InfiniteList, $){
 
             var options = {
                 element: $("<div></div>"),
@@ -138,7 +138,7 @@ describe("UI/InfiniteList Spec", function () {
         
         runs(function() {
 
-            Injector.require(["src/UI/InfiniteList", "jquery"], function(InfiniteList, $){
+            Injector.require(["js-utils/UI/InfiniteList", "jquery"], function(InfiniteList, $){
 
                 var options = {
                     element: $("<div></div>")
@@ -173,7 +173,7 @@ describe("UI/InfiniteList Spec", function () {
     async.it("pause() should be called", function (done) {
 
                 
-        Injector.require(["src/UI/InfiniteList", "jquery"], function(InfiniteList, $){
+        Injector.require(["js-utils/UI/InfiniteList", "jquery"], function(InfiniteList, $){
 
             var options = {
                 element: $("<div></div>")
@@ -195,7 +195,7 @@ describe("UI/InfiniteList Spec", function () {
      async.it("resume() should be called", function (done) {
 
                 
-        Injector.require(["src/UI/InfiniteList", "jquery"], function(InfiniteList, $){
+        Injector.require(["js-utils/UI/InfiniteList", "jquery"], function(InfiniteList, $){
 
             var options = {
                 element: $("<div></div>")

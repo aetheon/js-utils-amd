@@ -23,7 +23,7 @@ describe("Dom/OverlaySpec", function () {
     
     async.it("show()", function (done) {
 
-        Injector.require(["src/UI/Overlay", "jquery"], function(Overlay, $){
+        Injector.require(["js-utils/UI/Overlay", "jquery"], function(Overlay, $){
 
             var overlay = new Overlay();
             overlay.show();
@@ -37,7 +37,7 @@ describe("Dom/OverlaySpec", function () {
 
     async.it("hide()", function (done) {
 
-        Injector.require(["src/UI/Overlay", "jquery"], function(Overlay, $){
+        Injector.require(["js-utils/UI/Overlay", "jquery"], function(Overlay, $){
 
             var overlay = new Overlay();
             overlay.show();

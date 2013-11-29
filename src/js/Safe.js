@@ -5,8 +5,8 @@
  */
 
 define([
-    "js-utils/Type/index", 
-    "js-utils/Arguments/index"
+    "js-utils-lib/Type", 
+    "js-utils-lib/Arguments"
     ], 
     function(Type, Arguments){
         "use strict";

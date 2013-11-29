@@ -24,7 +24,7 @@ describe("ArgumentsSpec", function () {
 /*
     async.it(".get() should throw when expecting an array", function (done) {
 
-        Injector.require(["src/Arguments/index.js"], function(Options){
+        Injector.require(["js-utils-lib/Arguments.js"], function(Options){
 
             var run = function(){
                 var o = Options.get(

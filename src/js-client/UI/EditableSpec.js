@@ -27,7 +27,7 @@ describe("EditableSpec", function () {
         Injector.mock('ua-parser', Squire.Helpers.returns(new UAParserMock("Android", "2.0", "tablet")) );
         */
         
-        Injector.require(["src/UI/Editable", "jquery"], function(Module, $){
+        Injector.require(["js-utils/UI/Editable", "jquery"], function(Module, $){
 
             expect(!!Module).not.toBe(null);
 

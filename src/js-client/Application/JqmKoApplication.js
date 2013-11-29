@@ -15,10 +15,10 @@ define([
         "intravenous", 
         
         // js-utils dependencies
-        "js-utils/Safe/index",
-        "js-utils/Type/index",
+        "js-utils-lib/Safe",
+        "js-utils-lib/Type",
         "js-utils/Globals/Window",
-        "js-utils/Arguments/index",
+        "js-utils-lib/Arguments",
         "js-utils/Helpers/Url",
         "js-utils/Device/index",
         "js-utils/UI/Accessibility",
@@ -65,11 +65,11 @@ define([
         var jQuery = require("jquery");
         jQuery.mobile.autoInitializePage = false;
 
-        var Arguments = require("js-utils/Arguments/index"),
+        var Arguments = require("js-utils-lib/Arguments"),
             Url = require("js-utils/Helpers/Url"),
             Device = require("js-utils/Device/index"),
-            Safe = require("js-utils/Safe/index"),
-            Type = require("js-utils/Type/index");
+            Safe = require("js-utils-lib/Safe"),
+            Type = require("js-utils-lib/Type");
 
         /*
          * created a new Application instance

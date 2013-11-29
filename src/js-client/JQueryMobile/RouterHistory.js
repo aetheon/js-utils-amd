@@ -10,9 +10,9 @@ define([
     "require", 
     "lodash", 
     
-    "js-utils/Arguments/index", 
-    "js-utils/Type/index",
-    "js-utils/Safe/index",
+    "js-utils-lib/Arguments", 
+    "js-utils-lib/Type",
+    "js-utils-lib/Safe",
     "js-utils-lib/DataStructures/Array", 
     "js-utils/Log/index"
 
@@ -21,9 +21,9 @@ define([
     "use strict";
     
     var _ = require("lodash"),
-        Arguments = require("js-utils/Arguments/index"),
-        Type = require("js-utils/Type/index"),
-        Safe = require("js-utils/Safe/index"),
+        Arguments = require("js-utils-lib/Arguments"),
+        Type = require("js-utils-lib/Type"),
+        Safe = require("js-utils-lib/Safe"),
         Log = require("js-utils/Log/index"),
         ArrayHelper = require("js-utils-lib/DataStructures/Array");
 

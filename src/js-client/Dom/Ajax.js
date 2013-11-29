@@ -1,11 +1,11 @@
 
 
-define(["require", "jquery", "EventEmitter", "js-utils/Arguments/index", "js-utils/Type/index",  "js-utils/Log/index"], function(require){
+define(["require", "jquery", "EventEmitter", "js-utils-lib/Arguments", "js-utils-lib/Type",  "js-utils/Log/index"], function(require){
 
     var $ = require("jquery"),
         Log = require("js-utils/Log/index"),
-        Arguments = require("js-utils/Arguments/index"),
-        Type = require("js-utils/Type/index"),
+        Arguments = require("js-utils-lib/Arguments"),
+        Type = require("js-utils-lib/Type"),
         EventEmitter = require("EventEmitter");
 
 

@@ -22,7 +22,7 @@ describe("ObjectSpec", function () {
 
     async.it(".fill() should not fill unwanted values", function (done) {
 
-        Injector.require(["lodash", "src/DataStructures/Object"], function(_, Options){
+        Injector.require(["lodash", "js-utils/DataStructures/Object"], function(_, Options){
 
             var o = Options.fill(
                 
@@ -70,7 +70,7 @@ describe("ObjectSpec", function () {
 
     async.it(".fill() should ignore null values on source", function (done) {
 
-        Injector.require(["lodash", "src/DataStructures/Object"], function(_, Options){
+        Injector.require(["lodash", "js-utils/DataStructures/Object"], function(_, Options){
 
             var o = Options.fill(
                 
@@ -104,7 +104,7 @@ describe("ObjectSpec", function () {
 
     async.it(".fill() should return source when obj is null", function (done) {
 
-        Injector.require(["lodash", "src/DataStructures/Object"], function(_, Options){
+        Injector.require(["lodash", "js-utils/DataStructures/Object"], function(_, Options){
 
             var o = Options.fill(
                 
@@ -137,7 +137,7 @@ describe("ObjectSpec", function () {
 
     async.it(".fill() should accept anything as null base values", function (done) {
 
-        Injector.require(["lodash", "src/DataStructures/Object"], function(_, Options){
+        Injector.require(["lodash", "js-utils/DataStructures/Object"], function(_, Options){
 
             var o = Options.fill(
                 
@@ -178,7 +178,7 @@ describe("ObjectSpec", function () {
 
     async.it(".fill() should throw error when array expected", function (done) {
 
-        Injector.require(["src/DataStructures/Object"], function(Options){
+        Injector.require(["js-utils/DataStructures/Object"], function(Options){
 
             var run = function(){
 
@@ -212,7 +212,7 @@ describe("ObjectSpec", function () {
 
     async.it(".fill() should throw error when string expected", function (done) {
 
-        Injector.require(["src/DataStructures/Object"], function(Options){
+        Injector.require(["js-utils/DataStructures/Object"], function(Options){
 
             var run = function(){
 
@@ -247,7 +247,7 @@ describe("ObjectSpec", function () {
 
     async.it(".fill() should throw error when number expected", function (done) {
 
-        Injector.require(["src/DataStructures/Object"], function(Options){
+        Injector.require(["js-utils/DataStructures/Object"], function(Options){
 
             var run = function(){
 
@@ -282,7 +282,7 @@ describe("ObjectSpec", function () {
 
     async.it(".fill() should have the value from the default option when it's not specified", function (done) {
 
-        Injector.require(["src/DataStructures/Object"], function(Options){
+        Injector.require(["js-utils/DataStructures/Object"], function(Options){
 
             var o = Options.fill(
             
@@ -312,7 +312,7 @@ describe("ObjectSpec", function () {
 
     async.it(".fill() should set the default value when a string field is null", function (done) {
 
-        Injector.require(["src/DataStructures/Object"], function(Options){
+        Injector.require(["js-utils/DataStructures/Object"], function(Options){
 
             var o = Options.fill(
             
@@ -341,7 +341,7 @@ describe("ObjectSpec", function () {
 
     async.it(".fill() should set the default value when a object field is null", function (done) {
 
-        Injector.require(["src/DataStructures/Object"], function(Options){
+        Injector.require(["js-utils/DataStructures/Object"], function(Options){
 
             var o = Options.fill(
             
@@ -370,7 +370,7 @@ describe("ObjectSpec", function () {
 
     async.it(".fill() should set the default value when a array field is null", function (done) {
 
-        Injector.require(["src/DataStructures/Object"], function(Options){
+        Injector.require(["js-utils/DataStructures/Object"], function(Options){
 
             var o = Options.fill(
             

@@ -1,14 +1,14 @@
 
 
 
-define(["require", "jquery", "lodash", "js-utils/Arguments/index", "js-utils/Safe/index"], function(require){
+define(["require", "jquery", "lodash", "js-utils-lib/Arguments", "js-utils-lib/Safe"], function(require){
     "use strict";
 
     var _ = require("lodash"),
         $ = require("jquery"),
-        Safe = require("js-utils/Safe/index"),
-        Type = require("js-utils/Type/index"),
-        Arguments = require("js-utils/Arguments/index");
+        Safe = require("js-utils-lib/Safe"),
+        Type = require("js-utils-lib/Type"),
+        Arguments = require("js-utils-lib/Arguments");
     
 
 

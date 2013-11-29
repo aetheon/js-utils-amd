@@ -3,7 +3,7 @@
  * 
  */
 
-define(["lodash", "js-utils/Type/index", "js-utils/DataStructures/Object", "js-utils/Log/index"], function(_, Type, Obj, Log){
+define(["lodash", "js-utils-lib/Type", "js-utils/DataStructures/Object", "js-utils/Log/index"], function(_, Type, Obj, Log){
     "use strict";
 
 

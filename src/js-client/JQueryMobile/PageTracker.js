@@ -10,10 +10,10 @@ define([
     
     "js-utils/Globals/Document", 
     "js-utils/Helpers/Url", 
-    "js-utils/Arguments/index", 
+    "js-utils-lib/Arguments", 
     "js-utils/OOP/index", 
-    "js-utils/Safe/index", 
-    "js-utils/Type/index",
+    "js-utils-lib/Safe", 
+    "js-utils-lib/Type",
     "js-utils/JQueryMobile/index"
     ], 
     function(require, $, EventEmitter){
@@ -22,10 +22,10 @@ define([
     var Document = require("js-utils/Globals/Document"),
         JQueryMobile = require("js-utils/JQueryMobile/index"),
         Url = require("js-utils/Helpers/Url"),
-        Arguments = require("js-utils/Arguments/index"),
+        Arguments = require("js-utils-lib/Arguments"),
         OOP = require("js-utils/OOP/index"),
-        Safe = require("js-utils/Safe/index"),
-        Type = require("js-utils/Type/index");
+        Safe = require("js-utils-lib/Safe"),
+        Type = require("js-utils-lib/Type");
 
 
     // a JQM events abstraction

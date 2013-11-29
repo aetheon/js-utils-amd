@@ -5,14 +5,14 @@ define([
         "fastdom",
         "js-utils/Dom/Window", 
         "js-utils/Dom/Element", 
-        "js-utils/Arguments/index"
+        "js-utils-lib/Arguments"
     ], function(require){
     "use strict";
 
 
     var $ = require("jquery"),
         Element = require("js-utils/Dom/Element"),
-        Arguments = require("js-utils/Arguments/index"),
+        Arguments = require("js-utils-lib/Arguments"),
         Window = require("js-utils/Dom/Window"),
         FastDom = require("js-utils/Dom/Window");
 

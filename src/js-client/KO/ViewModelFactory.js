@@ -1,5 +1,5 @@
 
-define(["jquery", "lodash", "knockout", "js-utils/Safe/index"], function($, _, ko, Safe){
+define(["jquery", "lodash", "knockout", "js-utils-lib/Safe"], function($, _, ko, Safe){
     "use strict";
 
 

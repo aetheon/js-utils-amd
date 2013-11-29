@@ -4,7 +4,7 @@
  * 
  */
 
-define(["require", "js-utils/Globals/Window", "jquery", "lodash", "js-utils/Type/index"], function(require, Window, $, _, Type){
+define(["require", "js-utils/Globals/Window", "jquery", "lodash", "js-utils-lib/Type"], function(require, Window, $, _, Type){
     "use strict";
 
 

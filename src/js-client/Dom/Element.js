@@ -4,12 +4,12 @@
  * 
  */
 
-define(["require", "lodash", "jquery", "js-utils/Arguments/index", "js-utils/Dom/Window"], function(require){
+define(["require", "lodash", "jquery", "js-utils-lib/Arguments", "js-utils/Dom/Window"], function(require){
     "use strict";
 
     var _ = require("lodash"),
         $ = require("jquery"),
-        Arguments = require("js-utils/Arguments/index");
+        Arguments = require("js-utils-lib/Arguments");
     
 
     var Element = {

@@ -12,7 +12,7 @@ define([
     "jquery",
     "EventEmitter",
     "fastdom", 
-    "js-utils/Arguments/index", 
+    "js-utils-lib/Arguments", 
     "js-utils/Globals/Window", 
     "js-utils/Globals/Document",
     "js-utils/Log/index"
@@ -23,7 +23,7 @@ define([
         var _ = require("lodash"),
             $ = require("jquery"),
             EventEmitter = require("EventEmitter"),
-            Arguments = require("js-utils/Arguments/index"),
+            Arguments = require("js-utils-lib/Arguments"),
             Document = require("js-utils/Globals/Document"),
             Window = require("js-utils/Globals/Window"),
             Log = require("js-utils/Log/index");

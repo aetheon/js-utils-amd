@@ -9,12 +9,12 @@ describe("StackedPanelsSpec", function () {
 
     async.beforeEach(function (done) {
 
-        require(["require", "squire", "src/Dom/Element" /*, "js-mocks/MOCK"*/], function(require){
+        require(["require", "squire", "js-utils/Dom/Element" /*, "js-mocks/MOCK"*/], function(require){
             
             Squire = require("squire");
             Injector = new Squire();
 
-            Element = require("src/Dom/Element");
+            Element = require("js-utils/Dom/Element");
 
             done();
 
@@ -30,7 +30,7 @@ describe("StackedPanelsSpec", function () {
         Injector.mock('ua-parser', Squire.Helpers.returns(new UAParserMock("Android", "2.0", "tablet")) );
         */
         
-        Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+        Injector.require(["js-utils/UI/StackedPanels", "jquery"], function(StackedPanels, $){
 
             expect(!!StackedPanels).toEqual(true);
 
@@ -43,7 +43,7 @@ describe("StackedPanelsSpec", function () {
 
     async.it(".next() should return true", function (done) {
  
-        Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+        Injector.require(["js-utils/UI/StackedPanels", "jquery"], function(StackedPanels, $){
 
             var element = $("<div></div>")
                             .append("<div class='stacked-panel'></div>")
@@ -64,7 +64,7 @@ describe("StackedPanelsSpec", function () {
 
     async.it(".next() should return false", function (done) {
  
-        Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+        Injector.require(["js-utils/UI/StackedPanels", "jquery"], function(StackedPanels, $){
 
             var element = $("<div></div>")
                             .append("<div class='stacked-panel'></div>")
@@ -86,7 +86,7 @@ describe("StackedPanelsSpec", function () {
 
     async.it(".prev() should return true", function (done) {
  
-        Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+        Injector.require(["js-utils/UI/StackedPanels", "jquery"], function(StackedPanels, $){
 
             var element = $("<div></div>")
                             .append("<div class='stacked-panel'></div>")
@@ -108,7 +108,7 @@ describe("StackedPanelsSpec", function () {
 
     async.it(".prev() should return false", function (done) {
  
-        Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+        Injector.require(["js-utils/UI/StackedPanels", "jquery"], function(StackedPanels, $){
 
             var element = $("<div></div>")
                             .append("<div class='stacked-panel'></div>")
@@ -137,7 +137,7 @@ describe("StackedPanelsSpec", function () {
 
         runs(function(){
 
-            Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+            Injector.require(["js-utils/UI/StackedPanels", "jquery"], function(StackedPanels, $){
 
                 var panel = new StackedPanels(element);
                 var show = panel.show(1);
@@ -178,7 +178,7 @@ describe("StackedPanelsSpec", function () {
 
         runs(function(){             
 
-            Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+            Injector.require(["js-utils/UI/StackedPanels", "jquery"], function(StackedPanels, $){
 
                 var panel = new StackedPanels(element);
                 var show = panel.show(2);
@@ -215,7 +215,7 @@ describe("StackedPanelsSpec", function () {
 
         runs(function(){ 
 
-            Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+            Injector.require(["js-utils/UI/StackedPanels", "jquery"], function(StackedPanels, $){
 
                 var panel = new StackedPanels(element, { panelHeight: 200 });
 
@@ -262,7 +262,7 @@ describe("StackedPanelsSpec", function () {
 
         runs(function(){
 
-            Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+            Injector.require(["js-utils/UI/StackedPanels", "jquery"], function(StackedPanels, $){
 
                 var element = $("<div style='width:100px'></div>")
                                 .append("<div class='stacked-panel'></div>")
@@ -306,7 +306,7 @@ describe("StackedPanelsSpec", function () {
 
         runs(function(){
 
-            Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+            Injector.require(["js-utils/UI/StackedPanels", "jquery"], function(StackedPanels, $){
 
                 var element = $("<div style='width:100px'></div>")
                                 .append("<div class='stacked-panel'></div>")
@@ -343,7 +343,7 @@ describe("StackedPanelsSpec", function () {
 
     async.it("destroy()", function (done) {
 
-        Injector.require(["src/UI/StackedPanels", "jquery"], function(StackedPanels, $){
+        Injector.require(["js-utils/UI/StackedPanels", "jquery"], function(StackedPanels, $){
 
             var element = $("<div style='width:100px'></div>")
                             .append("<div class='stacked-panel'></div>")

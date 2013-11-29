@@ -17,14 +17,14 @@ define([
     "jquery",
     "lodash",
     "js-utils/Dom/RichTextFormatter",
-    "js-utils/Safe/index",
-    "js-utils/Type/index"
+    "js-utils-lib/Safe",
+    "js-utils-lib/Type"
     ],
     function(require, $, _){
 
 
-        var Safe = require("js-utils/Safe/index"),
-            Type = require("js-utils/Type/index"),
+        var Safe = require("js-utils-lib/Safe"),
+            Type = require("js-utils-lib/Type"),
             RichTextFormatter = require("js-utils/Dom/RichTextFormatter");
 
         // static variables

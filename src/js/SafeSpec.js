@@ -23,7 +23,7 @@ describe("SafeSpec", function () {
     
     async.it(".getArray(Array) should return an Array", function (done) {
 
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var array = Safe.getArray([1]);
 
@@ -39,7 +39,7 @@ describe("SafeSpec", function () {
 
     async.it(".getArray(null) should return an Array", function (done) {
 
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var array = Safe.getArray(null);
 
@@ -55,7 +55,7 @@ describe("SafeSpec", function () {
 
     async.it(".getArray(Obj) should return an Array", function (done) {
 
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var array = Safe.getArray(1);
 
@@ -71,7 +71,7 @@ describe("SafeSpec", function () {
 
     async.it(".getBoolean(true) should return an boolean", function (done) {
 
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var bool = Safe.getBoolean(true);
 
@@ -86,7 +86,7 @@ describe("SafeSpec", function () {
 
     async.it(".getBoolean(null) should return an boolean", function (done) {
 
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var bool = Safe.getBoolean(null);
 
@@ -101,7 +101,7 @@ describe("SafeSpec", function () {
 
     async.it(".getBoolean(null) should return an boolean", function (done) {
 
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var bool = Safe.getBoolean({});
 
@@ -116,7 +116,7 @@ describe("SafeSpec", function () {
 
     async.it(".getFunction(Function) should return an function", function (done) {
 
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var fn = Safe.getFunction(function(){});
 
@@ -130,7 +130,7 @@ describe("SafeSpec", function () {
 
     async.it(".getFunction(null) should return an function", function (done) {
 
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var fn = Safe.getFunction(null);
 
@@ -145,7 +145,7 @@ describe("SafeSpec", function () {
 
     async.it(".callFunction() should call the given function", function (done) {
 
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var bool = Safe.callFunction(function(){ return true; });
 
@@ -160,7 +160,7 @@ describe("SafeSpec", function () {
 
     async.it(".callFunction() should call the given function in the scope", function (done) {
 
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var bool = Safe.callFunction(function(){ return this.val; }, { scope: { val: true} });
 
@@ -175,7 +175,7 @@ describe("SafeSpec", function () {
 
     async.it(".callFunction() should call the given function with the args", function (done) {
 
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var bool = Safe.callFunction(function(arg){ return arg; }, { args: [true] });
 
@@ -190,7 +190,7 @@ describe("SafeSpec", function () {
 
     async.it(".getString(str) should return an string", function (done) {
 
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var str = Safe.getString("a");
 
@@ -205,7 +205,7 @@ describe("SafeSpec", function () {
 
     async.it(".getString(null) should return an string", function (done) {
 
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var str = Safe.getString(null);
 
@@ -220,7 +220,7 @@ describe("SafeSpec", function () {
 
     async.it(".getString(obj) should return an string", function (done) {
 
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var str = Safe.getString({});
 
@@ -236,7 +236,7 @@ describe("SafeSpec", function () {
 
     async.it(".getObject(null) should return an Object", function (done) {
 
-        Injector.require(["src/Safe/index", "lodash"], function(Safe, _){
+        Injector.require(["js-utils-lib/Safe", "lodash"], function(Safe, _){
 
             var obj = Safe.getObject(null);
 
@@ -252,7 +252,7 @@ describe("SafeSpec", function () {
 
     async.it(".getObject({}) should return an Object", function (done) {
 
-        Injector.require(["src/Safe/index", "lodash"], function(Safe, _){
+        Injector.require(["js-utils-lib/Safe", "lodash"], function(Safe, _){
 
             var obj = Safe.getObject({ one: 1 });
 
@@ -269,7 +269,7 @@ describe("SafeSpec", function () {
 
     async.it(".getNumber(Number) should return a number", function (done) {
 
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             expect(Safe.getNumber(1)).toBe(1);
             expect(Safe.getNumber("1")).toBe(1);
@@ -283,7 +283,7 @@ describe("SafeSpec", function () {
 
     async.it(".getNumber(null) should return a zero", function (done) {
 
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var number = Safe.getNumber(null);
 
@@ -298,7 +298,7 @@ describe("SafeSpec", function () {
 
     async.it("debouncedCall()", function (done) {
         
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var scope = { one: 1 };
 
@@ -327,7 +327,7 @@ describe("SafeSpec", function () {
 
     async.it("debouncedCall().reset()", function (done) {
         
-        Injector.require(["src/Safe/index"], function(Safe){
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var scope = { one: 1 };
 
@@ -359,7 +359,7 @@ describe("SafeSpec", function () {
 
         runs(function(){
 
-            Injector.require(["src/Safe/index"], function(Safe){
+            Injector.require(["js-utils-lib/Safe"], function(Safe){
 
                 var scope = { one: 1 };
 

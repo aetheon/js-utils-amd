@@ -14,14 +14,14 @@ define([
     "EventEmitter",
     "jsuri", 
     
-    "js-utils/Arguments/index", 
+    "js-utils-lib/Arguments", 
     "js-utils/JQueryMobile/index", 
     "js-utils/JQueryMobile/PageTracker", 
     "js-utils/JQueryMobile/RouterFactory",
-    "js-utils/Type/index",
+    "js-utils-lib/Type",
     "js-utils/Helpers/Url",
     "js-utils/OOP/index",
-    "js-utils/Safe/index",
+    "js-utils-lib/Safe",
     "js-utils-lib/DataStructures/Array", 
     "js-utils/Log/index"
 
@@ -29,14 +29,14 @@ define([
     function(require, $, _, ko){
     "use strict";
     
-    var Arguments = require("js-utils/Arguments/index"),
+    var Arguments = require("js-utils-lib/Arguments"),
         JQMHelper = require("js-utils/JQueryMobile/index"),
         PageTracker = require("js-utils/JQueryMobile/PageTracker"),
         RouterFactory = require("js-utils/JQueryMobile/RouterFactory"),
         Url = require("js-utils/Helpers/Url"),
         OOP = require("js-utils/OOP/index"),
-        Type = require("js-utils/Type/index"),
-        Safe = require("js-utils/Safe/index"),
+        Type = require("js-utils-lib/Type"),
+        Safe = require("js-utils-lib/Safe"),
         Log = require("js-utils/Log/index"),
         ArrayHelper = require("js-utils-lib/DataStructures/Array"),
         EventEmitter = require("EventEmitter"),

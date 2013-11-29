@@ -24,7 +24,7 @@ describe("Chainify.if", function () {
     
     async.it("If() execute then function", function (done) {
 
-        Injector.require(["src/Chainify/if"], function(iff){
+        Injector.require(["js-utils/Chainify/if"], function(iff){
 
             var value = iff(function(){ return 1>0; })
                             .then( function(){ return true; })
@@ -41,7 +41,7 @@ describe("Chainify.if", function () {
 
     async.it("If() execute otherwise function", function (done) {
 
-        Injector.require(["src/Chainify/if"], function(iff){
+        Injector.require(["js-utils/Chainify/if"], function(iff){
 
             var value = iff(function(){ return 1>2; })
                             .then( function(){ return true; })

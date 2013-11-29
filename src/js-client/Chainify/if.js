@@ -4,7 +4,7 @@
  * if(conf).then(fn).otherwise(fn);
  */
 
-define(["js-utils/Safe/index"], function(Safe){
+define(["js-utils-lib/Safe"], function(Safe){
     "use strict";
 
 

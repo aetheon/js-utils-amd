@@ -24,7 +24,7 @@ describe("ViewModelFactory Spec", function () {
     
     async.it(".createViewModel() should create the view model instance", function (done) {
 
-        Injector.require(["src/KO/ViewModelFactory", "jquery"], function(ViewModelFactory, $){
+        Injector.require(["js-utils/KO/ViewModelFactory", "jquery"], function(ViewModelFactory, $){
 
             var Factory = new ViewModelFactory({ value: true });
 
@@ -51,7 +51,7 @@ describe("ViewModelFactory Spec", function () {
 
     async.it(".destroyViewModel() should call destroy() function of ViewModel", function (done) {
 
-        Injector.require(["src/KO/ViewModelFactory", "jquery"], function(ViewModelFactory, $){
+        Injector.require(["js-utils/KO/ViewModelFactory", "jquery"], function(ViewModelFactory, $){
 
             var Factory = new ViewModelFactory({ value: true });
 
@@ -81,7 +81,7 @@ describe("ViewModelFactory Spec", function () {
 
     async.it(".destroyViewModel() should not failt if destroy() is unset", function (done) {
 
-        Injector.require(["src/KO/ViewModelFactory", "jquery"], function(ViewModelFactory, $){
+        Injector.require(["js-utils/KO/ViewModelFactory", "jquery"], function(ViewModelFactory, $){
 
             var Factory = new ViewModelFactory({ value: true });
 

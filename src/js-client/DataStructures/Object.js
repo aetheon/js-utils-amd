@@ -4,7 +4,7 @@
  * 
  */
 
-define(["require", "lodash", "js-utils/Type/index"], function(require, _, Type){
+define(["require", "lodash", "js-utils-lib/Type"], function(require, _, Type){
     "use strict";
     
     var Obj = {

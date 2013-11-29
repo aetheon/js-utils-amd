@@ -4,7 +4,7 @@
  * 
  */
 
-define(["jquery", "js-utils/Type/index", "js-utils/Safe/index"], function($, Type, Safe){
+define(["jquery", "js-utils-lib/Type", "js-utils-lib/Safe"], function($, Type, Safe){
     "use strict";
     
     var OOP = {
