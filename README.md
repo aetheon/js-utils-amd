@@ -16,7 +16,8 @@
 
 ## Browser usage
 
-//TODO
+[See usage example here](https://github.com/aetheon/js-utils-browser-example)
+
 
 ## Node usage
 
