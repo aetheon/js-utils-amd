@@ -26,9 +26,8 @@
 ### Install
 
 
-*   Using NPM
+*   Using NPM (include on package.json)
 
-Include on package.json:
 
 ```
 
@@ -39,9 +38,8 @@ Include on package.json:
 
 ```
 
-*   Using Github
+*   Using Github (include on package.json)
 
-Include on package.json:
 
 ```
 
