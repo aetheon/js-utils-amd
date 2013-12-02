@@ -1,6 +1,6 @@
 {
   "name": "js-utils",
-  "description": "Nodejs Utility Library",
+  "description": "Javascript code base utility library both for client and server.",
   "version": "0.0.1",
   
   "author": {

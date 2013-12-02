@@ -22,10 +22,40 @@
 
 [See usage example here](https://github.com/aetheon/js-utils-node-example)
 
+
+### Install
+
+
+*   Using NPM
+
+Include on package.json:
+
+```
+
+
+"dependencies": {
+    "js-utils": "*"
+}
+
+```
+
+*   Using Github
+
+Include on package.json:
+
+```
+
+
+"dependencies": {
+    "js-utils": "git://github.com/aetheon/js-utils.git"
+}
+
+```
+
 ``` bash
 
 
-$ npm install js-utils
+$ npm install -l
 
 ```
 
