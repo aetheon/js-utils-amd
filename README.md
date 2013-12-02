@@ -24,56 +24,5 @@
 [See usage example here](https://github.com/aetheon/js-utils-node-example)
 
 
-### Install
-
-
-*   Using NPM (include on package.json)
-
-
-```
-
-
-"dependencies": {
-    "js-utils": "*"
-}
-
-```
-
-*   Using Github (include on package.json)
-
-
-```
-
-
-"dependencies": {
-    "js-utils": "git://github.com/aetheon/js-utils.git"
-}
-
-```
-
-``` bash
-
-
-$ npm install -l
-
-```
-
-For more informations please check [example.js](blob/master/example.js)
-
-
-``` js
-
-var jsUtils = require('js-utils-node');
-
-// a Package from js-utils
-JsUtils.require(["js-utils-lib/Type"], function(Type){
-
-    ...
-
-    done();
-
-});
-
-```
 
 
