@@ -31,7 +31,6 @@ $ npm install js-utils
 
 For more informations please check [example.js](blob/master/example.js)
 
-## Getting Packages from js-utils
 
 ``` js
 
