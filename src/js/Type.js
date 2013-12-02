@@ -1,16 +1,17 @@
 
+// share code between server / client
+if (typeof define !== 'function') { var define = require('amdefine')(module); }
+
 /*
  * Type methods
  * 
  */
 
 
-define(["lodash"], function(_){
+define(["require", "lodash"], function(require, _){
     "use strict";
 
-
     var Type = {};
-
 
     /*
      * Get the type of the value

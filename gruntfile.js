@@ -23,7 +23,7 @@ module.exports = function(grunt) {
     jasmine: require("./.grunt-tasks/jasmine.js"),
 
 
-    'mocha-server': require("./.grunt-tasks/mocha-server.js"),
+    'simplemocha': require("./.grunt-tasks/simple-mocha.js"),
 
 
     /*
@@ -62,7 +62,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-http-server');
-  grunt.loadNpmTasks('grunt-server-mocha');
+  grunt.loadNpmTasks('grunt-simple-mocha');
   //grunt.loadNpmTasks('grunt-contrib-compass');
   /*grunt.loadNpmTasks('grunt-jsdoc-plugin');*/
   
@@ -72,7 +72,7 @@ module.exports = function(grunt) {
     [
       'jshint',
       'jasmine',
-      'mocha-server'
+      'simplemocha'
     ]);
 
   

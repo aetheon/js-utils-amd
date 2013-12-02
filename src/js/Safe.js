@@ -1,4 +1,7 @@
 
+// share code between server / client
+if (typeof define !== 'function') { var define = require('amdefine')(module); }
+
 /*
  * Safelly executes functions
  * 

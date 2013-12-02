@@ -35,6 +35,9 @@ requirejs.config({
         // Q Promises Librarie
         'q': 'lib/q/q-latest',
 
+        // SVG library (charts, etc...)
+        'd3': 'lib/d3/d3-latest.js',
+
         'squire': 'lib/squire/squire-latest',
 
         // HTML 5 Uploader
