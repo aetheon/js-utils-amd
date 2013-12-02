@@ -12,6 +12,7 @@
 *   js code for browser and server **src/js/**
 *   js code for browser **src/js-client/**
 *   js code for server **src/js-node/**
+*   client frameworks **lib/**
 
 
 ## Browser usage
