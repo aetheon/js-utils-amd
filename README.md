@@ -1,50 +1,51 @@
 
 # js-utils.js
-### it's a collection of javascript modules...
+
+### My own code base for javascript development ( both for server-side and client-side )
 [![Build Status](https://travis-ci.org/aetheon/js-utils.png?branch=master)](https://travis-ci.org/aetheon/js-utils)
 
 > **It's not a library! Is a collection of javascript AMD modules to be reused.** 
-> It's meant to be used using require.js or a r.js bundle. (TODO: use case example's)
+> It's meant to be used using require.js or a r.js bundle.
 
-> Was born because I got tired of writing the same code between projects.
+## Folder Structure
 
-> There are helper, best practices, data structures, and a lot of code. 
+*   js code for browser and server **src/js/**
+*   js code for browser **src/js-client/**
+*   js code for server **src/js-node/**
 
-> Some code have dependencies to 3rd party framework to provide extra feature's.
 
-> Uses Jasmine.js / Jasmine.async.js / Squire to test the code. Each module has it's own Spec file.
+## Browser usage
 
-## API
+//TODO
 
-### [Globals](https://github.com/aetheon/js-utils/tree/master/src/Globals)
+## Node usage
 
-### [Arguments](https://github.com/aetheon/js-utils/tree/master/src/Arguments)
+[See usage example here](https://github.com/aetheon/js-utils-node-example)
 
-### [AsyncHash](https://github.com/aetheon/js-utils/tree/master/src/AsyncHash)
+``` bash
 
-### [AutoMapping](https://github.com/aetheon/js-utils/tree/master/src/AutoMapping)
 
-### [CacheManifest](https://github.com/aetheon/js-utils/tree/master/src/CacheManifest)
+$ npm install js-utils
 
-### [Device](https://github.com/aetheon/js-utils/tree/master/src/Device)
+```
 
-### [NativePopup](https://github.com/aetheon/js-utils/tree/master/src/NativePopup)
+For more informations please check [example.js](blob/master/example.js)
 
-### [Type](https://github.com/aetheon/js-utils/tree/master/src/Type)
+## Getting Packages from js-utils
 
-### [Url](https://github.com/aetheon/js-utils/tree/master/src/Url)
+``` js
 
-### [UI](https://github.com/aetheon/js-utils/tree/master/src/UI)
+var jsUtils = require('js-utils-node');
 
-#### [Window](https://github.com/aetheon/js-utils/tree/master/src/Window)
+// a Package from js-utils
+JsUtils.require(["js-utils-lib/Type"], function(Type){
 
-#### [JQueryMobile](https://github.com/aetheon/js-utils/tree/master/src/JQueryMobile)
+    ...
 
-#### [OOP](https://github.com/aetheon/js-utils/tree/master/src/OOP)
+    done();
 
-#### [Safe](https://github.com/aetheon/js-utils/tree/master/src/Safe)
+});
 
-#### [KO](https://github.com/aetheon/js-utils/tree/master/src/KO)
+```
 
-#### [Application](https://github.com/aetheon/js-utils/tree/master/src/Application)
 
