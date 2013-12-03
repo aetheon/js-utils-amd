@@ -22,7 +22,7 @@ describe("ArgumentsSpec", function () {
 
     async.it('parse()', function(done){ 
 
-        Injector.require(["js-utils-lib/parser/PipeSeparatedCommands"], function(Parser){
+        Injector.require(["js-utils-lib/Parser/PipeSeparatedCommands"], function(Parser){
 
             var parser = new Parser(".aa .a| cmd1 ( arg1 ) | cmd2('arg2') | cmd3");
             var cmds = parser.parse();
@@ -60,7 +60,7 @@ describe("ArgumentsSpec", function () {
 
     async.it('parse(null)', function(done){ 
 
-        Injector.require(["js-utils-lib/parser/PipeSeparatedCommands"], function(Parser){
+        Injector.require(["js-utils-lib/Parser/PipeSeparatedCommands"], function(Parser){
 
             var parser = new Parser();
             var cmds = parser.parse();
