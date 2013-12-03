@@ -21,11 +21,11 @@ describe("UrlSpec", function () {
 
 
     
-    async.it(".getQueryString() should return a value", function (done) {
+    async.it(".queryString() should return a value", function (done) {
 
-        Injector.require(["js-utils/Helpers/Url"], function(Url){
+        Injector.require(["js-utils-lib/Parser/Url"], function(Url){
 
-            var qs = Url.getQueryString("http://a.com/?a=1&b=2");
+            var qs = Url.queryString("http://a.com/?a=1&b=2");
             expect(qs).toEqual("a=1&b=2");
 
             done();
@@ -36,11 +36,11 @@ describe("UrlSpec", function () {
     
     
 
-    async.it(".getQueryString() with none qs should return an empty string", function (done) {
+    async.it(".queryString() with none qs should return an empty string", function (done) {
 
-        Injector.require(["js-utils/Helpers/Url"], function(Url){
+        Injector.require(["js-utils-lib/Parser/Url"], function(Url){
 
-            var qs = Url.getQueryString("http://a.com/");
+            var qs = Url.queryString("http://a.com/");
             expect(qs).toEqual("");
 
             done();
@@ -51,11 +51,11 @@ describe("UrlSpec", function () {
 
 
 
-    async.it(".getQueryStringObject() returs an hash", function (done) {
+    async.it(".queryStringObj() returs an hash", function (done) {
 
-        Injector.require(["js-utils/Helpers/Url"], function(Url){
+        Injector.require(["js-utils-lib/Parser/Url"], function(Url){
 
-            var qs = Url.getQueryStringObject("http://a.com/?a=1&b=2");
+            var qs = Url.queryStringObj("http://a.com/?a=1&b=2");
             expect(qs).not.toEqual(null);
             expect(qs.a).toEqual('1');
             expect(qs.b).toEqual('2');
@@ -68,11 +68,11 @@ describe("UrlSpec", function () {
 
 
 
-    async.it(".getQueryStringObject() when empty returs an empty hash", function (done) {
+    async.it(".queryStringObj() when empty returs an empty hash", function (done) {
 
-        Injector.require(["js-utils/Helpers/Url"], function(Url){
+        Injector.require(["js-utils-lib/Parser/Url"], function(Url){
 
-            var qs = Url.getQueryStringObject("http://a.com/");
+            var qs = Url.queryStringObj("http://a.com/");
             expect(qs).not.toEqual(null);
             
             done();
@@ -84,7 +84,7 @@ describe("UrlSpec", function () {
 
     async.it(".normalize()", function (done) {
 
-        Injector.require(["js-utils/Helpers/Url"], function(Url){
+        Injector.require(["js-utils-lib/Parser/Url"], function(Url){
 
             expect(Url.normalize("http://a.com/")).toEqual("http://a.com/");
             expect(Url.normalize("")).toEqual("");

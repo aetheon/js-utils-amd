@@ -8,8 +8,10 @@ define([
     "jquery", 
     "EventEmitter", 
     
-    "js-utils/Globals/Document", 
-    "js-utils/Helpers/Url", 
+    "js-utils/Globals/Document",
+
+    "js-utils/Dom/Window",
+    "js-utils-lib/Parser/Url", 
     "js-utils-lib/Arguments", 
     "js-utils/OOP/index", 
     "js-utils-lib/Safe", 
@@ -19,9 +21,10 @@ define([
     function(require, $, EventEmitter){
     "use strict";
 
-    var Document = require("js-utils/Globals/Document"),
+    var Window = require("js-utils/Dom/Window"),
+        Document = require("js-utils/Globals/Document"),
         JQueryMobile = require("js-utils/JQueryMobile/index"),
-        Url = require("js-utils/Helpers/Url"),
+        Url = require("js-utils-lib/Parser/Url"),
         Arguments = require("js-utils-lib/Arguments"),
         OOP = require("js-utils/OOP/index"),
         Safe = require("js-utils-lib/Safe"),
@@ -118,7 +121,7 @@ define([
                 // if no url was given get the default from the page
                 // Fix: when on JQM it's the first page the url is empty
                 if(!pageurl) {
-                    pageurl = Url.get();
+                    pageurl = Window.url();
                 }
 
                 //
@@ -178,7 +181,7 @@ define([
             function (event, data) {
 
                 var element = data.toPage;
-                var dataObj = data.options.data || Url.getQueryStringObject();
+                var dataObj = data.options.data || Window.query();
 
 
                 // emit event

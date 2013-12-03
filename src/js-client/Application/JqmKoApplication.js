@@ -17,9 +17,9 @@ define([
         // js-utils dependencies
         "js-utils-lib/Safe",
         "js-utils-lib/Type",
-        "js-utils/Globals/Window",
+        "js-utils/Dom/Window",
         "js-utils-lib/Arguments",
-        "js-utils/Helpers/Url",
+        "js-utils-lib/Parser/Url",
         "js-utils/Device/index",
         "js-utils/UI/Accessibility",
         "js-utils/JQueryMobile/index",
@@ -65,8 +65,9 @@ define([
         var jQuery = require("jquery");
         jQuery.mobile.autoInitializePage = false;
 
-        var Arguments = require("js-utils-lib/Arguments"),
-            Url = require("js-utils/Helpers/Url"),
+        var Window = require("js-utils/Dom/Window"),
+            Arguments = require("js-utils-lib/Arguments"),
+            Url = require("js-utils-lib/Parser/Url"),
             Device = require("js-utils/Device/index"),
             Safe = require("js-utils-lib/Safe"),
             Type = require("js-utils-lib/Type");
@@ -113,7 +114,7 @@ define([
             });
 
             // query string values
-            var args = Url.getQueryStringObject();
+            var args = Window.query();
 
             // application ui
             var ui = {};

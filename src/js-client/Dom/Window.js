@@ -13,6 +13,7 @@ define([
     "EventEmitter",
     "fastdom", 
     "js-utils-lib/Arguments", 
+    "js-utils-lib/Parser/Url", 
     "js-utils/Globals/Window", 
     "js-utils/Globals/Document",
     "js-utils/Log/index"
@@ -24,6 +25,7 @@ define([
             $ = require("jquery"),
             EventEmitter = require("EventEmitter"),
             Arguments = require("js-utils-lib/Arguments"),
+            UrlParser = require("js-utils-lib/Parser/Url"),
             Document = require("js-utils/Globals/Document"),
             Window = require("js-utils/Globals/Window"),
             Log = require("js-utils/Log/index");
@@ -106,7 +108,24 @@ define([
          */            
         var WindowOperations = {
 
-            
+            /**
+             * Gets the current url of the window
+             * 
+             * @return {String}
+             */
+            url: function(){
+                return UrlParser.normalize(Window.location.href);
+            },
+
+            /**
+             * Gets the current query string of the window in an object format
+             * 
+             * @return {Object}
+             */
+            query: function(){
+                return UrlParser.queryStringObj(Window.location.href);
+            },
+
             /*
              * Get the current height of the Viewport
              *
