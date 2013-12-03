@@ -80,6 +80,10 @@ requirejs.config({
 
         'jCrop': {
             deps: [ "jquery" ]
+        },
+
+        'd3': {
+            exports: "d3"
         }
 
     }
