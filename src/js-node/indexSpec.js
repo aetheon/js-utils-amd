@@ -16,11 +16,15 @@ describe('indexSpec', function(){
   
     it('test', function(done){
 
+        var requirejs = require('requirejs');
+            jsUtils = require("./index.js");
 
-        var jsUtils = require("./index.js");
+        requirejs.config({
+            paths: jsUtils.paths
+        });
 
         // todo
-        jsUtils.require(["js-utils-lib/Type"], function(Type){
+        requirejs(["js-utils-lib/Type"], function(Type){
 
             expect(!!Type).be(true);
 
