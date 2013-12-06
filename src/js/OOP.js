@@ -1,6 +1,6 @@
 
 /*
- * Description of the class
+ * Object Oriented Programming Utility
  * 
  */
 
