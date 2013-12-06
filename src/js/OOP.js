@@ -20,20 +20,39 @@ define([
          *
          * @example
          *
-         * function Class(){
+         * function RevealingModulePatternClass(){
          * 
          *     // initialize base class
          *     OOP.super(this, EventEmitter);
          *
-         *     var class = {
+         *     var _this = {
          *         "hello": function(){
          *         }
          *     };
          *
          *     // return Class with EventEmitter prototype
-         *     return OOP.inherit(class, EventEmitter.prototype);
+         *     return OOP.inherit(_this, EventEmitter.prototype);
          *     
          * }
+         *
+         *
+         * 
+         * function Class(){
+         *
+         *      // initialize base class
+         *      OOP.super(this, EventEmitter);
+         *     
+         *      this.a = 1;
+         * 
+         * }
+         *
+         * Class.protoype = {
+         *     "hello": function(){
+         *     }
+         * }
+         *
+         * OOP.inherit(Class.protoype, EventEmitter.prototype);
+         * 
          * 
          */
         var OOP = {
