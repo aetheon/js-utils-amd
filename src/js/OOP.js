@@ -1,9 +1,4 @@
 
-/*
- * Object Oriented Programming Utility
- * 
- */
-
 define([
     "require", 
 
@@ -20,6 +15,27 @@ define([
             Safe = require("js-utils-lib/Safe");
 
 
+        /*
+         * Object Oriented Programming Utility
+         *
+         * @example
+         *
+         * function Class(){
+         * 
+         *     // initialize base class
+         *     OOP.super(this, EventEmitter);
+         *
+         *     var class = {
+         *         "hello": function(){
+         *         }
+         *     };
+         *
+         *     // return Class with EventEmitter prototype
+         *     return OOP.inherit(class, EventEmitter.prototype);
+         *     
+         * }
+         * 
+         */
         var OOP = {
 
 
