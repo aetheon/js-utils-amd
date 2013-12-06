@@ -1,12 +1,12 @@
 
 define(["require", "jquery", "EventEmitter", "lodash", "js-utils-lib/Arguments", "js-utils/Log/index", "js-utils/Dom/Window", 
-        "js-utils/Dom/Element", "js-utils/OOP/index"], 
+        "js-utils/Dom/Element", "js-utils-lib/OOP"], 
     function(require){
     "use strict";
 
     var $ = require("jquery"),
         _ = require("lodash"),
-        OOP = require("js-utils/OOP/index"),
+        OOP = require("js-utils-lib/OOP"),
         EventEmitter = require("EventEmitter"),
         Arguments = require("js-utils-lib/Arguments"),
         Element = require("js-utils/Dom/Element"),

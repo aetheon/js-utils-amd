@@ -19,7 +19,7 @@ define([
     "js-utils/Log/index",
     "js-utils/JQueryMobile/index",
     "js-utils/JQueryMobile/RouterHistory",
-    "js-utils/OOP/index"
+    "js-utils-lib/OOP"
 
     ], 
     function(require){
@@ -31,7 +31,7 @@ define([
         Type = require("js-utils-lib/Type"),
         Safe = require("js-utils-lib/Safe"),
         Log = require("js-utils/Log/index"),
-        OOP = require("js-utils/OOP/index"),
+        OOP = require("js-utils-lib/OOP"),
         EventEmitter = require("EventEmitter"),
         ArrayHelper = require("js-utils-lib/DataStructures/Array"),
         RouterHistory = require("js-utils/JQueryMobile/RouterHistory"),

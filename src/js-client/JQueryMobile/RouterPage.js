@@ -1,11 +1,11 @@
 define([
     "require",
     "EventEmitter",
-    "js-utils/OOP/index"
+    "js-utils-lib/OOP"
     ], function(require){
 
 
-        var OOP = require("js-utils/OOP/index"),
+        var OOP = require("js-utils-lib/OOP"),
             EventEmitter = require("EventEmitter");
 
 

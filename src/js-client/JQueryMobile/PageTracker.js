@@ -13,7 +13,7 @@ define([
     "js-utils/Dom/Window",
     "js-utils-lib/Parser/Url", 
     "js-utils-lib/Arguments", 
-    "js-utils/OOP/index", 
+    "js-utils-lib/OOP", 
     "js-utils-lib/Safe", 
     "js-utils-lib/Type",
     "js-utils/JQueryMobile/index"
@@ -26,7 +26,7 @@ define([
         JQueryMobile = require("js-utils/JQueryMobile/index"),
         Url = require("js-utils-lib/Parser/Url"),
         Arguments = require("js-utils-lib/Arguments"),
-        OOP = require("js-utils/OOP/index"),
+        OOP = require("js-utils-lib/OOP"),
         Safe = require("js-utils-lib/Safe"),
         Type = require("js-utils-lib/Type");
 

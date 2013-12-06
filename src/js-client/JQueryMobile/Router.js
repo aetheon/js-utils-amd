@@ -20,7 +20,7 @@ define([
     "js-utils/JQueryMobile/RouterFactory",
     "js-utils-lib/Type",
     "js-utils-lib/Parser/Url",
-    "js-utils/OOP/index",
+    "js-utils-lib/OOP",
     "js-utils-lib/Safe",
     "js-utils-lib/DataStructures/Array", 
     "js-utils/Log/index"
@@ -34,7 +34,7 @@ define([
         PageTracker = require("js-utils/JQueryMobile/PageTracker"),
         RouterFactory = require("js-utils/JQueryMobile/RouterFactory"),
         Url = require("js-utils-lib/Parser/Url"),
-        OOP = require("js-utils/OOP/index"),
+        OOP = require("js-utils-lib/OOP"),
         Type = require("js-utils-lib/Type"),
         Safe = require("js-utils-lib/Safe"),
         Log = require("js-utils/Log/index"),

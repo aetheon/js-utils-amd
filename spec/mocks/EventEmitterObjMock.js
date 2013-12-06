@@ -1,4 +1,5 @@
-define(["EventEmitter", "src/OOP/index"], function(EventEmitter, OOP){
+
+define(["EventEmitter", "js-utils-lib/OOP"], function(EventEmitter, OOP){
 
     /*
      * returns a hash with the obj function and its

@@ -22,7 +22,7 @@ describe("OOP Spec", function () {
     
     async.it(".inherit should extend prototype", function (done) {
 
-        Injector.require(["js-utils/OOP/index"], function(OOP){
+        Injector.require(["js-utils-lib/OOP"], function(OOP){
 
             var A = function(){};
             A.prototype = {
@@ -51,7 +51,7 @@ describe("OOP Spec", function () {
 
     async.it(".inherit with null arguments should return result", function (done) {
 
-        Injector.require(["js-utils/OOP/index"], function(OOP){
+        Injector.require(["js-utils-lib/OOP"], function(OOP){
 
             var A = function(){};
             A.prototype = {
@@ -72,7 +72,7 @@ describe("OOP Spec", function () {
     
     async.it(".inherit with both null arguments should not be null", function (done) {
 
-        Injector.require(["js-utils/OOP/index"], function(OOP){
+        Injector.require(["js-utils-lib/OOP"], function(OOP){
 
             var A = null;
             var B = null;
@@ -90,18 +90,27 @@ describe("OOP Spec", function () {
 
      async.it(".inherit should change the base class hash", function (done) {
 
-        Injector.require(["js-utils/OOP/index"], function(OOP){
+        Injector.require(["js-utils-lib/OOP"], function(OOP){
 
             var A = {
-                one: 1
+                one: 1,
+                inner: {
+                    one: 1
+                }
             };
             var B = {
-                one: 2
+                one: 2,
+                inner: {
+                    one: 2,
+                    two: 2
+                }
             };
 
             var c = OOP.inherit(A, B);
 
             expect(A.one).toBe(1);
+            expect(A.inner.one).toBe(1);
+            expect(A.inner.two).toBe(2);
 
             done();
 
@@ -113,7 +122,7 @@ describe("OOP Spec", function () {
 
     async.it(".super should call method with the correct context", function (done) {
 
-        Injector.require(["js-utils/OOP/index"], function(OOP){
+        Injector.require(["js-utils-lib/OOP"], function(OOP){
 
             var A = function(){};
             A.prototype = {
@@ -141,7 +150,7 @@ describe("OOP Spec", function () {
 
     async.it(".super with null base function should return null", function (done) {
 
-        Injector.require(["js-utils/OOP/index"], function(OOP){
+        Injector.require(["js-utils-lib/OOP"], function(OOP){
 
             var A = function(){};
             A.prototype = {
@@ -168,7 +177,7 @@ describe("OOP Spec", function () {
 
     async.it(".super with null context should return null", function (done) {
 
-        Injector.require(["js-utils/OOP/index"], function(OOP){
+        Injector.require(["js-utils-lib/OOP"], function(OOP){
 
             var A = function(){};
             A.prototype = {
@@ -196,7 +205,7 @@ describe("OOP Spec", function () {
 
     async.it(".getMutators(obj)", function (done) {
 
-        Injector.require(["js-utils/OOP/index"], function(OOP){
+        Injector.require(["js-utils-lib/OOP"], function(OOP){
 
             var o = OOP.getMutators(
                 {   "value1": "1",
@@ -227,7 +236,7 @@ describe("OOP Spec", function () {
 
     async.it(".getMutators(obj, filter)", function (done) {
 
-        Injector.require(["js-utils/OOP/index"], function(OOP){
+        Injector.require(["js-utils-lib/OOP"], function(OOP){
 
             var o = OOP.getMutators(
                 {   "value1": "1",
