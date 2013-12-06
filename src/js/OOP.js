@@ -83,7 +83,6 @@ define([
 
             },
 
-
             /*
              * Create an object with the Getters/Setters Methods for the given 
              * object
