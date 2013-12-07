@@ -13,7 +13,7 @@ define([
     "js-utils-lib/Arguments", 
     "js-utils-lib/Type",
     "js-utils-lib/Safe",
-    "js-utils-lib/DataStructures/Array", 
+    "js-utils-lib/Array", 
     "js-utils/Log/index"
 
     ], 
@@ -25,7 +25,7 @@ define([
         Type = require("js-utils-lib/Type"),
         Safe = require("js-utils-lib/Safe"),
         Log = require("js-utils/Log/index"),
-        ArrayHelper = require("js-utils-lib/DataStructures/Array");
+        ArrayObj = require("js-utils-lib/Array");
 
 
     var log = new Log.Logger("js-utils/JQueryMobile/RouterHistory");
@@ -39,7 +39,7 @@ define([
     var RouterHistory = function () {
 
         // history array
-        var history = [];
+        var history = new ArrayObj([]);
         // instances memory
         var instances = {};
 
@@ -86,7 +86,7 @@ define([
             // save instance
             this.saveInstance(data);
             // add the instance to the structure
-            ArrayHelper.add(history, data);
+            history.add(data);
             // save the index on the array
             data.index = history.length - 1;
             // save the rule
@@ -111,7 +111,7 @@ define([
 
             var instance = instances[rule] || null;
             if(instance){
-                ArrayHelper.removeIndex(history, instance.index);
+                history.removeIndex(instance.index);
                 delete instances[rule];
             }
 
@@ -127,9 +127,10 @@ define([
          */
         this.last = function(){
 
-            var last = ArrayHelper.index(ArrayHelper.removeLast(history), 0);
+            var last = history.index();
             if(last){
                 delete instances[last.rule];
+                history.removeLast();
             }
 
             return last;

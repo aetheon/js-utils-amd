@@ -21,8 +21,7 @@ define([
     "js-utils-lib/Type",
     "js-utils-lib/Parser/Url",
     "js-utils-lib/OOP",
-    "js-utils-lib/Safe",
-    "js-utils-lib/DataStructures/Array", 
+    "js-utils-lib/Safe", 
     "js-utils/Log/index"
 
     ], 
@@ -38,7 +37,6 @@ define([
         Type = require("js-utils-lib/Type"),
         Safe = require("js-utils-lib/Safe"),
         Log = require("js-utils/Log/index"),
-        ArrayHelper = require("js-utils-lib/DataStructures/Array"),
         EventEmitter = require("EventEmitter"),
         URI = require("jsuri");
 

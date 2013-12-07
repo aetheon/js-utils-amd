@@ -15,7 +15,6 @@ define([
     "js-utils-lib/Arguments", 
     "js-utils-lib/Type",
     "js-utils-lib/Safe",
-    "js-utils-lib/DataStructures/Array", 
     "js-utils/Log/index",
     "js-utils/JQueryMobile/index",
     "js-utils/JQueryMobile/RouterHistory",
@@ -33,7 +32,6 @@ define([
         Log = require("js-utils/Log/index"),
         OOP = require("js-utils-lib/OOP"),
         EventEmitter = require("EventEmitter"),
-        ArrayHelper = require("js-utils-lib/DataStructures/Array"),
         RouterHistory = require("js-utils/JQueryMobile/RouterHistory"),
         JQueryMobile = require("js-utils/JQueryMobile/index");
 

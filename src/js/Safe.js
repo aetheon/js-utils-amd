@@ -35,7 +35,6 @@ define([
 
         };
 
-
         /*
          * Safelly get Boolean from value
          *

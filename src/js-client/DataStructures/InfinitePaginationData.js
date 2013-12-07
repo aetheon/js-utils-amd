@@ -4,12 +4,12 @@
  * 
  */
 
-define(["require", "lodash", "js-utils-lib/Arguments", "js-utils-lib/DataStructures/Array", "js-utils-lib/Safe"], function(require){
+define(["require", "lodash", "js-utils-lib/Arguments", "js-utils-lib/Array", "js-utils-lib/Safe"], function(require){
     "use strict";
 
     var _ = require("lodash"),
         Arguments = require("js-utils-lib/Arguments"),
-        ArrayHelper = require("js-utils-lib/DataStructures/Array"),
+        ArrayObj = require("js-utils-lib/Array"),
         Safe = require("js-utils-lib/Safe");
     
 
@@ -36,6 +36,7 @@ define(["require", "lodash", "js-utils-lib/Arguments", "js-utils-lib/DataStructu
             }
         );
 
+        var infiniteList = new ArrayObj(options.Data);
 
         // dont let PageSize have invalid values
         if(data.PageSize<=0) 
@@ -55,9 +56,7 @@ define(["require", "lodash", "js-utils-lib/Arguments", "js-utils-lib/DataStructu
              * @return {Array} The pagination data
              */
             get: function(){
-
-                return _.clone(data.Data);
-
+                return infiniteList.toJS();
             },
 
             /*
@@ -80,7 +79,7 @@ define(["require", "lodash", "js-utils-lib/Arguments", "js-utils-lib/DataStructu
              */
             getIndexRange: function(){
                 
-                var numberOfPages = Math.floor(data.Data.length / data.PageSize);
+                var numberOfPages = Math.floor(infiniteList.length() / data.PageSize);
                 
                 return { from: firstIndex, to: firstIndex + numberOfPages };
 
@@ -117,7 +116,7 @@ define(["require", "lodash", "js-utils-lib/Arguments", "js-utils-lib/DataStructu
                 // if there is no more data return null
                 if(thereIsNoMoreData) return null;
 
-                if(range.to === 0 && !data.Data.length)
+                if(range.to === 0 && !infiniteList.length())
                     return 0;
 
                 return range.to + 1;
@@ -147,6 +146,7 @@ define(["require", "lodash", "js-utils-lib/Arguments", "js-utils-lib/DataStructu
              * Add Data to the end of the list
              *
              * @param {Array} array - The array to add after
+             * 
              */
             addAfter: function(array){
 
@@ -165,14 +165,14 @@ define(["require", "lodash", "js-utils-lib/Arguments", "js-utils-lib/DataStructu
                 }
 
                 // remove first data and increment the firstIndex Tracker
-                if(data.Data.length >= data.MaxSize) {
-                    ArrayHelper.removeFirst(data.Data, { n: data.PageSize });
+                if(infiniteList.length() >= data.MaxSize) {
+                    infiniteList.removeFirst({ n: data.PageSize });
                     // set firstIndex
                     firstIndex += 1;
                 }
 
                 // add the current transaction page array to right place ( left or right )
-                ArrayHelper.add(data.Data, array, { after: true });
+                infiniteList.add(array, { after: true });
 
             },
 
@@ -195,8 +195,8 @@ define(["require", "lodash", "js-utils-lib/Arguments", "js-utils-lib/DataStructu
                 }
 
                 // remove last data and set the value of the current index
-                if(data.Data.length >= data.MaxSize) {
-                    ArrayHelper.removeLast(data.Data, { n: data.PageSize });
+                if(infiniteList.length() >= data.MaxSize) {
+                    infiniteList.removeLast({ n: data.PageSize });
                     // if removed this means that there is more data
                     thereIsNoMoreData = false;
                     // set firstIndex
@@ -206,7 +206,7 @@ define(["require", "lodash", "js-utils-lib/Arguments", "js-utils-lib/DataStructu
                 }
 
                 // add data to the 
-                ArrayHelper.add(data.Data, array, { after: false });
+                infiniteList.add(array, { after: false });
 
             }
 
