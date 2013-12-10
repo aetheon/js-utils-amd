@@ -57,10 +57,15 @@ define([
         /**
          * A Tree data structure
          *
+         * @example
+         *
+         *      var tree = new Tree();
+         *      var root = tree.root();
          *
          */
         var Tree = function(data, options){
 
+            // clone a get the tree structure
             var root = Safe.getObject(data);
 
             // create a clone of data to handle the tree structure
@@ -86,6 +91,51 @@ define([
                  */
                 root: function(){
                     return root;
+                },
+
+                /**
+                 * Calculate the tree dimension in form of a square (width / height). The width will be the 
+                 * number of horizontal levels the Tree has and the Height the number of vertical Tree levels.
+                 *
+                 * @return {Object} The dimension of the Tree
+                 * 
+                 */
+                squareSize: function(){
+
+                    var size = {
+                        height: 0,
+                        width: 1
+                    };
+
+                    var inner = function (node) {
+
+                        // get children
+                        var children = Safe.getArray(options.getChildren(node));
+                        
+                        if (children.length > 0) {
+
+                            size.width++;
+                            
+                            _.each(
+                                children,
+                                function (n) {
+
+                                    size.height++;
+
+                                    // recursive call
+                                    inner(n);
+
+                                });
+                            
+                        }
+
+                    };
+
+                    // start calculating
+                    inner(root);
+
+                    return size;
+
                 }
 
             };

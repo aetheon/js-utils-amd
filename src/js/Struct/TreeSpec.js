@@ -22,7 +22,7 @@ describe("TreeSpec", function () {
     });
 
 
-    async.it(".test nodes", function (done) {
+    async.it(".treeNodes", function (done) {
 
 
         Injector.require(["js-utils-lib/Struct/Tree"], function(Tree){
@@ -62,6 +62,51 @@ describe("TreeSpec", function () {
             expect(root.children[0].parent).not.toBe(null);
             expect(root.children[0].parent().id).toBe(1);
 
+            done();
+
+        });
+
+
+    });
+
+    
+    async.it(".squareSize", function (done) {
+
+
+        Injector.require(["js-utils-lib/Struct/Tree"], function(Tree){
+
+            var data = {
+
+                "id": 1,
+                "children": [
+                    
+                    {
+                        "id": 2,
+                        "children": [
+                            {
+                                "id": 3
+                            }
+                        ]
+                    },
+
+                    {
+                        "id": 4
+                    },
+
+                    {
+                        "id": 6
+                    }
+
+                ]
+                
+            };
+
+            var t = new Tree(data);
+            var size = t.squareSize();
+
+            expect(size.width).toBe(3);
+            expect(size.height).toBe(4);
+            
             done();
 
         });

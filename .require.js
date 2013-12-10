@@ -19,6 +19,8 @@ requirejs.config({
         'fastdom': 'lib/fastdom/fastdom-latest',
         'intravenous': 'lib/intravenous/intravenous-latest',
 
+        'bootstrap': 'lib/bootstrap/latest/js/bootstrap',
+
         'knockout': 'lib/knockout/knockout-latest',
         'knockout-validation': 'lib/knockout/knockout.validation',
 
@@ -36,7 +38,7 @@ requirejs.config({
         'q': 'lib/q/q-latest',
 
         // SVG library (charts, etc...)
-        'd3': 'lib/d3/d3-latest.js',
+        'd3': 'lib/d3/latest',
 
         'squire': 'lib/squire/squire-latest',
 
@@ -76,6 +78,10 @@ requirejs.config({
 
         'FileAPI.JQuery': {
             deps: ['jquery']
+        },
+
+        'bootstrap': {
+            deps: [ "jquery" ]
         },
 
         'jCrop': {
