@@ -21,8 +21,18 @@
 
 ## Node usage
 
+
 [See usage example here](https://github.com/aetheon/js-utils-node-example)
 
 
+## Build
 
 
+ ``` bash
+
+ > grunt
+
+
+ ```
+
+twitter.com/aetheon](@aetheon)
