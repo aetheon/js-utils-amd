@@ -35,4 +35,6 @@
 
  ```
 
-[twitter.com/aetheon](@aetheon)
+---
+
+[@aetheon](http://twitter.com/aetheon)
