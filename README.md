@@ -30,9 +30,9 @@
 
  ``` bash
 
- > grunt
 
+ > grunt
 
  ```
 
-twitter.com/aetheon](@aetheon)
+[twitter.com/aetheon](@aetheon)
