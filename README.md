@@ -4,15 +4,14 @@
 ### My own code base for javascript development ( both for server-side and client-side )
 [![Build Status](https://travis-ci.org/aetheon/js-utils.png?branch=master)](https://travis-ci.org/aetheon/js-utils)
 
-> **It's not a library! Is a collection of javascript AMD modules to be reused.** 
-> It's meant to be used using require.js or a r.js bundle.
+> **It's not a library! Is a collection of javascript AMD modules.** 
 
-## Folder Structure
+## Project Structure
 
-*   js code for browser and server **src/js/**
-*   js code for browser **src/js-client/**
-*   js code for server **src/js-node/**
-*   client frameworks **lib/**
+*   **src/js/** - js code for browser and server 
+*   **src/js-client/** - js code for browser 
+*   **src/js-node/** - js code for server 
+*   **lib/** - client frameworks 
 
 
 ## Browser usage
