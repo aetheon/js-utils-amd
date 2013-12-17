@@ -5,6 +5,9 @@
 [![Build Status](https://travis-ci.org/aetheon/js-utils.png?branch=master)](https://travis-ci.org/aetheon/js-utils)
 
 > **It's not a library! Is a collection of javascript AMD modules.** 
+>
+> [@aetheon](http://twitter.com/aetheon)
+>
 
 ## Project Structure
 
@@ -38,6 +41,3 @@
 
 
 
->
-> [@aetheon](http://twitter.com/aetheon)
->
