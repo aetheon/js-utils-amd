@@ -188,7 +188,12 @@ define([
             // get action from routes hash, ignoring base path and 
             // query string parameters
             url = Url.normalize(url);
-            url = new URI(url).path();
+            
+            // TODO FIX
+            if(url) 
+                url = "/" + url;
+
+            url = new URI().path(url);
             var selectedRule = null;
 
             _.each(

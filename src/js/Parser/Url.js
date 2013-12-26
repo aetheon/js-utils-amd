@@ -20,7 +20,7 @@ define(["require", "lodash", "js-utils-lib/Type"], function(require){
     var UrlParser = {
 
         /**
-         *  normalize url
+         * Normalize url
          *
          * @return{String} the current url
          */
@@ -28,15 +28,12 @@ define(["require", "lodash", "js-utils-lib/Type"], function(require){
         
             if(!url) return "";
 
-            if(url.indexOf("://")>=0){
-                return url;
-            }
+            /// replace all //// to a single slash
+            url = url.replace(/\/+/g, "/");
+            /// because previouly all // were replaced lets fix the protocol syntax (http://)
+            url = url.replace(/:\//g, "://");
 
-            if(url.indexOf("/")===0){
-                return url;
-            }
-
-            return "/" + url;
+            return url;
 
         },
 
@@ -100,7 +97,8 @@ define(["require", "lodash", "js-utils-lib/Type"], function(require){
                 regexResult = regex.exec(url);
 
             if(regexResult){
-                result = regexResult.shift();
+                /// always add / at the end of baseUrl
+                result = regexResult.shift() + "/";
             }
 
             return UrlParser.normalize(result);

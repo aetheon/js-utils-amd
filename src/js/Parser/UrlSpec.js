@@ -88,7 +88,7 @@ describe("UrlSpec", function () {
 
             expect(Url.normalize("http://a.com/")).toEqual("http://a.com/");
             expect(Url.normalize("")).toEqual("");
-            expect(Url.normalize("default")).toEqual("/default");
+            expect(Url.normalize("default")).toEqual("default");
             
             done();
 
@@ -118,10 +118,10 @@ describe("UrlSpec", function () {
         Injector.require(["js-utils-lib/Parser/Url"], function(Url){
 
             var baseUrl = Url.baseUrl("http://google/a/b/asas.assap");
-            expect(baseUrl).toBe("http://google");
+            expect(baseUrl).toBe("http://google/");
             
             baseUrl = Url.baseUrl("http://google.dev-env.com:9090/a/b/asas.assap");
-            expect(baseUrl).toBe("http://google.dev-env.com:9090");
+            expect(baseUrl).toBe("http://google.dev-env.com:9090/");
 
             baseUrl = Url.baseUrl(null);
             expect(baseUrl).toBe("");
