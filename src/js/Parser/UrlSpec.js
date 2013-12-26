@@ -96,6 +96,22 @@ describe("UrlSpec", function () {
 
     });
 
+    async.it(".isAbsolute()", function (done) {
+
+        Injector.require(["js-utils-lib/Parser/Url"], function(Url){
+
+            expect(Url.isAbsolute("http://a.com/")).toEqual(true);
+            expect(Url.isAbsolute(null)).toEqual(false);
+            expect(Url.isAbsolute("")).toEqual(false);
+            expect(Url.isAbsolute("/a/com/")).toEqual(false);
+            
+            
+            done();
+
+        });
+
+    });
+
 
 
 

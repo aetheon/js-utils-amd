@@ -67,6 +67,21 @@ define(["require", "lodash", "js-utils-lib/Type"], function(require){
         },
 
 
+        /**
+         * Test if the url is absolute
+         * 
+         * @return {Boolean}
+         * 
+         */
+        isAbsolute: function(url){
+
+            var r = new RegExp('^(?:[a-z]+:)?//', 'i');
+
+            return !!r.exec(url);
+
+        },
+
+
         /*
          * Parse query string from url
          *
