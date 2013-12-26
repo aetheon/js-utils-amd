@@ -75,5 +75,24 @@ describe("ArgumentsSpec", function () {
     });
 
 
+    async.it('.raw', function(done){ 
+
+        Injector.require(["js-utils-lib/Parser/PipeSeparatedCommands"], function(Parser){
+
+            var parser = new Parser(".aa .a| cmd1 ( arg1 ) | cmd2('arg2') | cmd3");
+            
+            expect(parser.raw).not.toBe(null);
+            
+            parser.raw.splice(0,1);
+            var cmds = parser.parse();
+
+            expect(cmds.length).toBe(3);
+
+            done();
+
+        });
+
+    });
+
 
 });

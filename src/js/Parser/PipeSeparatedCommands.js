@@ -74,7 +74,16 @@ define(["require", "lodash"], function(require){
      */
     var PipeSeparatedCommands = function(filterStr){
 
+        var filters = splitIntoExpressions(filterStr) || [];
+
         return {
+
+            /**
+             * Expose the list of filters to be parsed. This can be used to manipulate the list.
+             * 
+             * @type {Array}
+             */
+            raw: filters,
 
             /**
              * Parses the commands string
@@ -89,8 +98,6 @@ define(["require", "lodash"], function(require){
              */
             parse: function(){
 
-                var filters = splitIntoExpressions(filterStr);
-                
                 var results = [];
                 _.each(
                     filters,
