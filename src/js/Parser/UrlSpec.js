@@ -113,6 +113,33 @@ describe("UrlSpec", function () {
     });
 
 
+    async.it(".getBaseUrl()", function (done) {
+
+        Injector.require(["js-utils-lib/Parser/Url"], function(Url){
+
+            var baseUrl = Url.baseUrl("http://google/a/b/asas.assap");
+            expect(baseUrl).toBe("http://google");
+            
+            baseUrl = Url.baseUrl("http://google.com:9090/a/b/asas.assap");
+            expect(baseUrl).toBe("http://google.com:9090");
+
+            baseUrl = Url.baseUrl(null);
+            expect(baseUrl).toBe("");
+
+            baseUrl = Url.baseUrl("");
+            expect(baseUrl).toBe("");
+
+            baseUrl = Url.baseUrl("a/asas/asasa/asasa");
+            expect(baseUrl).toBe("");
+
+            
+            done();
+
+        });
+
+    });
+
+
 
 
 

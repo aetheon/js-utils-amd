@@ -11,6 +11,11 @@ define(["require", "lodash", "js-utils-lib/Type"], function(require){
         Type = require("js-utils-lib/Type");
 
 
+
+    /// regular expression to get the baseUrl
+    var BaseUrlRegExStr = '^[a-z]+://[a-z.-]+(?::[0-9]+)?';
+
+
     
     var UrlParser = {
 
@@ -75,9 +80,30 @@ define(["require", "lodash", "js-utils-lib/Type"], function(require){
          */
         isAbsolute: function(url){
 
-            var r = new RegExp('^(?:[a-z]+:)?//', 'i');
+            var regex = new RegExp(BaseUrlRegExStr, "i");
+            return !! regex.exec(url);
 
-            return !!r.exec(url);
+        },
+
+
+        /**
+         * Returns the baseUrl for the given url
+         * 
+         * @param  {String} url
+         * @return {String}
+         */
+        baseUrl: function(url){
+
+            var regex = new RegExp(BaseUrlRegExStr, "i");
+
+            var result = "",
+                regexResult = regex.exec(url);
+
+            if(regexResult){
+                result = regexResult.shift();
+            }
+
+            return UrlParser.normalize(result);
 
         },
 
