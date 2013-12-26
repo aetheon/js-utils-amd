@@ -120,8 +120,8 @@ describe("UrlSpec", function () {
             var baseUrl = Url.baseUrl("http://google/a/b/asas.assap");
             expect(baseUrl).toBe("http://google");
             
-            baseUrl = Url.baseUrl("http://google.com:9090/a/b/asas.assap");
-            expect(baseUrl).toBe("http://google.com:9090");
+            baseUrl = Url.baseUrl("http://google.dev-env.com:9090/a/b/asas.assap");
+            expect(baseUrl).toBe("http://google.dev-env.com:9090");
 
             baseUrl = Url.baseUrl(null);
             expect(baseUrl).toBe("");
