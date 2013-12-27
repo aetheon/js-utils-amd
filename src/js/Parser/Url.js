@@ -37,38 +37,6 @@ define(["require", "lodash", "js-utils-lib/Type"], function(require){
 
         },
 
-
-        /**
-         * get's the query string part of the url
-         *
-         * @param{href} The full url or null to get the current
-         * @param{separator} The url qs separator. Normally is ?
-         * @return{String} The query string part of the url
-         */
-        queryString: function(href, separator) {
-
-            href = href || "";
-            separator = separator || '?';
-
-            var hrefSplit = href.split(separator) || [];
-            
-            if(hrefSplit.length > 1){
-                
-                // query strin can be malformed like ?a=1&?b=2
-                // we can fix this
-                var qStringPart = hrefSplit.splice(1, hrefSplit.length-1);
-                var qString = "";
-                _.forEach(qStringPart, function(qs){
-                    qString += qs;
-                });
-
-                return qString;
-            }
-
-            return "";
-        },
-
-
         /**
          * Test if the url is absolute
          * 
@@ -81,7 +49,6 @@ define(["require", "lodash", "js-utils-lib/Type"], function(require){
             return !! regex.exec(url);
 
         },
-
 
         /**
          * Returns the baseUrl for the given url
@@ -132,6 +99,35 @@ define(["require", "lodash", "js-utils-lib/Type"], function(require){
             return UrlParser.normalize(url);
         },
 
+        /**
+         * get's the query string part of the url
+         *
+         * @param{href} The full url or null to get the current
+         * @param{separator} The url qs separator. Normally is ?
+         * @return{String} The query string part of the url
+         */
+        queryString: function(href, separator) {
+
+            href = href || "";
+            separator = separator || '?';
+
+            var hrefSplit = href.split(separator) || [];
+            
+            if(hrefSplit.length > 1){
+                
+                // query strin can be malformed like ?a=1&?b=2
+                // we can fix this
+                var qStringPart = hrefSplit.splice(1, hrefSplit.length-1);
+                var qString = "";
+                _.forEach(qStringPart, function(qs){
+                    qString += qs;
+                });
+
+                return qString;
+            }
+
+            return "";
+        },
 
         /*
          * Parse query string from url

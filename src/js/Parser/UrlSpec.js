@@ -1,5 +1,5 @@
 
-describe("UrlSpec", function () {
+describe("Parser/UrlSpec", function () {
 
     var Squire = null,
         Injector = null,
