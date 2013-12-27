@@ -140,6 +140,32 @@ describe("UrlSpec", function () {
     });
 
 
+    async.it(".path()", function (done) {
+
+        Injector.require(["js-utils-lib/Parser/Url"], function(Url){
+
+            var path = Url.path("http://google/a/b/asas.assap");
+            expect(path).toBe("a/b/");
+
+            path = Url.path("http://google/a/b/");
+            expect(path).toBe("a/b/");
+
+            path = Url.path("http://google/");
+            expect(path).toBe("");
+
+            path = Url.path("");
+            expect(path).toBe("");
+
+            path = Url.path(null);
+            expect(path).toBe("");
+            
+            done();
+
+        });
+
+    });
+
+
 
 
 

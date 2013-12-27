@@ -105,6 +105,33 @@ define(["require", "lodash", "js-utils-lib/Type"], function(require){
 
         },
 
+        /**
+         * Get the path of the url
+         * 
+         * @param  {String} url
+         * @return {String}
+         */
+        path: function(url){
+
+            // sanitize input
+            url = url || "";
+
+            var baseUrl = UrlParser.baseUrl(url) || "";
+
+            // remove the base url
+            url = url.replace(baseUrl, "");
+
+            // remove the last part of the url. this may be a "/"" or "filehandler"
+            var urlParts = url.split("/");
+            urlParts.pop();
+            urlParts.push("");
+            
+            // join all
+            url = urlParts.join("/");
+
+            return UrlParser.normalize(url);
+        },
+
 
         /*
          * Parse query string from url
