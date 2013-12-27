@@ -14,6 +14,8 @@ define(["require", "lodash", "js-utils-lib/Type"], function(require){
 
     /// regular expression to get the baseUrl
     var BaseUrlRegExStr = '^[a-z]+://[a-z.-]+(?::[0-9]+)?';
+    /// regular expression to get the protocol
+    var ProtocolRegExStr = '^([a-z]+)://';
 
 
     
@@ -47,6 +49,22 @@ define(["require", "lodash", "js-utils-lib/Type"], function(require){
 
             var regex = new RegExp(BaseUrlRegExStr, "i");
             return !! regex.exec(url);
+
+        },
+
+        /**
+         * Gets the protocol of the url 
+         * 
+         * @param  {String} url
+         * @return {String}
+         */
+        protocol: function(url){
+
+            var regex = new RegExp(ProtocolRegExStr, "gi");
+            var result = regex.exec(url);
+            if(result) return result[1];
+            
+            return "";
 
         },
 

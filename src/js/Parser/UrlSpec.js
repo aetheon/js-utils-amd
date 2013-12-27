@@ -166,6 +166,26 @@ describe("Parser/UrlSpec", function () {
     });
 
 
+    async.it(".protocol()", function (done) {
+
+        Injector.require(["js-utils-lib/Parser/Url"], function(Url){
+
+            var path = Url.protocol("http://google/a/b/asas.assap");
+            expect(path).toBe("http");
+
+            path = Url.protocol("");
+            expect(path).toBe("");
+
+            path = Url.protocol(null);
+            expect(path).toBe("");
+
+            done();
+
+        });
+
+    });
+
+
 
 
 

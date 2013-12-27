@@ -114,6 +114,20 @@ describe("UrlSpec", function () {
     });
 
 
+    async.it(".protocol()", function (done) {
+
+        Injector.require(["js-utils-lib/Url"], function(Url){
+
+            var url = new Url("http://a.com/a/");
+            expect(url.protocol()).toEqual("http");
+
+            done();
+
+        });
+
+    });
+
+
 
 
 });

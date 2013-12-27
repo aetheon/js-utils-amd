@@ -50,6 +50,16 @@ define([
                 },
 
                 /**
+                 * Gets the protocol
+                 * 
+                 * @return {String}
+                 * 
+                 */
+                protocol: function(){
+                    return UrlParser.protocol(url);
+                },
+
+                /**
                  * Gets the path of the url
                  * 
                  * @return {String}
