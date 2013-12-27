@@ -70,6 +70,22 @@ define([
                 },
 
                 /**
+                 * Gets the file name
+                 * @return {String}
+                 */
+                filename: function(){
+                    return UrlParser.filename(url);
+                },
+
+                /**
+                 * Gets the file path
+                 * @return {String}
+                 */
+                filepath: function(){
+                    return UrlParser.filepath(url);
+                },
+
+                /**
                  * Gets the path of the url
                  * 
                  * @return {String}

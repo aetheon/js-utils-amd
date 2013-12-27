@@ -118,6 +118,41 @@ define(["require", "lodash", "js-utils-lib/Type"], function(require){
         },
 
         /**
+         * Get the file name
+         * 
+         * @return {[type]} [description]
+         * 
+         */
+        filename: function(url){
+
+            // sanitize input
+            url = url || "";
+
+            var urlParts = url.split("/");
+            
+            var filename = urlParts.pop().replace(/\?.*$/, "");
+            
+            return filename;
+
+        },
+
+
+        /**
+         * Gets the entire File Path
+         * 
+         * @param  {String} url
+         * @return {String}
+         */
+        filepath: function(url){ 
+
+            return UrlParser.normalize(
+                UrlParser.baseUrl(url) + 
+                UrlParser.path(url) + 
+                UrlParser.filename(url));
+
+        },
+
+        /**
          * get's the query string part of the url
          *
          * @param{href} The full url or null to get the current

@@ -186,6 +186,59 @@ describe("Parser/UrlSpec", function () {
     });
 
 
+    async.it(".file()", function (done) {
+
+        Injector.require(["js-utils-lib/Parser/Url"], function(Url){
+
+            var filename = Url.filename("http://google/a/b/index.html?asdasdasd");
+            expect(filename).toBe("index.html");
+
+            filename = Url.filename("http://google/a/b/index.html");
+            expect(filename).toBe("index.html");
+
+            filename = Url.filename("http://google/a/b/");
+            expect(filename).toBe("");
+
+            filename = Url.filename("");
+            expect(filename).toBe("");
+
+            filename = Url.filename(null);
+            expect(filename).toBe("");
+
+            done();
+
+        });
+
+    });
+
+
+    async.it(".filepath()", function (done) {
+
+        Injector.require(["js-utils-lib/Parser/Url"], function(Url){
+
+            var filepath = Url.filepath("http://google/a/b/index.html?asdasdasd");
+            expect(filepath).toBe("http://google/a/b/index.html");
+
+            filepath = Url.filepath("http://google/a/b/index.html");
+            expect(filepath).toBe("http://google/a/b/index.html");
+
+            filepath = Url.filepath("http://google/a/b/");
+            expect(filepath).toBe("http://google/a/b/");
+
+            filepath = Url.filepath("");
+            expect(filepath).toBe("");
+
+            filepath = Url.filepath(null);
+            expect(filepath).toBe("");
+
+
+            done();
+
+        });
+
+    });
+
+
 
 
 

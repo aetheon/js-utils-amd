@@ -128,6 +128,34 @@ describe("UrlSpec", function () {
     });
 
 
+    async.it(".filepath()", function (done) {
+
+        Injector.require(["js-utils-lib/Url"], function(Url){
+
+            var url = new Url("http://a.com/a?one=1");
+            expect(url.filepath()).toEqual("http://a.com/a");
+
+            done();
+
+        });
+
+    });
+
+
+    async.it(".filename()", function (done) {
+
+        Injector.require(["js-utils-lib/Url"], function(Url){
+
+            var url = new Url("http://a.com/a?one=1");
+            expect(url.filename()).toEqual("a");
+
+            done();
+
+        });
+
+    });
+
+
 
 
 });
