@@ -110,7 +110,7 @@ describe("IteratorSpec", function () {
 
     async.it(".iterateAsync", function (done) {
 
-        Injector.require(["q", "js-utils-lib/Iterator"], function(Q, Iterator){
+        Injector.require(["q", "js-utils-lib/Type", "js-utils-lib/Iterator"], function(Q, Type, Iterator){
 
             var iterator = new Iterator({
 
@@ -135,16 +135,23 @@ describe("IteratorSpec", function () {
             });
 
 
-            var count = 0;
+            var count = 0,
+                order = "";
+
             iterator.iterateAsync(function(item, parent, index){ 
                 var dfd = Q.defer();
+                
                 count++;
+                
+                if(Type.isString(index))
+                    order+=index.toString();
 
                 dfd.resolve(count);
                 return dfd.promise;
             })
             .then(function(){
                 expect(count).toBe(8);
+                expect(order).toBe("abcde");
                 done();
             });
 
