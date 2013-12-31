@@ -61,5 +61,51 @@ describe("IteratorSpec", function () {
     });
 
 
+    async.it(".iterate stop", function (done) {
+
+        Injector.require(["lodash", "js-utils-lib/Iterator"], function(_, Iterator){
+
+            var iterator = new Iterator({
+
+                "a": {
+
+                    "b": [
+
+                        {
+                            "c": {
+                                "d": 4
+                            },
+
+                            "e": null
+
+                        },
+
+                        function(){}
+
+                    ]
+                }
+
+            });
+
+
+            var count = 0;
+            iterator.iterate(function(item, parent, index){ 
+                
+                count++;
+
+                if(index === "b")
+                    return true;
+
+            });
+
+            expect(count).toBe(3);
+
+            done();
+
+        });
+
+    });
+
+
 
 });
