@@ -36,31 +36,62 @@ define([
              *
              *  Promise.sequence(0, [fn,fn,fn]).then(function(total){});
              *  Promise.sequence([fn,fn,fn]).then(function(total){});
+             *
+             *  // this will stop the execution
+             *  Promise.sequence([
+             *      fn, 
+             *      function(){ dfd.resolve(false) },
+             *      fn
+             *  ]);
              *  
              */
             sequence: function(initialValue, funcs){
 
-                // order of the initialValue's
+                /// order of the initialValue's
                 if(Type.isArray(initialValue)){
                     funcs = initialValue;
                     initialValue = null;
                 }
 
-                // make sure that funcs is an array
+                /// make sure that funcs is an array
                 funcs = Safe.getArray(funcs);
+                funcs = _.clone(funcs);
                 
-                /* jshint -W064 */
-                var result = Q(initialValue);
-                _.each(
-                    funcs,
-                    function(f){
-                        // only execute is the result is a promise
-                        if(Q.isPromise(result)){
-                            result = result.then(f);
-                        }
-                    });
+                /// save the lastParameter
+                var lastParameter = initialValue;
 
-                return result;
+                var dfd = Q.defer();
+                
+                (function next(arg){
+
+                    var fn = funcs.shift();
+                    
+                    /// if argument is false stop iterating    
+                    if( arg === false ){
+                        dfd.resolve(lastParameter);
+                        return;
+                    }
+
+                    /// save the last parameter
+                    lastParameter = arg;
+
+                    /// if there is no more functions resolve with the
+                    /// last parameter
+                    if( !fn ){
+                        dfd.resolve(lastParameter);
+                        return;
+                    }
+
+                    /// execute the next function chaining the lastParameter
+                    /// on arguments
+                    fn(lastParameter)
+                        .then(next)
+                        .fail(next);
+                    
+                    
+                })(initialValue);
+                
+                return dfd.promise;
 
             }
 

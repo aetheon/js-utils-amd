@@ -111,7 +111,7 @@ define([
 
                         /// save the function to later be executed
                         fns.push(function(){ 
-                            return asyncCallback(item, parent, key); 
+                            return asyncCallback(item, parent, key);
                         });
 
                     });

@@ -1,5 +1,5 @@
 
-describe("SafeSpec", function () {
+describe("PromiseSpec", function () {
 
     var Squire = null,
         Injector = null,
@@ -55,6 +55,34 @@ describe("SafeSpec", function () {
             Promise.sequence([sum, sum, sum]).then(
                 function(total){
                     expect(total).toBe(3);
+                    done();
+                });
+
+        });
+
+    });
+
+
+    async.it(".sequence([]) stop", function (done) {
+
+        Injector.require(["q", "js-utils-lib/Promise"], function(Q, Promise){
+
+            var sum = function(val){ 
+                val = val || 0;
+                var dfd = Q.defer();
+                
+                if(val >= 1){
+                    dfd.resolve(false);
+                }else{
+                    dfd.resolve(val + 1);    
+                }
+                
+                return dfd.promise;
+            };
+
+            Promise.sequence([sum, sum, sum]).then(
+                function(total){
+                    expect(total).toBe(1);
                     done();
                 });
 
