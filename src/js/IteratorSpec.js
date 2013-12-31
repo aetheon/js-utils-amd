@@ -108,4 +108,50 @@ describe("IteratorSpec", function () {
 
 
 
+    async.it(".iterateAsync", function (done) {
+
+        Injector.require(["q", "js-utils-lib/Iterator"], function(Q, Iterator){
+
+            var iterator = new Iterator({
+
+                "a": {
+
+                    "b": [
+
+                        {
+                            "c": {
+                                "d": 4
+                            },
+
+                            "e": null
+
+                        },
+
+                        function(){}
+
+                    ]
+                }
+
+            });
+
+
+            var count = 0;
+            iterator.iterateAsync(function(item, parent, index){ 
+                var dfd = Q.defer();
+                count++;
+
+                dfd.resolve(count);
+                return dfd.promise;
+            })
+            .then(function(){
+                expect(count).toBe(8);
+                done();
+            });
+
+        });
+
+    });
+
+
+
 });

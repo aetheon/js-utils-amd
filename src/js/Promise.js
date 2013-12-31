@@ -11,6 +11,7 @@ define([
     "js-utils-lib/Type",
     "js-utils-lib/Safe"
 
+
     ], function(require){
         "use strict";
 
@@ -25,7 +26,7 @@ define([
 
 
             /**
-             * Runs a sequence of functions
+             * Runs a sequence of async functions sync
              * 
              * @param  {*}      initialValue The initial argument for the function
              * @param  {Array}  funcs        The array of functions

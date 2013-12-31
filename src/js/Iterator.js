@@ -11,7 +11,8 @@ define([
     "lodash", 
 
     "js-utils-lib/Type",
-    "js-utils-lib/Safe"
+    "js-utils-lib/Safe",
+    "js-utils-lib/Promise"
 
     ], function(require){
         "use strict";
@@ -19,7 +20,8 @@ define([
 
         var _ = require("lodash"),
             Safe = require("js-utils-lib/Safe"),
-            Type = require("js-utils-lib/Type");
+            Type = require("js-utils-lib/Type"),
+            Promise = require("js-utils-lib/Promise");
 
 
         /**
@@ -91,8 +93,32 @@ define([
                     // start iterating
                     _iterate(obj);
 
-                }
+                },
 
+
+                /**
+                 * Async version of .iterate()
+                 *
+                 * @param {Function} asyncCallback An async function
+                 *
+                 * @return {Promise}
+                 * 
+                 */
+                iterateAsync: function(asyncCallback){
+
+                    var fns = [];
+                    new Iterator(obj).iterate(function(item, parent, key){
+
+                        /// save the function to later be executed
+                        fns.push(function(){ 
+                            return asyncCallback(item, parent, key); 
+                        });
+
+                    });
+
+                    return Promise.sequence(fns);
+
+                }
 
 
 
