@@ -94,7 +94,7 @@ describe("IteratorSpec", function () {
                 count++;
 
                 if(index === "b")
-                    return true;
+                    return false;
 
             });
 
@@ -140,18 +140,75 @@ describe("IteratorSpec", function () {
 
             iterator.iterateAsync(function(item, parent, index){ 
                 var dfd = Q.defer();
-                
                 count++;
-                
-                if(Type.isString(index))
-                    order+=index.toString();
 
-                dfd.resolve(count);
+                if(Type.isString(index)){
+                    order += index;
+                }
+
+                dfd.resolve();
                 return dfd.promise;
             })
             .then(function(){
                 expect(count).toBe(8);
                 expect(order).toBe("abcde");
+                done();
+            });
+
+        });
+
+    });
+
+
+    async.it(".iterateAsync stop", function (done) {
+
+        Injector.require(["q", "js-utils-lib/Type", "js-utils-lib/Iterator"], function(Q, Type, Iterator){
+
+            var iterator = new Iterator({
+
+                "a": {
+
+                    "b": [
+
+                        {
+                            "c": {
+                                "d": 4
+                            },
+
+                            "e": null
+
+                        },
+
+                        function(){}
+
+                    ]
+                }
+
+            });
+
+
+            var count = 0,
+                order = "";
+
+            iterator.iterateAsync(function(item, parent, index){ 
+                var dfd = Q.defer();
+                count++;
+
+                if(Type.isString(index)){
+                    order += index;
+                }
+
+                if(index === "c"){
+                    dfd.resolve(false);
+                }else{
+                    dfd.resolve();    
+                }
+
+                return dfd.promise;
+            })
+            .then(function(){
+                expect(count).toBe(7);
+                expect(order).toBe("abce");
                 done();
             });
 

@@ -88,7 +88,6 @@ define([
                         .then(next)
                         .fail(next);
                     
-                    
                 })(initialValue);
                 
                 return dfd.promise;

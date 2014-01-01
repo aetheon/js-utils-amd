@@ -21,7 +21,7 @@ describe("PromiseSpec", function () {
 
 
     
-    async.it(".sequence(initialValue, [])", function (done) {
+    async.it(".sequence(initialValue, [fns])", function (done) {
 
         Injector.require(["q", "js-utils-lib/Promise"], function(Q, Promise){
 
@@ -41,7 +41,7 @@ describe("PromiseSpec", function () {
 
     });
 
-    async.it(".sequence([])", function (done) {
+    async.it(".sequence([fns])", function (done) {
 
         Injector.require(["q", "js-utils-lib/Promise"], function(Q, Promise){
 
@@ -55,6 +55,27 @@ describe("PromiseSpec", function () {
             Promise.sequence([sum, sum, sum]).then(
                 function(total){
                     expect(total).toBe(3);
+                    done();
+                });
+
+        });
+
+    });
+
+
+    async.it(".sequence([])", function (done) {
+
+        Injector.require(["q", "js-utils-lib/Promise"], function(Q, Promise){
+
+            var sum = function(val){ 
+                val = val || 0;
+                var dfd = Q.defer();
+                dfd.resolve(val + 1);
+                return dfd.promise;
+            };
+
+            Promise.sequence([]).then(
+                function(){
                     done();
                 });
 
