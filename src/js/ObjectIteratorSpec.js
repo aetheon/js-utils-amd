@@ -22,7 +22,7 @@ describe("IteratorSpec", function () {
     
     async.it(".iterate", function (done) {
 
-        Injector.require(["lodash", "js-utils-lib/Iterator"], function(_, Iterator){
+        Injector.require(["lodash", "js-utils-lib/ObjectIterator"], function(_, Iterator){
 
             var iterator = new Iterator({
 
@@ -63,7 +63,7 @@ describe("IteratorSpec", function () {
 
     async.it(".iterate stop", function (done) {
 
-        Injector.require(["lodash", "js-utils-lib/Iterator"], function(_, Iterator){
+        Injector.require(["lodash", "js-utils-lib/ObjectIterator"], function(_, Iterator){
 
             var iterator = new Iterator({
 
@@ -110,7 +110,7 @@ describe("IteratorSpec", function () {
 
     async.it(".iterateAsync", function (done) {
 
-        Injector.require(["q", "js-utils-lib/Type", "js-utils-lib/Iterator"], function(Q, Type, Iterator){
+        Injector.require(["q", "js-utils-lib/Type", "js-utils-lib/ObjectIterator"], function(Q, Type, Iterator){
 
             var iterator = new Iterator({
 
@@ -162,7 +162,7 @@ describe("IteratorSpec", function () {
 
     async.it(".iterateAsync stop", function (done) {
 
-        Injector.require(["q", "js-utils-lib/Type", "js-utils-lib/Iterator"], function(Q, Type, Iterator){
+        Injector.require(["q", "js-utils-lib/Type", "js-utils-lib/ObjectIterator"], function(Q, Type, Iterator){
 
             var iterator = new Iterator({
 
