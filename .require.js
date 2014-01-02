@@ -21,6 +21,8 @@ requirejs.config({
 
         'bootstrap': 'lib/bootstrap/latest/js/bootstrap',
 
+        'ember': 'lib/ember/ember-latest',
+
         'knockout': 'lib/knockout/knockout-latest',
         'knockout-validation': 'lib/knockout/knockout.validation',
 
