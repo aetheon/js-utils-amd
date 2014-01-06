@@ -57,14 +57,7 @@ module.exports = function(grunt) {
   });
 
   // load libs
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-requirejs');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-jasmine');
-  grunt.loadNpmTasks('grunt-http-server');
-  grunt.loadNpmTasks('grunt-simple-mocha');
-  //grunt.loadNpmTasks('grunt-contrib-compass');
-  /*grunt.loadNpmTasks('grunt-jsdoc-plugin');*/
+  require('load-grunt-tasks')(grunt);
   
   
   grunt.registerTask(

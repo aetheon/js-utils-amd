@@ -27,12 +27,12 @@
     "grunt-contrib-requirejs": "*",
     "grunt-contrib-watch": "*",
     "grunt-contrib-jasmine": "*",
-    "grunt-template-jasmine-requirejs": "*",
     "grunt-http-server": "*",
     "grunt-simple-mocha": ">=0.4.0",
-    
-    "expect.js": ">=0.2.0",
+    "load-grunt-tasks": "*",
 
+    "expect.js": ">=0.2.0",
+    
     "amdefine": ">=0.1.0",
     "requirejs": ">=2.1.9"
   },
