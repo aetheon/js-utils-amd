@@ -17,7 +17,8 @@ define([
 
 
         /// using q as library
-        var Q = require("q"),
+        var _ = require("lodash"),
+            Q = require("q"),
             Type = require("js-utils-lib/Type"),
             Safe = require("js-utils-lib/Safe");
 
