@@ -20,15 +20,17 @@
   },
 
   "devDependencies": {
-    "grunt-contrib-compass": "*",
+    
     "grunt": "~0.4.0",
     "grunt-cli": "",
-    "grunt-contrib-jshint": "*",
-    "grunt-contrib-requirejs": "*",
-    "grunt-contrib-watch": "*",
-    "grunt-contrib-jasmine": "*",
     "grunt-http-server": "*",
     "grunt-simple-mocha": ">=0.4.0",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-compass": "*",
+    "grunt-contrib-requirejs": "*",
+    "grunt-contrib-jasmine": "*",
+    "grunt-template-jasmine-requirejs": "*",
     "load-grunt-tasks": "*",
 
     "expect.js": ">=0.2.0",
