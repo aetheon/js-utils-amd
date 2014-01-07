@@ -54,8 +54,9 @@ describe("TreeSpec", function () {
                 
             };
 
-            var t = new Tree(data);
-            var root = t.root();
+            var t = new Tree();
+            t.set(data);
+            var root = t.get();
 
             expect(root).not.toBe(null);
             expect(root.id).toBe(1);
@@ -101,7 +102,8 @@ describe("TreeSpec", function () {
                 
             };
 
-            var t = new Tree(data);
+            var t = new Tree();
+            t.set(data);
             var size = t.squareSize();
 
             expect(size.width).toBe(3);

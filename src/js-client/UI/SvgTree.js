@@ -179,7 +179,7 @@ define([
                 tree.size([levels.height * 100, levels.width * 200]);
 
                 // Compute the new tree layout.
-                var nodes = tree.nodes(options.tree.root()),
+                var nodes = tree.nodes(options.tree.get()),
                     links = tree.links(nodes);
 
                 // Update the nodes and set their id's

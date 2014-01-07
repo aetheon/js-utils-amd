@@ -54,6 +54,9 @@ define([
 
 
 
+
+
+
         /**
          * A Tree data structure
          *
@@ -63,13 +66,10 @@ define([
          *      var root = tree.root();
          *
          */
-        var Tree = function(data, options){
-
-            // clone a get the tree structure
-            var root = Safe.getObject(data);
+        var Tree = function(options){
 
             // create a clone of data to handle the tree structure
-            root = _.cloneDeep(root);
+            var root = {};
 
             // get the arguments
             options = Arguments.get(options, {
@@ -78,18 +78,40 @@ define([
                 }
             });
 
-            // converts node's
-            convertToTreeNode(root, options.getChildren, null);
+
+            // inialize Tree
+            var initializeTree = function(data){
+
+                // safely gets Object
+                data = Safe.getObject(data);
+
+                // clone the given data
+                root = _.cloneDeep(data);
+                
+                // converts node's
+                convertToTreeNode(root, options.getChildren, null);
+
+            };
 
 
             var _this = {
+
+                /**
+                 * Sets the tree data
+                 *  
+                 * @param {Object} data The tree data
+                 * 
+                 */
+                set: function(data){
+                    initializeTree(data);
+                },
 
                 /**
                  * Gets the tree root
                  * 
                  * @return {Object} The root of the tree
                  */
-                root: function(){
+                get: function(){
                     return root;
                 },
 
