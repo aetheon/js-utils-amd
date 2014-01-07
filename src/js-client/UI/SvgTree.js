@@ -62,6 +62,11 @@ define([
 
                     node: {
                         radius: 20
+                    },
+
+                    // get the node text
+                    getNodeText: function(node){
+                      return node.name;
                     }
                     
                 });
@@ -248,7 +253,7 @@ define([
                         return d.children ? gap : 5;
                     })
                     .text(function (d) {
-                        return d.name;
+                        return options.getNodeText(d);
                     });
                 
                 // links that are no longer needed are removed
@@ -326,12 +331,12 @@ define([
                 },
                 
                 /*
-                 * Renders the tree with the given data
+                 * Refresh the Tree rendered
                  *
                  * @return {Object} the data
                  *
                  */
-                render: function (data) {
+                render: function () {
 
                     tree = d3.layout.tree().size([500, 800]);
                     render({});
