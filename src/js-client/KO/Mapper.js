@@ -74,11 +74,21 @@ define([
                     /// for each obj convert the element
                     _.each(obj, function(item){
 
-                        /// convert the object with the schema
-                        var conv = toKo(resultSchema, item);
+                        /// if resultSchema dont exits push the entire 
+                        /// object
+                        if(resultSchema == null){
 
-                        if(conv){
-                            results.push(conv);
+                            results.push(obj);
+
+                        } else {
+
+                            /// convert the object with the schema
+                            var conv = toKo(resultSchema, item);
+
+                            if(conv){
+                                results.push(conv);
+                            }
+
                         }
 
                     });
@@ -96,20 +106,33 @@ define([
                     /// the result is an array
                     var result = {};
 
-                    /// for each obj convert the element
-                    _.each(_.keys(schema), function(key){
+                    /// get the schema keys 
+                    var schemaKeys = _.keys(schema);
 
-                        var resultSchema = schema[key],
-                            item = obj[key];
+                    /// if schema is empty then return the entire 
+                    /// object
+                    if(!schemaKeys.length){
 
-                        /// convert the object with the schema
-                        var conv = toKo(resultSchema, item);
+                        result = obj;
 
-                        if(conv){
-                            result[key] = conv;
-                        }
+                    } else {
 
-                    });
+                        /// for each obj convert the element
+                        _.each(schemaKeys, function(key){
+
+                            var resultSchema = schema[key],
+                                item = obj[key];
+
+                            /// convert the object with the schema
+                            var conv = toKo(resultSchema, item);
+
+                            if(conv){
+                                result[key] = conv;
+                            }
+
+                        });
+
+                    }
 
                     /// return the result
                     return ko.observable(result);

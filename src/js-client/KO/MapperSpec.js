@@ -37,8 +37,7 @@ describe("KO/Mapper Spec", function () {
                         Id: 0
                     }
                 ],
-                PrimitiveArray: [ "" ],
-                IgnoreContent: []
+                PrimitiveArray: [ "" ]
 
             }]);
 
@@ -87,7 +86,7 @@ describe("KO/Mapper Spec", function () {
             expect(obj[0].Children[0].Id).toEqual(1);
             expect(obj[0].Children[1].Id).toEqual(2);
             expect(obj[0].PrimitiveArray.length).toEqual(3);
-            expect(obj[0].IgnoreContent.length).toEqual(0);
+            expect(obj[0].IgnoreContent).toEqual(undefined);
 
 
             expect(obj[1].Id).toEqual(2);
@@ -121,8 +120,7 @@ describe("KO/Mapper Spec", function () {
                     {
                         Id: 0
                     }
-                ],
-                IgnoreContent: []
+                ]
 
             });
 
@@ -154,8 +152,31 @@ describe("KO/Mapper Spec", function () {
             expect(obj.Children.length).toEqual(2);
             expect(obj.Children[0].Id).toEqual(1);
             expect(obj.Children[1].Id).toEqual(2);
-            expect(obj.IgnoreContent.length).toEqual(0);
+            expect(obj.IgnoreContent).toEqual(undefined);
            
+
+            done();
+
+        });
+
+    });
+
+    async.it(".toKO() schema - empty structure should copy all content", function (done) {
+
+
+        Injector.require(["knockout", "lodash", "js-utils/KO/Mapper"], function(ko, _, Mapper){
+
+            var mapper = new Mapper([]);
+            var obj = mapper.toKO([{ Id: 1 }]);
+            obj = ko.toJS(obj);            
+            expect(obj.length, 1);
+            expect(obj[0].Id, 1);
+
+
+            mapper = new Mapper({});
+            obj = mapper.toKO({ Id: 1 });
+            obj = ko.toJS(obj);            
+            expect(obj[0], 1);
 
             done();
 
