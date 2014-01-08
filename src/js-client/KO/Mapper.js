@@ -1,166 +1,141 @@
 
-define([ "require", "lodash", "knockout", "js-utils/AutoMapping/AutoMapper", "js-utils-lib/Type", 
-         "js-utils/Log/index" ], 
-    function(require, _, ko){
+define([
+
+        "require", 
+        "lodash", 
+        "knockout", 
+        "js-utils-lib/Type",
+        "js-utils-lib/Safe"
+
+    ], function(require){
         "use strict";
 
-
-
-        var AutoMapper = require("js-utils/AutoMapping/AutoMapper"),
+        var _ = require("lodash"),
+            ko = require("knockout"),
             Type = require("js-utils-lib/Type"),
-            Log = require("js-utils/Log/index");
-
-        var MAPPER_SRC_KEY = "koAutoMapperHelperSrc",
-            MAPPER_DEST_KEY = "koAutoMapperHelperDest",
-            log = new Log.Logger("js-utils/KO/Mapper");
+            Safe = require("js-utils-lib/Safe");
 
 
-        /* create automapper */
-        var automapper = new AutoMapper();
-        automapper.createMap(MAPPER_SRC_KEY, MAPPER_DEST_KEY)
-            .forAllMembers(
-                function (dest, key, value) {
+        /**
+         * 
+         *
+         * 
+         * @param {[type]} schema [description]
+         *
+         * @example
+         * new Mapper({
+         *     Id: String
+         *     Name: String,
+         *
+         *     Items: [
+         *
+         *          {
+         *              
+         *          
+         *          }
+         *     
+         *     ]
+         * 
+         * })
+         * 
+         */
+        var Mapper = function(schema){
+            
 
-                    // if is an observable map the value
-                    if (ko.isObservable(dest[key])) {
-                        dest[key](value);
-                    }
+            var toKo = function(schema, obj){
+
+                /* jshint -W041 */
+                if(schema == null || obj == null) {
+                    return null;
+                }
+
+
+                if(Type.isArray(schema)){
+
+                    /// be sure that obj is an object
+                    obj = Safe.getArray(obj);
+
+                    /// get the first element from the result schema
+                    var resultSchema = schema.length > 0 ? schema[0] : null;
+
+                    /// the results are array
+                    var results = ko.observableArray();
+
+                    /// for each obj convert the element
+                    _.each(obj, function(item){
+
+                        /// convert the object with the schema
+                        var conv = toKo(resultSchema, item);
+
+                        if(conv){
+                            results.push(conv);
+                        }
+
+                    });
+
+                    /// return the observableArray
+                    return results;
 
                 }
-            );
+
+                else if(Type.isObject(schema)){
+
+                    /// be sure that obj is an object
+                    obj = Safe.getObject(obj);
+
+                    /// the result is an array
+                    var result = {};
+
+                    /// for each obj convert the element
+                    _.each(_.keys(schema), function(key){
+
+                        var resultSchema = schema[key],
+                            item = obj[key];
+
+                        /// convert the object with the schema
+                        var conv = toKo(resultSchema, item);
+
+                        if(conv){
+                            result[key] = conv;
+                        }
+
+                    });
+
+                    /// return the result
+                    return result;
+
+                }
+
+                else if(!Type.isFunction(schema)){
+                    return ko.observable(obj);
+                }
+
+                return null;
+
+            };
 
 
-        /*
-         * Mapper contains static methods to map general javascript Object to 
-         * KO observables objects. 
-         *
-         * To expand field the field type must be specified on the format: __fieldnameType
-         *
-         * @param {Object|Function} The object or Class to fill/instanciate
-         *
-         * @return {Object} The Mapper facade
-         */
-        var Mapper = function(viewmodel){
-            
+
 
             return {
 
 
-                /*
-                 * Maps the given viewmodel instance from the src
-                 * 
-                 * @param {Object} src The src Object
-                 * @param {Boolean} lazy Lazy flag
-                 *
+                /**
+                 * [toKO description]
+                 * @param  {[type]} obj [description]
+                 * @return {[type]}     [description]
                  */
-                from: function(src, lazy){
+                toKO: function(obj){
 
+                    return toKo(schema, obj);
 
-                    // if the src is object we must iterate all over its keys
-                    // to fill its properties
-                    if(Type.isObject(src)){
-
-                        // auto-instanciate viewmodel if needed, in other words
-                        // if a Class type is needed
-                        if(Type.isFunction(viewmodel)){
-                            /* jshint -W055 */
-                            viewmodel = new viewmodel();
-                        }
-
-                        //
-                        // Bottom-up recursive call to map all the inner structures
-                        // This will expand the fields with __PropertyType
-                        //
-                        var scope = this;
-                        _.each(
-                            Type.getProperties(src),
-                            function (property) {
-                               
-                               return (function () {
-
-                                    property = property.toString();
-                                    var value = src[property];
-
-                                    // ignore values that are not objects ( cannot be a data structure )
-                                    if (!value || typeof value != "object") return;
-
-                                    // get the property type
-                                    // eg: __Prop1Type where Prop1 is the property
-                                    var MappingObjectClass = Type.getProperty(viewmodel, "__" + property + "Type");
-
-                                    if (!MappingObjectClass) return;
-
-                                    // recursive call to properties values
-                                    var propertyValue = null;
-                                    if (value instanceof Array) {
-                                        // if is array iterate over all elements and concat them
-                                        propertyValue = _.map(
-                                                    value,
-                                                    function (val) {
-                                                        return (function () {
-                                                            return new Mapper(new MappingObjectClass()).from(val);
-                                                        }).call(scope);
-                                                    });
-                                    }
-                                    else {
-                                        propertyValue = new Mapper(new MappingObjectClass()).from(value);
-                                    }
-                                    
-                                    // set the src property with the value of the recursive call
-                                    src[property] = propertyValue;
-
-                                }).call(scope);
-
-                            });
-
-
-                        // Map my own objects!
-                        automapper.map(
-                            MAPPER_SRC_KEY,
-                            MAPPER_DEST_KEY,
-                            src,
-                            viewmodel,
-                            lazy);                        
-
-                    }
-
-                    else
-                    if(Type.isArray(src)){
-
-                        var result = [];
-
-                        _.each(
-                            src,
-                            function(value){
-                                return (function () {
-
-                                    // auto-instanciate viewmodel if needed, in other words
-                                    // if a Class type is needed
-                                    if(!Type.isFunction(viewmodel)){
-                                        throw new Error("When mapping array's the Mapper viewmodel should be a Function");
-                                    }
-
-                                    result.push(new Mapper(new viewmodel()).from(value));
-
-                                }).call(scope);
-                            }
-                        );
-
-                        // return the computed array
-                        return result;
-
-                    }
-
-
-
-                
-                    // default return
-                    return viewmodel;
-                
                 }
 
+
             };
+
             
+
 
         };
 

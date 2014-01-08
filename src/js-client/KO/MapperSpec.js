@@ -21,139 +21,141 @@ describe("KO/Mapper Spec", function () {
 
 
     
-    async.it(".from() should map the viewmodel observables from the src", function (done) {
+    async.it(".toKO() Array", function (done) {
 
 
         Injector.require(["knockout", "js-utils/KO/Mapper"], function(ko, Mapper){
 
+            var mapper = new Mapper([{
 
-            var SrcClass = function(){
-                this.str = ko.observable("");
-                this.object = ko.observable({});
-                this.array = ko.observableArray([]);
-            };
+                Id: 0,
+                Name: {
+                    Name: ""
+                },
+                Children: [
+                    {
+                        Id: 0
+                    }
+                ],
+                PrimitiveArray: [ "" ],
+                IgnoreContent: []
 
-            var src = new SrcClass();
+            }]);
 
-            new Mapper(src).from({
-                str: "test",
-                object: { one: 1 },
-                array: [1]
+
+            var obj = mapper.toKO([
+                
+                {
+                    Id: 1,
+                    Ignore: "ignore",
+                    Name: {
+                        Name: "1"
+                    },
+                    Children: [
+                        { Id: 1 },
+                        { Id: 2 }
+                    ],
+                    PrimitiveArray: [ "1", "2", "3" ],
+                    IgnoreContent: [
+                        [ "1", "2", "3" ]
+                    ]
+                },
+
+                {
+                    Id: 2,
+                    Name: {
+                        Name: "2"
+                    },
+                    Children: [
+                        { Id: 3 },
+                        { Id: 4 }
+                    ]
+
+                }
+
+            ]);
+
+
+            obj = ko.toJS(obj);
+
+            expect(obj.length).toEqual(2);
+
+            expect(obj[0].Id).toEqual(1);
+            expect(obj[0].Ignore).toEqual(undefined);
+            expect(obj[0].Name.Name).toEqual("1");
+            expect(obj[0].Children.length).toEqual(2);
+            expect(obj[0].Children[0].Id).toEqual(1);
+            expect(obj[0].Children[1].Id).toEqual(2);
+            expect(obj[0].PrimitiveArray.length).toEqual(3);
+            expect(obj[0].IgnoreContent.length).toEqual(0);
+
+
+            expect(obj[1].Id).toEqual(2);
+            expect(obj[1].Ignore).toEqual(undefined);
+            expect(obj[1].Name.Name).toEqual("2");
+            expect(obj[1].Children.length).toEqual(2);
+            expect(obj[1].Children[0].Id).toEqual(3);
+            expect(obj[1].Children[1].Id).toEqual(4);
+            
+
+            done();
+
+        });
+
+    });
+
+
+
+    async.it(".toKO() Object", function (done) {
+
+
+        Injector.require(["knockout", "js-utils/KO/Mapper"], function(ko, Mapper){
+
+            var mapper = new Mapper({
+
+                Id: 0,
+                Name: {
+                    Name: ""
+                },
+                Children: [
+                    {
+                        Id: 0
+                    }
+                ],
+                IgnoreContent: []
+
             });
 
-            expect(src.str()).toEqual("test");
-            expect(src.object().one).toEqual(1);
-            expect(src.array().length).toEqual(1);
 
-            done();
-
-        });
-
-    });
-
-
-
-    async.it(".from() should not change the viewmodel when the src is null", function (done) {
-
-
-        Injector.require(["knockout", "js-utils/KO/Mapper"], function(ko, Mapper){
-
-
-            var SrcClass = function(){
-                this.str = ko.observable("");
-                this.object = ko.observable({ one: 1});
-                this.array = ko.observable([1]);
-            };
-
-            var src = new SrcClass();
-
-            new Mapper(src).from(null);
-
-            expect(src.str()).toEqual("");
-            expect(src.object().one).toEqual(1);
-            expect(src.array().length).toEqual(1);
-
-            done();
-
-        });
-
-    });
-
-
-
-    async.it(".from() should expand __FieldType", function (done) {
-
-
-        Injector.require(["knockout", "js-utils/KO/Mapper"], function(ko, Mapper){
-
-            var InnerClass = function(){
-                this.str = ko.observable("");
-            };
-
-            var SrcClass = function(){
-                this.str = ko.observable("");
-                this.object = ko.observable({ one: 1});
-                this.array = ko.observable([1]);
-                this.inner = ko.observable();
-                this.__innerType = InnerClass;
-            };
-
-            var src = new SrcClass();
-
-            new Mapper(src).from(
+            var obj = mapper.toKO(
+                
                 {
-                    str: "test",
-                    object: { one: 1 },
-                    array: [1],
-                    inner: {
-                        str: "test"
-                    }
-                });
-
-            expect(src.str()).toEqual("test");
-            expect(src.object().one).toEqual(1);
-            expect(src.array().length).toEqual(1);
-            expect(src.inner().str()).toEqual("test");
-
-            done();
-
-        });
-
-    });
+                    Id: 1,
+                    Ignore: "ignore",
+                    Name: {
+                        Name: "1"
+                    },
+                    Children: [
+                        { Id: 1 },
+                        { Id: 2 }
+                    ],
+                    IgnoreContent: [
+                        [ "1", "2", "3" ]
+                    ]
+                }
+            );
 
 
+            obj = ko.toJS(obj);
 
-    async.it(".from() should expand __FieldType when src has an array", function (done) {
-
-
-        Injector.require(["knockout", "js-utils/KO/Mapper"], function(ko, Mapper){
-
-            var InnerClass = function(){
-                this.str = ko.observable("");
-            };
-
-            var SrcClass = function(){
-                this.str = ko.observable("");
-                this.object = ko.observable({ one: 1});
-                this.array = ko.observable();
-                this.__arrayType = InnerClass;
-            };
-
-            var src = new SrcClass();
-
-            new Mapper(src).from(
-                {
-                    str: "test",
-                    object: { one: 1 },
-                    array: [{
-                        str: "test"
-                    }] 
-                });
-
-            expect(src.str()).toEqual("test");
-            expect(src.object().one).toEqual(1);
-            expect(src.array().length).toEqual(1);
-            expect(src.array()[0].str()).toEqual("test");
+            expect(obj.Id).toEqual(1);
+            expect(obj.Ignore).toEqual(undefined);
+            expect(obj.Name.Name).toEqual("1");
+            expect(obj.Children.length).toEqual(2);
+            expect(obj.Children[0].Id).toEqual(1);
+            expect(obj.Children[1].Id).toEqual(2);
+            expect(obj.IgnoreContent.length).toEqual(0);
+           
 
             done();
 
@@ -161,64 +163,7 @@ describe("KO/Mapper Spec", function () {
 
     });
 
-
-
-    async.it(".from() should map the viewmodel observables from the src Array", function (done) {
-
-
-        Injector.require(["knockout", "js-utils/KO/Mapper"], function(ko, Mapper){
-
-
-            var SrcClass = function(){
-                this.str = ko.observable("");
-                this.object = ko.observable({});
-                this.array = ko.observable([]);
-            };
-
-            var result = new Mapper(SrcClass).from([{
-                            str: "test",
-                            object: { one: 1 },
-                            array: [1]
-                        }]);
-
-            expect(result).not.toBe(null);
-            expect(result.length).toEqual(1);
-
-            done();
-
-        });
-
-    });
-
-
-    async.it(".from() should map the viewmodel observables from the src Object", function (done) {
-
-
-        Injector.require(["knockout", "js-utils/KO/Mapper"], function(ko, Mapper){
-
-
-            var SrcClass = function(){
-                this.str = ko.observable("");
-                this.object = ko.observable({});
-                this.array = ko.observable([]);
-            };
-
-            var result = new Mapper(SrcClass).from({
-                            str: "test",
-                            object: { one: 1 },
-                            array: [1]
-                        });
-
-            expect(result.str()).toEqual("test");
-            expect(result.object().one).toEqual(1);
-            expect(result.array().length).toEqual(1);
-
-            done();
-
-        });
-
-    });
-
+    
 
 
 });
