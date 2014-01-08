@@ -163,6 +163,28 @@ describe("KO/Mapper Spec", function () {
 
     });
 
+
+    async.it(".toKO() not compatible objects", function (done) {
+
+
+        Injector.require(["knockout", "lodash", "js-utils/KO/Mapper"], function(ko, _, Mapper){
+
+            var mapper = new Mapper([{ Id: 0 }]);
+            var obj = mapper.toKO({ Id: 1 });
+            obj = ko.toJS(obj);
+            expect(obj.length, 0);
+
+            mapper = new Mapper({ Id: 0 });
+            obj = mapper.toKO([{ Id: 1 }]);
+            obj = ko.toJS(obj);
+            expect(typeof(obj), "object");
+
+            done();
+
+        });
+
+    });
+
     
 
 

@@ -17,31 +17,41 @@ define([
 
 
         /**
+         * Mapper class to create knockout viewmodels from the given 
+         * schema.
          * 
-         *
-         * 
-         * @param {[type]} schema [description]
+         * @param {Object|Array} schema
          *
          * @example
          * new Mapper({
-         *     Id: String
-         *     Name: String,
+         * 
+         *     Id: 0
+         *     Name: "",
          *
          *     Items: [
          *
          *          {
-         *              
-         *          
+         *              Id: 0
          *          }
          *     
          *     ]
          * 
-         * })
+         * });
          * 
          */
         var Mapper = function(schema){
             
 
+            /**
+             * Helper recursive function to convert the object to a knockout 
+             * compatible viewmodel
+             * 
+             * @param  {Object|Array} schema
+             * @param  {Object|Array} obj
+             * 
+             * @return {Object|Array}
+             * 
+             */
             var toKo = function(schema, obj){
 
                 /* jshint -W041 */
@@ -102,7 +112,7 @@ define([
                     });
 
                     /// return the result
-                    return result;
+                    return ko.observable(result);
 
                 }
 
@@ -121,9 +131,14 @@ define([
 
 
                 /**
-                 * [toKO description]
-                 * @param  {[type]} obj [description]
-                 * @return {[type]}     [description]
+                 * Converts the object to ko observables acordingly to the 
+                 * schema.
+                 *
+                 * Every array and object and primitive types are converted to 
+                 * ko.observable
+                 *  
+                 * @param  {Object|Array} obj
+                 * @return {*}
                  */
                 toKO: function(obj){
 
