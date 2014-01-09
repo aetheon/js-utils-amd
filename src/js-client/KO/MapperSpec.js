@@ -75,26 +75,26 @@ describe("KO/Mapper Spec", function () {
             ]);
 
 
-            obj = ko.toJS(obj);
+            //obj = ko.toJS(obj);
 
-            expect(obj.length).toEqual(2);
+            expect(obj().length).toEqual(2);
 
-            expect(obj[0].Id).toEqual(1);
-            expect(obj[0].Ignore).toEqual(undefined);
-            expect(obj[0].Name.Name).toEqual("1");
-            expect(obj[0].Children.length).toEqual(2);
-            expect(obj[0].Children[0].Id).toEqual(1);
-            expect(obj[0].Children[1].Id).toEqual(2);
-            expect(obj[0].PrimitiveArray.length).toEqual(3);
-            expect(obj[0].IgnoreContent).toEqual(undefined);
+            expect(obj()[0]().Id()).toEqual(1);
+            expect(obj()[0]().Ignore).toEqual(undefined);
+            expect(obj()[0]().Name().Name()).toEqual("1");
+            expect(obj()[0]().Children().length).toEqual(2);
+            expect(obj()[0]().Children()[0]().Id()).toEqual(1);
+            expect(obj()[0]().Children()[1]().Id()).toEqual(2);
+            expect(obj()[0]().PrimitiveArray().length).toEqual(3);
+            expect(obj()[0]().IgnoreContent).toEqual(undefined);
 
 
-            expect(obj[1].Id).toEqual(2);
-            expect(obj[1].Ignore).toEqual(undefined);
-            expect(obj[1].Name.Name).toEqual("2");
-            expect(obj[1].Children.length).toEqual(2);
-            expect(obj[1].Children[0].Id).toEqual(3);
-            expect(obj[1].Children[1].Id).toEqual(4);
+            expect(obj()[1]().Id()).toEqual(2);
+            expect(obj()[1]().Ignore).toEqual(undefined);
+            expect(obj()[1]().Name().Name()).toEqual("2");
+            expect(obj()[1]().Children().length).toEqual(2);
+            expect(obj()[1]().Children()[0]().Id()).toEqual(3);
+            expect(obj()[1]().Children()[1]().Id()).toEqual(4);
             
 
             done();
@@ -143,16 +143,13 @@ describe("KO/Mapper Spec", function () {
                 }
             );
 
-
-            obj = ko.toJS(obj);
-
-            expect(obj.Id).toEqual(1);
-            expect(obj.Ignore).toEqual(undefined);
-            expect(obj.Name.Name).toEqual("1");
-            expect(obj.Children.length).toEqual(2);
-            expect(obj.Children[0].Id).toEqual(1);
-            expect(obj.Children[1].Id).toEqual(2);
-            expect(obj.IgnoreContent).toEqual(undefined);
+            expect(obj().Id()).toEqual(1);
+            expect(obj().Ignore).toEqual(undefined);
+            expect(obj().Name().Name()).toEqual("1");
+            expect(obj().Children().length).toEqual(2);
+            expect(obj().Children()[0]().Id()).toEqual(1);
+            expect(obj().Children()[1]().Id()).toEqual(2);
+            expect(obj().IgnoreContent).toEqual(undefined);
            
 
             done();

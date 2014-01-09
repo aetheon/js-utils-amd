@@ -134,8 +134,8 @@ define([
 
                     }
 
-                    /// return the result as an object
-                    return result;
+                    /// return the observable
+                    return ko.observable(result);
 
                 }
 
