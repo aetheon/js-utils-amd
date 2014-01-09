@@ -126,10 +126,12 @@ define([
                             /// convert the object with the schema
                             var conv = toKo(resultSchema, item);
 
-                            if(conv){
+                            /// set the value even if is null
+                            if(conv !== null)
                                 result[key] = conv;
-                            }
-
+                            else
+                                result[key] = ko.observable(null);
+                            
                         });
 
                     }

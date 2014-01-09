@@ -30,7 +30,8 @@ describe("KO/Mapper Spec", function () {
 
                 Id: 0,
                 Name: {
-                    Name: ""
+                    Name: "",
+                    Age: ""
                 },
                 Children: [
                     {
@@ -48,11 +49,17 @@ describe("KO/Mapper Spec", function () {
                     Id: 1,
                     Ignore: "ignore",
                     Name: {
-                        Name: "1"
+                        // test null values
+                        Name: null
                     },
                     Children: [
+
+                        /// ignore null values
+                        null,
+
                         { Id: 1 },
                         { Id: 2 }
+
                     ],
                     PrimitiveArray: [ "1", "2", "3" ],
                     IgnoreContent: [
@@ -81,7 +88,8 @@ describe("KO/Mapper Spec", function () {
 
             expect(obj()[0]().Id()).toEqual(1);
             expect(obj()[0]().Ignore).toEqual(undefined);
-            expect(obj()[0]().Name().Name()).toEqual("1");
+            expect(obj()[0]().Name().Name()).toEqual(null);
+            expect(obj()[0]().Name().Age()).toEqual(null);
             expect(obj()[0]().Children().length).toEqual(2);
             expect(obj()[0]().Children()[0]().Id()).toEqual(1);
             expect(obj()[0]().Children()[1]().Id()).toEqual(2);
