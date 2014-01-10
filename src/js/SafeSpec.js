@@ -234,23 +234,7 @@ describe("SafeSpec", function () {
 
 
 
-    async.it(".getObject(null) should return an Object", function (done) {
-
-        Injector.require(["js-utils-lib/Safe", "lodash"], function(Safe, _){
-
-            var obj = Safe.getObject(null);
-
-            expect(obj).not.toBe(null);
-            expect(_.keys(obj).length).toBe(0);
-
-            done();
-
-        });
-
-    });
-
-
-    async.it(".getObject({}) should return an Object", function (done) {
+    async.it(".getObject()", function (done) {
 
         Injector.require(["js-utils-lib/Safe", "lodash"], function(Safe, _){
 
@@ -258,6 +242,18 @@ describe("SafeSpec", function () {
 
             expect(obj).not.toBe(null);
             expect(_.keys(obj).length).toBe(1);
+
+            
+            obj = Safe.getObject(null);
+
+            expect(obj).not.toBe(null);
+            expect(_.keys(obj).length).toBe(0);
+
+
+            obj = Safe.getObject(null, { one: 1 });
+
+            expect(obj).not.toBe(null);
+            expect(obj.one).toBe(1);
 
             done();
 
