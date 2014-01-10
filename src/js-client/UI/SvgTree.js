@@ -8,6 +8,7 @@ define([
     "bootstrap",
     "d3",
     "EventEmitter",
+    "js-utils-lib/Safe",
     "js-utils-lib/Arguments",
     "js-utils-lib/Struct/Tree",
     "js-utils-lib/OOP",
@@ -21,6 +22,7 @@ define([
             d3 = require("d3"),
             EventEmitter = require("EventEmitter"),
             Tree = require("js-utils-lib/Struct/Tree"),
+            Safe = require("js-utils-lib/Safe"),
             OOP = require("js-utils-lib/OOP"),
             Arguments = require("js-utils-lib/Arguments"),
             Element = require("js-utils/Dom/Element");
@@ -79,7 +81,6 @@ define([
 
             // private module variables
             var scope = this,
-                nodeCount = 0,
                 draggingOver = null;
 
 
@@ -185,8 +186,7 @@ define([
 
                 // Update the nodes and set their id's
                 var treeNodes = svg.selectAll("g.node").data(nodes, function (d) {
-                    var id = d.id = ++nodeCount;
-                    return id;
+                    return d.id;
                 });
                 
                 var treeLinks = svg.selectAll("path.link").data(links, function(d) {
@@ -360,17 +360,29 @@ define([
                  */
                 center: function(node) {
 
+                    node = Safe.getObject(node);
+
+                    /// ignore if node dont have an id
+                    /* jshint -W041 */
+                    if(node.id == null){
+                        return;
+                    }
+
                     var ElementAttributeParser = require("js-utils-lib/Parser/ElementAttribute"),
                         element = _this.getElement(node.id),
-                        tree = $(".svg-tree", options.container);
+                        tree = $(".svg-tree", options.container),
+                        size = _this.domSize();
 
-                    var size = _this.domSize();
+                    /// ignore if the element was not found
+                    if(!$(element).length){
+                        return;
+                    }
 
+                    /// get the element transform values
                     var e = ElementAttributeParser.transform($(element).attr("transform")),
                         t = ElementAttributeParser.transform($(tree).attr("transform"));
 
-                    var scale = t.scale,
-                        x = e.translateX - (size.x / 2),
+                    var x = e.translateX - (size.x / 2),
                         y = e.translateY - (size.y / 2);
 
                     changeZoom([-x, -y], 1);

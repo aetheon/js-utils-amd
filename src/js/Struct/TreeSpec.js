@@ -148,8 +148,7 @@ describe("TreeSpec", function () {
             t.set(data);
             var results = t.search(function(obj){ return true; });
             
-            /// because Tree adds auxiliar methods to the structure
-            expect(results.length).toBe(7);
+            expect(results.length).toBe(3);
             
             done();
 
@@ -186,6 +185,54 @@ describe("TreeSpec", function () {
             t.remove(data.children[1]);
             
             expect(data.children.length).toBe(1);
+            
+            done();
+
+        });
+
+
+    });
+
+
+    async.it(".add()", function (done) {
+
+
+        Injector.require(["js-utils-lib/Struct/Tree"], function(Tree){
+
+            var data = {
+
+                "id": 1,
+                "children": [
+
+                    {
+                        "id": 4
+                    },
+
+                    {
+                        "id": 6
+                    }
+
+                ]
+                
+            };
+
+            var t = new Tree();
+            t.set(data);
+            
+            t.add({ name: "new1" }, data.children[0]);
+            
+            expect(data.children[0].children.length).toBe(1);
+
+            expect(data.children[0].children[0].id).toBe(3);
+            expect(data.children[0].children[0].name).toBe("new1");
+
+
+            t.add({ name: "new2" });
+
+            expect(data.children.length).toBe(3);
+            
+            expect(data.children[2].id).toBe(4);
+            expect(data.children[2].name).toBe("new2");
             
             done();
 

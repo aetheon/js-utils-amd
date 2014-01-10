@@ -6,6 +6,7 @@ define([
     "require", 
     "lodash", 
 
+    "js-utils-lib/Type",
     "js-utils-lib/Safe",
     "js-utils-lib/Arguments",
     "js-utils-lib/Array",
@@ -15,6 +16,7 @@ define([
         "use strict";
 
         var _ = require("lodash"),
+            Type = require("js-utils-lib/Type"),
             Safe = require("js-utils-lib/Safe"),
             Arguments = require("js-utils-lib/Arguments"),
             ArrayObj = require("js-utils-lib/Array"),
@@ -22,30 +24,44 @@ define([
 
 
         /**
-         * Converts the object into a tree node structure.
-         * 
-         * @param {Object} data   The node data
-         * @param {Object} parent The node parent
+         * A Tree data structure.
+         * The given object will be changed to be in compliance with the tree structure. 
+         * Properties will be added to the tree node's like .parent, .id, ...
          *
          * @example
-         *     
-         *     {
-         *         id: X
-         *         parent: Object
-         *     }
-         * 
+         *
+         *      var tree = new Tree();
+         *      
+         *      tree.set({...});
+         *      
+         *      var root = tree.root();
+         *
          */
-        var convertToTreeNode = function(node, getChildrenFn, parent){
+        var Tree = function(options){
 
-            var nodeCount = 0;
+            // create a clone of data to handle the tree structure
+            var root = {},
+                idCount = 0;
 
-            var _convert = function(node, getChildrenFn, parent){
+            // get the arguments
+            options = Arguments.get(options, {
+                childrenProperty: "children"
+            });
+
+
+            /// Converts the object into a tree node structure.
+            var convertToTreeNode = function(node, parent){
 
                 /// always override the id, because its not a good idea to trust in 
                 /// the input
-                var id = Safe.getNumber(nodeCount++);
+                var id = Safe.getNumber(idCount++);
 
-                var children = getChildrenFn(node);
+                var children = node[options.childrenProperty];
+
+                /// make sure that the parent contains the children
+                if(!Type.isArray(children)){
+                    children = node[options.childrenProperty] = [];
+                }
 
                 // assign the node
                 _.assign(node, {
@@ -75,47 +91,18 @@ define([
                 _.each(children, function(child){
 
                     // initialize tree node
-                    _convert(child, getChildrenFn, node);
+                    convertToTreeNode(child, node);
 
                 });
 
             };
 
-            _convert(node, getChildrenFn, parent);
-
-        };
-
-
-
-        /**
-         * A Tree data structure.
-         * The given object will be changed to be in compliance with the tree structure. 
-         * Properties will be added to the tree node's like .parent, .id, ...
-         *
-         * @example
-         *
-         *      var tree = new Tree();
-         *      
-         *      tree.set({...});
-         *      
-         *      var root = tree.root();
-         *
-         */
-        var Tree = function(options){
-
-            // create a clone of data to handle the tree structure
-            var root = {};
-
-            // get the arguments
-            options = Arguments.get(options, {
-                getChildren: function(d){
-                    return d.children; 
-                }
-            });
-
 
             // inialize Tree
             var initializeTree = function(data){
+
+                /// reset the idcount
+                idCount = 0;
 
                 // safely gets Object
                 data = Safe.getObject(data);
@@ -124,7 +111,7 @@ define([
                 root = data;
                 
                 // converts node's
-                convertToTreeNode(root, options.getChildren, null);
+                convertToTreeNode(root, null);
 
             };
 
@@ -151,6 +138,32 @@ define([
                 },
 
                 /**
+                 * Adds a node to the tree
+                 * 
+                 * @param {Object} node
+                 * @param {Object|null} parent
+                 */
+                add: function(node, parent){
+
+                    parent = parent || null;
+
+                    /// convert to node
+                    convertToTreeNode(node, parent);
+
+                    /// if no parent it belongs to root
+                    if(!parent){
+                        parent = root;
+                    }
+
+                    /// add the node
+                    if(!Type.isArray(parent[options.childrenProperty]))
+                        parent[options.childrenProperty] = [];
+                    
+                    parent[options.childrenProperty].push(node);
+                    
+                },
+
+                /**
                  * Removes the node from the tree
                  * 
                  * @param  {Object}   node The node
@@ -162,7 +175,7 @@ define([
                     node = Safe.getObject(node);
                     
                     /// gets the children
-                    var children = options.getChildren(node.parent);
+                    var children = node.parent[options.childrenProperty];
                     children = Safe.getArray(children);
 
                     /// removes all the children that return true on 
@@ -190,8 +203,12 @@ define([
                             return false;
                         }
 
-                        if(fn(obj)){
-                            results.push(obj);
+                        if(Type.isObject(obj)){
+
+                            if(fn(obj)){
+                                results.push(obj);
+                            }
+
                         }
 
                     });
@@ -217,7 +234,7 @@ define([
                     var inner = function (node) {
 
                         // get children
-                        var children = Safe.getArray(options.getChildren(node));
+                        var children = Safe.getArray(node[options.childrenProperty]);
                         
                         if (children.length > 0) {
 
