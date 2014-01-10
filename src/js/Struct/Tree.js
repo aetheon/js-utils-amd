@@ -71,7 +71,7 @@ define([
             _.each(children, function(child){
 
                 // initialize tree node
-                convertToTreeNode(child, getChildrenFn, node, id++);
+                convertToTreeNode(child, getChildrenFn, node, ++id);
 
             });
 

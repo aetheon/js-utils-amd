@@ -62,6 +62,8 @@ describe("TreeSpec", function () {
 
             /// the id are computed
             expect(root.id).toBe(0);
+            expect(root.children[0].id).toBe(1);
+            expect(root.children[1].id).toBe(2);
             expect(root.children[0].parent).not.toBe(null);
             expect(root.children[0].parent.id).toBe(0);
 
