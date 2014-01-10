@@ -179,6 +179,7 @@ define([
                 tree.size([levels.height * 100, levels.width * 200]);
 
                 // Compute the new tree layout.
+                // This creates a .parent key on each object linking to the parent
                 var nodes = tree.nodes(options.tree.get()),
                     links = tree.links(nodes);
 

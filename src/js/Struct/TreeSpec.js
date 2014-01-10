@@ -61,7 +61,7 @@ describe("TreeSpec", function () {
             expect(root).not.toBe(null);
             expect(root.id).toBe(1);
             expect(root.children[0].parent).not.toBe(null);
-            expect(root.children[0].parent().id).toBe(1);
+            expect(root.children[0].parent.id).toBe(1);
 
             done();
 
@@ -144,7 +144,7 @@ describe("TreeSpec", function () {
             var results = t.search(function(obj){ return true; });
             
             /// because Tree adds auxiliar methods to the structure
-            expect(results.length > 7).toBe(true);
+            expect(results.length).toBe(7);
             
             done();
 

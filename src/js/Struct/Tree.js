@@ -37,11 +37,13 @@ define([
 
                 /**
                  * Gets the node parent
+                 *
+                 * Warning: Compatible with UI/SvgTree. This can infinite loop on recursivity
                  * 
                  * @return {Object}
                  * 
                  */
-                parent: function(){ return parent || null; }
+                parent: parent
 
             });
 
@@ -155,7 +157,11 @@ define([
                     if(!fn) return;
 
                     var results = [];
-                    new ObjectIterator(root).iterate(function(obj){
+                    new ObjectIterator(root).iterate(function(obj, parent, key){
+
+                        if(key === "parent"){
+                            return false;
+                        }
 
                         if(fn(obj)){
                             results.push(obj);
