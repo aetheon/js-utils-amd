@@ -123,11 +123,44 @@ define([
                 },
 
 
+                /**
+                 * Remove all array elements that have a valid 
+                 * callback result
+                 * 
+                 * 
+                 */
+                removeAll: function(fn){
+
+                    fn = Safe.getFunction(fn);
+
+                    var scope = this,
+                        index = 0,
+                        removedNumber = 0;
+
+                    /// clone the array for iterating the elements
+                    _.each(_.clone(array), function(item){
+
+                        if( fn(item) === true ){
+                            
+                            /// remove the index
+                            scope.removeIndex.call(scope, index - removedNumber);
+
+                            /// increment removed number to calculate the real index 
+                            /// of the array
+                            removedNumber++;
+                        }
+
+                        index++;
+
+                    });
+
+                },
+
 
                 /*
                  * Remove index of the array
                  * 
-                 * @param {Object} options - The operations options.
+                 * @param {Object} index - The index to remove
                  *
                  * @return {Array} The removed elements
                  * 
@@ -137,19 +170,7 @@ define([
                     if(!Type.isNumber(index)) return;
                     if(index < 0 || index >= array.length) return;
 
-                    var left = [];
-                    for(var i=0; i<index && i<array.length; i++){
-                        var removed = array.shift();
-                        left.push(removed);
-                    }
-
-                    // remove the index
-                    array.shift();
-
-                    left = left.reverse();
-                    for(var j=0; j<left.length; j++){
-                        array.unshift(left[j]);
-                    }
+                    array.splice(index, 1);
 
                 },
 
@@ -172,13 +193,7 @@ define([
                     );
 
 
-                    var res = [];
-                    for(var i=1; i<=options.n || i<array.length; i++){
-                        var removed = array.shift();
-                        res.push(removed);
-                    }
-
-                    return res;
+                    return array.splice(0, options.n);
 
                 },
 
@@ -201,13 +216,7 @@ define([
                         }
                     );
 
-                    var res = [];
-                    for(var i=1; i<=options.n || i<array.length; i++){
-                       var removed = array.pop();
-                       res.push(removed);
-                    }
-
-                    return res;
+                    return array.splice(array.length - options.n, options.n);
 
                 },
                  
