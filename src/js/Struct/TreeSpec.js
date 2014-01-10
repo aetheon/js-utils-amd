@@ -29,24 +29,24 @@ describe("TreeSpec", function () {
 
             var data = {
 
-                "id": 1,
+                "id": 0,
                 "children": [
                     
                     {
-                        "id": 2,
+                        "id": 0,
                         "children": [
-                            {
-                                "id": 3
-                            }
+                            { "id": 0 },
+                            { "id": 0 },
+                            { "id": 0 }
                         ]
                     },
 
                     {
-                        "id": 4,
+                        "id": 0,
                         "children": [
-                            {
-                                "id": 5
-                            }
+                            { "id": 0 },
+                            { "id": 0 },
+                            { "id": 0 }
                         ]
                     }
 
@@ -63,7 +63,8 @@ describe("TreeSpec", function () {
             /// the id are computed
             expect(root.id).toBe(0);
             expect(root.children[0].id).toBe(1);
-            expect(root.children[1].id).toBe(2);
+            expect(root.children[1].id).toBe(5);
+            
             expect(root.children[0].parent).not.toBe(null);
             expect(root.children[0].parent.id).toBe(0);
 

@@ -35,50 +35,55 @@ define([
          *     }
          * 
          */
-        var convertToTreeNode = function(node, getChildrenFn, parent, id){
+        var convertToTreeNode = function(node, getChildrenFn, parent){
 
-            /// always override the id, because its not a good idea to trust in 
-            /// the input
-            id = Safe.getNumber(id);
+            var nodeCount = 0;
 
-            var children = getChildrenFn(node);
+            var _convert = function(node, getChildrenFn, parent){
 
-            // assign the node
-            _.assign(node, {
+                /// always override the id, because its not a good idea to trust in 
+                /// the input
+                var id = Safe.getNumber(nodeCount++);
 
-                /**
-                 * The id of the leaf
-                 * 
-                 * @type {Number}
-                 * 
-                 */
-                id: id,
+                var children = getChildrenFn(node);
 
-                /**
-                 * Gets the node parent
-                 *
-                 * Warning: Compatible with UI/SvgTree. This can infinite loop on recursivity
-                 * 
-                 * @return {Object}
-                 * 
-                 */
-                parent: parent
+                // assign the node
+                _.assign(node, {
 
-            });
+                    /**
+                     * The id of the leaf
+                     * 
+                     * @type {Number}
+                     * 
+                     */
+                    id: id,
+
+                    /**
+                     * Gets the node parent
+                     *
+                     * Warning: Compatible with UI/SvgTree. This can infinite loop on recursivity
+                     * 
+                     * @return {Object}
+                     * 
+                     */
+                    parent: parent
+
+                });
 
 
-            // iterate over all children to apply the function
-            _.each(children, function(child){
+                // iterate over all children to apply the function
+                _.each(children, function(child){
 
-                // initialize tree node
-                convertToTreeNode(child, getChildrenFn, node, ++id);
+                    // initialize tree node
+                    _convert(child, getChildrenFn, node);
 
-            });
+                });
+
+            };
+
+            _convert(node, getChildrenFn, parent);
 
         };
-
-
-
 
 
 
