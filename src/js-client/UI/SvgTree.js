@@ -206,13 +206,7 @@ define([
                     .attr("d", link);
 
                 // transitions that are no longer needed are removed
-                treeNodes.exit()
-                    .transition()
-                    .duration(1000)
-                    .attr("transform", function(d) {
-                        return "translate(" + source.y + "," + source.x + ")";
-                    })
-                    .remove();
+                treeNodes.exit().remove();
 
                 // Bind the nodes with their data
                 var svgNodes = treeNodes
@@ -258,14 +252,7 @@ define([
                     });
                 
                 // links that are no longer needed are removed
-                treeLinks.exit()
-                  .transition()
-                  .duration(1000)
-                  .attr("d", function (d) {
-                      var o = { x: source.x, y: source.y };
-                      return diagonal({ source: o, target: o });
-                  })
-                  .remove();
+                treeLinks.exit().remove();
                 
                 // when a transition occours put the node's on the right position
                 treeNodes.transition()
