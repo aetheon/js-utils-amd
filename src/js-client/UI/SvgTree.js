@@ -185,7 +185,7 @@ define([
 
                 // Update the nodes and set their id's
                 var treeNodes = svg.selectAll("g.node").data(nodes, function (d) {
-                    var id = d.id || (d.id = ++nodeCount);
+                    var id = d.id = ++nodeCount;
                     return id;
                 });
                 
