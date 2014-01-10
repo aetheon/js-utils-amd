@@ -351,6 +351,46 @@ describe("ArraySpec", function () {
     });
     
 
+    async.it(".removeAll()", function (done) {
+
+        
+        Injector.require(["js-utils-lib/Array"], function(ArrayObj){
+
+            
+            var arr = new ArrayObj([1,2,3,4,5]);
+            arr.removeAll(function(obj){
+
+                if(obj === 2 || obj === 4)
+                    return true;
+
+            });
+
+            expect(arr.length()).toEqual(3);
+            expect(arr.index(0)).toEqual(1);
+            expect(arr.index(1)).toEqual(3);
+            expect(arr.index(2)).toEqual(5);
+            
+
+            arr = new ArrayObj([1,2,3,4,5]);
+            arr.removeAll(function(obj){ return true; });
+            expect(arr.length()).toEqual(0);
+
+
+            arr = new ArrayObj([1,2,3,4,5]);
+            arr.removeAll(function(obj){});
+            expect(arr.length()).toEqual(5);
+
+
+            arr = new ArrayObj([1,2,3,4,5]);
+            arr.removeAll(null);
+            expect(arr.length()).toEqual(5);
+
+            done();
+
+        });
+
+    });
+
 
 
 });

@@ -154,6 +154,45 @@ describe("TreeSpec", function () {
     });
 
 
+    async.it(".removeChildren()", function (done) {
+
+
+        Injector.require(["js-utils-lib/Struct/Tree"], function(Tree){
+
+            var data = {
+
+                "id": 1,
+                "children": [
+
+                    {
+                        "id": 4
+                    },
+
+                    {
+                        "id": 6
+                    }
+
+                ]
+                
+            };
+
+            var t = new Tree();
+            t.set(data);
+            t.removeChildren(data, function(child){
+                if(child.id === 6) 
+                    return true;
+            });
+            
+            expect(data.children.length).toBe(1);
+            
+            done();
+
+        });
+
+
+    });
+
+
 
 
 });

@@ -7,7 +7,8 @@ define([
     "lodash", 
 
     "js-utils-lib/Safe",
-    "js-utils-lib/Arguments", 
+    "js-utils-lib/Arguments",
+    "js-utils-lib/Array",
     "js-utils-lib/ObjectIterator"
     
     ], function(require){
@@ -16,6 +17,7 @@ define([
         var _ = require("lodash"),
             Safe = require("js-utils-lib/Safe"),
             Arguments = require("js-utils-lib/Arguments"),
+            ArrayObj = require("js-utils-lib/Array"),
             ObjectIterator = require("js-utils-lib/ObjectIterator");
 
 
@@ -115,6 +117,31 @@ define([
                  */
                 get: function(){
                     return root;
+                },
+
+                /**
+                 * Removes all the children of the node that return true on 
+                 * the callback
+                 * 
+                 * @param  {Object}   node The node
+                 * @param  {Function} fn   The function to evaluate the removal
+                 * 
+                 */
+                removeChildren: function(node, fn){
+
+                    node = Safe.getObject(node);
+                    fn = Safe.getFunction(fn);
+
+                    /// gets the children
+                    var children = options.getChildren(node);
+                    children = Safe.getArray(children);
+
+                    /// removes all the children that return true on 
+                    /// the callback
+                    new ArrayObj(children).removeAll(function(node){
+                        return fn(node);
+                    });
+                    
                 },
 
                 /**
