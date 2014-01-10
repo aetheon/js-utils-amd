@@ -22,18 +22,37 @@ define([
 
 
         /**
-         * A Tree node structure
+         * Converts the object into a tree node structure.
          * 
          * @param {Object} data   The node data
          * @param {Object} parent The node parent
+         *
+         * @example
+         *     
+         *     {
+         *         id: X
+         *         parent: Object
+         *     }
          * 
          */
-        var convertToTreeNode = function(node, getChildrenFn, parent){
+        var convertToTreeNode = function(node, getChildrenFn, parent, id){
+
+            /// always override the id, because its not a good idea to trust in 
+            /// the input
+            id = Safe.getNumber(id);
 
             var children = getChildrenFn(node);
 
             // assign the node
             _.assign(node, {
+
+                /**
+                 * The id of the leaf
+                 * 
+                 * @type {Number}
+                 * 
+                 */
+                id: id,
 
                 /**
                  * Gets the node parent
@@ -52,7 +71,7 @@ define([
             _.each(children, function(child){
 
                 // initialize tree node
-                convertToTreeNode(child, getChildrenFn, node);
+                convertToTreeNode(child, getChildrenFn, node, id++);
 
             });
 
@@ -64,11 +83,16 @@ define([
 
 
         /**
-         * A Tree data structure
+         * A Tree data structure.
+         * The given object will be changed to be in compliance with the tree structure. 
+         * Properties will be added to the tree node's like .parent, .id, ...
          *
          * @example
          *
          *      var tree = new Tree();
+         *      
+         *      tree.set({...});
+         *      
          *      var root = tree.root();
          *
          */
@@ -92,7 +116,7 @@ define([
                 data = Safe.getObject(data);
 
                 // clone the given data
-                root = _.cloneDeep(data);
+                root = data;
                 
                 // converts node's
                 convertToTreeNode(root, options.getChildren, null);
@@ -122,26 +146,24 @@ define([
                 },
 
                 /**
-                 * Removes all the children of the node that return true on 
-                 * the callback
+                 * Removes the node from the tree
                  * 
                  * @param  {Object}   node The node
                  * @param  {Function} fn   The function to evaluate the removal
                  * 
                  */
-                removeChildren: function(node, fn){
+                remove: function(node){
 
                     node = Safe.getObject(node);
-                    fn = Safe.getFunction(fn);
-
+                    
                     /// gets the children
-                    var children = options.getChildren(node);
+                    var children = options.getChildren(node.parent);
                     children = Safe.getArray(children);
 
                     /// removes all the children that return true on 
                     /// the callback
-                    new ArrayObj(children).removeAll(function(node){
-                        return fn(node);
+                    new ArrayObj(children).removeAll(function(child){
+                        return child.id === node.id;
                     });
                     
                 },

@@ -59,9 +59,11 @@ describe("TreeSpec", function () {
             var root = t.get();
 
             expect(root).not.toBe(null);
-            expect(root.id).toBe(1);
+
+            /// the id are computed
+            expect(root.id).toBe(0);
             expect(root.children[0].parent).not.toBe(null);
-            expect(root.children[0].parent.id).toBe(1);
+            expect(root.children[0].parent.id).toBe(0);
 
             done();
 
@@ -154,7 +156,7 @@ describe("TreeSpec", function () {
     });
 
 
-    async.it(".removeChildren()", function (done) {
+    async.it(".remove()", function (done) {
 
 
         Injector.require(["js-utils-lib/Struct/Tree"], function(Tree){
@@ -178,10 +180,7 @@ describe("TreeSpec", function () {
 
             var t = new Tree();
             t.set(data);
-            t.removeChildren(data, function(child){
-                if(child.id === 6) 
-                    return true;
-            });
+            t.remove(data.children[1]);
             
             expect(data.children.length).toBe(1);
             

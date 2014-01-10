@@ -197,7 +197,7 @@ define(["require", "lodash"], function(require, _){
      *
      */
     Type.isNumber = function (value) {
-        return typeof(value) === "number";
+        return typeof(value) === "number" && !isNaN(value);
     };
 
 
