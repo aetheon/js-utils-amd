@@ -8,13 +8,15 @@ define([
 
     "js-utils-lib/Safe",
     "js-utils-lib/Arguments", 
+    "js-utils-lib/ObjectIterator"
     
     ], function(require){
         "use strict";
 
         var _ = require("lodash"),
             Safe = require("js-utils-lib/Safe"),
-            Arguments = require("js-utils-lib/Arguments"); 
+            Arguments = require("js-utils-lib/Arguments"),
+            ObjectIterator = require("js-utils-lib/ObjectIterator");
 
 
         /**
@@ -113,6 +115,29 @@ define([
                  */
                 get: function(){
                     return root;
+                },
+
+                /**
+                 * Search for every node that 
+                 * 
+                 * @param  {Function} fn
+                 * 
+                 */
+                search: function(fn){
+
+                    if(!fn) return;
+
+                    var results = [];
+                    new ObjectIterator(root).iterate(function(obj){
+
+                        if(fn(obj)){
+                            results.push(obj);
+                        }
+
+                    });
+
+                    return results;
+
                 },
 
                 /**

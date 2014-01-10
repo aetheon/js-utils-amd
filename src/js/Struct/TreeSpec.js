@@ -117,6 +117,43 @@ describe("TreeSpec", function () {
     });
 
 
+    async.it(".search()", function (done) {
+
+
+        Injector.require(["js-utils-lib/Struct/Tree"], function(Tree){
+
+            var data = {
+
+                "id": 1,
+                "children": [
+
+                    {
+                        "id": 4
+                    },
+
+                    {
+                        "id": 6
+                    }
+
+                ]
+                
+            };
+
+            var t = new Tree();
+            t.set(data);
+            var results = t.search(function(obj){ return true; });
+            
+            /// because Tree adds auxiliar methods to the structure
+            expect(results.length > 7).toBe(true);
+            
+            done();
+
+        });
+
+
+    });
+
+
 
 
 });
