@@ -412,12 +412,10 @@ define([
                     if(path.length) elementsToHighlight.push(path[0]);
                     
                     node = node.parent;
-                    
+
                   }
 
-                  d3.selectAll(elementsToHighlight)
-                    .transition()
-                    .style("opacity", 1);
+                  d3.selectAll(elementsToHighlight).style("opacity", 1);
 
                 }
 
