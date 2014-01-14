@@ -190,6 +190,9 @@ define([
                 });
                 
                 var treeLinks = svg.selectAll("path.link").data(links, function(d) {
+                     
+                     $(this).attr({ "data-source-id": d.source.id, "data-target-id": d.target.id });
+
                      return d.target.id;
                 });
                 
@@ -387,6 +390,35 @@ define([
 
                     changeZoom([-x, -y], 1);
                     
+                },
+
+                /**
+                 * 
+                 * Higlight the given node path
+                 *
+                 */
+                highlight: function(node){
+
+                  svg.selectAll("g.node, path.link").style("opacity", 0.4);
+
+                  /// iterate over all node's parent
+                  var elementsToHighlight = [];
+                  while(node) {
+
+                    var element = this.getElement(node.id);
+                    elementsToHighlight.push(element[0]);
+
+                    var path = $("path[data-target-id=" + node.id + "]", options.container);
+                    if(path.length) elementsToHighlight.push(path[0]);
+                    
+                    node = node.parent;
+                    
+                  }
+
+                  d3.selectAll(elementsToHighlight)
+                    .transition()
+                    .style("opacity", 1);
+
                 }
 
             };
