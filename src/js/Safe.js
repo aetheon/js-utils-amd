@@ -67,16 +67,19 @@ define([
         /*
          * Safelly get Object from value
          *
-         * @param{value} The value to get
+         * @param {value} The value to get
+         * @param {defaultValue} The default value
+         * 
          * @return A Object
          */
-        Safe.getObject = function(value){
+        Safe.getObject = function(value, defaultValue){
             
             if(Type.isObject(value)){
                 return value;
             }
             else{
-                return {};
+                /* jshint -W041 */
+                return defaultValue != null ? defaultValue : {};
             }
 
         };
