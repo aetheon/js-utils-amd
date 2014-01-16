@@ -16,7 +16,7 @@ define([
 
         var Window = require("js-utils/Globals/Window"),
             Arguments = require("js-utils-lib/Arguments"),
-            ElementHelper = require("js-utils/Dom/Element"),
+            Element = require("js-utils/Dom/Element"),
             WindowHelper = require("js-utils/Dom/Window"),
             Safe = require("js-utils-lib/Safe");
 
@@ -88,11 +88,12 @@ define([
                  */
                 domSync: function(){
 
-                    var minHeight = options["min-height"];
+                    var minHeight = options["min-height"],
+                        el = new Element("window");
 
                     if(!minHeight){
                         // use viewport height
-                        minHeight = ElementHelper.height();
+                        minHeight = el.height();
                     }
 
                     // apply css rules
@@ -203,7 +204,8 @@ define([
                  */
                 getHeight: function(){
 
-                    return ElementHelper.height(element);
+                    var el = new Element(element);
+                    return el.height();
 
                 },
 

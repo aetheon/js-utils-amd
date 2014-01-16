@@ -34,7 +34,7 @@ define([
 
         var Window = require("js-utils/Globals/Window"),
             Arguments = require("js-utils-lib/Arguments"),
-            ElementHelper = require("js-utils/Dom/Element"),
+            Element = require("js-utils/Dom/Element"),
             Overlay = require("js-utils/UI/Overlay"),
             WindowHelper = require("js-utils/Dom/Window"),
             Safe = require("js-utils-lib/Safe"),
@@ -310,8 +310,13 @@ define([
              * @return {Number} the height of the panels
              */
             var reloadPanelsDimension = function(){
-                viewportHeight = options.panelMinHeight || ElementHelper.height();
-                viewportWidth = ElementHelper.width(viewport) || ElementHelper.width();
+                
+                var wind = new Element("window"),
+                    viewp = new Element(viewport);
+
+                viewportHeight = options.panelMinHeight || wind.height();
+                viewportWidth = viewp.width() || wind.width();
+                
             };
 
 

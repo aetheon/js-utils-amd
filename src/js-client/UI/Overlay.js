@@ -11,7 +11,6 @@ define([
 
 
     var $ = require("jquery"),
-        Element = require("js-utils/Dom/Element"),
         Arguments = require("js-utils-lib/Arguments"),
         Window = require("js-utils/Dom/Window"),
         FastDom = require("js-utils/Dom/Window");

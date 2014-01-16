@@ -12,176 +12,219 @@ define(["require", "lodash", "jquery", "js-utils-lib/Arguments", "js-utils/Dom/W
         Arguments = require("js-utils-lib/Arguments");
     
 
-    var Element = {
+    /**
+     *
+     * The element
+     *
+     * @class
+     * 
+     * @param {*} element JQuery compatible expression
+     *
+     * @example
+     *
+     *  var element = new Element("#lol");
+     * 
+     */
+    var Element = function(element){
 
+        /// default element is window
+        if(!$(element).length)
+            element = $("window");
 
-        /*
-         * Height the element
-         *
-         * @param {Object} element - The element 
-         *
-         * @return {Number}
-         */
-        height: function(element){
+        /// should only be considered one element
+        if($(element).length >= 1)
+            element = $(element)[0];
 
-            if(!element) element = window;
+        return {
 
-            var height = $(element).height();
-            return height;
+            /**
+             * Gets the element 
+             *
+             * @return
+             * 
+             */
+            element :function(){
+                return element;
+            },
 
-        },
+            /*
+             * Width of the element
+             *
+             * @return {Number}
+             * 
+             */
+            width: function(){
 
+                var width = $(element).width();
+                return width;
 
-        /*
-         * Width of the element
-         *
-         * @param {Object} element - The element 
-         *
-         * @return {Number}
-         */
-        width: function(element){
+            },
 
-            if(!element) element = "body";
+            /*
+             * Height the element
+             *
+             * @return {Number}
+             * 
+             */
+            height: function(){
 
-            var height = $(element).width();
-            return height;
+                var height = $(element).height();
+                return height;
 
-        },
+            },
 
-        
-        /*
-         * Test if the given element is near the window bottom
-         *
-         * @param {Object} element
-         * @param {Object} object - operation options
-         *
-         * @return{True|False}
-         */
-        isNearBottom: function (element, options) {
+            /**
+             * Occupy all the space in the base Element
+             * 
+             * 
+             */
+            fill: function(baseElement){
 
-            if (!element) return false;
+                if(!$(element).length) return;
 
-             options = Arguments.get(
-                options,
-                {
-                    // relative to Element
-                    relativeTo: window,
+                /// the top offset
+                var topOffset = 0;
 
-                    // near to element threshold
-                    threshold: 40
+                /// if no baseElement is given, set the topOffset to the 
+                /// elements top
+                if(!$(baseElement).length) {
+
+                    baseElement = window;
+
+                    var elementOffset = $(element).offset();
+                    topOffset = elementOffset.top;
+
+                }
+
+                /// the base element height
+                var baseHeight = $(baseElement).height();
+
+                $(element).css({
+                    width: "100%",
+                    height: baseHeight - topOffset
                 });
 
-            var viewportStartingPx = $(window).scrollTop();
-            var viewportEndingPx = viewportStartingPx + $(options.relativeTo).innerHeight();
-            var elementEndingPx = $(element).offset().top + $(element).height();
-
-            var isNearBottom = Math.round(elementEndingPx) <= Math.round(viewportEndingPx) && Math.round(elementEndingPx) >= (Math.round(viewportEndingPx) - options.threshold);
-
-            return isNearBottom;
-        },
-
-
-
-        /*
-         * Test if the given element is near the window top
-         *
-         * @param {Object} element
-         * @param {Object} object - operation options
-         *
-         * @return{True|False}
-         */
-        isNearTop: function (element, options) {
-
-            if (!element) return false;
-
-            options = Arguments.get(
-                options,
-                {
-                    // relative to Element
-                    relativeTo: window,
-
-                    // near to element threshold
-                    threshold: 40
-                });
-
-            var viewportHeightPx = $(options.relativeTo).innerHeight();
-            var viewportStartingPx = $(window).scrollTop();
-            var elementStartingPx = $(element).offset().top;
-
-            if (elementStartingPx < viewportHeightPx)
-                elementStartingPx = 0;
-
-            var isNearTop = Math.round(elementStartingPx) >= Math.round(viewportStartingPx) && Math.round(elementStartingPx) <= (Math.round(viewportStartingPx) + options.threshold);
-
-            return isNearTop;
-        },
-
-
-        /*
-         * Scroll to element
-         *
-         * @param {HTMLNode} element
-         *
-         */
-        scrollTo : function(element){
-
-            var Window = require("js-utils/Dom/Window");
-
-            var top = $(element).offset().top - 50;
-            if(top<0)
-                top = 0;
-
-            Window.scrollTo({ position: 0 });
+            },
             
-        },
+            /*
+             * Test if the given element is near the window bottom
+             *
+             * @param {Object} object - operation options
+             *
+             * @return{True|False}
+             */
+            isNearBottom: function (options) {
+
+                 options = Arguments.get(
+                    options,
+                    {
+                        // relative to Element
+                        relativeTo: window,
+
+                        // near to element threshold
+                        threshold: 40
+                    });
+
+                var viewportStartingPx = $(window).scrollTop();
+                var viewportEndingPx = viewportStartingPx + $(options.relativeTo).innerHeight();
+                var elementEndingPx = $(element).offset().top + $(element).height();
+
+                var isNearBottom = Math.round(elementEndingPx) <= Math.round(viewportEndingPx) && Math.round(elementEndingPx) >= (Math.round(viewportEndingPx) - options.threshold);
+
+                return isNearBottom;
+            },
 
 
-        /*
-         * Get element css styles
-         *
-         * @param {HTMLNode|String} element
-         * @return {Object} The element styles
-         */
-        getStyles: function(element){
 
-            element = $(element);
-            
-            if(!element.length) return;
-            element = element[0];
+            /*
+             * Test if the given element is near the window top
+             *
+             * @param {Object} object - operation options
+             *
+             * @return{True|False}
+             */
+            isNearTop: function (options) {
 
-            var result = {},
-                styles = window.getComputedStyle(element);
-            
-            for( var style in styles ){
-                var value = styles.getPropertyValue(style);
-                if(value) result[style] = value;
+                options = Arguments.get(
+                    options,
+                    {
+                        // relative to Element
+                        relativeTo: window,
+
+                        // near to element threshold
+                        threshold: 40
+                    });
+
+                var viewportHeightPx = $(options.relativeTo).innerHeight();
+                var viewportStartingPx = $(window).scrollTop();
+                var elementStartingPx = $(element).offset().top;
+
+                if (elementStartingPx < viewportHeightPx)
+                    elementStartingPx = 0;
+
+                var isNearTop = Math.round(elementStartingPx) >= Math.round(viewportStartingPx) && Math.round(elementStartingPx) <= (Math.round(viewportStartingPx) + options.threshold);
+
+                return isNearTop;
+            },
+
+
+            /*
+             * Scroll to element
+             *
+             */
+            scrollTo : function(){
+
+                var Window = require("js-utils/Dom/Window");
+
+                var top = $(element).offset().top - 50;
+                if(top<0)
+                    top = 0;
+
+                Window.scrollTo({ position: 0 });
+                
+            },
+
+
+            /*
+             * Get element css styles
+             *
+             * @return {Object} The element styles
+             * 
+             */
+            getStyles: function(){
+
+                var result = {},
+                    styles = window.getComputedStyle(element);
+                
+                for( var style in styles ){
+                    var value = styles.getPropertyValue(style);
+                    if(value) result[style] = value;
+                }
+
+                return result;
+
+            },
+
+            /*
+             * Get element css style
+             *
+             * @param {HTM} style
+             * 
+             * @return {Object} The element styles
+             * 
+             */
+            getStyle: function(style){
+
+                var styles = window.getComputedStyle(element);
+                
+                return styles.getPropertyValue(style);
+
             }
 
-            return result;
+        };
 
-        },
 
-        /*
-         * Get element css style
-         *
-         * @param {HTMLNode|String} element
-         * @param {HTM} style
-         * @return {Object} The element styles
-         */
-        getStyle: function(element, style){
-
-            element = $(element);
-            
-            if(!element.length) return;
-            element = element[0];
-
-            var styles = window.getComputedStyle(element);
-            
-            return styles.getPropertyValue(style);
-
-        }
-
-    };    
+    };   
 
     return Element;
 

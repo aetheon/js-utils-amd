@@ -38,7 +38,8 @@ describe("Dom/ElementSpec", function () {
 
         Injector.require(["js-utils/Dom/Element", "jquery"], function(Element, $){
 
-            Element.scrollTo($("<div></div>"));
+            var element = new Element($("<div></div>"));
+            element.scrollTo();
 
             done();
 
@@ -51,7 +52,8 @@ describe("Dom/ElementSpec", function () {
 
         Injector.require(["js-utils/Dom/Element", "jquery"], function(Element, $){
 
-            var styles = Element.getStyles($("body"));
+            var element = new Element("body");
+            var styles = element.getStyles();
 
             expect(styles).not.toBe(null);
             expect(styles.color).not.toBe(null);
@@ -67,7 +69,8 @@ describe("Dom/ElementSpec", function () {
 
         Injector.require(["js-utils/Dom/Element", "jquery"], function(Element, $){
 
-            var styles = Element.getStyle($("body"), "color");
+            var element = new Element($("body"));
+            var styles = element.getStyle("color");
 
             expect(styles).not.toBe(null);
 

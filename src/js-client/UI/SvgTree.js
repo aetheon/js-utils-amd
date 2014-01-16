@@ -101,9 +101,8 @@ define([
                 .attr("class", "svg-tree");
 
             // FF / IE compatible
-            $("> svg", options.container).height( Element.height() );
-
-            /// dont know what there is
+            new Element($("> svg", options.container)).fill($(options.container));
+            
             var diagonal = d3.svg.diagonal()
                 .projection(function (d) { return [d.y, d.x]; });
 
@@ -357,11 +356,27 @@ define([
                     
                 },
                 
+                /**
+                 *
+                 * Refresh's the text of a tree node
+                 *
+                 * @param {Object} node
+                 * 
+                 */
+                refreshText: function(node){
+
+                    var element = _this.getElement(node.id);
+                    var text = options.getNodeText(node);
+
+                    $("text", element).text(text);
+
+                },
+
                 /*
                  * Centers the node
                  *
                  */
-                center: function(node) {
+                center: function(node){
 
                     node = Safe.getObject(node);
 
@@ -418,6 +433,8 @@ define([
                   d3.selectAll(elementsToHighlight).style("opacity", 1);
 
                 }
+
+
 
             };
 

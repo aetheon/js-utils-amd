@@ -73,12 +73,13 @@ define(["require", "jquery", "EventEmitter", "lodash", "js-utils-lib/Arguments",
 
                 if(options.element){
                     
-                    if(Element.isNearBottom(options.element)){
+                    var element = new Element(options.element);
+                    if(element.isNearBottom()){
                         events.emit(SCROLL_BOTTOM_EVENT, this);
                         return;
                     }
 
-                    if(Element.isNearTop(options.element)){
+                    if(element.isNearTop(options.element)){
                         events.emit(SCROLL_TOP_EVENT, this);
                         return;
                     }

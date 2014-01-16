@@ -3,8 +3,7 @@ describe("StackedPanelsSpec", function () {
 
     var Squire = null,
         Injector = null,
-        async = new AsyncSpec(this),
-        Element = null;
+        async = new AsyncSpec(this);
 
 
     async.beforeEach(function (done) {
@@ -13,8 +12,6 @@ describe("StackedPanelsSpec", function () {
             
             Squire = require("squire");
             Injector = new Squire();
-
-            Element = require("js-utils/Dom/Element");
 
             done();
 
