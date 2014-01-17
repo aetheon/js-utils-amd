@@ -79,6 +79,30 @@ describe("Dom/ElementSpec", function () {
         });
 
     });
+
+
+     async.it("offset()", function (done) {
+
+        Injector.require(["js-utils/Dom/Element", "jquery"], function(Element, $){
+
+            var element = new Element(window);
+            var offset = element.offset();
+
+            expect(offset.top).toBe(0);
+            expect(offset.left).toBe(0);
+
+
+            element = new Element("body :first-child");
+            offset = element.offset();
+
+            expect(offset.top > 0).toBe(true);
+            expect(offset.left > 0).toBe(true);
+
+            done();
+
+        });
+
+    });
     
 
 

@@ -29,13 +29,14 @@ define(["require", "lodash", "jquery", "js-utils-lib/Arguments", "js-utils/Dom/W
 
         /// default element is window
         if(!$(element).length)
-            element = $("window");
+            element = $(window);
 
         /// should only be considered one element
         if($(element).length >= 1)
             element = $(element)[0];
 
-        return {
+
+        var _this = {
 
             /**
              * Gets the element 
@@ -55,8 +56,20 @@ define(["require", "lodash", "jquery", "js-utils-lib/Arguments", "js-utils/Dom/W
              */
             width: function(){
 
-                var width = $(element).width();
-                return width;
+                var tagName = element.tagName || "window";
+
+                switch(tagName.toLowerCase()){
+
+                    /// svg element returns 0 everytime
+                    case "g": 
+                        var box = element.getBoundingClientRect();
+                        return box.width;
+
+                    default:
+                        var width = $(element).width();
+                        return width;
+
+                }
 
             },
 
@@ -67,11 +80,62 @@ define(["require", "lodash", "jquery", "js-utils-lib/Arguments", "js-utils/Dom/W
              * 
              */
             height: function(){
+           
+                var tagName = element.tagName || "window";
 
-                var height = $(element).height();
-                return height;
+                switch(tagName.toLowerCase()){
+
+                    /// svg element returns 0 everytime
+                    case "g": 
+                        var box = element.getBoundingClientRect();
+                        return box.height;
+
+                    default:
+                        var height = $(element).height();
+                        return height;
+                        
+                }
 
             },
+
+            /**
+             * Gets the offset of the element
+             * 
+             * @return {Object} 
+             *         { 
+             *             top: ,
+             *             left:
+             *         }
+             */
+            offset: function(){
+
+                var tagName = element.tagName || "window";
+           
+                var result = { top: 0, left: 0 };
+
+                switch(tagName.toLowerCase()){
+
+                    case "window":
+                        break;
+
+                    /// svg element returns 0 everytime
+                    case "g": 
+                        var box = element.getBoundingClientRect();
+                        result.top = box.top;
+                        result.left = box.left;
+                        break;
+
+                    default:
+                        var offset = $(element).offset();
+                        result.top = offset.top;
+                        result.left = offset.left;
+                        break;
+                }
+
+                return result;
+
+            },
+
 
             /**
              * Occupy all the space in the base Element
@@ -91,7 +155,7 @@ define(["require", "lodash", "jquery", "js-utils-lib/Arguments", "js-utils/Dom/W
 
                     baseElement = window;
 
-                    var elementOffset = $(element).offset();
+                    var elementOffset = _this.offset();
                     topOffset = elementOffset.top;
 
                 }
@@ -223,6 +287,8 @@ define(["require", "lodash", "jquery", "js-utils-lib/Arguments", "js-utils/Dom/W
 
         };
 
+
+        return _this;
 
     };   
 

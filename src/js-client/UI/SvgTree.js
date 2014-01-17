@@ -101,11 +101,10 @@ define([
                 .attr("class", "svg-tree");
 
             // FF / IE compatible
+            // explicitly set the dimentions of the svg tag
             new Element($("> svg", options.container)).fill($(options.container));
             
-            var diagonal = d3.svg.diagonal()
-                .projection(function (d) { return [d.y, d.x]; });
-
+            var diagonal = d3.svg.diagonal().projection(function (d) { return [d.y, d.x]; });
 
             /*
              * Toogle's a node children visibility
@@ -135,7 +134,9 @@ define([
              */
             var zoom = function(translate, scale) {
 
-                scale = scale || d3.event.scale;
+                d3.event = d3.event || {};
+
+                scale = scale || d3.event.scale || 1;
                 translate = translate || d3.event.translate;
 
                 d3.select(".svg-tree")
@@ -153,17 +154,25 @@ define([
              */
             function changeZoom(translate, scale) {
                 var self = this;
-                return d3.transition().duration(350).tween("zoom", function () {
-                    var iTranslate = d3.interpolate(d3Zoom.translate(), translate),
-                        iScale = d3.interpolate(d3Zoom.scale(), scale);
+                return d3.transition()
+                         .tween("zoom", function () {
+                    
+                            var iTranslate = d3.interpolate(d3Zoom.translate(), translate),
+                                iScale = d3.interpolate(d3Zoom.scale(), scale);
 
-                    return function (t) {
-                        d3Zoom.scale(iScale(t))
-                              .translate(iTranslate(t));
-                        
-                        zoom(translate, scale);
-                    };
-                });
+                            return function (t) {
+                                
+                                if(scale){
+                                    d3Zoom.scale(iScale(t));
+                                }
+                                
+                                d3Zoom.translate(iTranslate(t));
+                                
+                                zoom(translate, scale);
+
+                            };
+
+                        });
             }
 
             /*
@@ -184,16 +193,16 @@ define([
                     links = tree.links(nodes);
 
                 // Update the nodes and set their id's
-                var treeNodes = svg.selectAll("g.node").data(nodes, function (d) {
-                    return d.id;
-                });
+                var treeNodes = svg.selectAll("g.node")
+                                    .data(nodes, function (d) {
+                                        return d.id;
+                                    });
                 
-                var treeLinks = svg.selectAll("path.link").data(links, function(d) {
-                     
-                     $(this).attr({ "data-source-id": d.source.id, "data-target-id": d.target.id });
-
-                     return d.target.id;
-                });
+                var treeLinks = svg.selectAll("path.link")
+                                    .data(links, function(d) {
+                                        $(this).attr({ "data-source-id": d.source.id, "data-target-id": d.target.id });
+                                        return d.target.id;
+                                    });
                 
                 // create links between nodes
                 var link = d3.svg.diagonal()
@@ -214,10 +223,7 @@ define([
                 var svgNodes = treeNodes
                     .enter()
                     .append("svg:g")
-                    .attr("class", "node")
-                    .attr("transform", function(d) {
-                        return "translate(" + d.y + "," + d.x + ")";
-                    });
+                    .attr("class", "node");
                 
                 svgNodes.append("svg:circle")
                     .attr("class", "node-dot")
@@ -257,24 +263,40 @@ define([
                 treeLinks.exit().remove();
                 
                 // when a transition occours put the node's on the right position
-                treeNodes.transition()
-                  .duration(500)
+                treeNodes
+                  //.transition()
+                  //.duration(500)
                   .attr("transform", function (d) { return "translate(" + d.y + "," + d.x + ")"; });
 
                 // when a transition occours put the link's on the right position
-                treeLinks.transition()
-                  .duration(500)
+                treeLinks
+                  //.transition()
+                  //.duration(500)
                   .attr("d", diagonal);
                 
                 // draging tracking ( on SVG the drop event does not work )
                 svgNodes.on("mouseover", function (d) {
                     draggingOver = d;
+                    $("circle", this).attr("r", options.node.radius * 1.2);
                 })
                 .on("mouseout", function (d) {
+                    $("circle", this).attr("r", options.node.radius);  
                     draggingOver = null;
                 });
 
                 
+            };
+
+
+            /**
+             *
+             * Gets the element
+             * 
+             * @param  {Number} id
+             * @return {HtmlElement}
+             */
+            var getElement = function(id) {
+                return $("[data-id=" + id + "]", options.container);
             };
 
 
@@ -308,16 +330,6 @@ define([
                  */
                 currentDraggingOn: function() {
                     return draggingOver;
-                },
-                
-                /*
-                 * Gets the SVG Element for the current id
-                 *
-                 * @param {Number|String} id
-                 * @return {HtmlElement}
-                 */
-                getElement: function(id) {
-                    return $("[data-id=" + id + "]", options.container);
                 },
                 
                 /*
@@ -365,7 +377,7 @@ define([
                  */
                 refreshText: function(node){
 
-                    var element = _this.getElement(node.id);
+                    var element = getElement(node.id);
                     var text = options.getNodeText(node);
 
                     $("text", element).text(text);
@@ -374,6 +386,8 @@ define([
 
                 /*
                  * Centers the node
+                 *
+                 * @param {Object} node
                  *
                  */
                 center: function(node){
@@ -386,10 +400,11 @@ define([
                         return;
                     }
 
-                    var ElementAttributeParser = require("js-utils-lib/Parser/ElementAttribute"),
-                        element = _this.getElement(node.id),
+                    var ElementAttributeParser = require("js-utils-lib/Parser/ElementAttribute");
+
+                    var element = getElement(node.id),
                         tree = $(".svg-tree", options.container),
-                        size = _this.domSize();
+                        size = { x: $(options.container).width(), y: $(options.container).height() };
 
                     /// ignore if the element was not found
                     if(!$(element).length){
@@ -403,33 +418,42 @@ define([
                     var x = e.translateX - (size.x / 2),
                         y = e.translateY - (size.y / 2);
 
-                    changeZoom([-x, -y], 1);
+                    changeZoom([-x, -y]);
+
+
                     
                 },
+
 
                 /**
                  * 
                  * Higlight the given node path
                  *
+                 * @param {Object} node
+                 *
                  */
-                highlight: function(node){
+                highlightPath: function(node){
 
+                  /// apply opacity in every node's
                   svg.selectAll("g.node, path.link").style("opacity", 0.4);
 
-                  /// iterate over all node's parent
+                  /// select all the node's and path's to highlight
                   var elementsToHighlight = [];
                   while(node) {
 
-                    var element = this.getElement(node.id);
+                    var element = getElement(node.id);
                     elementsToHighlight.push(element[0]);
 
                     var path = $("path[data-target-id=" + node.id + "]", options.container);
-                    if(path.length) elementsToHighlight.push(path[0]);
+                    if(path.length) {
+                        elementsToHighlight.push(path[0]);
+                    }
                     
                     node = node.parent;
 
                   }
 
+                  /// apply opacity to all elements to show
                   d3.selectAll(elementsToHighlight).style("opacity", 1);
 
                 }
