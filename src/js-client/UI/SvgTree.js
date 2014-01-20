@@ -25,7 +25,8 @@ define([
             Safe = require("js-utils-lib/Safe"),
             OOP = require("js-utils-lib/OOP"),
             Arguments = require("js-utils-lib/Arguments"),
-            Element = require("js-utils/Dom/Element");
+            Element = require("js-utils/Dom/Element"),
+            ElementAttributeParser = require("js-utils-lib/Parser/ElementAttribute");
 
 
 
@@ -81,7 +82,8 @@ define([
 
             // private module variables
             var scope = this,
-                draggingOver = null;
+                draggingOver = null,
+                draggingOverResetTimeout = null;
 
 
             /// create the tree
@@ -274,14 +276,27 @@ define([
                   //.duration(500)
                   .attr("d", diagonal);
                 
-                // draging tracking ( on SVG the drop event does not work )
+                // Workaround: draging tracking ( on SVG the drop event does not work )
                 svgNodes.on("mouseover", function (d) {
+                    
+                    /// cancel the draggingOverReset timeout if exists 
+                    /* jshint -W041 */
+                    if(draggingOverResetTimeout != null){
+                       clearTimeout(draggingOverResetTimeout);
+                    }
+
+                    /// sets the dragging over element
                     draggingOver = d;
-                    $("circle", this).attr("r", options.node.radius * 1.2);
+
+                    /// TODO: apply animation
+                    $("circle", this).attr("r", options.node.radius * 1.3);
+
                 })
                 .on("mouseout", function (d) {
                     $("circle", this).attr("r", options.node.radius);  
-                    draggingOver = null;
+                    /// Workaround to avoid loosing draggingOver right after 
+                    /// the event
+                    draggingOverResetTimeout = setTimeout(function(){ draggingOver = null; }, 300);
                 });
 
                 
@@ -308,18 +323,116 @@ define([
             _this = {
           
                 /*
-                * Get the dom size
+                * Get the viewport size
                 *
-                * @return {Object} the Size object
+                * @return {Object} { x: , y: }
                 *
                 */
-                domSize: function() {
+                viewportSize: function() {
                     
                     return {
                         x: $(options.container).width(),
                         y: $(options.container).height()
                     };
                     
+                },
+
+                /**
+                 *
+                 * Get the tree content size
+                 * 
+                 * @return {Object} { x: , y: , scale: }
+                 */
+                contentSize: function(){
+
+                    var tree = $(".svg-tree", options.container),
+                        treeElement = new Element(tree), /// SVG width/height can be tricky
+                        position = ElementAttributeParser.transform(tree.attr("transform"));
+
+
+                    return {
+                        x: treeElement.width(),
+                        y: treeElement.height(),
+                        scale: position.scale
+                    };
+
+                },
+
+                /**
+                 * 
+                 * Get the tree viewport position
+                 * 
+                 * @return {Object} { x: , y: , scale: }
+                 * 
+                 */
+                contentPosition: function(){
+
+                    var treeElement = $(".svg-tree", options.container),
+                        t = ElementAttributeParser.transform(treeElement.attr("transform"));
+
+                    return {
+                        x: t.translateX,
+                        y: t.translateY,
+                        scale: t.scale
+                    };
+
+                },
+
+                /**
+                 * 
+                 * Gets the node position ( relative to the tree's viewport )
+                 *
+                 * @param {Number} nodeId
+                 * 
+                 * @return {Object} { x: , y: }
+                 * 
+                 */
+                nodePosition: function(nodeId){
+
+                    nodeId = Safe.getNumber(nodeId);
+
+                    var nodeElement = getElement(nodeId);
+                        nodePosition = ElementAttributeParser.transform($(nodeElement).attr("transform"));
+
+                    return {
+                        x: nodePosition.translateX,
+                        y: nodePosition.translateY
+                    };
+
+                },
+
+                /**
+                 * Gets the offset position of a node
+                 * 
+                 * @param  {Number} node
+                 * @param  {Number} scale
+                 * @return {Object}
+                 *         {
+                 *             x: ,
+                 *             y: ,
+                 *             scale: 
+                 *         }
+                 */
+                centerOffset: function(nodeId, scale){
+
+                    /// if scale is not specified get the using 
+                    if(!scale){  
+                        scale =  _this.contentPosition().scale; 
+                    }
+
+                    /// finds the offset to center the node
+                    var nodePosition = _this.nodePosition(nodeId),
+                        viewportSize = _this.viewportSize();
+    
+                    var x = ( (viewportSize.x / 2) - nodePosition.x) * scale,
+                        y = ( (viewportSize.y / 2) - nodePosition.y) * scale;
+                    
+                    return {
+                        x: x,
+                        y: y,
+                        scale: scale
+                    };
+
                 },
 
                 /*
@@ -359,14 +472,14 @@ define([
                  * @param {Object} The tree node
                  *
                  */
-                toogle: function(node) {
+                /*toogle: function(node) {
 
                     if (!node) return;
                     
                     toogleChildrens(node);
                     render({});
                     
-                },
+                },*/
                 
                 /**
                  *
@@ -384,46 +497,73 @@ define([
 
                 },
 
-                /*
-                 * Centers the node
+                /**
+                 * 
+                 * Zoom operation
                  *
-                 * @param {Object} node
+                 * @param {opts} options
+                 *        {
+                 *            x: ,
+                 *            y: ,
+                 *            scale: 
+                 *        }
                  *
                  */
-                center: function(node){
+                zoom: function(opts){
 
-                    node = Safe.getObject(node);
-
-                    /// ignore if node dont have an id
-                    /* jshint -W041 */
-                    if(node.id == null){
-                        return;
-                    }
-
-                    var ElementAttributeParser = require("js-utils-lib/Parser/ElementAttribute");
-
-                    var element = getElement(node.id),
-                        tree = $(".svg-tree", options.container),
-                        size = { x: $(options.container).width(), y: $(options.container).height() };
-
-                    /// ignore if the element was not found
-                    if(!$(element).length){
-                        return;
-                    }
-
-                    /// get the element transform values
-                    var e = ElementAttributeParser.transform($(element).attr("transform")),
-                        t = ElementAttributeParser.transform($(tree).attr("transform"));
-
-                    var x = e.translateX - (size.x / 2),
-                        y = e.translateY - (size.y / 2);
-
-                    changeZoom([-x, -y]);
-
-
+                    opts = Arguments.get(opts, {
+                        x: 0,
+                        y: 0,
+                        scale: 0
+                    });
                     
+                    changeZoom([opts.x, opts.y], opts.scale);
+
                 },
 
+                /**
+                 * Scale to fit the screen
+                 * 
+                 * @param  {Object} opts
+                 * 
+                 */
+                scaleToFit: function(opts){
+
+                    opts = Arguments.get(opts, {
+                        x: 0
+                    });
+
+                    var viewportSize = _this.viewportSize(),
+                        contentSize = _this.contentSize();
+
+                    /// calculate the scaled size of the content
+                    var realContentSize = 
+                        {
+                            x: Math.round( contentSize.x / contentSize.scale),
+                            y: Math.round( contentSize.y / contentSize.scale)
+                        };
+
+                    /// calculate scale size
+                    var toScale = Math.min( viewportSize.x / realContentSize.x, viewportSize.y / realContentSize.y );
+                    
+                    /// maximum scale is 1
+                    if(toScale > 1) toScale = 1;
+
+                    /// is opt.x is not defined the centering position is 
+                    /// calculated
+                    if(!opts.x){
+
+                        /// calculate the centering position
+                        opts.x = (viewportSize.x - (realContentSize.x * toScale)) / 2;
+                        
+                        /// TODO the top position must be proportional to the scale applied
+                        opts.y = (viewportSize.y - (realContentSize.y * toScale)) / 2;
+                        
+                    }
+
+                    changeZoom([opts.x, opts.y], toScale);
+
+                },
 
                 /**
                  * 
