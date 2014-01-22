@@ -1,5 +1,5 @@
 
-describe("IteratorSpec", function () {
+describe("ObjectIteratorSpec", function () {
 
     var Squire = null,
         Injector = null,

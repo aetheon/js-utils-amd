@@ -86,7 +86,7 @@ define([
             // save instance
             this.saveInstance(data);
             // add the instance to the structure
-            history.add(data);
+            history.insert(data);
             // save the index on the array
             data.index = history.length - 1;
             // save the rule
@@ -111,7 +111,7 @@ define([
 
             var instance = instances[rule] || null;
             if(instance){
-                history.removeIndex(instance.index);
+                history.remove(instance.index);
                 delete instances[rule];
             }
 
@@ -130,7 +130,7 @@ define([
             var last = history.index();
             if(last){
                 delete instances[last.rule];
-                history.removeLast();
+                history.remove(history.lastIndex());
             }
 
             return last;

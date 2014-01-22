@@ -30,15 +30,34 @@ define([
             array = Safe.getArray(array);
 
 
+            /**
+             * Gets and validate the given index
+             * 
+             * @param  {Number} index
+             * @return {Number} The index
+             */
+            var getIndex = function(index){
+
+                index = Safe.getNumber(index);
+
+                if(index <= _this.lastIndex())
+                    return index;
+
+                return 0;
+
+            };
+
+
+
             var _this = {
 
-                /*
-                 * Get Array Index
+                /**
+                 * Get index value
                  *
                  * @return {Object} the value on the index of the array or null
                  * 
                  */
-                 index: function(index){
+                index: function(index){
 
                     index = Safe.getNumber(index);
 
@@ -47,81 +66,125 @@ define([
 
                     return array[index];
 
-                 },
+                },
 
-                 /*
+                /**
                  * Get last value of the array
                  *
                  * @return {Object} the value on the index of the array or null
                  * 
                  */
-                 last: function(){
+                last: function(){
 
                     return _this.index(array.length - 1);
 
-                 },
+                },
 
-
-                 /*
+                /*
                  * Get first value of the array
                  *
                  * @return {Object} the value on the index of the array or null
                  */
-                 first: function(){
+                first: function(){
 
                     return _this.index();
 
-                 },
+                },
 
-                 /**
-                  * Returns the length of the array
-                  * 
-                  * @return {Number}
-                  * 
-                  */
-                 length: function(){
+                /**
+                * Returns the length of the array
+                * 
+                * @return {Number}
+                * 
+                */
+                length: function(){
                     return array.length;
-                 },
+                },
 
-                /*
-                 * add to array the given values
+                /**
+                 * Get last of the array
+                 *
+                 * @return {Number} The last index of the array
                  * 
-                 * @param {Object} value - The value to add. If is an array this will be merged
-                 * @param {Object} options - The operations options.
+                 */
+                lastIndex: function(){
+
+                    var index = _this.length() - 1;
+                    
+                    if(index<0){
+                        index = 0;
+                    }
+
+                    return index;
+
+                },
+
+                /**
+                 * Insert the value(s) into the array positions. If no index is provided
+                 * then the value will be inserted in the end of the list.
+                 * 
+                 * @param {*} value - The value to add. If is an array this will be merged
+                 * @param {Number} index - the base index to insert (end by default)
                  *
                  */
-                add: function(value, options){
+                insert: function(value, index){
 
-                    options = Arguments.get(
-                        options,
-                        {
-                            // add to the end of the array
-                            // if false is added to before
-                            after: true
-                        }
-                    );
-
-                    // value is by default an array
-                    if(!Type.isArray(value)){
-                        value = [value];    
+                    /* jshint -W041 */
+                    if(index == null){
+                        index = _this.lastIndex() + 1;
+                    } else {
+                        index = getIndex(index);
                     }
-                    else{
-                        // if is to insert on the beginning then 
-                        // reverse the array for inserting them on the right order
-                        if(!options.after)
-                            value = value.reverse();
-                    }
+                    
+                    /// safelly get the value in an array form
+                    value = Safe.getArray(value).reverse();
 
                     // merge the structures
                     _.each(
                         value,
                         function(item){
-                            var i = options.after ? array.push(item) : array.unshift(item);
+                            array.splice(index, 0, item);
                         }
                     );
 
                 },
 
+                /*
+                 * Remove index of the array. If no index is specified the first 
+                 * element is removed.
+                 * 
+                 * @param {Object} index - The index to remove ( default is index zero)
+                 * @param {Object} options - The operations options
+                 *
+                 * @return {Array} The removed elements
+                 * 
+                 */
+                remove: function(index, options){
+
+                    options = Arguments.get(
+                        options,
+                        {
+                            // the number of elements to remove
+                            n: 1
+                        }
+                    );
+
+                    var idx = getIndex(index);
+
+                    /// ignore if the given index in invalid
+                    /* jshint -W041 */
+                    if(index != null && index != idx){
+                        return [];
+                    }
+
+                    /// support for negative index's
+                    if(options.n < 0){
+                        idx = getIndex( idx + 1 + options.n );
+                    }
+
+                    return array.splice(idx, Math.abs(options.n));
+
+                },
 
                 /**
                  * Remove all array elements that have a valid 
@@ -143,7 +206,7 @@ define([
                         if( fn(item) === true ){
                             
                             /// remove the index
-                            scope.removeIndex.call(scope, index - removedNumber);
+                            scope.remove.call(scope, index - removedNumber);
 
                             /// increment removed number to calculate the real index 
                             /// of the array
@@ -155,71 +218,7 @@ define([
                     });
 
                 },
-
-
-                /*
-                 * Remove index of the array
-                 * 
-                 * @param {Object} index - The index to remove
-                 *
-                 * @return {Array} The removed elements
-                 * 
-                 */
-                removeIndex: function(index){
-
-                    if(!Type.isNumber(index)) return;
-                    if(index < 0 || index >= array.length) return;
-
-                    array.splice(index, 1);
-
-                },
-
-
-                /*
-                 * Remove first elements of the array
-                 * 
-                 * @param {Object} options - The operations options.
-                 *
-                 * @return {Array} The removed elements
-                 */
-                removeFirst: function(options){
-
-                    options = Arguments.get(
-                        options,
-                        {
-                            // the number of elements to remove
-                            n: 1
-                        }
-                    );
-
-
-                    return array.splice(0, options.n);
-
-                },
-
-
-                /*
-                 * Remove last elements of the array
-                 * 
-                 * @param {Object} options - The operations options.
-                 *
-                 * @return {Array} The removed elements
-                 * 
-                 */
-                removeLast: function(options){
-
-                    options = Arguments.get(
-                        options,
-                        {
-                            // The number of elements to remove
-                            n: 1
-                        }
-                    );
-
-                    return array.splice(array.length - options.n, options.n);
-
-                },
-                 
+ 
                 /**
                  * Returns the JS datascructure
                  * 
