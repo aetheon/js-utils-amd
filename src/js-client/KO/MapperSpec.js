@@ -122,7 +122,7 @@ describe("KO/Mapper Spec", function () {
 
                 Id: 0,
                 Name: {
-                    Name: ""
+                    "/Name/": ""
                 },
                 Children: [
                     {
@@ -139,7 +139,8 @@ describe("KO/Mapper Spec", function () {
                     Id: 1,
                     Ignore: "ignore",
                     Name: {
-                        Name: "1"
+                        Name: "1",
+                        Ignore: "ignore"
                     },
                     Children: [
                         { Id: 1 },
@@ -153,7 +154,11 @@ describe("KO/Mapper Spec", function () {
 
             expect(obj().Id()).toEqual(1);
             expect(obj().Ignore).toEqual(undefined);
+            
+            /// Assert Regexp's on object keys
             expect(obj().Name().Name()).toEqual("1");
+            expect(obj().Name().Ignore).not.toBeTruthy(null);
+
             expect(obj().Children().length).toEqual(2);
             expect(obj().Children()[0]().Id()).toEqual(1);
             expect(obj().Children()[1]().Id()).toEqual(2);

@@ -16,6 +16,8 @@ define([
             Safe = require("js-utils-lib/Safe");
 
 
+        var IsRegExpString = new RegExp(/^\/.*\/$/);
+
         /**
          * Mapper class to create knockout viewmodels from the given 
          * schema.
@@ -31,7 +33,17 @@ define([
          *     Items: [
          *
          *          {
-         *              Id: 0
+         *              Id: 0,
+         *              List: [
+         *
+         *                  /// add all keys of the sctructure
+         *                  {
+         *                      "//": {
+         *                          Description: ""
+         *                      }
+         *                  }
+         * 
+         *              ]
          *          }
          *     
          *     ]
@@ -115,13 +127,39 @@ define([
 
                         result = obj;
 
-                    } else {
+                    } 
+
+                    else {
+
+                        /// Regexp key support. If there's only one key and its on a RegExp format
+                        /// use it to test the real object keys
+                        var regexRule = null;
+                        if(schemaKeys.length === 1 && IsRegExpString.exec(schemaKeys[0]) ){
+                            /// replace the regexp / and initialize RegExp
+                            var regexStr = schemaKeys[0].replace(/^\//, "").replace(/\/$/, "");
+                            regexRule = new RegExp(regexStr);
+                        }
+
+                        /// if there is a regexRule to apply the entire 
+                        /// structure must be iterated
+                        var keys = !regexRule ? schemaKeys : _.keys(obj);
 
                         /// for each obj convert the element
-                        _.each(schemaKeys, function(key){
+                        _.each(keys, function(key){
 
                             var resultSchema = schema[key],
                                 item = obj[key];
+
+                            /// if there is a regexRule to be applied the object schema on a different 
+                            /// key!
+                            if(!!regexRule){ 
+                                resultSchema = schema[schemaKeys[0]];
+                            }
+                            
+                            /// ignore this key if the regexRule does not match
+                            if( !!regexRule && Type.isString(key) && !regexRule.exec(key) ){
+                                return;
+                            }
 
                             /// convert the object with the schema
                             var conv = toKo(resultSchema, item);
