@@ -5,6 +5,7 @@
 var expect = require("expect.js");
 
 describe('indexSpec', function(){
+    "use strict";
 
 
     beforeEach(function(done){
@@ -16,7 +17,7 @@ describe('indexSpec', function(){
   
     it('test', function(done){
 
-        var requirejs = require('requirejs');
+        var requirejs = require('requirejs'),
             jsUtils = require("./index.js");
 
         requirejs.config({
