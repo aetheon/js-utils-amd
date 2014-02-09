@@ -38,7 +38,7 @@ bower install js-utils-client
 
 ### Require.js
 
-Configure require.js path's to use the package directory ( see ***.require.js***).
+Configure your require.js path's to use the package directory ( see ***/bower_components/js-utils-client/.require.js*** ).
 
 ### HTML
 
