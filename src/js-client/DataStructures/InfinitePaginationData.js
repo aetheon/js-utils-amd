@@ -166,13 +166,13 @@ define(["require", "lodash", "js-utils-lib/Arguments", "js-utils-lib/Array", "js
 
                 // remove first data and increment the firstIndex Tracker
                 if(infiniteList.length() >= data.MaxSize) {
-                    infiniteList.removeFirst({ n: data.PageSize });
+                    infiniteList.remove(0, { n: data.PageSize });
                     // set firstIndex
                     firstIndex += 1;
                 }
 
                 // add the current transaction page array to right place ( left or right )
-                infiniteList.add(array, { after: true });
+                infiniteList.insert(array);
 
             },
 
@@ -196,7 +196,7 @@ define(["require", "lodash", "js-utils-lib/Arguments", "js-utils-lib/Array", "js
 
                 // remove last data and set the value of the current index
                 if(infiniteList.length() >= data.MaxSize) {
-                    infiniteList.removeLast({ n: data.PageSize });
+                    infiniteList.remove( infiniteList.lastIndex(), { n: -data.PageSize });
                     // if removed this means that there is more data
                     thereIsNoMoreData = false;
                     // set firstIndex
@@ -206,7 +206,7 @@ define(["require", "lodash", "js-utils-lib/Arguments", "js-utils-lib/Array", "js
                 }
 
                 // add data to the 
-                infiniteList.add(array, { after: false });
+                infiniteList.insert(array);
 
             }
 

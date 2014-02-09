@@ -21,6 +21,8 @@ requirejs.config({
 
         'bootstrap': 'lib/bootstrap/latest/js/bootstrap',
 
+        'backbone': 'lib/backbone/latest',
+        'angular': 'lib/angular/latest',
         'ember': 'lib/ember/ember-latest',
 
         'knockout': 'lib/knockout/knockout-latest',

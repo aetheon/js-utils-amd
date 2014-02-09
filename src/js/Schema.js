@@ -17,15 +17,25 @@ define([
 
 
         /**
-         * Represents an object schema. This wraps the object, array or primitive type.
+         * Schema object validation
          *
          * @class
          * 
-         * @param {*} obj
+         * @param {*} schema
          *
          * @example
          *
-         * TODO
+         *      var schema = new Schema([{
+         *
+         *           title: "",
+         *           name: function(value) { return true; },
+         *           
+         *           others: [ schema ]
+         * 
+         *      }]);
+         *
+         *      // todo
+         *      schema.validate(obj);
          * 
          */
         var Schema = function(schema){
