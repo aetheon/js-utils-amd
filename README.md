@@ -16,16 +16,13 @@
 
 Still working on API pages...
 
-**src/js/**
-  js code for browser and server 
+**src/js/** | js code for browser and server 
 
 
-**src/js-client/**
-  js code for browser 
+**src/js-client/** | js code for browser 
 
 
-**src/js-node/**
-  js code for server 
+**src/js-node/** |js code for server 
 
 
 **lib/**

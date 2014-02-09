@@ -29,8 +29,8 @@
     "grunt-contrib-jshint": "*",
     "grunt-contrib-compass": "*",
     "grunt-contrib-requirejs": "*",
-    "grunt-contrib-jasmine": "*",
-    "grunt-template-jasmine-requirejs": "*",
+    "grunt-contrib-jasmine": "0.5.2",
+    "grunt-template-jasmine-requirejs": "0.1.9",
     "load-grunt-tasks": "*",
 
     "expect.js": ">=0.2.0",
