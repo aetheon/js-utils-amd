@@ -21,7 +21,7 @@
 
 [See usage example here](https://github.com/aetheon/js-utils-browser-example)
 
-## ![alt text][https://raw.github.com/aetheon/js-utils/img/logos/bower.png] Brower usage
+## ![alt text](https://raw.github.com/aetheon/js-utils/master/img/logos/bower.png "Bower") Brower usage
 
 ```
 
