@@ -17,22 +17,18 @@
 Still working on API pages...
 
 **src/js/**
-
   js code for browser and server 
 
 
-**src/js-client/** 
-
+**src/js-client/**
   js code for browser 
 
 
-**src/js-node/** 
-
+**src/js-node/**
   js code for server 
 
 
-**lib/** 
-
+**lib/**
   client frameworks ( there is no hard dependency because they all are loaded on demand by the module )
 
 
