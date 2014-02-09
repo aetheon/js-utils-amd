@@ -21,11 +21,25 @@
 
 [See usage example here](https://github.com/aetheon/js-utils-browser-example)
 
+## Browser usage
+
+''' 
+
+bower install js-utils-client
+
+'''
+
 
 ## Node usage
 
 
 [See usage example here](https://github.com/aetheon/js-utils-node-example)
+
+''' 
+
+npm install js-utils
+
+'''
 
 
 ## Build
