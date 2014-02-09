@@ -38,7 +38,8 @@ require('js-utils-lib/?', function(){
     
 });
 
-/// load specific module. On Browser context or server context
+/// In Browser context will point to src/js-client/ modules
+/// In Server context will point to src/js-node/ modules
 require('js-utils/?', function(){
     
 });
