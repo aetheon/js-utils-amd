@@ -17,7 +17,7 @@
 Still working on API pages...
 
 | Directory             |               |
-| -------------         | ------------- |
+| --------------------- | ------------- |
 | **src/js/**           | js code for browser and server  |
 | **src/js-client/**    | js code for browser   |
 | **src/js-node/**      | js code for server |
