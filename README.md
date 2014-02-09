@@ -22,10 +22,9 @@
 ## ![alt text](https://raw.github.com/aetheon/js-utils/master/img/logos/bower.png "Bower") Brower usage
 
 ```
-
 bower install js-utils-client
 
-```javascript
+```
 
 [See usage example here](https://github.com/aetheon/js-utils-browser-example)
 
@@ -35,8 +34,7 @@ bower install js-utils-client
 
 [See usage example here](https://github.com/aetheon/js-utils-node-example)
 
-```javascript
-
+```
 npm install js-utils
 
 ```
