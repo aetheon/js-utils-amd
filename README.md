@@ -36,7 +36,31 @@ bower install js-utils-client
 
 ```
 
-[See usage example here](https://github.com/aetheon/js-utils-browser-example)
+### Require.js
+
+Configure require.js path's to use the package directory ( see ***.require.js***).
+
+### HTML
+
+``` javascript
+
+<script type="text/javascript" src="//bower_components/js-utils-client/lib/require/require-latest.js"></script>
+<script type="text/javascript">
+    
+    // configurate require.js
+    require(["require", "//.require.js"], function(require){
+
+        // use Type module
+        require(["js-utils-lib/Type"], function(Type){
+            
+        });
+
+    });
+
+</script>
+
+
+```
 
 
 
