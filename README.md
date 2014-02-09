@@ -11,17 +11,16 @@
 
 ## Project Structure
 
-*   **src/js/** - js code for browser and server 
-*   **src/js-client/** - js code for browser 
-*   **src/js-node/** - js code for server 
-*   **lib/** - client frameworks 
+*   **src/js/** js code for browser and server 
+*   **src/js-client/** js code for browser 
+*   **src/js-node/** js code for server 
+*   **lib/** client frameworks 
 
 
-## Bower usage
-
-## ![alt text](https://raw.github.com/aetheon/js-utils/master/img/logos/bower.png "Bower") Brower usage
+## ![alt text](https://raw.github.com/aetheon/js-utils/master/img/logos/bower.png "Bower") Brower
 
 ```
+
 bower install js-utils-client
 
 ```
@@ -29,16 +28,17 @@ bower install js-utils-client
 [See usage example here](https://github.com/aetheon/js-utils-browser-example)
 
 
-## ![alt text](https://raw.github.com/aetheon/js-utils/master/img/logos/nodejs.png "Node.js") Node usage
 
+## ![alt text](https://raw.github.com/aetheon/js-utils/master/img/logos/nodejs.png "Node.js") Nodejs
 
-[See usage example here](https://github.com/aetheon/js-utils-node-example)
 
 ```
+
 npm install js-utils
 
 ```
 
+[See usage example here](https://github.com/aetheon/js-utils-node-example)
 
 ## Build
 
