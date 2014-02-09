@@ -20,11 +20,30 @@ Until then take a look at the source directory:
 
 | Directory             |               |
 | --------------------- | ------------- |
-| **src/js/**           | js code for browser and server  |
-| **src/js-client/**    | js code for browser   |
-| **src/js-node/**      | js code for server |
-| **lib/**              | client frameworks  |
-  
+| **src/js/**           | hybrid code ( same for browser and server )  |
+| **src/js-client/**    | code for browser   |
+| **src/js-node/**      | code for server |
+|                       |                 |
+| **lib/**              | useful client frameworks  |
+
+
+### Modules
+
+There are two 'namespaces' used.
+
+```
+
+/// load hybrid module (available for browser and node)
+require('js-utils-lib/?', function(){
+    
+});
+
+/// load specific module. On Browser context or server context
+require('js-utils/?', function(){
+    
+});
+
+```  
 
 
 
