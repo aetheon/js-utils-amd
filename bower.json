@@ -1,0 +1,25 @@
+{
+  "name": "js-utils",
+  "version": "0.0.1",
+  "homepage": "https://github.com/aetheon/js-utils",
+  "authors": [
+    "Oscar Brito <aetheon@gmail.com>"
+  ],
+  "description": "Collection of AMD Modules both for browser and server",
+  "keywords": [
+    "AMD",
+    "utils",
+    "modules",
+    "UI",
+    "nodejs"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "spec",
+    "examples",
+    "src/js-node"
+  ]
+}
