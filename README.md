@@ -26,7 +26,6 @@ Still working on API pages...
 
 
 
-  
 
 
 ## ![alt text](https://raw.github.com/aetheon/js-utils/master/img/logos/bower.png "Bower") Brower
@@ -47,6 +46,47 @@ bower install js-utils-client
 ```
 
 npm install js-utils
+
+```
+
+### package.json
+
+```
+
+"dependencies": {
+
+    "amdefine": ">=0.1.0",
+    "requirejs": ">=2.1.9"
+
+    // use published packages
+    "js-utils": "*",
+
+    // use latest code from the master branch
+    "js-utils": "git://github.com/aetheon/js-utils.git"
+
+}
+
+```
+
+### usage
+
+``` javascript
+
+var requirejs = require('requirejs'),
+    jsUtils = require("js-utils");
+
+/// configure require.js to use js-utils
+/// this way there is no hard dependencies!
+requirejs.config({
+    paths: jsUtils.paths
+});
+
+/// use modules from js-utils 
+requirejs(["js-utils-lib/Type"], function(Type){
+
+    ...
+
+});
 
 ```
 
