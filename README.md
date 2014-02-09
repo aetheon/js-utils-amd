@@ -17,9 +17,7 @@
 *   **lib/** - client frameworks 
 
 
-## Browser usage
-
-[See usage example here](https://github.com/aetheon/js-utils-browser-example)
+## Bower usage
 
 ## ![alt text](https://raw.github.com/aetheon/js-utils/master/img/logos/bower.png "Bower") Brower usage
 
@@ -29,8 +27,10 @@ bower install js-utils-client
 
 ```javascript
 
+[See usage example here](https://github.com/aetheon/js-utils-browser-example)
 
-## Node usage
+
+## ![alt text](https://raw.github.com/aetheon/js-utils/master/img/logos/nodejs.png "Node.js") Node usage
 
 
 [See usage example here](https://github.com/aetheon/js-utils-node-example)
