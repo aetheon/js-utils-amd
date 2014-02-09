@@ -9,6 +9,9 @@
 >
 > Using require.js to load modules both in client and server.
 >
+> There's no hard references to 3rd party library because its meant to be just a repository for common 
+> code ( nodejs, browser, UI controls, ... )
+>
 > [@aetheon](http://twitter.com/aetheon)
 >
 
