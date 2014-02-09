@@ -1,10 +1,13 @@
 
-# js-utils.js
+# js-utils
 
-### My own code base for javascript development ( both for server-side and client-side )
 [![Build Status](https://travis-ci.org/aetheon/js-utils.png?branch=master)](https://travis-ci.org/aetheon/js-utils)
 
-> **It's not a library! Is a collection of javascript AMD modules.** 
+> ** It's not a library! Is a collection of javascript AMD modules both for client and server. ** 
+>
+> ** Because javascript should be reused!
+>
+> Using require.js to load modules both in client and server.
 >
 > [@aetheon](http://twitter.com/aetheon)
 >
