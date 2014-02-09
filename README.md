@@ -16,6 +16,8 @@
 
 Still working on API pages...
 
+Until then take a look at the source directory:
+
 | Directory             |               |
 | --------------------- | ------------- |
 | **src/js/**           | js code for browser and server  |
