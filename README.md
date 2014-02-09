@@ -3,7 +3,7 @@
 
 [![Build Status](https://travis-ci.org/aetheon/js-utils.png?branch=master)](https://travis-ci.org/aetheon/js-utils)
 
-> ** It's not a library! Is a collection of javascript AMD modules both for client and server. ** 
+> ** It's not a library! Is a collection of javascript AMD modules both for client and server.
 >
 > ** Because javascript should be reused!
 >
