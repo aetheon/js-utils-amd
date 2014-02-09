@@ -50,7 +50,7 @@ require('js-utils/?', function(){
 
 
 
-## ![alt text](https://raw.github.com/aetheon/js-utils/master/img/logos/bower.png "Bower") Brower
+## ![alt text](https://raw.github.com/aetheon/js-utils/master/img/logos/bower.png "Bower") Bower
 
 ```
 
