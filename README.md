@@ -43,7 +43,8 @@ bower install js-utils-client
 ## ![alt text](https://raw.github.com/aetheon/js-utils/master/img/logos/nodejs.png "Node.js") Nodejs
 
 This library does not have any dependency on the libraries and framework used in the modules. This means 
-that the application will have to reference them in their package.json files.
+that the application will have to reference them in their package.json files. This is because js-utils is 
+just a collection of files...
 
 
 ```
