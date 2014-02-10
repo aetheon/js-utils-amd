@@ -53,6 +53,9 @@ requirejs.config({
         // Crop
         'jCrop': 'lib/jCrop/jquery.Jcrop',
 
+        // Code Editor
+        'codemirror': 'lib/codemirror/latest',
+
         // js-utils base path
         'js-utils': 'src/js-client/',
         'js-utils-lib': 'src/js/',
