@@ -19,17 +19,27 @@ requirejs.config({
         'fastdom': 'lib/fastdom/fastdom-latest',
         'intravenous': 'lib/intravenous/intravenous-latest',
 
+         // Bootsrap
         'bootstrap': 'lib/bootstrap/latest/js/bootstrap',
 
+         // Backbone
         'backbone': 'lib/backbone/latest',
+
+         // Angular
         'angular': 'lib/angular/latest',
+
+         // Ember
         'ember': 'lib/ember/ember-latest',
 
+         // knockout
         'knockout': 'lib/knockout/knockout-latest',
         'knockout-validation': 'lib/knockout/knockout.validation',
 
+        // jquery plugins
         'jquery.animate-enhanced': 'lib/jquery.animate-enhanced/jquery.animate-enhanced-latest',
+        'jquery-multiselect': 'lib/jquery-plugins/jquery.multiselect',
 
+         // persistence library
         'persistence': 'lib/persistence/persistence',
         'persistence-migration': 'lib/persistence/persistence.migrations',
         'persistence-sql': 'lib/persistence/persistence.store.sql',
@@ -44,6 +54,7 @@ requirejs.config({
         // SVG library (charts, etc...)
         'd3': 'lib/d3/latest',
 
+        // Squire mocking framework
         'squire': 'lib/squire/squire-latest',
 
         // HTML 5 Uploader
