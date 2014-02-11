@@ -64,12 +64,29 @@ define([
                     tree: null,
 
                     node: {
-                        radius: 20
-                    },
 
-                    // get the node text
-                    getNodeText: function(node){
-                      return node.name;
+                        radius: 20,
+
+                        /**
+                         * Get the node text
+                         * 
+                         * @param  {Object} node
+                         * @return {String}
+                         */
+                        text: function(node){
+                            return node.name;
+                        },
+
+                        /**
+                         * Gets the CssClass of the node
+                         * 
+                         * @param  {Object} node
+                         * @return {String}
+                         */
+                        cssClass: function(node){
+                            return "node-dot";
+                        }
+
                     }
                     
                 });
@@ -107,6 +124,18 @@ define([
             new Element($("> svg", options.container)).fill($(options.container));
             
             var diagonal = d3.svg.diagonal().projection(function (d) { return [d.y, d.x]; });
+
+
+            /**
+             *
+             * Gets the element
+             * 
+             * @param  {Number} id
+             * @return {HtmlElement}
+             */
+            var getElement = function(id) {
+                return $("[data-id=" + id + "]", options.container);
+            };
 
             /*
              * Toogle's a node children visibility
@@ -177,6 +206,7 @@ define([
                         });
             }
 
+
             /*
              * Renders the entire tree
              *
@@ -228,14 +258,16 @@ define([
                     .attr("class", "node");
                 
                 svgNodes.append("svg:circle")
-                    .attr("class", "node-dot")
+                    .attr("class", function (d) { return options.node.cssClass(d); })
                     .attr("r", options.node.radius)
                     .attr("fill", "red")
                     .on("click", function (d) {
+
                         d3.event.preventDefault();
                         d3.event.stopPropagation();
-                        // selects a node
+                        
                         _this.emitEvent("selected", [d]);
+
                     })
                     .on("mouseover", function (d) {
                         d3.select(this).style({ opacity: '0.8' });
@@ -258,7 +290,7 @@ define([
                         return d.children ? gap : 5;
                     })
                     .text(function (d) {
-                        return options.getNodeText(d);
+                        return options.node.text(d);
                     });
                 
                 // links that are no longer needed are removed
@@ -300,18 +332,6 @@ define([
                 });
 
                 
-            };
-
-
-            /**
-             *
-             * Gets the element
-             * 
-             * @param  {Number} id
-             * @return {HtmlElement}
-             */
-            var getElement = function(id) {
-                return $("[data-id=" + id + "]", options.container);
             };
 
 
@@ -491,7 +511,7 @@ define([
                 refreshText: function(node){
 
                     var element = getElement(node.id);
-                    var text = options.getNodeText(node);
+                    var text = options.node.text(node);
 
                     $("text", element).text(text);
 
@@ -574,27 +594,35 @@ define([
                  */
                 highlightPath: function(node){
 
-                  /// apply opacity in every node's
-                  svg.selectAll("g.node, path.link").style("opacity", 0.4);
+                    /// Apply selected on the element
+                    /// remove all the selected elements
+                    $("[selected]", options.container).removeAttr("selected");
+                    /// add the selected node
+                    var nodeElement = getElement(node.id);
+                    $(nodeElement).attr("selected", "");
 
-                  /// select all the node's and path's to highlight
-                  var elementsToHighlight = [];
-                  while(node) {
 
-                    var element = getElement(node.id);
-                    elementsToHighlight.push(element[0]);
+                    /// apply opacity in every node's
+                    svg.selectAll("g.node, path.link").style("opacity", 0.4);
 
-                    var path = $("path[data-target-id=" + node.id + "]", options.container);
-                    if(path.length) {
-                        elementsToHighlight.push(path[0]);
+                    /// select all the node's and path's to highlight
+                    var elementsToHighlight = [];
+                    while(node) {
+
+                        var element = getElement(node.id);
+                        elementsToHighlight.push(element[0]);
+
+                        var path = $("path[data-target-id=" + node.id + "]", options.container);
+                        if(path.length) {
+                            elementsToHighlight.push(path[0]);
+                        }
+
+                        node = node.parent;
+
                     }
-                    
-                    node = node.parent;
 
-                  }
-
-                  /// apply opacity to all elements to show
-                  d3.selectAll(elementsToHighlight).style("opacity", 1);
+                    /// apply opacity to all elements to show
+                    d3.selectAll(elementsToHighlight).style("opacity", 1);
 
                 }
 
