@@ -17,7 +17,7 @@ define([
 
 
         /**
-         * Schema object validation
+         * Schema object traversal. Traverse objects by the given 
          *
          * @class
          * 
@@ -40,87 +40,85 @@ define([
          */
         var Schema = function(schema){
 
-            var _schema = schema;
-
             /**
              * 
-             * Iterate over the given object (top->down) executing the callback for 
-             * all the object's compatible schema.  
+             * Iterate over the object by following the schema. A callback is called in 
+             * each object.
              *
-             * 
-             * @param  {*}   schema
+             * @param  {Schema}   schema
              * @param  {*}   obj
-             * @param  {Function(schemaObj, Object)} callback
+             * @param  {Function(Object, Object)} callback(schemaObject, obj)
              *
              */
-            var each = function(schema, obj, callback){
+            var iterate = function(schema, obj, callback){
 
-                /* jshint -W041 */
-                if(schema == null || obj == null) {
-                    return null;
-                }
-                
+                /// exec callback for the current schema / obj
+                obj = callback(schema, obj);
 
-                /// combining schema validation
-                if(Type.isObject(schema) && schema.__IsSchema){
-                    
-                    schema.each(obj, callback);
-                    return;
-                }
-
-
-                /// execute the callback for the current object
-                var stop = callback(schema, obj);
-                /// if callback returns true the iteration stops
-                if(stop === true) return;
-
-
-                if(Type.isArray(schema)){
-
-                    /// be sure that obj is an object
-                    obj = Safe.getArray(obj);
+                if(Type.isArray(obj)){
 
                     /// get the first element from the result schema
-                    var resultSchema = schema.length > 0 ? schema[0] : null;
+                    schema = schema.length > 0 ? schema[0] : null;
 
-                    /// self referencing schema
-                    if(resultSchema === undefined){
-                        resultSchema = _schema;
-                    }
+                    /// iterate over the inner objects of the Array
+                    var result = [];
+                    _.each(obj, function(item, index){
 
-                    /// for each obj convert the element
-                    _.each(obj, function(item){
-
-                        each(resultSchema, item, callback);
+                        var obj = iterate(schema, item, callback);
+                        if(obj != null) result.push(obj);
 
                     });
 
+                    /// set the object to the array
+                    obj = result;
+
                 }
 
-                else if(Type.isObject(schema)){
-
-                    
+                else if(Type.isObject(obj)){
 
                     /// get the schema keys 
-                    var schemaKeys = _.keys(schema);
+                    var objKeys = _.keys(obj);
 
-                    /// for each obj convert the element
-                    _.each(schemaKeys, function(key){
+                    /// iterate over inner objects of the Object
+                    _.each(objKeys, function(key){
 
-                        var resultSchema = schema[key],
-                            item = obj[key];
-
-                        /// self referencing schema
-                        if(resultSchema === undefined){
-                            resultSchema = _schema;
-                        }
-
-                        each(resultSchema, item, callback);
+                        var _obj    = obj[key],
+                            _schema = schema[key];
+                        
+                        iterate(_schema, _obj, callback);
 
                     });
 
                 }
 
+                return obj;
+
+            };
+
+
+            /**
+             * Apply schema to the callback
+             * 
+             * @param  {Object} schema
+             * @param  {Object} value
+             * 
+             */
+            var applySchemaCallback = function(schema, value){
+
+                
+                if( Type.of(schema) !== Type.of(obj) ){
+                    return schema;
+                }
+
+                if( Type.isObject(schema) ){
+                    
+                    // be sure that the schema default values are applied
+                    _.each(schema, function(value, index){
+                        
+                    });
+                    
+                }
+                
             };
 
 
@@ -129,44 +127,25 @@ define([
             return {
 
                 /**
-                 * Property that identifies a Schema
-                 * 
-                 * @type {Boolean}
+                 * Apply the Schema to the Object, returning the compatible 
+                 * object.
+                 *
+                 * @param {*} Object
+                 *
+                 * @example
+                 *
+                 * var obj = Schema({ a: 1, c: 2}).apply(obj);
                  * 
                  */
-                __IsSchema: true,
+                apply: function(obj){
 
-                /**
-                 *
-                 * Sanitize the given object by specifying the schema
-                 *
-                 * @param  {*} obj [description]
-                 *
-                 * @return {*} The object or null if is not valid
-                 * 
-                 */
-                sanitize: function(obj, options){
-                    // TODO
-                },
+                    var _schema = _.cloneDeep(schema);
+                    iterate(null, null, _schema, obj, applySchemaCallback);
 
+                    return _schema;
 
-                /**
-                 * 
-                 * Walks over the given structure executing the callback for 
-                 * each schema compatible object. 
-                 *
-                 * This does not modifies the data.
-                 * 
-                 * 
-                 * @param  {*}   obj
-                 * @param  {Function(schemaObj, Object)} callback
-                 * 
-                 */
-                each: function(obj, callback){
-                    each(schema, obj, function(schema, obj){
-                        callback(schema, obj);
-                    });
                 }
+                
 
             };
 

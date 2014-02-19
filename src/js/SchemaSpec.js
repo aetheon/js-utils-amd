@@ -25,44 +25,28 @@ describe("SchemaSpec", function () {
 
         Injector.require( [ "js-utils-lib/Schema" ], function(Schema){
 
+            var obj = 
+                Schema({
+                    "Name": "",
+                    "Items": [
+                        {
+                            "Id": ""
+                        }
+                    ]
+                }).apply({
 
-            var schema = new Schema({
-                "Id": "",
-                "Name": "",
-                "Items": [
-                    {
-                        "Id": ""
-                    }
-                ],
+                    "Name": "name",
+                    "Items": [
+                        { "Id": "1" },
+                        { "Id": "2" }
+                    ]
 
-                "Ignore": [
-                    {
-                        "Id": ""
-                    }
-                ]
+                });
 
-            });
-
-            var count = 0;
-
-            schema.each({
-                "Id": "1",
-                "Name": "name",
-                "Items": [
-                    {
-                        "Id": "2"
-                    },
-                    {
-                        "Id": "3"
-                    }
-                ]
-            },
-            function(schema, obj){
-                count++;
-            });
-
-
-            expect(count).toBe(8);
+            expect(obj.Name).toBe("name");
+            expect(obj.Items.length).toBe(2);
+            expect(obj.Items[0].Id).toBe("1");
+            expect(obj.Items[1].Id).toBe("2");
             
             done();
 
@@ -71,88 +55,7 @@ describe("SchemaSpec", function () {
     });
 
 
-    async.it(".each self-referencing", function (done) {
-
-        Injector.require( [ "js-utils-lib/Schema" ], function(Schema){
-
-
-            var schema = new Schema({
-                "Id": "",
-                "Name": "",
-                "Items": [ schema ]
-            });
-
-            var count = 0;
-
-            schema.each({
-                "Items": [
-                    {
-                        "Id": "2",
-                        "Name": "name2"
-                    },
-                    {
-                        "Id": "3",
-                        "Name": "name3"
-                    }
-                ]
-            },
-            function(schema, obj){
-                count++;
-            });
-
-
-            expect(count).toBe(8);
-            
-            done();
-
-
-        });
-        
-    });
-
-
-    async.it(".each combining schemas", function (done) {
-
-        Injector.require( [ "js-utils-lib/Schema" ], function(Schema){
-
-            var schema = new Schema({
-                "Items": [ 
-
-                    new Schema({
-                        "Id": "",
-                        "Name": ""
-                    })
-
-                ]
-            });
-
-            var count = 0;
-
-            schema.each({
-                "Items": [
-                    {
-                        "Id": "2",
-                        "Name": "name2"
-                    },
-                    {
-                        "Id": "3",
-                        "Name": "name3"
-                    }
-                ]
-            },
-            function(schema, obj){
-                count++;
-            });
-
-
-            expect(count).toBe(8);
-            
-            done();
-
-
-        });
-        
-    });
+    
 
 
 

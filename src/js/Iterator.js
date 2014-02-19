@@ -73,6 +73,7 @@ define([
          *
          *     /// { value: *, index: Number|Parent, parent: * }
          *     var current = iterator.current();
+         *     
          * }
          * 
          */
@@ -161,6 +162,12 @@ define([
                  * Get next object
                  * 
                  * @return {Object} { value: * , index: *, parent: * }
+                 *
+                 * @example
+                 *
+                 * var iterator = new Iterator([ { 1: 1 } ]);
+                 * iterator.next();
+                 * 
                  * 
                  */
                 next: function(){
