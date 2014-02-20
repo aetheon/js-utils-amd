@@ -11,6 +11,7 @@ define([
     ], function(require){
         "use strict";
 
+
         var _ = require("lodash"),
             Safe = require("js-utils-lib/Safe"),
             Type = require("js-utils-lib/Type");
@@ -34,62 +35,77 @@ define([
          * 
          *      }]);
          *
-         *      // todo
-         *      schema.validate(obj);
+         *      /// apply the schema to the given object
+         *      var obj = schema.apply(obj);
          * 
          */
         var Schema = function(schema){
 
             /**
              * 
-             * Iterate over the object by following the schema. A callback is called in 
-             * each object.
+             * Iterate over the object by following the schema. 
+             * 
+             * The callback is called for each <schema, object> and its return value
+             * will overwrite the object...
              *
-             * @param  {Schema}   schema
+             * @param  {*}   schema
              * @param  {*}   obj
              * @param  {Function(Object, Object)} callback(schemaObject, obj)
+             * @param  {*}   schemaParent
+             *
+             * @return {*} The processed object
              *
              */
-            var iterate = function(schema, obj, callback){
+            var iterate = function(schema, obj, callback, schemaParent){
 
-                /// exec callback for the current schema / obj
-                obj = callback(schema, obj);
 
-                if(Type.isArray(obj)){
+                if(Type.isArray(schema)){
+
+                    /// safelly get the object
+                    obj = Safe.getArray(obj);
 
                     /// get the first element from the result schema
-                    schema = schema.length > 0 ? schema[0] : null;
+                    var _schema = schema.length > 0 ? schema[0] : null;
 
-                    /// iterate over the inner objects of the Array
-                    var result = [];
+                    /// iterate over the objects items to 
+                    var array = [];
                     _.each(obj, function(item, index){
 
-                        var obj = iterate(schema, item, callback);
-                        if(obj != null) result.push(obj);
+                        var o = iterate(_schema, item, callback, schema);
+                        /* jshint -W041 */
+                        if(o != null) array.push(o);
 
                     });
 
                     /// set the object to the array
-                    obj = result;
+                    obj = array;
 
                 }
 
-                else if(Type.isObject(obj)){
+                else if(Type.isObject(schema)){
 
-                    /// get the schema keys 
-                    var objKeys = _.keys(obj);
+                    /// safelly get the object
+                    obj = Safe.getObject(obj);
 
                     /// iterate over inner objects of the Object
-                    _.each(objKeys, function(key){
+                    var object = {};
+                    _.each(schema, function(_schema, key){
 
-                        var _obj    = obj[key],
-                            _schema = schema[key];
+                        var _obj = obj[key];
                         
-                        iterate(_schema, _obj, callback);
+                        var o = iterate(_schema, _obj, callback, schema);
+                        object[key] = o;
 
                     });
 
+                    /// set the object to the array
+                    obj = object;                 
+
                 }
+
+                /// call the callback function for the current 
+                /// Schema and Object
+                obj = callback(schema, obj, schemaParent);
 
                 return obj;
 
@@ -98,27 +114,38 @@ define([
 
             /**
              * Apply schema to the callback
-             * 
+             *
              * @param  {Object} schema
              * @param  {Object} value
+             * @param  {Object} schemaParent
              * 
              */
-            var applySchemaCallback = function(schema, value){
+            var applySchemaCallback = function(schema, value, schemaParent){
 
-                
-                if( Type.of(schema) !== Type.of(obj) ){
-                    return schema;
+                var schemaType = Type.of(schema),
+                    valueType = Type.of(value);
+
+                /// if the values are compatible
+                if( schemaType === valueType ){
+                   return value;
                 }
 
-                if( Type.isObject(schema) ){
-                    
-                    // be sure that the schema default values are applied
-                    _.each(schema, function(value, index){
-                        
-                    });
-                    
+                /// if the schema type is a function and the return value is not
+                /// then execute the function
+                else if( Type.isFunction(schema) ){
+                    return schema(value);
                 }
-                
+
+                /// if is an array and value does not have the same type as
+                /// the schema, return null
+                /* jshint -W041 */
+                else if( Type.isArray(schemaParent) ){
+                    return null;
+                }
+
+                /// default value is schema
+                return schema;
+
             };
 
 
@@ -139,10 +166,12 @@ define([
                  */
                 apply: function(obj){
 
-                    var _schema = _.cloneDeep(schema);
-                    iterate(null, null, _schema, obj, applySchemaCallback);
+                    var _schema = _.cloneDeep(schema),
+                        _obj    = _.cloneDeep(obj);
 
-                    return _schema;
+                    _obj = iterate(_schema, _obj, applySchemaCallback);
+
+                    return _obj;
 
                 }
                 
