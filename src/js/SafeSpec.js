@@ -21,44 +21,23 @@ describe("SafeSpec", function () {
 
 
     
-    async.it(".getArray(Array) should return an Array", function (done) {
+    async.it(".getArray()", function (done) {
 
         Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var array = Safe.getArray([1]);
-
             expect(array).not.toBeNull();
             expect(array.length).toEqual(1);
 
-            done();
+            array = Safe.getArray(1);
+            expect(array).not.toBeNull();
+            expect(array.length).toEqual(1);
 
-        });
-
-    });
-
-
-    async.it(".getArray(null) should return an Array", function (done) {
-
-        Injector.require(["js-utils-lib/Safe"], function(Safe){
-
-            var array = Safe.getArray(null);
-
+            array = Safe.getArray(null);
             expect(array).not.toBeNull();
             expect(array.length).toEqual(0);
 
-            done();
-
-        });
-
-    });
-
-
-    async.it(".getArray(Obj) should return an Array", function (done) {
-
-        Injector.require(["js-utils-lib/Safe"], function(Safe){
-
-            var array = Safe.getArray(1);
-
+            array = Safe.getArray(null, [1]);
             expect(array).not.toBeNull();
             expect(array.length).toEqual(1);
 
@@ -69,42 +48,18 @@ describe("SafeSpec", function () {
     });
 
 
-    async.it(".getBoolean(true) should return an boolean", function (done) {
+
+    async.it(".getBoolean()", function (done) {
 
         Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var bool = Safe.getBoolean(true);
-
             expect(bool).toBeTruthy();
 
-            done();
-
-        });
-
-    });
-
-
-    async.it(".getBoolean(null) should return an boolean", function (done) {
-
-        Injector.require(["js-utils-lib/Safe"], function(Safe){
-
-            var bool = Safe.getBoolean(null);
-
+            bool = Safe.getBoolean(null);
             expect(bool).not.toBeTruthy();
 
-            done();
-
-        });
-
-    });
-
-
-    async.it(".getBoolean(null) should return an boolean", function (done) {
-
-        Injector.require(["js-utils-lib/Safe"], function(Safe){
-
-            var bool = Safe.getBoolean({});
-
+            bool = Safe.getBoolean({});
             expect(bool).toBeTruthy();
 
             done();
@@ -112,14 +67,20 @@ describe("SafeSpec", function () {
         });
 
     });
+   
 
 
-    async.it(".getFunction(Function) should return an function", function (done) {
+    async.it(".getFunction()", function (done) {
 
         Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             var fn = Safe.getFunction(function(){});
+            expect(fn).not.toBe(null);
 
+            fn = Safe.getFunction(null);
+            expect(fn).not.toBe(null);
+
+            fn = Safe.getFunction(null, function(){});
             expect(fn).not.toBe(null);
 
             done();
@@ -128,19 +89,81 @@ describe("SafeSpec", function () {
 
     });
 
-    async.it(".getFunction(null) should return an function", function (done) {
+
+    async.it(".getString()", function (done) {
 
         Injector.require(["js-utils-lib/Safe"], function(Safe){
 
-            var fn = Safe.getFunction(null);
+            var str = Safe.getString("a");
+            expect(str).toBe("a");
 
-            expect(fn).not.toBe(null);
+            str = Safe.getString(null);
+            expect(str).toBe("");
+
+            str = Safe.getString({}, "lol");
+            expect(str).toBe("lol");
+
+            str = Safe.getString({}, {});
+            expect(str).toBe("");
+
 
             done();
 
         });
 
     });
+
+
+
+    async.it(".getObject()", function (done) {
+
+        Injector.require(["js-utils-lib/Safe", "lodash"], function(Safe, _){
+
+            var obj = Safe.getObject({ one: 1 });
+
+            expect(obj).not.toBe(null);
+            expect(_.keys(obj).length).toBe(1);
+
+            
+            obj = Safe.getObject(null);
+
+            expect(obj).not.toBe(null);
+            expect(_.keys(obj).length).toBe(0);
+
+
+            obj = Safe.getObject(null, { one: 1 });
+
+            expect(obj).not.toBe(null);
+            expect(obj.one).toBe(1);
+
+            obj = Safe.getObject(null, "a");
+            expect(obj).not.toBe(null);
+            expect(obj).not.toBe("a");
+
+            done();
+
+        });
+
+    });
+
+
+
+    async.it(".getNumber()", function (done) {
+
+        Injector.require(["js-utils-lib/Safe"], function(Safe){
+
+            expect(Safe.getNumber(1)).toBe(1);
+            expect(Safe.getNumber("1")).toBe(1);
+            expect(Safe.getNumber(null)).toBe(0);
+            expect(Safe.getNumber("a", 2)).toBe(2);
+            expect(Safe.getNumber("a", "b")).toBe(0);
+
+            done();
+
+        });
+
+    });
+
 
 
     async.it(".callFunction() should call the given function", function (done) {
@@ -180,97 +203,6 @@ describe("SafeSpec", function () {
             var bool = Safe.callFunction(function(arg){ return arg; }, { args: [true] });
 
             expect(bool).toBeTruthy();
-
-            done();
-
-        });
-
-    });
-
-
-    async.it(".getString(str) should return an string", function (done) {
-
-        Injector.require(["js-utils-lib/Safe"], function(Safe){
-
-            var str = Safe.getString("a");
-
-            expect(str).toBe("a");
-
-            done();
-
-        });
-
-    });
-
-
-    async.it(".getString(null) should return an string", function (done) {
-
-        Injector.require(["js-utils-lib/Safe"], function(Safe){
-
-            var str = Safe.getString(null);
-
-            expect(str).toBe("");
-
-            done();
-
-        });
-
-    });
-
-
-    async.it(".getString(obj) should return an string", function (done) {
-
-        Injector.require(["js-utils-lib/Safe"], function(Safe){
-
-            var str = Safe.getString({});
-
-            expect(str).toBe("");
-
-            done();
-
-        });
-
-    });
-
-
-
-    async.it(".getObject()", function (done) {
-
-        Injector.require(["js-utils-lib/Safe", "lodash"], function(Safe, _){
-
-            var obj = Safe.getObject({ one: 1 });
-
-            expect(obj).not.toBe(null);
-            expect(_.keys(obj).length).toBe(1);
-
-            
-            obj = Safe.getObject(null);
-
-            expect(obj).not.toBe(null);
-            expect(_.keys(obj).length).toBe(0);
-
-
-            obj = Safe.getObject(null, { one: 1 });
-
-            expect(obj).not.toBe(null);
-            expect(obj.one).toBe(1);
-
-            done();
-
-        });
-
-    });
-
-
-
-    async.it(".getNumber()", function (done) {
-
-        Injector.require(["js-utils-lib/Safe"], function(Safe){
-
-            expect(Safe.getNumber(1)).toBe(1);
-            expect(Safe.getNumber("1")).toBe(1);
-            expect(Safe.getNumber(null)).toBe(0);
-            expect(Safe.getNumber("aaa", null)).toBe(null);
 
             done();
 

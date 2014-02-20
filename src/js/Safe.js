@@ -21,25 +21,32 @@ define([
         /*
          * Safelly get array from value
          *
-         * @param{value} The value to get
-         * @return An array
+         * @param {*} value The value to get
+         * @param {*} defaultValue The value to get
+         * 
+         * @return {Array}
+         * 
          */
-        Safe.getArray = function(value){
+        Safe.getArray = function(value, defaultValue){
 
-            if(!Type.isArray(value)){
-                if(value)   value = [value];
-                else        value = [];
+            if(!Type.isArray(value) && !!value){
+                value = [value];
             }
 
-            return value || [];
+            if(value) return value;
+
+            return defaultValue !== undefined ? 
+                        Safe.getArray(defaultValue) : [];
 
         };
 
         /*
          * Safelly get Boolean from value
          *
-         * @param{value} The value to get
-         * @return A boolean
+         * @param {*} value The value to get
+         * 
+         * @return {Boolean}
+         * 
          */
         Safe.getBoolean = function(value){
             return !!value;
@@ -49,17 +56,20 @@ define([
         /*
          * Safelly get Boolean from value
          *
-         * @param{value} The value to get
-         * @return A String
+         * @param {*} value
+         * @param {*} defaultValue
+         * 
+         * @return {String}
+         * 
          */
-        Safe.getString = function(value){
+        Safe.getString = function(value, defaultValue){
             
             if(Type.isString(value)){
                 return value;
             }
-            else{
-                return "";
-            }
+            
+            return defaultValue !== undefined ?
+                        Safe.getString(defaultValue) : "";
 
         };
 
@@ -67,31 +77,32 @@ define([
         /*
          * Safelly get Object from value
          *
-         * @param {value} The value to get
-         * @param {defaultValue} The default value
+         * @param {value}           The value to get
+         * @param {defaultValue}    The default value
          * 
-         * @return A Object
+         * @return {Object}
+         * 
          */
         Safe.getObject = function(value, defaultValue){
             
             if(Type.isObject(value)){
                 return value;
             }
-            else{
-                /* jshint -W041 */
-                return defaultValue != null ? defaultValue : {};
-            }
-
+            
+            return defaultValue !== undefined ? 
+                        Safe.getObject(defaultValue) : {};
+            
         };
         
 
         /*
          * Safelly get Number from value
          *
-         * @param {value}           The value to get
-         * @param {defaultValue}    The default value
+         * @param {*} value The value to get
+         * @param {*} defaultValue The default value
          * 
          * @return {Number} The number or 0 if was not success
+         * 
          */
         Safe.getNumber = function(value, defaultValue){
             
@@ -102,10 +113,9 @@ define([
             if(Type.isNumber(value)){
                 return value;
             }
-            else {
-                /* jshint -W041 */
-                return  defaultValue !== undefined ? defaultValue : 0;
-            }
+            
+            return  defaultValue !== undefined ? 
+                        Safe.getNumber(defaultValue) : 0;
             
         };
 
@@ -113,27 +123,30 @@ define([
         /*
          * Safelly get Function from value
          *
-         * @param{value} The value to get
+         * @param {*} value         The value to get
+         * @param {*} defaultValue  The value to get
+         * 
          * @return {Function}
+         * 
          */
-        Safe.getFunction = function(value){
+        Safe.getFunction = function(value, defaultValue){
             
             if(Type.isFunction(value)){
                 return value;
             }
-            else{
-                return function(){ };
-            }
+            
+            return defaultValue !== undefined ? 
+                        Safe.getFunction(defaultValue) : function(){ };
             
         };
 
         /*
          * Safe call to functions
          *
-         * @param{f} the function to be executed
-         * @param{options} the exec options
+         * @param {Function} f - the function to be executed
+         * @param {Object} options - the exec options
          *
-         * @return The result of the function
+         * @return {*} The result of the function
          */
         Safe.callFunction = function(f, options){
 
