@@ -143,6 +143,20 @@ define([
                     return null;
                 }
 
+                /// if value is a number and schema is string apply the conversion
+                else if( Type.isString(schema) && Type.isNumber(value) ){
+                    return value.toString();
+                }
+
+                /// if value is a string and schema is number 
+                /// try to parse the number
+                else if( Type.isNumber(schema) && Type.isString(value) ){
+                    var parsed = Safe.getNumber(value, null);
+                    if( parsed !== null ){
+                        return parsed;
+                    }
+                }
+
                 /// default value is schema
                 return schema;
 

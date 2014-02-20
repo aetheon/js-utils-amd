@@ -33,6 +33,7 @@ describe("SchemaSpec", function () {
                 Schema({
                     "Id": 0,
                     "Name": "",
+                    "Age": 0,
 
                     "Items": [ { "Id": "" } ],
 
@@ -43,6 +44,7 @@ describe("SchemaSpec", function () {
 
                     "Name": "name",
                     "Description": "desc",
+                    "Age": "2",
                     
                     "Items": [
                         { "Id": "1" },
@@ -55,6 +57,7 @@ describe("SchemaSpec", function () {
 
             expect(obj.Id).toBe(0);
             expect(obj.Name).toBe("name");
+            expect(obj.Age).toBe(2);
             expect(obj.Description).toBeUndefined();
             
             expect(obj.Items.length).toBe(2);

@@ -88,10 +88,12 @@ define([
         /*
          * Safelly get Number from value
          *
-         * @param{value} The value to get
+         * @param {value}           The value to get
+         * @param {defaultValue}    The default value
+         * 
          * @return {Number} The number or 0 if was not success
          */
-        Safe.getNumber = function(value){
+        Safe.getNumber = function(value, defaultValue){
             
             // convert to value
             /* jshint -W041 */
@@ -100,8 +102,9 @@ define([
             if(Type.isNumber(value)){
                 return value;
             }
-            else{
-                return 0;
+            else {
+                /* jshint -W041 */
+                return  defaultValue !== undefined ? defaultValue : 0;
             }
             
         };

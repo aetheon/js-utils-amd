@@ -263,27 +263,14 @@ describe("SafeSpec", function () {
 
 
 
-    async.it(".getNumber(Number) should return a number", function (done) {
+    async.it(".getNumber()", function (done) {
 
         Injector.require(["js-utils-lib/Safe"], function(Safe){
 
             expect(Safe.getNumber(1)).toBe(1);
             expect(Safe.getNumber("1")).toBe(1);
-
-            done();
-
-        });
-
-    });
-
-
-    async.it(".getNumber(null) should return a zero", function (done) {
-
-        Injector.require(["js-utils-lib/Safe"], function(Safe){
-
-            var number = Safe.getNumber(null);
-
-            expect(number).toBe(0);
+            expect(Safe.getNumber(null)).toBe(0);
+            expect(Safe.getNumber("aaa", null)).toBe(null);
 
             done();
 
