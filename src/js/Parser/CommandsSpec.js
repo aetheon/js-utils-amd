@@ -24,7 +24,7 @@ describe("Parser/CommandsSpec", function () {
 
         Injector.require(["js-utils-lib/Parser/Commands"], function(Parser){
 
-            var cmds = Parser.parse(".aa .a| cmd1 ( arg1 ) | cmd2('arg2') | cmd3");
+            var cmds = Parser.parse(".aa .a| cmd1 ('arg1(1)', 2) | cmd2('arg2') | cmd3");
 
             expect(cmds).not.toBe(null);
             expect(cmds.length).toBe(4);
@@ -37,7 +37,8 @@ describe("Parser/CommandsSpec", function () {
             // assert 2 cmd
             c = cmds[1];
             expect(c.cmd).toBe("cmd1");
-            expect(c.args[0]).toBe("arg1");
+            expect(c.args[0]).toBe("arg1(1)");
+            expect(c.args[1]).toBe("2");
 
             // assert 3 cmd
             c = cmds[2];

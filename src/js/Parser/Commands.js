@@ -48,8 +48,9 @@ define([
          * 
          * @type {RegExp}
          */
-        var cmdRegEx = /([^\(]+)(?:\(([^\)]+)\))*/i;
+        //var cmdRegEx = /([^\(]+)(?:\(([^\)]+)\))*/i;
 
+        var cmdRegEx = /([^\(]+)(?:\((.*)\)){0,1}$/i;
 
         /**
          * Parse a command string
@@ -58,26 +59,40 @@ define([
          * @return {Object} 
          *      { cmd: String, arg: String }
          */
-        var parseCommand = function(cmdStr){
+        var parseCommand = function(str){
 
-            var parseResult = cmdRegEx.exec(cmdStr);
+            str = str.replace(/["']/g, "");
+            str = str.trim();
 
-            if(!parseResult || !parseResult.length) return null;
+            // split cmd name from its arguments
+            var cmdSplit = cmdRegEx.exec(str);
 
-            var cmd = parseResult[1].trim();
-                arg = parseResult[2] ? parseResult[2].trim() : "";
+            // if regular exp not successful just return
+            if(!cmdSplit || !cmdSplit.length) return null;
 
-            // replace quotes on arg
-            arg = arg.replace(/["']/g, "");
+            // get the command and the argument string
+            var cmdStr = cmdSplit[1].trim();
+                argsStr = cmdSplit[2];
 
-            if(parseResult && parseResult.length == 3){
-                return {
-                    cmd: cmd,
-                    args: Safe.getArray(arg || null)
-                };
+            // prepare the result command definition
+            var result = {
+                cmd: cmdStr.trim(),
+                args: []
+            };
+
+
+            // parses the arguments
+            if(argsStr){
+                
+                // split the arguments
+                var argsSplit = argsStr.split(',');
+
+                // trim the arguments
+                result.args = _.map(argsSplit, function(arg){ return arg.trim(); });
+
             }
 
-            return null;
+            return result;
 
         };
 
