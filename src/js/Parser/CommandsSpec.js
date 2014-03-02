@@ -32,22 +32,22 @@ describe("ArgumentsSpec", function () {
             // assert 1 cmd
             var c = cmds[0];
             expect(c.cmd).toBe(".aa .a");
-            expect(c.arg).toBe("");        
+            expect(c.args.length).toBe(0);        
 
             // assert 2 cmd
             c = cmds[1];
             expect(c.cmd).toBe("cmd1");
-            expect(c.arg).toBe("arg1");
+            expect(c.args[0]).toBe("arg1");
 
             // assert 3 cmd
             c = cmds[2];
             expect(c.cmd).toBe("cmd2");
-            expect(c.arg).toBe("arg2");
+            expect(c.args[0]).toBe("arg2");
 
             // assert 4 cmd
             c = cmds[3];
             expect(c.cmd).toBe("cmd3");
-            expect(c.arg).toBe("");
+            expect(c.args.length).toBe(0);
 
             done();
 
