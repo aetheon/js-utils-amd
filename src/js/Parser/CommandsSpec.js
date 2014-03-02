@@ -1,4 +1,4 @@
-describe("ArgumentsSpec", function () {
+describe("Parser/CommandsSpec", function () {
 
     var Squire = null,
         Injector = null,

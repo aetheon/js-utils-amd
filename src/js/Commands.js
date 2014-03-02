@@ -51,7 +51,7 @@ define([
                 if(index) args.insert(result, 0);
 
                 // execute the function on the scope of the last result
-                result = cmd.apply(result, args.toJS());
+                result = cmd.apply({}, args.toJS());
 
                 // if undefined set return value to null 
                 if(result === undefined) result = null;
