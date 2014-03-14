@@ -61,12 +61,12 @@ describe("TreeSpec", function () {
             expect(root).not.toBe(null);
 
             /// the id are computed
-            expect(root.id).toBe(0);
-            expect(root.children[0].id).toBe(1);
-            expect(root.children[1].id).toBe(5);
+            expect(root.id).toBe(1);
+            expect(root.children[0].id).toBe(2);
+            expect(root.children[1].id).toBe(6);
             
             expect(root.children[0].parent).not.toBe(null);
-            expect(root.children[0].parent.id).toBe(0);
+            expect(root.children[0].parent.id).toBe(1);
 
             done();
 
@@ -76,52 +76,6 @@ describe("TreeSpec", function () {
     });
 
     
-    async.it(".squareSize", function (done) {
-
-
-        Injector.require(["js-utils-lib/Struct/Tree"], function(Tree){
-
-            var data = {
-
-                "id": 1,
-                "children": [
-                    
-                    {
-                        "id": 2,
-                        "children": [
-                            {
-                                "id": 3
-                            }
-                        ]
-                    },
-
-                    {
-                        "id": 4
-                    },
-
-                    {
-                        "id": 6
-                    }
-
-                ]
-                
-            };
-
-            var t = new Tree();
-            t.set(data);
-            var size = t.squareSize();
-
-            expect(size.width).toBe(3);
-            expect(size.height).toBe(4);
-            
-            done();
-
-        });
-
-
-    });
-
-
     async.it(".search()", function (done) {
 
 
@@ -223,7 +177,7 @@ describe("TreeSpec", function () {
             
             expect(data.children[0].children.length).toBe(1);
 
-            expect(data.children[0].children[0].id).toBe(3);
+            expect(data.children[0].children[0].id).toBe(7);
             expect(data.children[0].children[0].name).toBe("new1");
 
 
@@ -231,7 +185,7 @@ describe("TreeSpec", function () {
 
             expect(data.children.length).toBe(3);
             
-            expect(data.children[2].id).toBe(4);
+            expect(data.children[2].id).toBe(8);
             expect(data.children[2].name).toBe("new2");
             
             done();

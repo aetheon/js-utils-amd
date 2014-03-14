@@ -54,7 +54,11 @@ define([
 
                 /// always override the id, because its not a good idea to trust in 
                 /// the input
-                var id = Safe.getNumber(idCount++);
+
+                var id = node.id || idCount;
+
+                // increment id
+                idCount = id+1;
 
                 var children = node[options.childrenProperty];
 
@@ -102,7 +106,7 @@ define([
             var initializeTree = function(data){
 
                 /// reset the idcount
-                idCount = 0;
+                idCount = 1;
 
                 // safely gets Object
                 data = Safe.getObject(data);
@@ -112,6 +116,82 @@ define([
                 
                 // converts node's
                 convertToTreeNode(root, null);
+
+            };
+
+
+            /**
+             * Iterate over all node's children
+             * 
+             * @param  {Object}     fn
+             * @param  {Function}   fn
+             * @param  {Boolean}    isBottomUp
+             * 
+             */
+            var iterateChildren = function(node, fn, isBottomUp){
+
+                fn = Safe.getFunction(fn);
+                isBottomUp = Safe.getBoolean(isBottomUp);
+
+                var inner = function (node, i) {
+
+                    // call node
+                    if(!isBottomUp) fn(node, i);
+
+                    // get children
+                    var children = Safe.getArray(node[options.childrenProperty]);
+                        
+                    _.each(
+                        children,
+                        function (n, i) {
+
+                            // recursive call
+                            inner(n, i);
+
+                        });
+
+                    if(isBottomUp) fn(node);
+                    
+                };
+
+                // start calculating
+                inner(node, 0);
+
+            };
+
+
+            /**
+             * Iterate over all node's parents
+             * 
+             * @param  {Object} fn
+             * @param  {Function} fn
+             * 
+             */
+            var iterateParents = function(node, fn){
+
+                fn = Safe.getFunction(fn);
+
+                var inner = function (node) {
+
+                    // call node
+                    fn(node);
+
+                    // get children
+                    var parents = Safe.getArray(node.parent);
+                        
+                    _.each(
+                        parents,
+                        function (n) {
+
+                            // recursive call
+                            inner(n);
+
+                        });
+                    
+                };
+
+                // start calculating
+                inner(node);
 
             };
 
@@ -197,18 +277,11 @@ define([
                     if(!fn) return;
 
                     var results = [];
-                    new ObjectIterator(root).iterate(function(obj, parent, key){
 
-                        if(key === "parent"){
-                            return false;
-                        }
+                    iterateChildren(root, function(obj, parent, key){
 
-                        if(Type.isObject(obj)){
-
-                            if(fn(obj)){
-                                results.push(obj);
-                            }
-
+                        if(fn(obj)){
+                            results.push(obj);
                         }
 
                     });
@@ -218,49 +291,133 @@ define([
                 },
 
                 /**
-                 * Calculate the tree dimension in form of a square (width / height). The width will be the 
-                 * number of horizontal levels the Tree has and the Height the number of vertical Tree levels.
-                 *
-                 * @return {Object} The dimension of the Tree
+                 * Iterate over all node's of the tree
+                 * 
+                 * @param {Function} fn
+                 * @param {Boolean} isBottomUp
                  * 
                  */
-                squareSize: function(){
+                iterate: function(fn, isBottomUp){
 
-                    var size = {
-                        height: 0,
-                        width: 1
-                    };
+                    iterateChildren(root, fn, isBottomUp);
 
-                    var inner = function (node) {
+                },
 
-                        // get children
-                        var children = Safe.getArray(node[options.childrenProperty]);
-                        
-                        if (children.length > 0) {
+                /**
+                 * Count the number of node that exists
+                 * 
+                 * @param  {Object|null} node
+                 * @return {Number}
+                 */
+                count: function(node){
 
-                            size.width++;
+                    node = node || root;
+
+                    var count = 1;
+                    iterateChildren(node, function(n){ count++; });
+
+                    return count > 1 ? count-1 : 1;
+
+                },
+
+                /**
+                 * Get the height of the node
+                 * 
+                 * @param  {Object|null} node
+                 * @return {Number}
+                 */
+                height: function(node){
+
+                    node = node || root;
+
+                    var height = 1;
+
+                    /// calculate the height
+                    iterateChildren(
+                        node,
+                        function(n){
+                            if(n.children.length > 1) 
+                                height+=n.children.length;
+                        });
+
+                    return height;
+
+                },
+
+                /**
+                 * Get the width of the node
+                 * 
+                 * @param  {Object|null} node
+                 * @return {Number}
+                 */
+                width: function(node){
+
+                    node = node || root;
+
+                    var width = 1;
+
+                    /// calculate the width
+                    var x = {};
+                    iterateChildren(
+                        node,
+                        function(n){
                             
-                            _.each(
-                                children,
-                                function (n) {
+                            var ref = n.parent ? x[n.parent.id] : null;
+                            if(ref === null) {
+                                x[n.id] = 1;
+                            }
+                            else {
+                                x[n.id] = ref + 1;
+                            }
 
-                                    size.height++;
+                        });
 
-                                    // recursive call
-                                    inner(n);
+                    /// get the max value
+                    width = _.max(x);
 
-                                });
-                            
-                        }
+                    return width;
 
-                    };
+                },
 
-                    // start calculating
-                    inner(root);
 
-                    return size;
+                /**
+                 * Get the node index
+                 *
+                 * @return {Object}
+                 */
+                index: function(node){
+
+                    var index = 0;
+
+                    if(!node.parent) {
+                        return index;
+                    }
+
+                    return _.where(
+                                node.parent.children,
+                                function(n) { return n.id === node.id; }
+                            ).pop();
+
+                },
+
+
+                /**
+                 * Get the collection of brother of the node.
+                 * 
+                 * @param  {Object} node
+                 * @return {*}
+                 */
+                brothers: function(node){
+
+                    if(!node.parent) {
+                        return [];
+                    }
+
+                    return Safe.getArray(node.parent.children);
 
                 }
+
+                
 
             };
 
