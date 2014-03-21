@@ -61,7 +61,8 @@ define(["require", "lodash", "jquery", "js-utils-lib/Arguments", "js-utils/Dom/W
                 switch(tagName.toLowerCase()){
 
                     /// svg element returns 0 everytime
-                    case "g": 
+                    case "g":
+                    case "svg":
                         var box = element.getBoundingClientRect();
                         return box.width;
 
@@ -86,7 +87,8 @@ define(["require", "lodash", "jquery", "js-utils-lib/Arguments", "js-utils/Dom/W
                 switch(tagName.toLowerCase()){
 
                     /// svg element returns 0 everytime
-                    case "g": 
+                    case "g":
+                    case "svg":
                         var box = element.getBoundingClientRect();
                         return box.height;
 
@@ -119,7 +121,8 @@ define(["require", "lodash", "jquery", "js-utils-lib/Arguments", "js-utils/Dom/W
                         break;
 
                     /// svg element returns 0 everytime
-                    case "g": 
+                    case "g":
+                    case "svg":
                         var box = element.getBoundingClientRect();
                         result.top = box.top;
                         result.left = box.left;

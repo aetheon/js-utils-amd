@@ -50,14 +50,16 @@ define([
             container = 
                 d3.select(container)
                     .append("svg:svg")
-                    .attr("width", "100%");
+                    .attr({ "width": "100%", "height": "100%" });
 
             /**
              * The svg group ( zoomable capable )
              * 
              * @type {[Element]}
              */
-            var svg = container.append("svg:g");
+            var svg = container
+                .append("svg:g")
+                .attr({ "width": "100%", "height": "100%" });
 
             // disable doube click zoom
             svg.on("dblclick.zoom", null);

@@ -127,15 +127,15 @@ define([
                     var Element                 = require("js-utils/Dom/Element"),
                         ElementAttributeParser  = require("js-utils-lib/Parser/ElementAttribute");
 
-                    var element         = svgElement[0],
-                        container       = $("> g", element),
+                    var parent         = $(svgElement[0]).parent(),
+                        container       = $("> g", svgElement[0]),
                         transformStr    = container.attr("transform");
                         position        = ElementAttributeParser.transform(transformStr);
 
                     return {
                         
-                        viewport_width  : Element(element).width(),
-                        viewport_height : Element(element).height(),
+                        viewport_width  : Element(parent).width(),
+                        viewport_height : Element(parent).height(),
 
                         width           : Element(container).width(),
                         height          : Element(container).height(),
