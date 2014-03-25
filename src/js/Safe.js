@@ -135,8 +135,15 @@ define([
                 return value;
             }
             
-            return defaultValue !== undefined ? 
-                        Safe.getFunction(defaultValue) : function(){ };
+            if( Type.isFunction(defaultValue) ){
+                value = defaultValue;
+            }
+
+            if(!value){
+                value = function(){ };
+            }
+
+            return value;
             
         };
 
