@@ -19,8 +19,7 @@ describe("SchemaIteratorSpec", function () {
 
     });
 
-    
-    async.it(".value({})", function (done) {
+    async.it(".value({...})", function (done) {
 
         Injector.require([
                 "lodash", 
@@ -47,6 +46,41 @@ describe("SchemaIteratorSpec", function () {
                 expect(value).toEqual({
                     "one": 1,
                     "two": 2
+                });
+
+                expect(errors).toEqual([]);
+
+                done();
+
+            });
+
+    });
+
+    async.it(".value({})", function (done) {
+
+        Injector.require([
+                "lodash", 
+                "js-utils-lib/Schema/Result"
+            ], 
+            function(_, SchemaResult){
+
+
+                var result = new SchemaResult(
+                    {},
+                    {
+                        "one": 1,
+                        "two": 2,
+                        "three": 3
+                    });
+
+
+                var value = result.value(),
+                    errors = result.errors();
+
+                expect(value).toEqual({
+                    "one": 1,
+                    "two": 2,
+                    "three": 3
                 });
 
                 expect(errors).toEqual([]);
@@ -95,6 +129,80 @@ describe("SchemaIteratorSpec", function () {
     });
 
 
+     async.it(".value([...])", function (done) {
+
+        Injector.require([
+                "lodash", 
+                "js-utils-lib/Schema/Result"
+            ], 
+            function(_, SchemaResult){
+
+
+                var result = new SchemaResult(
+                    [{
+                        "one": 0,
+                        "two": 0
+                    }],
+                    [{
+                        "one": 1,
+                        "two": 2,
+                        "three": 3 
+                    }]);
+
+
+                var value = result.value(),
+                    errors = result.errors();
+
+                expect(value).toEqual([{
+                    "one": 1,
+                    "two": 2
+                }]);
+
+                expect(errors).toEqual([]);
+
+                done();
+
+            });
+
+    });
+
+
+    async.it(".value([])", function (done) {
+
+        Injector.require([
+                "lodash", 
+                "js-utils-lib/Schema/Result"
+            ], 
+            function(_, SchemaResult){
+
+
+                var result = new SchemaResult(
+                    [],
+                    [{
+                        "one": 1,
+                        "two": 2,
+                        "three": 3
+                    }]);
+
+
+                var value = result.value(),
+                    errors = result.errors();
+
+                expect(value).toEqual([{
+                    "one": 1,
+                    "two": 2,
+                    "three": 3
+                }]);
+
+                expect(errors).toEqual([]);
+
+                done();
+
+            });
+
+    });
+
+
     async.it(".errors({})", function (done) {
 
         Injector.require([
@@ -115,7 +223,41 @@ describe("SchemaIteratorSpec", function () {
                     errors = result.errors();
 
                 expect(value).toEqual(null);
-                expect(errors.length).toEqual(1);
+                expect(errors[0]).toEqual("/ Type mismatch. Expected type was Object");
+
+                done();
+
+            });
+
+    });
+
+
+     async.it(".errors([])", function (done) {
+
+        Injector.require([
+                "lodash", 
+                "js-utils-lib/Schema/Result"
+            ], 
+            function(_, SchemaResult){
+
+
+                var result = new SchemaResult(
+                    [{
+                        "one": 0,
+                        "two": 0
+                    }],
+                    [{
+                        "one": 1,
+                        "two": 2
+                    },
+                    1]);
+
+
+                var value = result.value(),
+                    errors = result.errors();
+
+                expect(value).toEqual(null);
+                expect(errors[0]).toEqual("/1 Type mismatch. Expected type was Object");
 
                 done();
 

@@ -124,9 +124,19 @@ define([
 
             var results = {};
 
-            var skeys = toEmptyObject( _.keys(schema) ),
-                okeys = toEmptyObject( _.keys(obj) );
-                
+
+            var schemaKeys  = _.keys(schema),
+                objKeys     = _.keys(obj);
+
+            /// if there's no schemaKeys then use all object keys
+            if(!schemaKeys.length){
+                schema      = obj;
+                schemaKeys  = objKeys;
+            }
+
+            var skeys = toEmptyObject( schemaKeys ),
+                okeys = toEmptyObject( objKeys );
+
             /// iterate over the schema keys to get the  
             _.each(skeys, function(v, key){
 

@@ -60,9 +60,7 @@ define([
              */
             var addError = function(exception, path){
 
-                var pathStr = path.join("/") || "/";
-                var error   = pathStr + " " + exception.message;
-
+                var error   = "/" + path.join("/") + " " + exception.message;
                 errors.push(error);
 
             };
