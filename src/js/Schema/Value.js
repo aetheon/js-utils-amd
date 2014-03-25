@@ -31,11 +31,12 @@ define([
          */
         var SchemaValue = function(schema, value){
 
-            var schemaType = Type.of(schema),
-                valueType = Type.of(value);
+            var schemaType  = Type.of(schema),
+                valueType   = Type.of(value);
 
             /// if the values are compatible
-            if( schemaType === valueType ){
+            /* jshint -W041 */
+            if( schema != null && schemaType === valueType ){
                return value;
             }
 
@@ -60,7 +61,11 @@ define([
             }
 
             /// if schema is from a complex type, throw an error because it was not expected
-            if( Type.isObject(schema) || Type.isArray(schema) || Type.isFunction(schema) ){
+            /* jshint -W041 */
+            if( schema != null && 
+                ( Type.isObject(schema) || Type.isArray(schema) || Type.isFunction(schema) ||
+                  Type.isObject(value) || Type.isArray(value) || Type.isFunction(value) )
+             ){
                 throw new Error("Type mismatch. Expected type was " + schemaType);
             }
 

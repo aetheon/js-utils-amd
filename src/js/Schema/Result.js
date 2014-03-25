@@ -22,7 +22,7 @@ define([
             Safe        = require("js-utils-lib/Safe"),
             Type        = require("js-utils-lib/Type");
 
-        var SchemaValue     = require("js-utils-lib/Schema/Value"),
+        var getSchemaValue  = require("js-utils-lib/Schema/Value"),
             getObjectKeys   = require("js-utils-lib/Schema/ObjectKeys");
 
 
@@ -32,7 +32,7 @@ define([
          * 
          * @param {*} value
          * @param {*} schema
-         * @param {Function} getValueCallback
+         * @param {*} options
          *
          *
          * @example
@@ -43,10 +43,9 @@ define([
          * var errors   = result.errors();
          * 
          */
-        var SchemaResult = function(schema, value, getValueCallback){
+        var SchemaResult = function(schema, value, options){
 
-            /// getValueCallback should always be defined 
-            getValueCallback = Safe.getFunction(getValueCallback, SchemaValue);
+            options = _.assign({ exitOnError: false }, options);
 
             var errors = [];
 
@@ -127,8 +126,13 @@ define([
                     throw new Error("Type mismatch. Expected type was Array");
                 }
 
+                /// if the schema array is empty then return the entire obj array
+                if(!schema.length){
+                    return obj;
+                }
+
                 /// get the first element from the result schema
-                var _schema = schema.length > 0 ? schema[0] : null;
+                var _schema = schema[0];
 
                 /// iterate over the objects items to 
                 var array = [];
@@ -185,12 +189,25 @@ define([
 
                     /// call the callback function for the current 
                     /// Schema and Object
-                    obj = getValueCallback(schema, obj);
+                    obj = getSchemaValue(schema, obj);
 
                 }
                 catch(e) {
 
-                    addError(e, path);
+                    if(options.exitOnError){
+
+                        if(!errors.length){
+                            addError(e, path);
+                        }
+
+                        throw e;
+
+                    }
+                    else {
+
+                        addError(e, path);
+
+                    }
 
                 }
                 
@@ -200,10 +217,22 @@ define([
 
 
 
-            /// iterate over the schema
-            var result = iterate(
-                _.cloneDeep(schema),
-                _.cloneDeep(value));
+            try {
+                
+                /// iterate over the schema
+                var result = iterate(
+                    _.cloneDeep(schema),
+                    _.cloneDeep(value));
+
+            }
+            catch(e) {
+
+                /// exitOnError: let it break if it as at least 
+                /// one exception
+                if(!errors.length)
+                    throw e;
+                
+            }
 
 
             return {

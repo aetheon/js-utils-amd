@@ -1,5 +1,5 @@
 
-describe("SchemaIteratorSpec", function () {
+describe("Schema/ResultSpec", function () {
 
     var Squire = null,
         Injector = null,
@@ -203,6 +203,64 @@ describe("SchemaIteratorSpec", function () {
     });
 
 
+    async.it(".value(null, {})", function (done) {
+
+        Injector.require([
+                "lodash", 
+                "js-utils-lib/Schema/Result"
+            ], 
+            function(_, SchemaResult){
+
+
+                var result = new SchemaResult(
+                    null,
+                    {
+                        "one"   : 1,
+                        "two"   : 2,
+                        "three" : 3 
+                    });
+
+
+                var value = result.value(),
+                    errors = result.errors();
+
+                expect(value).toEqual(null);
+                expect(errors).toEqual([]);
+
+                done();
+
+            });
+
+    });
+
+
+    async.it(".value(null, [])", function (done) {
+
+        Injector.require([
+                "lodash", 
+                "js-utils-lib/Schema/Result"
+            ], 
+            function(_, SchemaResult){
+
+
+                var result = new SchemaResult(
+                    null,
+                    [ 1, 2, 3 ]);
+
+
+                var value = result.value(),
+                    errors = result.errors();
+
+                expect(value).toEqual(null);
+                expect(errors).toEqual([]);
+
+                done();
+
+            });
+
+    });
+
+
     async.it(".errors({})", function (done) {
 
         Injector.require([
@@ -258,6 +316,81 @@ describe("SchemaIteratorSpec", function () {
 
                 expect(value).toEqual(null);
                 expect(errors[0]).toEqual("/1 Type mismatch. Expected type was Object");
+
+                done();
+
+            });
+
+    });
+
+
+    async.it(".errors()", function (done) {
+
+        Injector.require([
+                "lodash", 
+                "js-utils-lib/Schema/Result"
+            ], 
+            function(_, SchemaResult){
+
+                var result = new SchemaResult(
+                    {
+                        "one": 0,
+                        "two": 0
+                    },
+                    {
+                        "one": {},
+                        "two": {}
+                    });
+
+
+                var value = result.value(),
+                    errors = result.errors();
+
+                expect(value).toEqual(null);
+                expect(errors.length).toEqual(2);
+                expect(errors[0]).toEqual("/two Type mismatch. Expected type was number");
+                expect(errors[1]).toEqual("/one Type mismatch. Expected type was number");
+
+                done();
+
+            });
+
+    });
+
+
+    async.it(".errors() with exitOnError:true", function (done) {
+
+        Injector.require([
+                "lodash", 
+                "js-utils-lib/Schema/Result"
+            ], 
+            function(_, SchemaResult){
+
+                var result = new SchemaResult(
+                    {
+                        "one": 0,
+                        "two": 0
+                    },
+                    {
+                        "one": {},
+                        "two": {}
+                    },
+                    {
+                        exitOnError: true
+                    });
+
+
+                var value   = result.value(),
+                    errors  = result.errors();
+
+                expect(value)
+                    .toEqual(null);
+                
+                expect(errors.length)
+                    .toEqual(1);
+                
+                expect(errors[0])
+                    .toEqual("/two Type mismatch. Expected type was number");
 
                 done();
 

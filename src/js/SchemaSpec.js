@@ -51,7 +51,7 @@ describe("SchemaSpec", function () {
                         { "Id": "2" }
                     ],
 
-                    "Ids": [ 1, 2, "3" ]
+                    "Ids": [ 1, 2, 3 ]
 
                 });
 
@@ -64,7 +64,7 @@ describe("SchemaSpec", function () {
             expect(obj.Items[0].Id).toBe("1");
             expect(obj.Items[1].Id).toBe("2");
 
-            expect(obj.Ids.length).toBe(2);
+            expect(obj.Ids.length).toBe(3);
             
             done();
 
@@ -113,12 +113,32 @@ describe("SchemaSpec", function () {
 
             /// shoud return an empty array.length
             obj = Schema([{ "Id": 0 }]).apply(null);
-            expect(obj.length).toBe(0);
+            expect(obj).toBe(null);
             
             /// shoud return an empty array.length
             obj = Schema({ "Id": 0 }).apply(null);
-            expect(obj.Id).toBe(0);
+            expect(obj).toBe(null);
 
+
+            done();
+
+        });
+        
+    });
+
+
+    async.it(".errors()", function (done) {
+
+        Injector.require( [ "js-utils-lib/Schema" ], function(Schema){
+
+            var schema = Schema([{ "Id": 0 }]);
+
+            /// should return null
+            var obj = schema.apply([ 1, 2 ]);
+            expect(obj).toBe(null);
+
+            var errors = schema.errors();
+            expect(errors.length).toBe(2);
 
             done();
 

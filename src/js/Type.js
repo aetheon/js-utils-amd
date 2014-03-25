@@ -22,6 +22,7 @@ define(["require", "lodash"], function(require, _){
      *
      */
     Type.of = function (obj) {
+
         var t = typeof obj;
 
         if(t == "object" && obj instanceof Array)
@@ -37,12 +38,14 @@ define(["require", "lodash"], function(require, _){
      * @return{Boolean}
      */
     Type.hasProperty = function (obj, propertyName) {
+
         if (obj.hasOwnProperty(propertyName)) {
             return true;
         }
         else {
             return false;
         }
+
     };
 
 
@@ -61,6 +64,7 @@ define(["require", "lodash"], function(require, _){
         }
 
         return properties;
+
     };
 
 
@@ -77,6 +81,7 @@ define(["require", "lodash"], function(require, _){
         }
 
         return null;
+
     };
 
 
@@ -118,7 +123,9 @@ define(["require", "lodash"], function(require, _){
      *
      */
     Type.areEquals = function (val1, val2) {
+
         return typeof(val1) == typeof(val2);
+
     };
 
 
@@ -130,7 +137,9 @@ define(["require", "lodash"], function(require, _){
      *
      */
     Type.isArray = function (value) {
+
         return (value instanceof Array);
+
     };
 
 
@@ -142,7 +151,9 @@ define(["require", "lodash"], function(require, _){
      *
      */
     Type.isBoolean = function (value) {
+
         return typeof(value) === "boolean";
+
     };
 
 
@@ -154,7 +165,9 @@ define(["require", "lodash"], function(require, _){
      *
      */
     Type.isFunction = function (value) {
+
         return typeof(value) === "function";
+
     };
 
 
@@ -166,7 +179,9 @@ define(["require", "lodash"], function(require, _){
      *
      */
     Type.isString = function (value) {
+
         return typeof(value) === "string";
+
     };
 
 
@@ -197,7 +212,9 @@ define(["require", "lodash"], function(require, _){
      *
      */
     Type.isNumber = function (value) {
+
         return typeof(value) === "number" && !isNaN(value);
+        
     };
 
 
