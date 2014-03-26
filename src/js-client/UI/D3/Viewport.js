@@ -171,20 +171,25 @@ define([
                 },
 
                 /**
+                 * 
                  * Center the node
                  * 
-                 * @param  {[type]} nodeId [description]
-                 * @param  {[type]} scale  [description]
-                 * @return {[type]}        [description]
+                 * @param  {Object} node
+                 * @param  {Number} factorX
+                 * @param  {Number} factorY
+                 * 
                  */
-                center: function(node){
+                center: function(node, factorX, factorY){
+
+                    factorX = factorX || 0.5;
+                    factorY = factorY || 0.5;
 
                     /// finds the offset to center the node
-                    var nodePosition = _this.position(node),
-                        dimensions = _this.dimensions();
+                    var nodePosition    = _this.position(node),
+                        dimensions      = _this.dimensions();
     
-                    var x = ((dimensions.viewport_width / 2) - nodePosition.x) * dimensions.scale,
-                        y = ((dimensions.viewport_height / 2) - nodePosition.y) * dimensions.scale;
+                    var x = ((dimensions.viewport_width * factorX) - nodePosition.x) * dimensions.scale,
+                        y = ((dimensions.viewport_height * factorY) - nodePosition.y) * dimensions.scale;
                
                     _this.zoom([x, y], dimensions.scale);
 
