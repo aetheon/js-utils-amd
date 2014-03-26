@@ -80,7 +80,7 @@ define([
 
                 /**
                  * 
-                 * Get the current errors
+                 * Get the detected errors after applying the schema.
                  * 
                  * @return {Array}
                  * 
@@ -89,9 +89,20 @@ define([
 
                     return errors;
                     
+                },
+
+                /**
+                 *
+                 * Tests if the applied object is schema valid.
+                 * 
+                 * @return {Boolean} [description]
+                 */
+                isValid: function(){
+                    
+                    return errors.length === 0;
+
                 }
                 
-
             };
 
 

@@ -145,6 +145,26 @@ describe("SchemaSpec", function () {
         });
         
     });
+
+
+    async.it(".isValid()", function (done) {
+
+        Injector.require( [ "js-utils-lib/Schema" ], function(Schema){
+
+            var schema = Schema([{ "Id": 0 }]);
+
+            /// should return null
+            var obj = schema.apply([ 1, 2 ]);
+            expect(obj).toBe(null);
+
+            var isValid = schema.isValid();
+            expect(isValid).toBe(false);
+
+            done();
+
+        });
+
+    });
     
 
 
