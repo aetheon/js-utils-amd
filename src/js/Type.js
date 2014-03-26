@@ -221,11 +221,30 @@ define(["require", "lodash"], function(require, _){
     /*
      * Test if the value is defined or not
      *
-     * @param {void} value - The value to test
+     * @param {void} value
      *
      * @return {Boolean}
      */
     Type.isDefined = function(value){
+
+        /* jshint -W041 */
+        if(value != null){
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    };
+
+    /*
+     * Test if the value is empty or not
+     *
+     * @param {void} value
+     *
+     * @return {Boolean}
+     */
+    Type.isEmpty = function(value){
 
         if(Type.isObject(value) || Type.isArray(value)){
             

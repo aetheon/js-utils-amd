@@ -53,7 +53,7 @@ define(["require", "lodash", "jquery", "lawnchair", "EventEmitter", "js-utils-li
             );
 
             // return right away
-            if(Type.isDefined(options.value)){
+            if(Type.isEmpty(options.value)){
                 dfd.resolve(options.value);
                 return dfd.promise();
             }

@@ -302,21 +302,21 @@ describe("TypeSpec", function () {
     });
 
 
-    async.it("Type.isDefined({}|[]) should return false if the given structure is empty", function (allDone) {
+    async.it("Type.isEmpty({}|[]) should return false if the given structure is empty", function (allDone) {
 
         Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
-            var isDefined = Type.isDefined({});
-            expect(isDefined).not.toBeTruthy();
+            var isEmpty = Type.isEmpty({});
+            expect(isEmpty).not.toBeTruthy();
 
-            isDefined = Type.isDefined([]);
-            expect(isDefined).not.toBeTruthy();
+            isEmpty = Type.isEmpty([]);
+            expect(isEmpty).not.toBeTruthy();
 
-            isDefined = Type.isDefined(null);
-            expect(isDefined).not.toBeTruthy();
+            isEmpty = Type.isEmpty(null);
+            expect(isEmpty).not.toBeTruthy();
 
-            isDefined = Type.isDefined();
-            expect(isDefined).not.toBeTruthy();
+            isEmpty = Type.isEmpty();
+            expect(isEmpty).not.toBeTruthy();
             
             allDone();
 
@@ -325,28 +325,57 @@ describe("TypeSpec", function () {
     });
 
 
-    async.it("Type.isDefined({}|[]) should return true if the given structure is not empty", function (allDone) {
+    async.it("Type.isEmpty({}|[]) should return true if the given structure is not empty", function (allDone) {
+
+        Injector.require( [ "js-utils-lib/Type" ], function(Type){
+
+            var isEmpty = Type.isEmpty({ 1: 1 });
+            expect(isEmpty).toBeTruthy();
+
+            isEmpty = Type.isEmpty([1,2,3]);
+            expect(isEmpty).toBeTruthy();
+
+            isEmpty = Type.isEmpty(1);
+            expect(isEmpty).toBeTruthy();
+
+            isEmpty = Type.isEmpty(true);
+            expect(isEmpty).toBeTruthy();
+            
+            allDone();
+
+        });
+        
+    });
+
+
+
+    async.it("Type.isDefined()", function (done) {
 
         Injector.require( [ "js-utils-lib/Type" ], function(Type){
 
             var isDefined = Type.isDefined({ 1: 1 });
-            expect(isDefined).toBeTruthy();
+            expect(isDefined).toEqual(true);
 
             isDefined = Type.isDefined([1,2,3]);
-            expect(isDefined).toBeTruthy();
+            expect(isDefined).toEqual(true);
 
             isDefined = Type.isDefined(1);
-            expect(isDefined).toBeTruthy();
+            expect(isDefined).toEqual(true);
 
             isDefined = Type.isDefined(true);
-            expect(isDefined).toBeTruthy();
+            expect(isDefined).toEqual(true);
+
+            isDefined = Type.isDefined(null);
+            expect(isDefined).toEqual(false);
+
+            isDefined = Type.isDefined(undefined);
+            expect(isDefined).toEqual(false);
             
-            allDone();
+            done();
 
         });
         
     });
-
 
     
 
