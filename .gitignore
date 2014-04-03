@@ -4,3 +4,4 @@ node_modules/
 .grunt
 .sass-cache/
 .tests.html
+.tests-client.html

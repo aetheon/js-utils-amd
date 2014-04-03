@@ -11,15 +11,17 @@ define([
         var Type = require("js-utils-lib/Type");
 
         /**
+         * 
          * IsRequired
          * 
-         * @param {*} val [description]
+         * @param {*} val
+         * 
          */
         var IsRequired = function(val){
 
             var v = Type.isDefined(val);
             
-            if(!v){
+            if(!v) {
                 throw new Error("Value is not defined");
             }
 

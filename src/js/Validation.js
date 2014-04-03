@@ -6,115 +6,115 @@ define([
 
         "require",
         
+        "js-utils-lib/Safe",
         "js-utils-lib/Validation/IsRequired",
-        "js-utils-lib/Type"
-
+        "js-utils-lib/Validation/IsString"
+        
     ], 
     function(require){
         "use strict";
 
 
-        var Type = require("js-utils-lib/Type");
+        var Safe = require("js-utils-lib/Safe");
 
 
         /**
          * 
-         * A validation declaration
-         * 
-         * @param {Function} fn
-         * @param {Boolean}  isNegation
-         * 
-         */
-        var ValidationDeclaration = function(fn, isNegation){
-            
-            this.fn         = Safe.getFunction(fn, function(){ return true; });
-            this.isNegation = isNegation;
-
-        };
-
-        /**
-         * 
-         * A validation result
-         * 
-         * @param {Boolean} isValid
-         * @param {String}  message
-         * 
-         */
-        var ValidationResult = function(isValid, message){
-            
-            this.isValid = Safe.getBoolean(isValid);
-            this.message = Safe.getString(isValid);
-
-        };
-
-
-        /**
-         * The Validation facade
+         * Validate the object
+         * @class
          *
+         * @param {Object} obj
+         * @param {Object} custom Custom Validation functions
+         *
+         * @example
+         *
+         *      var isValid = !!Validation({ one: 1 }).isDefined().not().isString();
+         * 
          */
-        var Validation = function() {
+        var Validation = function(obj, custom) {
 
-            var fns = [];
+            /// hoisted variable warning
+            var _this = null;
 
             /**
              *
-             * Wraps the method for later validation
+             * Stores if the current state is to negate
+             * 
+             * @type {Boolean}
+             * 
+             */
+            var negate = false;
+
+
+            /**
+             * 
+             * A validation declaration
+             *
+             * @class
              * 
              * @param {Function} fn
              * 
              */
-            var wrap = function(fn, isNegation){
+            var ValidationFunction = function(fn, args, isNegation){
 
-                fns.push(new ValidationDeclaration(fn, isNegation));
+                fn      = Safe.getFunction(fn, function(){ return true; });
+                args    = Safe.getArray(args, []);
+
+                var error = null;
+
+                try {
+                    /// add obj as the first argument
+                    args.splice(0, 0, obj);
+                    /// execute function with obj scope and the given arguments
+                    fn.apply(obj, args);
+                }
+                catch(e){
+                    error = e;
+                }
+
+                // throw if an error exists and its not a negation
+                if(!negate && error){
+                    throw error;
+                }
+
+                /// set negation
+                negate = !!isNegation;
+                
+                /// chainify executions
                 return _this;
-
+                
             };
 
 
             /**
-             *
-             * Validates a validation
+             * Wrap the function into a compatible execution context
              * 
-             * @param  {ValidationDeclaration} declaration
-             * @return {ValidationResult}
+             * @param  {Function} fn
+             * @param  {Boolean}  isNegation
+             * @return {*}
+             * 
              */
-            var validate = function(declaration){
+            var wrap = function(fn, isNegation){
 
-                var isValid = true;
-                var message = "";
-
-                try {
-                    
-                    isValid = declaration.fn();
-
-                } catch(e){
-
-                    isValid  = false;
-                    message = e.message;
-
-                }
-
-                /// cannot make a decision, then we must trust
-                if( !Type.isBoolean(isValid) ){
-                    isValid = true;
-                }
-
-                /// apply negation if thats the case
-                if(declaration.isNegation){
-                    isValid = !isValid;
-                }
-
-                return new ValidationResult(isValid, message);
-
+                return function(){
+                    var args = _.toArray(arguments);
+                    return new ValidationFunction(fn, args, isNegation);
+                };
+                
             };
 
             
-            var _this = {
+            _this = {
 
                 not         : wrap( null, true ),
-                isRequired  : wrap( Type.isDefined )
+                
+                isDefined   : wrap( require("js-utils-lib/Validation/IsRequired") ),
+                isRequired  : wrap( require("js-utils-lib/Validation/IsRequired") ),
+                
+                isString    : wrap( require("js-utils-lib/Validation/IsString") )
 
             };
+
 
             return _this;
 
@@ -122,14 +122,7 @@ define([
         };
 
 
-
         return Validation;
-
-
-
-        
-
-
 
 
     });

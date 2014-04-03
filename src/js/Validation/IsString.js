@@ -11,9 +11,11 @@ define([
         var Type = require("js-utils-lib/Type");
 
         /**
+         * 
          * IsRequired
          * 
-         * @param {*} val [description]
+         * @param {*} val
+         * 
          */
         var IsRequired = function(val){
 
