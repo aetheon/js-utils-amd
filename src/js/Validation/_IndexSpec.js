@@ -84,6 +84,66 @@ describe("Validation/_IndexSpec", function () {
     });
 
 
+    async.it(".IsObject()", function (done) {
+
+        Injector.require([ 
+                "js-utils-lib/Validation/IsObject" 
+            ], 
+            function(IsObject){
+
+                expect( IsObject({}) )
+                    .toEqual(true);
+
+                expect(function(){ IsObject(""); })
+                    .toThrow();
+
+                expect(function(){ IsObject([]); })
+                    .toThrow();
+
+                expect(function(){ IsObject(null); })
+                    .toThrow();
+
+                expect(function(){ IsObject(undefined); })
+                    .toThrow();
+
+
+                done();
+
+            });
+
+    });
+
+
+    async.it(".IsArray()", function (done) {
+
+        Injector.require([ 
+                "js-utils-lib/Validation/IsArray" 
+            ], 
+            function(IsArray){
+
+                expect( IsArray([]) )
+                    .toEqual(true);
+
+                expect(function(){ IsArray({}); })
+                    .toThrow();
+
+                expect(function(){ IsArray(""); })
+                    .toThrow();
+
+                expect(function(){ IsArray(null); })
+                    .toThrow();
+
+                expect(function(){ IsArray(undefined); })
+                    .toThrow();
+
+
+                done();
+
+            });
+
+    });
+
+
     async.it(".MaxLength()", function (done) {
 
         Injector.require([ 
@@ -159,6 +219,38 @@ describe("Validation/_IndexSpec", function () {
                 expect(function(){ MinLength({}, 1); })
                     .toThrow();
 
+                done();
+
+            });
+
+    });
+
+
+    async.it(".Regex()", function (done) {
+
+        Injector.require([ 
+                "js-utils-lib/Validation/Regex" 
+            ], 
+            function(Regex){
+
+                expect( Regex(null) )
+                    .toEqual(true);
+
+                expect( Regex("aaa", "aaa") )
+                    .toEqual(true);
+
+                expect( Regex("aaa", /aaa/) )
+                    .toEqual(true);
+                
+                expect(function(){ Regex("aaa", "bbb"); })
+                    .toThrow();
+
+                expect(function(){ Regex({}, "bbb"); })
+                    .toThrow();
+
+                expect(function(){ Regex([], "bbb"); })
+                    .toThrow();
+ 
                 done();
 
             });

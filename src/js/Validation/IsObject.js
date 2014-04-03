@@ -12,23 +12,23 @@ define([
 
         /**
          * 
-         * Test if value is a string
+         * Test if value is an object
          * 
          * @param {*} val
          * 
          */
-        var IsString = function(val){
+        var IsObject = function(val){
 
-            var v = Type.isString(val);
+            var v = Type.isObject(val);
             
             if(!v){
-                throw new Error("String expected");
+                throw new Error("Object expected");
             }
 
             return true;
 
         };
 
-        return IsString;
+        return IsObject;
 
     });

@@ -8,7 +8,12 @@ define([
         
         "js-utils-lib/Safe",
         "js-utils-lib/Validation/IsRequired",
-        "js-utils-lib/Validation/IsString"
+        "js-utils-lib/Validation/IsString",
+        "js-utils-lib/Validation/IsArray",
+        "js-utils-lib/Validation/IsObject",
+        "js-utils-lib/Validation/MaxLength",
+        "js-utils-lib/Validation/MinLength",
+        "js-utils-lib/Validation/Regex"
         
     ], 
     function(require){
@@ -103,7 +108,14 @@ define([
                 
             };
 
-            
+
+            /**
+             * 
+             * The chainable validation API
+             * 
+             * @type {Object}
+             * 
+             */
             _this = {
 
                 not         : wrap( null, true ),
@@ -111,7 +123,13 @@ define([
                 isDefined   : wrap( require("js-utils-lib/Validation/IsRequired") ),
                 isRequired  : wrap( require("js-utils-lib/Validation/IsRequired") ),
                 
-                isString    : wrap( require("js-utils-lib/Validation/IsString") )
+                isString    : wrap( require("js-utils-lib/Validation/IsString") ),
+                isObject    : wrap( require("js-utils-lib/Validation/IsObject") ),
+                isArray     : wrap( require("js-utils-lib/Validation/IsArray") ),
+
+                max         : wrap( require("js-utils-lib/Validation/MaxLength") ),
+                min         : wrap( require("js-utils-lib/Validation/MinLength") ),
+                regex       : wrap( require("js-utils-lib/Validation/Regex") )
 
             };
 

@@ -12,23 +12,23 @@ define([
 
         /**
          * 
-         * Test if value is a string
+         * Test if value is an array
          * 
          * @param {*} val
          * 
          */
-        var IsString = function(val){
+        var IsArray = function(val){
 
-            var v = Type.isString(val);
+            var v = Type.isArray(val);
             
             if(!v){
-                throw new Error("String expected");
+                throw new Error("Array expected");
             }
 
             return true;
 
         };
 
-        return IsString;
+        return IsArray;
 
     });
