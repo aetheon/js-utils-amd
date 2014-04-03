@@ -28,8 +28,8 @@ describe("Validation", function () {
 
 
                 var isValid = !!Validation("aaa")
-                                    .isRequired(1)
-                                    .isString();
+                                    .required()
+                                    .string();
 
                 expect(isValid)
                     .toEqual(true);

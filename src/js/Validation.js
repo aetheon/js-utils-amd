@@ -120,12 +120,11 @@ define([
 
                 not         : wrap( null, true ),
                 
-                isDefined   : wrap( require("js-utils-lib/Validation/IsRequired") ),
-                isRequired  : wrap( require("js-utils-lib/Validation/IsRequired") ),
+                required    : wrap( require("js-utils-lib/Validation/IsRequired") ),
                 
-                isString    : wrap( require("js-utils-lib/Validation/IsString") ),
-                isObject    : wrap( require("js-utils-lib/Validation/IsObject") ),
-                isArray     : wrap( require("js-utils-lib/Validation/IsArray") ),
+                string      : wrap( require("js-utils-lib/Validation/IsString") ),
+                object      : wrap( require("js-utils-lib/Validation/IsObject") ),
+                array       : wrap( require("js-utils-lib/Validation/IsArray") ),
 
                 max         : wrap( require("js-utils-lib/Validation/MaxLength") ),
                 min         : wrap( require("js-utils-lib/Validation/MinLength") ),
