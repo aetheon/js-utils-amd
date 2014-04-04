@@ -49,16 +49,6 @@ define([
         var Schema = function(schema){
 
 
-            /**
-             * 
-             * The current operation errors
-             * 
-             * @type {Array}
-             * 
-             */
-            var errors = [];
-
-
             return {
 
                 /**
@@ -113,8 +103,6 @@ define([
 
                 
             };
-
-
 
 
         };

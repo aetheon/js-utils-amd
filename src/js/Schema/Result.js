@@ -27,14 +27,6 @@ define([
 
 
 
-        var SchemaResult = function(){
-
-            
-
-        };
-
-
-
         /**
          * 
          * Gets the result of traversing the value using the schema rules
