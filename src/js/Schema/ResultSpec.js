@@ -40,8 +40,8 @@ describe("Schema/ResultSpec", function () {
                     });
 
 
-                var value = result.value(),
-                    errors = result.errors();
+                var value = result.value,
+                    errors = result.errors;
 
                 expect(value).toEqual({
                     "one": 1,
@@ -74,8 +74,8 @@ describe("Schema/ResultSpec", function () {
                     });
 
 
-                var value = result.value(),
-                    errors = result.errors();
+                var value = result.value,
+                    errors = result.errors;
 
                 expect(value).toEqual({
                     "one": 1,
@@ -111,8 +111,8 @@ describe("Schema/ResultSpec", function () {
                         "three": 3 
                     });
 
-                var value = result.value(),
-                    errors = result.errors();
+                var value = result.value,
+                    errors = result.errors;
 
                 expect(value).toEqual({
                     "one"   : 1,
@@ -150,8 +150,8 @@ describe("Schema/ResultSpec", function () {
                     }]);
 
 
-                var value = result.value(),
-                    errors = result.errors();
+                var value = result.value,
+                    errors = result.errors;
 
                 expect(value).toEqual([{
                     "one": 1,
@@ -185,8 +185,8 @@ describe("Schema/ResultSpec", function () {
                     }]);
 
 
-                var value = result.value(),
-                    errors = result.errors();
+                var value = result.value,
+                    errors = result.errors;
 
                 expect(value).toEqual([{
                     "one": 1,
@@ -221,8 +221,8 @@ describe("Schema/ResultSpec", function () {
                     });
 
 
-                var value = result.value(),
-                    errors = result.errors();
+                var value = result.value,
+                    errors = result.errors;
 
                 expect(value).toEqual(null);
                 expect(errors).toEqual([]);
@@ -248,8 +248,8 @@ describe("Schema/ResultSpec", function () {
                     [ 1, 2, 3 ]);
 
 
-                var value = result.value(),
-                    errors = result.errors();
+                var value = result.value,
+                    errors = result.errors;
 
                 expect(value).toEqual(null);
                 expect(errors).toEqual([]);
@@ -277,8 +277,8 @@ describe("Schema/ResultSpec", function () {
                     []);
 
 
-                var value = result.value(),
-                    errors = result.errors();
+                var value = result.value,
+                    errors = result.errors;
 
                 expect(value).toEqual(null);
                 expect(errors[0]).toEqual("/ Type mismatch. Expected type was Object");
@@ -311,8 +311,8 @@ describe("Schema/ResultSpec", function () {
                     1]);
 
 
-                var value = result.value(),
-                    errors = result.errors();
+                var value = result.value,
+                    errors = result.errors;
 
                 expect(value).toEqual(null);
                 expect(errors[0]).toEqual("/1 Type mismatch. Expected type was Object");
@@ -343,8 +343,8 @@ describe("Schema/ResultSpec", function () {
                     });
 
 
-                var value = result.value(),
-                    errors = result.errors();
+                var value = result.value,
+                    errors = result.errors;
 
                 expect(value).toEqual(null);
                 expect(errors.length).toEqual(2);
@@ -380,8 +380,8 @@ describe("Schema/ResultSpec", function () {
                     });
 
 
-                var value   = result.value(),
-                    errors  = result.errors();
+                var value   = result.value,
+                    errors  = result.errors;
 
                 expect(value)
                     .toEqual(null);

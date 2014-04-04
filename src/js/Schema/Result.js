@@ -27,7 +27,16 @@ define([
 
 
 
+        var SchemaResult = function(){
+
+            
+
+        };
+
+
+
         /**
+         * 
          * Gets the result of traversing the value using the schema rules
          * 
          * @param {*} value
@@ -39,15 +48,18 @@ define([
          *
          * var result = SchemaResult([], [], function(schema, obj){ })
          *
-         * var value    = result.value();
-         * var errors   = result.errors();
+         * var value    = result.value;
+         * var errors   = result.errors;
          * 
          */
         var SchemaResult = function(schema, value, options){
 
             options = _.assign({ exitOnError: false }, options);
 
-            var errors = [];
+            var result = {
+                errors: [],
+                value: null
+            };
 
             /**
              * 
@@ -60,7 +72,7 @@ define([
             var addError = function(exception, path){
 
                 var error   = "/" + path.join("/") + " " + exception.message;
-                errors.push(error);
+                result.errors.push(error);
 
             };
 
@@ -196,7 +208,7 @@ define([
 
                     if(options.exitOnError){
 
-                        if(!errors.length){
+                        if(!result.errors.length){
                             addError(e, path);
                         }
 
@@ -220,7 +232,7 @@ define([
             try {
                 
                 /// iterate over the schema
-                var result = iterate(
+                result.value = iterate(
                     _.cloneDeep(schema),
                     _.cloneDeep(value));
 
@@ -229,46 +241,19 @@ define([
 
                 /// exitOnError: let it break if it as at least 
                 /// one exception
-                if(!errors.length)
+                if(!result.errors.length)
                     throw e;
                 
             }
 
 
-            return {
-
-                /**
-                 *
-                 * Get the value
-                 * 
-                 * @return {Object}
-                 * 
-                 */
-                value: function(){
-
-                    if(errors.length){
-                        return null;
-                    }
-
-                    return result;
-
-                },
-
-                /**
-                 * 
-                 * Get the errors
-                 * 
-                 * @return {Array}
-                 * 
-                 */
-                errors: function(){
-                    return errors;
-                }
+            /// overrite errors if an error exists
+            if(result.errors.length){
+                result.value = null;
+            }
 
 
-            };
-
-
+            return result;
 
         };
 

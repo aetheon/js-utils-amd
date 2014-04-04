@@ -84,6 +84,43 @@ describe("Validation/_IndexSpec", function () {
     });
 
 
+    async.it(".IsNumber()", function (done) {
+
+        Injector.require([ 
+                "js-utils-lib/Validation/IsNumber" 
+            ], 
+            function(IsNumber){
+
+
+                expect( IsNumber(0) )
+                    .toEqual(true);
+
+                expect( IsNumber(0.1) )
+                    .toEqual(true);
+                
+                expect(function(){ IsNumber({}); })
+                    .toThrow();
+
+                expect(function(){ IsNumber(NaN); })
+                    .toThrow();
+
+                expect(function(){ IsNumber([]); })
+                    .toThrow();
+
+                expect(function(){ IsNumber(null); })
+                    .toThrow();
+
+                expect(function(){ IsNumber(undefined); })
+                    .toThrow();
+
+
+                done();
+
+            });
+
+    });
+
+
     async.it(".IsObject()", function (done) {
 
         Injector.require([ 

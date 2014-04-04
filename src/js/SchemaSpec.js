@@ -31,6 +31,7 @@ describe("SchemaSpec", function () {
 
             var obj = 
                 Schema({
+
                     "Id": 0,
                     "Name": "",
                     "Age": 0,
@@ -47,8 +48,10 @@ describe("SchemaSpec", function () {
                     "Age": "2",
                     
                     "Items": [
+
                         { "Id": "1" },
                         { "Id": "2" }
+
                     ],
 
                     "Ids": [ 1, 2, 3 ]
@@ -131,14 +134,10 @@ describe("SchemaSpec", function () {
 
         Injector.require( [ "js-utils-lib/Schema" ], function(Schema){
 
-            var schema = Schema([{ "Id": 0 }]);
+            var errors = Schema([{ "Id": 0 }])
+                            .errors([ 1, 2 ]);
 
-            /// should return null
-            var obj = schema.apply([ 1, 2 ]);
-            expect(obj).toBe(null);
-
-            var errors = schema.errors();
-            expect(errors.length).toBe(2);
+            expect(errors).toBe(null);
 
             done();
 
@@ -147,18 +146,14 @@ describe("SchemaSpec", function () {
     });
 
 
-    async.it(".isValid()", function (done) {
+    async.it(".errors() validation", function (done) {
 
-        Injector.require( [ "js-utils-lib/Schema" ], function(Schema){
+        Injector.require( [ "js-utils-lib/Schema", "js-utils-lib/Validation" ], function(Schema, Validation){
 
-            var schema = Schema([{ "Id": 0 }]);
+            var errors = Schema([{ "Id": Validation().required.number }])
+                            .errors([ 1, 2 ]);
 
-            /// should return null
-            var obj = schema.apply([ 1, 2 ]);
-            expect(obj).toBe(null);
-
-            var isValid = schema.isValid();
-            expect(isValid).toBe(false);
+            expect(errors).toBe(null);
 
             done();
 

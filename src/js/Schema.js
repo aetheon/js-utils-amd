@@ -41,6 +41,9 @@ define([
          *
          *      /// apply the schema to the given object
          *      var obj = schema.apply(obj);
+         *
+         *      /// check errors on the schema
+         *      var errors = schema.errors(obj);
          * 
          */
         var Schema = function(schema){
@@ -51,6 +54,7 @@ define([
              * The current operation errors
              * 
              * @type {Array}
+             * 
              */
             var errors = [];
 
@@ -58,26 +62,33 @@ define([
             return {
 
                 /**
-                 *
-                 * Validate the given object against the schema.
-                 * Returns null if no error was found, otherwise return the array.
-                 *
-                 * @param {*} obj
                  * 
-                 * @return {null|Array}
+                 * Apply the Schema to the Object, returning the compatible 
+                 * object.
+                 *
+                 * @param {[Error]|null} Object
+                 *
+                 * @example
+                 *
+                 * var obj = Schema(
+                 *     { 
+                 *         a: Validation().required().validate,
+                 *         c: Validation().required().validate
+                 *     })
+                 *     .errors(obj);
                  * 
                  */
-                validate: function(obj){
+                errors: function(obj){
 
                     var result = new SchemaResult(schema, obj);
-                    var errors = result.errors();
+                    errors = result.errors;
 
                     if(!errors.length){
                         return null;
                     }
 
-                    return errors;
-                    
+                    return result.value;
+
                 },
 
                 /**
@@ -95,36 +106,11 @@ define([
                 apply: function(obj){
 
                     var result = new SchemaResult(schema, obj);
-                    errors = result.errors();
-
-                    return result.value();
-
-                },
-
-                /**
-                 * 
-                 * Get the detected errors after applying the schema.
-                 * 
-                 * @return {Array}
-                 * 
-                 */
-                errors: function(){
-
-                    return errors;
                     
-                },
-
-                /**
-                 *
-                 * Tests if the applied object is schema valid.
-                 * 
-                 * @return {Boolean} [description]
-                 */
-                isValid: function(){
-                    
-                    return errors.length === 0;
+                    return result.value;
 
                 }
+
                 
             };
 

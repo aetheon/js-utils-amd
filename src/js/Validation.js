@@ -13,6 +13,7 @@ define([
         "js-utils-lib/Validation/IsObject",
         "js-utils-lib/Validation/MaxLength",
         "js-utils-lib/Validation/MinLength",
+        "js-utils-lib/Validation/IsNumber",
         "js-utils-lib/Validation/Regex"
         
     ], 
@@ -89,7 +90,9 @@ define([
          *                      .validate({});
          * 
          */
-        var Validation = function() {
+        var Validation = function(custom) {
+
+            custom = Safe.getObject(custom);
 
             /**
              * 
@@ -166,14 +169,7 @@ define([
                 
             };
 
-            /**
-             * 
-             * The chainable validation API
-             * 
-             * @type {Object}
-             * 
-             */
-            _this = {
+            var defaults = {
 
                 /// Triggers the validation
                 validate    : validate,
@@ -185,6 +181,7 @@ define([
                 string      : wrap( require("js-utils-lib/Validation/IsString") ),
                 object      : wrap( require("js-utils-lib/Validation/IsObject") ),
                 array       : wrap( require("js-utils-lib/Validation/IsArray") ),
+                number      : wrap( require("js-utils-lib/Validation/IsNumber") ),
 
                 max         : wrap( require("js-utils-lib/Validation/MaxLength") ),
                 min         : wrap( require("js-utils-lib/Validation/MinLength") ),
@@ -192,9 +189,11 @@ define([
 
             };
 
+            /// assign the validation hierarchy
+            _this = _.assign({}, custom, defaults);
 
+            /// return context
             return _this;
-
 
         };
 
