@@ -19,7 +19,29 @@ describe("Validation", function () {
     });
 
 
-    async.it("Validation()", function (done) {
+    async.it("Validation().validate()", function (done) {
+
+        Injector.require([ 
+                "js-utils-lib/Validation" 
+            ], 
+            function(Validation){
+
+                var isValid = Validation()
+                        .required()
+                        .string()
+                        .validate("aaa");
+                
+                expect(isValid)
+                    .toEqual(true);
+
+                done();
+
+            });
+
+    });
+
+
+    async.it("Validation().validate() error", function (done) {
 
         Injector.require([ 
                 "js-utils-lib/Validation" 
@@ -27,12 +49,16 @@ describe("Validation", function () {
             function(Validation){
 
 
-                var isValid = !!Validation("aaa")
-                                    .required()
-                                    .string();
+                var validation = function(){
+                    Validation()
+                        .required()
+                        .string()
+                        .max(1)
+                        .validate("aaa");
+                };
 
-                expect(isValid)
-                    .toEqual(true);
+                expect(validation)
+                    .toThrow();
 
                 done();
 

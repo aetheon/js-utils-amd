@@ -58,6 +58,29 @@ define([
             return {
 
                 /**
+                 *
+                 * Validate the given object against the schema.
+                 * Returns null if no error was found, otherwise return the array.
+                 *
+                 * @param {*} obj
+                 * 
+                 * @return {null|Array}
+                 * 
+                 */
+                validate: function(obj){
+
+                    var result = new SchemaResult(schema, obj);
+                    var errors = result.errors();
+
+                    if(!errors.length){
+                        return null;
+                    }
+
+                    return errors;
+                    
+                },
+
+                /**
                  * 
                  * Apply the Schema to the Object, returning the compatible 
                  * object.

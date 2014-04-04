@@ -24,90 +24,147 @@ define([
 
 
         /**
-         * 
-         * Validate the object
+         *
+         * Validation function metadata class
          * @class
          *
-         * @param {Object} obj
-         * @param {Object} custom Custom Validation functions
-         *
-         * @example
-         *
-         *      var isValid = !!Validation({ one: 1 }).isDefined().not().isString();
+         * @param {Object} options
          * 
          */
-        var Validation = function(obj, custom) {
+        var ValidationFunction = function(options){
 
-            /// hoisted variable warning
-            var _this = null;
-
-            /**
-             *
-             * Stores if the current state is to negate
-             * 
-             * @type {Boolean}
-             * 
-             */
-            var negate = false;
-
+            options             = Safe.getObject(options);
+            options.fn          = Safe.getFunction(options.fn, function(){ return true; });
+            options.args        = Safe.getArray(options.args);
+            options.isNegation  = options.isNegation;
 
             /**
              * 
-             * A validation declaration
-             *
-             * @class
+             * Execute the validation function
              * 
-             * @param {Function} fn
+             * @param  {*} obj
+             * 
+             * @return {null|Error}
              * 
              */
-            var ValidationFunction = function(fn, args, isNegation){
-
-                fn      = Safe.getFunction(fn, function(){ return true; });
-                args    = Safe.getArray(args, []);
+            options.exec = function(obj){
 
                 var error = null;
 
                 try {
+                    /// init args
+                    var args = _.clone(options.args);
                     /// add obj as the first argument
                     args.splice(0, 0, obj);
                     /// execute function with obj scope and the given arguments
-                    fn.apply(obj, args);
+                    options.fn.apply(obj, args);
                 }
                 catch(e){
                     error = e;
                 }
 
-                // throw if an error exists and its not a negation
-                if(!negate && error){
-                    throw error;
-                }
+                return error;
 
-                /// set negation
-                negate = !!isNegation;
-                
-                /// chainify executions
-                return _this;
+            };
+
+            return options;
+            
+        };
+
+
+
+        /**
+         * 
+         * Validate the object
+         * @class
+         *
+         * @throws {Error} If the validation fails
+         *
+         * @example
+         *
+         *      var isValid = Validation()
+         *                      .isDefined()
+         *                      .not()
+         *                      .isString()
+         *                      .validate({});
+         * 
+         */
+        var Validation = function() {
+
+            /**
+             * 
+             * Self reference. Used for chaining methods
+             * 
+             * @type {Object}
+             * 
+             */
+            var _this = null;
+
+            /**
+             *
+             * The validation functions
+             * 
+             * @type {[ValidationFunction]]}
+             * 
+             */
+            var fns = [];
+
+            /**
+             * 
+             * A validation declaration
+             * @class
+             * 
+             * @param {Function} fn
+             *
+             * @throws {Error} If validation fails
+             * @return {Boolean}
+             * 
+             */
+            var validate = function(obj){
+
+                var last = new ValidationFunction();
+
+                _.each(
+                    fns,
+                    function(validation){
+
+                        var error = validation.exec(obj);
+
+                        if(!last.isNegation && error){
+                            throw error;
+                        }
+
+                        last = validation;
+
+                    });
+
+                return true;
                 
             };
 
-
             /**
+             * 
              * Wrap the function into a compatible execution context
              * 
              * @param  {Function} fn
              * @param  {Boolean}  isNegation
-             * @return {*}
+             * 
+             * @return {Function}
              * 
              */
             var wrap = function(fn, isNegation){
 
-                return function(){
-                    var args = _.toArray(arguments);
-                    return new ValidationFunction(fn, args, isNegation);
+                return function() {
+                    
+                    var args        = _.toArray(arguments),
+                        validation  = new ValidationFunction({ fn: fn, args: args, isNegation: isNegation });
+
+                    fns.push( validation );
+
+                    return _this;
                 };
                 
             };
-
 
             /**
              * 
@@ -117,6 +174,9 @@ define([
              * 
              */
             _this = {
+
+                /// Triggers the validation
+                validate    : validate,
 
                 not         : wrap( null, true ),
                 
