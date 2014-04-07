@@ -56,48 +56,20 @@ define([
                  * Apply the Schema to the Object, returning the compatible 
                  * object.
                  *
-                 * @param {[Error]|null} Object
+                 * @param   {*} Object
+                 * @return  {Object}
                  *
                  * @example
                  *
-                 * var obj = Schema(
-                 *     { 
-                 *         a: Validation().required().validate,
-                 *         c: Validation().required().validate
-                 *     })
-                 *     .errors(obj);
-                 * 
-                 */
-                errors: function(obj){
-
-                    var result = getSchemaResult(schema, obj);
-                    errors = result.errors;
-
-                    if(!errors.length){
-                        return null;
-                    }
-
-                    return result.value;
-
-                },
-
-                /**
-                 * 
-                 * Apply the Schema to the Object, returning the compatible 
-                 * object.
-                 *
-                 * @param {*} Object
-                 *
-                 * @example
-                 *
-                 * var obj = Schema({ a: 1, c: 2}).apply(obj);
+                 * var obj = Schema({ a: 1, c: 2})
+                 *             .apply(obj);
                  * 
                  */
                 apply: function(obj){
 
                     var result = getSchemaResult(schema, obj);
                     
-                    return result.value;
+                    return result;
 
                 }
 
