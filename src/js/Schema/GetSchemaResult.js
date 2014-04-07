@@ -38,13 +38,13 @@ define([
          *
          * @example
          *
-         * var result = SchemaResult([], [], function(schema, obj){ })
+         * var result = GetSchemaResult([], [], function(schema, obj){ })
          *
          * var value    = result.value;
          * var errors   = result.errors;
          * 
          */
-        var SchemaResult = function(schema, value, options){
+        var GetSchemaResult = function(schema, value, options){
 
             options = _.assign({ exitOnError: false }, options);
 
@@ -250,7 +250,7 @@ define([
         };
 
 
-        return SchemaResult;
+        return GetSchemaResult;
 
 
     });

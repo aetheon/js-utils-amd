@@ -7,7 +7,7 @@ define([
         "js-utils-lib/Type",
         "js-utils-lib/Safe",
 
-        "js-utils-lib/Schema/Result"
+        "js-utils-lib/Schema/GetSchemaResult"
        
 
     ], function(require){
@@ -18,7 +18,7 @@ define([
             Safe    = require("js-utils-lib/Safe"),
             Type    = require("js-utils-lib/Type");
 
-        var SchemaResult = require("js-utils-lib/Schema/Result");
+        var getSchemaResult = require("js-utils-lib/Schema/GetSchemaResult");
 
 
         /**
@@ -70,7 +70,7 @@ define([
                  */
                 errors: function(obj){
 
-                    var result = new SchemaResult(schema, obj);
+                    var result = getSchemaResult(schema, obj);
                     errors = result.errors;
 
                     if(!errors.length){
@@ -95,7 +95,7 @@ define([
                  */
                 apply: function(obj){
 
-                    var result = new SchemaResult(schema, obj);
+                    var result = getSchemaResult(schema, obj);
                     
                     return result.value;
 

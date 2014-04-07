@@ -1,5 +1,5 @@
 
-describe("Schema/ResultSpec", function () {
+describe("Schema/GetSchemaResult", function () {
 
     var Squire = null,
         Injector = null,
@@ -23,12 +23,12 @@ describe("Schema/ResultSpec", function () {
 
         Injector.require([
                 "lodash", 
-                "js-utils-lib/Schema/Result"
+                "js-utils-lib/Schema/GetSchemaResult"
             ], 
-            function(_, SchemaResult){
+            function(_, GetSchemaResult){
 
 
-                var result = new SchemaResult(
+                var result = GetSchemaResult(
                     {
                         "one": 0,
                         "two": 0
@@ -60,12 +60,12 @@ describe("Schema/ResultSpec", function () {
 
         Injector.require([
                 "lodash", 
-                "js-utils-lib/Schema/Result"
+                "js-utils-lib/Schema/GetSchemaResult"
             ], 
-            function(_, SchemaResult){
+            function(_, GetSchemaResult){
 
 
-                var result = new SchemaResult(
+                var result = GetSchemaResult(
                     {},
                     {
                         "one": 1,
@@ -96,11 +96,11 @@ describe("Schema/ResultSpec", function () {
 
         Injector.require([
                 "lodash", 
-                "js-utils-lib/Schema/Result"
+                "js-utils-lib/Schema/GetSchemaResult"
             ], 
-            function(_, SchemaResult){
+            function(_, GetSchemaResult){
 
-                var result = new SchemaResult(
+                var result = GetSchemaResult(
                     {
                         "/one/" : 0,
                         "/.*/"   : 0
@@ -133,12 +133,12 @@ describe("Schema/ResultSpec", function () {
 
         Injector.require([
                 "lodash", 
-                "js-utils-lib/Schema/Result"
+                "js-utils-lib/Schema/GetSchemaResult"
             ], 
-            function(_, SchemaResult){
+            function(_, GetSchemaResult){
 
 
-                var result = new SchemaResult(
+                var result = GetSchemaResult(
                     [{
                         "one": 0,
                         "two": 0
@@ -171,12 +171,12 @@ describe("Schema/ResultSpec", function () {
 
         Injector.require([
                 "lodash", 
-                "js-utils-lib/Schema/Result"
+                "js-utils-lib/Schema/GetSchemaResult"
             ], 
-            function(_, SchemaResult){
+            function(_, GetSchemaResult){
 
 
-                var result = new SchemaResult(
+                var result = GetSchemaResult(
                     [],
                     [{
                         "one": 1,
@@ -207,12 +207,12 @@ describe("Schema/ResultSpec", function () {
 
         Injector.require([
                 "lodash", 
-                "js-utils-lib/Schema/Result"
+                "js-utils-lib/Schema/GetSchemaResult"
             ], 
-            function(_, SchemaResult){
+            function(_, GetSchemaResult){
 
 
-                var result = new SchemaResult(
+                var result = GetSchemaResult(
                     null,
                     {
                         "one"   : 1,
@@ -238,12 +238,12 @@ describe("Schema/ResultSpec", function () {
 
         Injector.require([
                 "lodash", 
-                "js-utils-lib/Schema/Result"
+                "js-utils-lib/Schema/GetSchemaResult"
             ], 
-            function(_, SchemaResult){
+            function(_, GetSchemaResult){
 
 
-                var result = new SchemaResult(
+                var result = GetSchemaResult(
                     null,
                     [ 1, 2, 3 ]);
 
@@ -265,11 +265,11 @@ describe("Schema/ResultSpec", function () {
 
         Injector.require([
                 "lodash", 
-                "js-utils-lib/Schema/Result"
+                "js-utils-lib/Schema/GetSchemaResult"
             ], 
-            function(_, SchemaResult){
+            function(_, GetSchemaResult){
 
-                var result = new SchemaResult(
+                var result = GetSchemaResult(
                     {
                         "one": 0,
                         "two": 0
@@ -294,12 +294,12 @@ describe("Schema/ResultSpec", function () {
 
         Injector.require([
                 "lodash", 
-                "js-utils-lib/Schema/Result"
+                "js-utils-lib/Schema/GetSchemaResult"
             ], 
-            function(_, SchemaResult){
+            function(_, GetSchemaResult){
 
 
-                var result = new SchemaResult(
+                var result = GetSchemaResult(
                     [{
                         "one": 0,
                         "two": 0
@@ -328,11 +328,11 @@ describe("Schema/ResultSpec", function () {
 
         Injector.require([
                 "lodash", 
-                "js-utils-lib/Schema/Result"
+                "js-utils-lib/Schema/GetSchemaResult"
             ], 
-            function(_, SchemaResult){
+            function(_, GetSchemaResult){
 
-                var result = new SchemaResult(
+                var result = GetSchemaResult(
                     {
                         "one": 0,
                         "two": 0
@@ -362,11 +362,11 @@ describe("Schema/ResultSpec", function () {
 
         Injector.require([
                 "lodash", 
-                "js-utils-lib/Schema/Result"
+                "js-utils-lib/Schema/GetSchemaResult"
             ], 
-            function(_, SchemaResult){
+            function(_, GetSchemaResult){
 
-                var result = new SchemaResult(
+                var result = GetSchemaResult(
                     {
                         "one": 0,
                         "two": 0
