@@ -22,11 +22,11 @@ describe("Schema/ValueSpec", function () {
     async.it(".value({}, {})", function (done) {
 
         Injector.require([
-                "js-utils-lib/Schema/Value"
+                "js-utils-lib/Schema/GetSchemaValue"
             ], 
-            function(Value){
+            function(GetSchemaValue){
 
-                var val = Value({ "one": 0 }, { "one": 1 });
+                var val = GetSchemaValue({ "one": 0 }, { "one": 1 });
 
                 expect(val).toEqual({ "one": 1 });
 
@@ -40,11 +40,11 @@ describe("Schema/ValueSpec", function () {
     async.it(".value(0, '1')", function (done) {
 
         Injector.require([
-                "js-utils-lib/Schema/Value"
+                "js-utils-lib/Schema/GetSchemaValue"
             ], 
-            function(Value){
+            function(GetSchemaValue){
 
-                var val = Value(1, "1");
+                var val = GetSchemaValue(1, "1");
 
                 expect(val).toEqual(1);
 
@@ -58,11 +58,11 @@ describe("Schema/ValueSpec", function () {
     async.it(".value('0', 1)", function (done) {
 
         Injector.require([
-                "js-utils-lib/Schema/Value"
+                "js-utils-lib/Schema/GetSchemaValue"
             ], 
-            function(Value){
+            function(GetSchemaValue){
 
-                var val = Value("1", 1);
+                var val = GetSchemaValue("1", 1);
 
                 expect(val).toEqual("1");
 
@@ -76,11 +76,11 @@ describe("Schema/ValueSpec", function () {
     async.it(".value('a', 'b')", function (done) {
 
         Injector.require([
-                "js-utils-lib/Schema/Value"
+                "js-utils-lib/Schema/GetSchemaValue"
             ], 
-            function(Value){
+            function(GetSchemaValue){
 
-                var val = Value('a', 'b');
+                var val = GetSchemaValue('a', 'b');
 
                 expect(val).toEqual("b");
 
@@ -94,11 +94,11 @@ describe("Schema/ValueSpec", function () {
     async.it(".value(fn, 'b')", function (done) {
 
         Injector.require([
-                "js-utils-lib/Schema/Value"
+                "js-utils-lib/Schema/GetSchemaValue"
             ], 
-            function(Value){
+            function(GetSchemaValue){
 
-                var val = Value(function(val){ return val + val; }, 'b');
+                var val = GetSchemaValue(function(val){ return val + val; }, 'b');
 
                 expect(val).toEqual("bb");
 
@@ -112,12 +112,12 @@ describe("Schema/ValueSpec", function () {
     async.it(".value('b', {}) throws exception", function (done) {
 
         Injector.require([
-                "js-utils-lib/Schema/Value"
+                "js-utils-lib/Schema/GetSchemaValue"
             ], 
-            function(Value){
+            function(GetSchemaValue){
 
                 var fn = function(){
-                    Value('b', {});
+                    GetSchemaValue('b', {});
                 };
 
                 expect(fn).toThrow();
@@ -132,12 +132,12 @@ describe("Schema/ValueSpec", function () {
     async.it(".value('b', []) throws exception", function (done) {
 
         Injector.require([
-                "js-utils-lib/Schema/Value"
+                "js-utils-lib/Schema/GetSchemaValue"
             ], 
-            function(Value){
+            function(GetSchemaValue){
 
                 var fn = function(){
-                    Value('b', []);
+                    GetSchemaValue('b', []);
                 };
 
                 expect(fn).toThrow();
@@ -152,12 +152,12 @@ describe("Schema/ValueSpec", function () {
     async.it(".value([], fn) throws exception", function (done) {
 
         Injector.require([
-                "js-utils-lib/Schema/Value"
+                "js-utils-lib/Schema/GetSchemaValue"
             ], 
-            function(Value){
+            function(GetSchemaValue){
 
                 var fn = function(){
-                    Value([], function(){});
+                    GetSchemaValue([], function(){});
                 };
 
                 expect(fn).toThrow();
@@ -172,16 +172,16 @@ describe("Schema/ValueSpec", function () {
     async.it(".value(fn) that throws exception", function (done) {
 
         Injector.require([
-                "js-utils-lib/Schema/Value"
+                "js-utils-lib/Schema/GetSchemaValue"
             ], 
-            function(Value){
+            function(GetSchemaValue){
 
                 var thowException = function(val){
                     throw new Error(val);
                 };
 
                 var fn = function(){
-                    Value(thowException, "a");    
+                    GetSchemaValue(thowException, "a");    
                 };
                 
                 expect(fn).toThrow("a");

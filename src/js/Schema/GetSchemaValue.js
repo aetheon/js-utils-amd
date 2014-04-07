@@ -29,7 +29,7 @@ define([
          * @return {*}
          * 
          */
-        var SchemaValue = function(schema, value){
+        var GetSchemaValue = function(schema, value){
 
             var schemaType  = Type.of(schema),
                 valueType   = Type.of(value);
@@ -75,7 +75,7 @@ define([
         };
 
 
-        return SchemaValue;
+        return GetSchemaValue;
 
 
     });

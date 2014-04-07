@@ -10,7 +10,7 @@ define([
         "js-utils-lib/Type",
         "js-utils-lib/Safe",
 
-        "js-utils-lib/Schema/Value",
+        "js-utils-lib/Schema/GetSchemaValue",
         "js-utils-lib/Schema/ObjectKeys"
        
 
@@ -22,7 +22,7 @@ define([
             Safe        = require("js-utils-lib/Safe"),
             Type        = require("js-utils-lib/Type");
 
-        var getSchemaValue  = require("js-utils-lib/Schema/Value"),
+        var getSchemaValue  = require("js-utils-lib/Schema/GetSchemaValue"),
             getObjectKeys   = require("js-utils-lib/Schema/ObjectKeys");
 
 
