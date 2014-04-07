@@ -11,7 +11,7 @@ define([
         "js-utils-lib/Safe",
 
         "js-utils-lib/Schema/GetSchemaValue",
-        "js-utils-lib/Schema/ObjectKeys"
+        "js-utils-lib/Schema/GetObjectKeys"
        
 
     ], function(require){
@@ -23,7 +23,7 @@ define([
             Type        = require("js-utils-lib/Type");
 
         var getSchemaValue  = require("js-utils-lib/Schema/GetSchemaValue"),
-            getObjectKeys   = require("js-utils-lib/Schema/ObjectKeys");
+            getObjectKeys   = require("js-utils-lib/Schema/GetObjectKeys");
 
 
 
