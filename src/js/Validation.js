@@ -8,14 +8,14 @@ define([
         
         "js-utils-lib/Safe",
 
-        "js-utils-lib/Assert/IsRequired",
-        "js-utils-lib/Assert/IsString",
-        "js-utils-lib/Assert/IsArray",
-        "js-utils-lib/Assert/IsObject",
-        "js-utils-lib/Assert/MaxLength",
-        "js-utils-lib/Assert/MinLength",
-        "js-utils-lib/Assert/IsNumber",
-        "js-utils-lib/Assert/Regex"
+        "js-utils-lib/Validation/IsRequired",
+        "js-utils-lib/Validation/IsString",
+        "js-utils-lib/Validation/IsArray",
+        "js-utils-lib/Validation/IsObject",
+        "js-utils-lib/Validation/MaxLength",
+        "js-utils-lib/Validation/MinLength",
+        "js-utils-lib/Validation/IsNumber",
+        "js-utils-lib/Validation/Regex"
         
     ], 
     function(require){
@@ -27,106 +27,122 @@ define([
 
         /**
          *
-         * Validation function metadata class
+         * The assert Functions
+         * 
+         * @type {Object}
+         * 
+         */
+        var ValidationFunctions = {
+
+            required    : require("js-utils-lib/Validation/IsRequired"),
+            
+            string      : require("js-utils-lib/Validation/IsString"),
+            object      : require("js-utils-lib/Validation/IsObject"),
+            array       : require("js-utils-lib/Validation/IsArray"),
+            number      : require("js-utils-lib/Validation/IsNumber"),
+
+            max         : require("js-utils-lib/Validation/MaxLength"),
+            min         : require("js-utils-lib/Validation/MinLength"),
+            regex       : require("js-utils-lib/Validation/Regex")
+
+        };
+
+
+
+        /**
+         *
+         * Assertion function metadata class
          * @class
          *
          * @param {Object} options
          * 
          */
-        var ValidationFunction = function(options){
+        var ValidationFunctionMetadata = function(options){
 
-            options             = Safe.getObject(options);
-            options.fn          = Safe.getFunction(options.fn, function(){ return true; });
-            options.args        = Safe.getArray(options.args);
-            options.isNegation  = options.isNegation;
+            options = Safe.getObject(options);
 
-            /**
-             * 
-             * Execute the validation function
-             * 
-             * @param  {*} obj
-             * 
-             * @return {null|Error}
-             * 
-             */
-            options.exec = function(obj){
+            var fn          = Safe.getFunction(options.fn, function(){ return true; }),
+                args        = Safe.getArray(options.args),
+                isNegation  = Safe.getBoolean(options.isNegation);
 
-                var error = null;
 
-                try {
-                    /// init args
-                    var args = _.clone(options.args);
-                    /// add obj as the first argument
-                    args.splice(0, 0, obj);
-                    /// execute function with obj scope and the given arguments
-                    options.fn.apply(obj, args);
+            var _this = {
+                
+                /**
+                 * IsNegation flag
+                 *
+                 * 
+                 * @type {Boolean}
+                 */
+                isNegation: isNegation,
+
+                /**
+                 * 
+                 * Execute the validation function
+                 * 
+                 * @param  {*} obj
+                 * 
+                 * @return {null|Error}
+                 * 
+                 */
+                exec: function(obj) {
+
+                    var error = null;
+
+                    try {
+                        /// add obj as the first argument
+                        args.splice(0, 0, obj);
+                        /// execute function with obj scope and the given arguments
+                        fn.apply(obj, args);
+                    }
+                    catch(e){
+                        error = e;
+                    }
+
+                    return error;
+
                 }
-                catch(e){
-                    error = e;
-                }
 
-                return error;
 
             };
 
-            return options;
+
+            return _this;
             
         };
 
 
 
         /**
+         *
+         * The Assertion context instance. This is used to evaluate an
+         * assertion.
          * 
-         * Validate the object
-         * @class
-         *
-         * @throws {Error} If the validation fails
-         *
-         * @example
-         *
-         *      var isValid = Validation()
-         *                      .isDefined()
-         *                      .not()
-         *                      .isString()
-         *                      .validate({});
+         * @return {Function}
          * 
          */
-        var Validation = function(custom) {
-
-            custom = Safe.getObject(custom);
+        var ValidationContext = function(){
 
             /**
-             * 
-             * Self reference. Used for chaining methods
-             * 
-             * @type {Object}
-             * 
-             */
-            var _this = null;
-
-            /**
-             *
-             * The validation functions
-             * 
-             * @type {[ValidationFunction]]}
-             * 
+             * The assertion function
+             * @type {[ValidationFunctionMetadata]}
              */
             var fns = [];
 
+
             /**
-             * 
-             * A validation declaration
-             * @class
-             * 
-             * @param {Function} fn
              *
-             * @throws {Error} If validation fails
+             * Validate all the specified functions with the given object.
+             * 
+             * @param  {*} obj
+             *
+             * @throws {Error}
              * @return {Boolean}
              * 
              */
-            var validate = function(obj){
+            var validate = function(obj) {
 
-                var last = new ValidationFunction();
+                var last = new ValidationFunctionMetadata();
 
                 _.each(
                     fns,
@@ -146,60 +162,116 @@ define([
                 
             };
 
-            /**
-             * 
-             * Wrap the function into a compatible execution context
-             * 
-             * @param  {Function} fn
-             * @param  {Boolean}  isNegation
-             * 
-             * @return {Function}
-             * 
-             */
-            var wrap = function(fn, isNegation){
 
-                return function() {
-                    
-                    var args        = _.toArray(arguments),
-                        validation  = new ValidationFunction({ fn: fn, args: args, isNegation: isNegation });
+            var _this = {
+
+                /**
+                 *
+                 * Chain a function
+                 * 
+                 * @param  {Function} fn
+                 * @param  {Boolean}  isNegation
+                 * 
+                 * @return {Object}
+                 * 
+                 */
+                chain: function(fn, args, isNegation) {
+        
+                    var validation  = new ValidationFunctionMetadata({ fn: fn, args: args, isNegation: isNegation });
 
                     fns.push( validation );
 
-                    return _this;
-                };
-                
-            };
+                    return new Validation( _this, { validate: validate } );
 
-            var defaults = {
-
-                /// Triggers the validation
-                validate    : validate,
-
-                not         : wrap( null, true ),
-                
-                required    : wrap( require("js-utils-lib/Assert/IsRequired") ),
-                
-                string      : wrap( require("js-utils-lib/Assert/IsString") ),
-                object      : wrap( require("js-utils-lib/Assert/IsObject") ),
-                array       : wrap( require("js-utils-lib/Assert/IsArray") ),
-                number      : wrap( require("js-utils-lib/Assert/IsNumber") ),
-
-                max         : wrap( require("js-utils-lib/Assert/MaxLength") ),
-                min         : wrap( require("js-utils-lib/Assert/MinLength") ),
-                regex       : wrap( require("js-utils-lib/Assert/Regex") )
+                }
 
             };
 
-            /// assign the validation hierarchy
-            _this = _.assign({}, custom, defaults);
-
-            /// return context
             return _this;
 
         };
 
 
-        return Validation;
+        /**
+         *
+         * Wraps the Validation Function
+         * 
+         * @param  {ValidationContext}  context
+         * @param  {Function}           fn
+         * @param  {Boolean}            isNegation
+         * 
+         * @return {Object}
+         */
+        var wrapValidationFunction = function(context, fn, isNegation){
+
+            return function() {
+
+                if(!context){
+                    context = new ValidationContext();
+                }
+
+                var args = _.toArray(arguments);
+
+                return context.chain(fn, args, isNegation);
+
+            };
+
+        };
 
 
+        /**
+         *
+         * Validation
+         * 
+         * @param  {ValidationContext} ValidationContext
+         * @return {Object}
+         * 
+         */
+        var Validation = function(validationContext, customFunctions){
+
+            customFunctions = Safe.getObject(customFunctions);
+
+            /// assign the validation functions
+            var validation = 
+                _.transform( 
+                    ValidationFunctions, 
+                    function(result, fn, key){ 
+                        result[key] = wrapValidationFunction( validationContext, fn); 
+                    });
+
+            /// assign the special functions
+            _.assign(
+                validation,
+                {
+                    not: wrapValidationFunction( validationContext, null, true )
+                });
+
+            /// assign the custom validation functions
+            validation = _.assign(customFunctions, validation);
+
+            return validation;
+
+        };
+
+
+        /**
+         *
+         * The Assert Facade
+         * 
+         * @return {Object}
+         *
+         *
+         * @example
+         *
+         * Validation
+         *     .required()
+         *     .string()
+         *     .max(10)
+         *     .min(5)
+         *     .validate("aaaa")
+         * 
+         */
+        return new Validation();
+
+        
     });

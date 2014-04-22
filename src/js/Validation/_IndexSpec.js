@@ -22,7 +22,7 @@ describe("Assert/_IndexSpec", function () {
     async.it(".IsRequired()", function (done) {
 
         Injector.require([ 
-                "js-utils-lib/Assert/IsRequired" 
+                "js-utils-lib/Validation/IsRequired" 
             ], 
             function(IsRequired){
 
@@ -53,7 +53,7 @@ describe("Assert/_IndexSpec", function () {
     async.it(".IsString()", function (done) {
 
         Injector.require([ 
-                "js-utils-lib/Assert/IsString" 
+                "js-utils-lib/Validation/IsString" 
             ], 
             function(IsString){
 
@@ -87,7 +87,7 @@ describe("Assert/_IndexSpec", function () {
     async.it(".IsNumber()", function (done) {
 
         Injector.require([ 
-                "js-utils-lib/Assert/IsNumber" 
+                "js-utils-lib/Validation/IsNumber" 
             ], 
             function(IsNumber){
 
@@ -124,7 +124,7 @@ describe("Assert/_IndexSpec", function () {
     async.it(".IsObject()", function (done) {
 
         Injector.require([ 
-                "js-utils-lib/Assert/IsObject" 
+                "js-utils-lib/Validation/IsObject" 
             ], 
             function(IsObject){
 
@@ -154,7 +154,7 @@ describe("Assert/_IndexSpec", function () {
     async.it(".IsArray()", function (done) {
 
         Injector.require([ 
-                "js-utils-lib/Assert/IsArray" 
+                "js-utils-lib/Validation/IsArray" 
             ], 
             function(IsArray){
 
@@ -184,7 +184,7 @@ describe("Assert/_IndexSpec", function () {
     async.it(".MaxLength()", function (done) {
 
         Injector.require([ 
-                "js-utils-lib/Assert/MaxLength" 
+                "js-utils-lib/Validation/MaxLength" 
             ], 
             function(MaxLength){
 
@@ -225,7 +225,7 @@ describe("Assert/_IndexSpec", function () {
     async.it(".MinLength()", function (done) {
 
         Injector.require([ 
-                "js-utils-lib/Assert/MinLength" 
+                "js-utils-lib/Validation/MinLength" 
             ], 
             function(MinLength){
 
@@ -266,7 +266,7 @@ describe("Assert/_IndexSpec", function () {
     async.it(".Regex()", function (done) {
 
         Injector.require([ 
-                "js-utils-lib/Assert/Regex" 
+                "js-utils-lib/Validation/Regex" 
             ], 
             function(Regex){
 

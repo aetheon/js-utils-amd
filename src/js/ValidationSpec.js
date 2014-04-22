@@ -26,13 +26,27 @@ describe("Validation", function () {
             ], 
             function(Validation){
 
-                var isValid = Validation()
-                        .required()
-                        .string()
-                        .validate("aaa");
-                
-                expect(isValid)
-                    .toEqual(true);
+                expect(
+                    Validation.required().string().validate("aaa")
+                ).toEqual(true);
+
+                done();
+
+            });
+
+    });
+
+
+    async.it("Validation().not().validate()", function (done) {
+
+        Injector.require([ 
+                "js-utils-lib/Validation" 
+            ], 
+            function(Validation){
+
+                expect(
+                    Validation.not().string().validate(0)
+                ).toEqual(true);
 
                 done();
 
@@ -48,9 +62,8 @@ describe("Validation", function () {
             ], 
             function(Validation){
 
-
                 var validation = function(){
-                    Validation()
+                    Validation
                         .required()
                         .string()
                         .max(1)
