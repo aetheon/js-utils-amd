@@ -7,14 +7,15 @@ define([
         "require",
         
         "js-utils-lib/Safe",
-        "js-utils-lib/Validation/IsRequired",
-        "js-utils-lib/Validation/IsString",
-        "js-utils-lib/Validation/IsArray",
-        "js-utils-lib/Validation/IsObject",
-        "js-utils-lib/Validation/MaxLength",
-        "js-utils-lib/Validation/MinLength",
-        "js-utils-lib/Validation/IsNumber",
-        "js-utils-lib/Validation/Regex"
+
+        "js-utils-lib/Assert/IsRequired",
+        "js-utils-lib/Assert/IsString",
+        "js-utils-lib/Assert/IsArray",
+        "js-utils-lib/Assert/IsObject",
+        "js-utils-lib/Assert/MaxLength",
+        "js-utils-lib/Assert/MinLength",
+        "js-utils-lib/Assert/IsNumber",
+        "js-utils-lib/Assert/Regex"
         
     ], 
     function(require){
@@ -176,16 +177,16 @@ define([
 
                 not         : wrap( null, true ),
                 
-                required    : wrap( require("js-utils-lib/Validation/IsRequired") ),
+                required    : wrap( require("js-utils-lib/Assert/IsRequired") ),
                 
-                string      : wrap( require("js-utils-lib/Validation/IsString") ),
-                object      : wrap( require("js-utils-lib/Validation/IsObject") ),
-                array       : wrap( require("js-utils-lib/Validation/IsArray") ),
-                number      : wrap( require("js-utils-lib/Validation/IsNumber") ),
+                string      : wrap( require("js-utils-lib/Assert/IsString") ),
+                object      : wrap( require("js-utils-lib/Assert/IsObject") ),
+                array       : wrap( require("js-utils-lib/Assert/IsArray") ),
+                number      : wrap( require("js-utils-lib/Assert/IsNumber") ),
 
-                max         : wrap( require("js-utils-lib/Validation/MaxLength") ),
-                min         : wrap( require("js-utils-lib/Validation/MinLength") ),
-                regex       : wrap( require("js-utils-lib/Validation/Regex") )
+                max         : wrap( require("js-utils-lib/Assert/MaxLength") ),
+                min         : wrap( require("js-utils-lib/Assert/MinLength") ),
+                regex       : wrap( require("js-utils-lib/Assert/Regex") )
 
             };
 
