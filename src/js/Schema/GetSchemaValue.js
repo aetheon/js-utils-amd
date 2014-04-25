@@ -65,7 +65,7 @@ define([
             if( schema != null && 
                 ( Type.isObject(schema) || Type.isArray(schema) || Type.isFunction(schema) ||
                   Type.isObject(value)  || Type.isArray(value)  || Type.isFunction(value) )
-             ){
+            ){
                 throw new Error("Type mismatch. Expected type was " + schemaType);
             }
 

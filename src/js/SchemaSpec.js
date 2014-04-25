@@ -163,7 +163,42 @@ describe("SchemaSpec", function () {
     });
 
 
-    async.it(".apply([], function(errors){})", function (done) {
+    async.it(".apply([], errors) fn", function (done) {
+
+        Injector.require( [ "js-utils-lib/Schema" ], function(Schema){
+
+            var errors      = null,
+                setErrors   = function(e){ errors = e; };
+
+            var value = 
+                new Schema({ 
+                    "Fn": function(message){
+                        throw new Error(message);
+                    }
+                })
+                .apply(
+                    {
+                        "Fn": "exception"
+                    },
+                    setErrors);
+
+            expect(value)
+                .toBe(null);
+
+            expect(errors.length)
+                .toBe(1);
+
+            expect(errors[0])
+                .toBe("/Fn exception");
+            
+            done();
+
+        });
+        
+    });
+
+
+    async.it(".apply([], errors)", function (done) {
 
         Injector.require( [ "js-utils-lib/Schema" ], function(Schema){
 
