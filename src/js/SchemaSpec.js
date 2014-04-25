@@ -192,5 +192,63 @@ describe("SchemaSpec", function () {
     });
 
 
+    async.it(".isValid(obj, function(errors){})", function (done) {
+
+        Injector.require( [ "js-utils-lib/Schema" ], function(Schema){
+
+            var errors      = null,
+                setErrors   = function(e){ errors = e; };
+
+
+
+            var isValid = new Schema([]).isValid({}, setErrors);
+
+            expect(isValid)
+                .toBe(false);
+            
+            expect(errors.length)
+                .toBe(1);
+
+
+
+            isValid = new Schema({}).isValid({}, setErrors);
+
+            expect(isValid)
+                .toBe(true);
+            
+            expect(errors.length)
+                .toBe(0);
+
+
+            done();
+
+        });
+        
+    });
+
+
+
+    async.it(".assert(obj)", function (done) {
+
+        Injector.require( [ "js-utils-lib/Schema" ], function(Schema){
+
+            expect(function(){ 
+                new Schema([]).assert({}); 
+            }).toThrow();
+
+            
+            var obj = new Schema({}).assert({});
+
+            expect(obj)
+                .toBeTruthy();
+            
+
+            done();
+
+        });
+        
+    });
+
+
 
 });

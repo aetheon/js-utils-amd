@@ -111,7 +111,7 @@ define([
 
                     });
 
-                return object; 
+                return object;
 
             };
 
