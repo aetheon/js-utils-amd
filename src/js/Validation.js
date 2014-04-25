@@ -140,7 +140,7 @@ define([
              * @return {Boolean}
              * 
              */
-            var validate = function(obj) {
+            var assert = function(obj) {
 
                 var last = new ValidationFunctionMetadata();
 
@@ -158,9 +158,39 @@ define([
 
                     });
 
-                return true;
+                return obj;
                 
             };
+
+
+            /**
+             *
+             * Validate all the specified functions with the given object.
+             * 
+             * @param  {*} obj
+             *
+             * @throws {Error}
+             * @return {Boolean}
+             * 
+             */
+            var isValid = function(obj) {
+
+                var valid = true;
+
+                try {
+                    
+                    assert(obj);
+
+                } catch(e){
+                    
+                    valid = false;
+
+                }
+                
+                return valid;
+                
+            };
+
 
 
             var _this = {
@@ -181,7 +211,7 @@ define([
 
                     fns.push( validation );
 
-                    return new Validation( _this, { validate: validate } );
+                    return new Validation( _this, { assert: assert, isValid: isValid } );
 
                 }
 
@@ -201,6 +231,7 @@ define([
          * @param  {Boolean}            isNegation
          * 
          * @return {Object}
+         * 
          */
         var wrapValidationFunction = function(context, fn, isNegation){
 
@@ -268,7 +299,7 @@ define([
          *     .string()
          *     .max(10)
          *     .min(5)
-         *     .validate("aaaa")
+         *     [ .isValid("aaaa") | .assert("aaaa") ]
          * 
          */
         return new Validation();

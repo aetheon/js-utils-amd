@@ -19,16 +19,18 @@ describe("Validation", function () {
     });
 
 
-    async.it("Validation().validate()", function (done) {
+    async.it(".isValid()", function (done) {
 
         Injector.require([ 
                 "js-utils-lib/Validation" 
             ], 
             function(Validation){
 
-                expect(
-                    Validation.required().string().validate("aaa")
-                ).toEqual(true);
+                var result = Validation.required().string().isValid("aaa");
+                expect(result).toEqual(true);
+
+                result = Validation.required().string().isValid(1);
+                expect(result).toEqual(false);
 
                 done();
 
@@ -37,7 +39,7 @@ describe("Validation", function () {
     });
 
 
-    async.it("Validation().not().validate()", function (done) {
+    async.it(".assert()", function (done) {
 
         Injector.require([ 
                 "js-utils-lib/Validation" 
@@ -45,8 +47,8 @@ describe("Validation", function () {
             function(Validation){
 
                 expect(
-                    Validation.not().string().validate(0)
-                ).toEqual(true);
+                    Validation.required().string().assert("aaa")
+                ).toEqual("aaa");
 
                 done();
 
@@ -55,7 +57,25 @@ describe("Validation", function () {
     });
 
 
-    async.it("Validation().validate() error", function (done) {
+    async.it(".not().assert()", function (done) {
+
+        Injector.require([ 
+                "js-utils-lib/Validation" 
+            ], 
+            function(Validation){
+
+                expect(
+                    Validation.not().string().assert(0)
+                ).toEqual(0);
+
+                done();
+
+            });
+
+    });
+
+
+    async.it(".assert() error", function (done) {
 
         Injector.require([ 
                 "js-utils-lib/Validation" 
@@ -67,7 +87,7 @@ describe("Validation", function () {
                         .required()
                         .string()
                         .max(1)
-                        .validate("aaa");
+                        .assert("aaa");
                 };
 
                 expect(validation)
