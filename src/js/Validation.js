@@ -224,7 +224,7 @@ define([
 
         /**
          *
-         * Wraps the Validation Function
+         * Wraps the Validation Function in order to chain execution order.
          * 
          * @param  {ValidationContext}  context
          * @param  {Function}           fn

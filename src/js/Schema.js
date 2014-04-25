@@ -30,8 +30,6 @@ define([
          *
          * @example
          *
-         *      TODO: implement
-         * 
          *      // apply the Schema to the object
          *      var obj = Schema( {} )
          *                  .apply( {}, function(errors){} )

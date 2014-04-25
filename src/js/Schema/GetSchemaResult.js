@@ -38,6 +38,8 @@ define([
          * @param {*} options
          *
          *
+         * TODO: add more options to 
+         * 
          * @example
          *
          * var result = GetSchemaResult([], [], function(schema, obj){ })
@@ -47,8 +49,6 @@ define([
          * 
          */
         var GetSchemaResult = function(schema, value, options){
-
-            options = _.assign({ exitOnError: false }, options);
 
             var result = {
                 errors: [],
@@ -201,20 +201,7 @@ define([
                 }
                 catch(e) {
 
-                    if(options.exitOnError){
-
-                        if(!result.errors.length){
-                            addError(e, path);
-                        }
-
-                        throw e;
-
-                    }
-                    else {
-
-                        addError(e, path);
-
-                    }
+                    addError(e, path);
 
                 }
                 
@@ -223,24 +210,11 @@ define([
             };
 
 
-
-            try {
-                
-                /// iterate over the schema
-                result.value = iterate(
-                    _.cloneDeep(schema),
-                    _.cloneDeep(value));
-
-            }
-            catch(e) {
-
-                /// exitOnError: let it break if it as at least 
-                /// one exception
-                if(!result.errors.length)
-                    throw e;
-                
-            }
-
+        
+            /// iterate over the schema
+            result.value = iterate(
+                _.cloneDeep(schema),
+                _.cloneDeep(value));
 
             /// overrite errors if an error exists
             if(result.errors.length){

@@ -358,48 +358,6 @@ describe("Schema/GetSchemaResult", function () {
     });
 
 
-    async.it(".errors() with exitOnError:true", function (done) {
-
-        Injector.require([
-                "lodash", 
-                "js-utils-lib/Schema/GetSchemaResult"
-            ], 
-            function(_, GetSchemaResult){
-
-                var result = GetSchemaResult(
-                    {
-                        "one": 0,
-                        "two": 0
-                    },
-                    {
-                        "one": {},
-                        "two": {}
-                    },
-                    {
-                        exitOnError: true
-                    });
-
-
-                var value   = result.value,
-                    errors  = result.errors;
-
-                expect(value)
-                    .toEqual(null);
-                
-                expect(errors.length)
-                    .toEqual(1);
-                
-                expect(errors[0])
-                    .toEqual("/two Type mismatch. Expected type was number");
-
-                done();
-
-            });
-
-    });
-
-
-
-
+    
 
 });
