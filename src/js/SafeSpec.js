@@ -166,11 +166,11 @@ describe("SafeSpec", function () {
 
 
 
-    async.it(".callFunction() should call the given function", function (done) {
+    async.it(".call() should call the given function", function (done) {
 
         Injector.require(["js-utils-lib/Safe"], function(Safe){
 
-            var bool = Safe.callFunction(function(){ return true; });
+            var bool = Safe.call(function(){ return true; });
 
             expect(bool).toBeTruthy();
 
@@ -181,11 +181,11 @@ describe("SafeSpec", function () {
     });
 
 
-    async.it(".callFunction() should call the given function in the scope", function (done) {
+    async.it(".call() should call the given function in the scope", function (done) {
 
         Injector.require(["js-utils-lib/Safe"], function(Safe){
 
-            var bool = Safe.callFunction(function(){ return this.val; }, { scope: { val: true} });
+            var bool = Safe.call(function(){ return this.val; }, { scope: { val: true} });
 
             expect(bool).toBeTruthy();
 
@@ -196,11 +196,11 @@ describe("SafeSpec", function () {
     });
 
 
-    async.it(".callFunction() should call the given function with the args", function (done) {
+    async.it(".call() should call the given function with the args", function (done) {
 
         Injector.require(["js-utils-lib/Safe"], function(Safe){
 
-            var bool = Safe.callFunction(function(arg){ return arg; }, { args: [true] });
+            var bool = Safe.call(function(arg){ return arg; }, { args: [true] });
 
             expect(bool).toBeTruthy();
 

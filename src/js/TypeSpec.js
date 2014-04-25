@@ -302,52 +302,6 @@ describe("TypeSpec", function () {
     });
 
 
-    async.it("Type.isEmpty({}|[]) should return false if the given structure is empty", function (allDone) {
-
-        Injector.require( [ "js-utils-lib/Type" ], function(Type){
-
-            var isEmpty = Type.isEmpty({});
-            expect(isEmpty).not.toBeTruthy();
-
-            isEmpty = Type.isEmpty([]);
-            expect(isEmpty).not.toBeTruthy();
-
-            isEmpty = Type.isEmpty(null);
-            expect(isEmpty).not.toBeTruthy();
-
-            isEmpty = Type.isEmpty();
-            expect(isEmpty).not.toBeTruthy();
-            
-            allDone();
-
-        });
-        
-    });
-
-
-    async.it("Type.isEmpty({}|[]) should return true if the given structure is not empty", function (allDone) {
-
-        Injector.require( [ "js-utils-lib/Type" ], function(Type){
-
-            var isEmpty = Type.isEmpty({ 1: 1 });
-            expect(isEmpty).toBeTruthy();
-
-            isEmpty = Type.isEmpty([1,2,3]);
-            expect(isEmpty).toBeTruthy();
-
-            isEmpty = Type.isEmpty(1);
-            expect(isEmpty).toBeTruthy();
-
-            isEmpty = Type.isEmpty(true);
-            expect(isEmpty).toBeTruthy();
-            
-            allDone();
-
-        });
-        
-    });
-
-
 
     async.it("Type.isDefined()", function (done) {
 
@@ -375,6 +329,41 @@ describe("TypeSpec", function () {
 
         });
         
+    });
+
+
+    async.it(".isEmpty()", function (done) {
+
+        Injector.require(["js-utils-lib/Type"], function(Type){
+
+            var isEmpty = Type.isEmpty(undefined);
+            expect(isEmpty).toBe(true);
+
+            isEmpty = Type.isEmpty(null);
+            expect(isEmpty).toBe(true);
+
+            isEmpty = Type.isEmpty([]);
+            expect(isEmpty).toBe(true);
+
+            isEmpty = Type.isEmpty({});
+            expect(isEmpty).toBe(true);
+
+            isEmpty = Type.isEmpty("");
+            expect(isEmpty).toBe(true);
+
+            isEmpty = Type.isEmpty([1,2]);
+            expect(isEmpty).toBe(false);
+
+            isEmpty = Type.isEmpty({ a: 1 });
+            expect(isEmpty).toBe(false);
+
+            isEmpty = Type.isEmpty(0);
+            expect(isEmpty).toBe(false);
+
+            done();
+
+        });
+
     });
 
     

@@ -3,8 +3,9 @@
 .grunt-tasks
 examples/
 iconsets/
-lib
-spec
+lib/
+img/
+spec/
 src/js-client
 src/img
 src/sass

@@ -147,6 +147,7 @@ define([
             
         };
 
+
         /*
          * Safe call to functions
          *
@@ -155,7 +156,7 @@ define([
          *
          * @return {*} The result of the function
          */
-        Safe.callFunction = function(f, options){
+        Safe.call = function(f, options){
 
             options = Arguments.get(
                 options,
@@ -192,14 +193,6 @@ define([
             return null;
 
         };
-
-
-        /*
-         * Alias to call function
-         * 
-         */
-        Safe.call = Safe.callFunction;
-
 
 
         /*

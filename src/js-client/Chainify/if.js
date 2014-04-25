@@ -17,7 +17,7 @@ define(["js-utils-lib/Safe"], function(Safe){
 
             'otherwise': function(elsefn, elsefn_options){
                 if(!isTrue)
-                    result = Safe.callFunction(elsefn, elsefn_options);    
+                    result = Safe.call(elsefn, elsefn_options);    
 
                 return result;
             }
@@ -28,7 +28,7 @@ define(["js-utils-lib/Safe"], function(Safe){
         var then = function (iffn, iffn_options) {
 
             if(isTrue){
-                result = Safe.callFunction(iffn, iffn_options);
+                result = Safe.call(iffn, iffn_options);
             }
             
             return otherwise;

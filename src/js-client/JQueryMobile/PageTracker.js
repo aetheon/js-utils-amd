@@ -129,7 +129,7 @@ define([
                 //
                 
                 // emit "changing" event 
-                Safe.callFunction(
+                Safe.call(
                     function(){
                         this.emit(
                             "changing", 
@@ -161,7 +161,7 @@ define([
                 if (prevPage) {
 
                     // emit event
-                    Safe.callFunction(
+                    Safe.call(
                         function(){
                             this.emit("show", prevPage, currentPage);
                         }, { scope: scope }
@@ -185,7 +185,7 @@ define([
 
 
                 // emit event
-                Safe.callFunction(
+                Safe.call(
                     function(){
                         this.emit("change", element, dataObj);
                     }, { scope: scope }

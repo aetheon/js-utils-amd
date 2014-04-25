@@ -231,39 +231,46 @@ define(["require", "lodash"], function(require, _){
         if(value != null){
             return true;
         }
-        else{
-            return false;
-        }
-
+        
+        return false;
+        
     };
 
-    /*
-     * Test if the value is empty or not
+    /**
      *
-     * @param {void} value
-     *
+     * Tests if the value is Empty
+     * 
+     * @param  {*}  value
+     * 
      * @return {Boolean}
+     * 
      */
     Type.isEmpty = function(value){
 
-        if(Type.isObject(value) || Type.isArray(value)){
-            
+        if( !Type.isDefined(value) ){
+
+            return true;
+        }
+
+        if( Type.isString(value) ){
+
+            return value === "";
+        }
+
+        if( Type.isObject(value) || Type.isArray(value) ){
+        
             for (var key in value) {
                 // cancel iteration because it has some data
-                return true;
+                return false;
             }
 
-            return false;
+            return true;
 
         }
 
-        // don't want to change the way conditional expressions 
-        // are calculated by javascript ( eg. 0 returns false )
-
-        return !!value;
+        return false;
 
     };
-
 
 
     return Type;

@@ -110,7 +110,7 @@ define([
             function(pageUrl, options){
 
                 // Get ActionResult
-                Safe.callFunction(
+                Safe.call(
                     function(){
                         
                         // get the rule of this url
@@ -243,7 +243,7 @@ define([
                 action = this.routes[""];  //defaut route
 
             // call action 
-            return Safe.callFunction(
+            return Safe.call(
                 action,
                 { silentExceptions: true, scope: this });
 

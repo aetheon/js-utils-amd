@@ -20,7 +20,7 @@ define(["jquery", "lodash", "knockout", "js-utils-lib/Safe"], function($, _, ko,
 
             destroyViewModel: function(viewModelInstance, element){
 
-                Safe.callFunction(viewModelInstance.destroy, { scope: viewModelInstance, args: [ element ] });
+                Safe.call(viewModelInstance.destroy, { scope: viewModelInstance, args: [ element ] });
 
                 // clean ko bindings
                 ko.cleanNode(element);
