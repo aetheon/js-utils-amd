@@ -21,15 +21,14 @@ describe("SchemaSpec", function () {
 
 
 
-    /**
-     * Test the Schema().apply() to an object
-     * 
-     */
-    async.it(".apply(obj).value", function (done) {
+    async.it(".apply(obj)", function (done) {
 
         Injector.require( [ "js-utils-lib/Schema" ], function(Schema){
 
-            var obj = new Schema(
+            var errors      = null,
+                setErrors   = function(e){ errors = e; };
+
+            var value = new Schema(
                 {
 
                     "Id": 0,
@@ -57,34 +56,34 @@ describe("SchemaSpec", function () {
 
                     "Ids": [ 1, 2, 3 ]
 
-                });
+                }, setErrors);
 
             
-            expect(obj.value.Id)
+            expect(value.Id)
                 .toBe(0);
 
-            expect(obj.value.Name)
+            expect(value.Name)
                 .toBe("name");
 
-            expect(obj.value.Age)
+            expect(value.Age)
                 .toBe(2);
 
-            expect(obj.value.Description)
+            expect(value.Description)
                 .toBeUndefined();
             
-            expect(obj.value.Items.length)
+            expect(value.Items.length)
                 .toBe(2);
 
-            expect(obj.value.Items[0].Id)
+            expect(value.Items[0].Id)
                 .toBe("1");
 
-            expect(obj.value.Items[1].Id)
+            expect(value.Items[1].Id)
                 .toBe("2");
 
-            expect(obj.value.Ids.length)
+            expect(value.Ids.length)
                 .toBe(3);
 
-            expect(obj.errors.length)
+            expect(errors.length)
                 .toBe(0);
             
             done();
@@ -94,31 +93,32 @@ describe("SchemaSpec", function () {
     });
 
 
-    /**
-     * Test the Schema().apply() to an array
-     * 
-     */
-    async.it(".apply([]).value", function (done) {
+    async.it(".apply([])", function (done) {
 
         Injector.require( [ "js-utils-lib/Schema" ], function(Schema){
 
-            var obj = 
-                new Schema([{ "Id": 0 }])
-                .apply([
-                    { "Id": 0 },
-                    { "Id": 1 }
-                ]);
+            var errors      = null,
+                setErrors   = function(e){ errors = e; };
 
-            expect(obj.value.length)
+            var value = 
+                new Schema([{ "Id": 0 }])
+                .apply(
+                    [
+                        { "Id": 0 },
+                        { "Id": 1 }
+                    ], 
+                    setErrors);
+
+            expect(value.length)
                 .toBe(2);
 
-            expect(obj.value[0].Id)
+            expect(value[0].Id)
                 .toBe(0);
             
-            expect(obj.value[1].Id)
+            expect(value[1].Id)
                 .toBe(1);
 
-            expect(obj.errors.length)
+            expect(errors.length)
                 .toBe(0);
             
             done();
@@ -128,28 +128,33 @@ describe("SchemaSpec", function () {
     });
 
 
-    /**
-     * Test the Schema().apply() to null elements
-     * 
-     */
     async.it(".apply(null)", function (done) {
 
         Injector.require( [ "js-utils-lib/Schema" ], function(Schema){
 
+            var errors      = null,
+                setErrors   = function(e){ errors = e; };
+
             /// should return null
-            var obj =  new Schema(null).apply([ { "Id": 0 }, { "Id": 1 } ]);
-            expect(obj.value).toBe(null);
-            expect(obj.errors.length).toBe(0);
+            var value = new Schema(null)
+                .apply([ { "Id": 0 }, { "Id": 1 } ], setErrors);
+
+            expect(value).toBe(null);
+            expect(errors.length).toBe(0);
 
             /// shoud return an empty array.length
-            obj = new Schema([{ "Id": 0 }]).apply(null);
-            expect(obj.value).toBe(null);
-            expect(obj.errors.length).toBe(1);
+            value = new Schema([{ "Id": 0 }])
+                .apply(null, setErrors);
+
+            expect(value).toBe(null);
+            expect(errors.length).toBe(1);
             
             /// shoud return an empty array.length
-            obj = new Schema({ "Id": 0 }).apply(null);
-            expect(obj.value).toBe(null);
-            expect(obj.errors.length).toBe(1);
+            value = new Schema({ "Id": 0 })
+                .apply(null, setErrors);
+
+            expect(value).toBe(null);
+            expect(errors.length).toBe(1);
 
             done();
 
@@ -158,20 +163,26 @@ describe("SchemaSpec", function () {
     });
 
 
-    async.it(".apply([]).errors()", function (done) {
+    async.it(".apply([], function(errors){})", function (done) {
 
         Injector.require( [ "js-utils-lib/Schema" ], function(Schema){
 
-            var obj = new Schema(
+            var errors      = null,
+                setErrors   = function(e){ errors = e; };
+
+            var value = new Schema(
                 [
                     { "Id": 0 }
                 ])
-                .apply([ 1, 2 ]);
+                .apply(
+                    [ 1, 2 ], 
+                    setErrors
+                );
 
-            expect(obj.value)
+            expect(value)
                 .toBe(null);
             
-            expect(obj.errors.length)
+            expect(errors.length)
                 .toBe(2);
 
             done();

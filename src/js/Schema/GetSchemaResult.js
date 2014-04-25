@@ -10,8 +10,9 @@ define([
         "js-utils-lib/Type",
         "js-utils-lib/Safe",
 
+        "js-utils-lib/Schema/ValueMetadata",
         "js-utils-lib/Schema/GetSchemaValue",
-        "js-utils-lib/Schema/GetObjectKeys"
+        "js-utils-lib/Schema/GetObjectMetadata"
        
 
     ], function(require){
@@ -22,8 +23,9 @@ define([
             Safe        = require("js-utils-lib/Safe"),
             Type        = require("js-utils-lib/Type");
 
-        var getSchemaValue  = require("js-utils-lib/Schema/GetSchemaValue"),
-            getObjectKeys   = require("js-utils-lib/Schema/GetObjectKeys");
+        var ValueMetadata       = require("js-utils-lib/Schema/ValueMetadata"),
+            getSchemaValue      = require("js-utils-lib/Schema/GetSchemaValue"),
+            getObjectMetadata   = require("js-utils-lib/Schema/GetObjectMetadata");
 
 
 
@@ -73,7 +75,7 @@ define([
              * Get the object according to the Schema
              * 
              * @param  {Object}  schema
-             * @param  {*}      obj
+             * @param  {*}       obj
              * @param  {Object}  path
              * 
              * @return {Object}
@@ -87,26 +89,27 @@ define([
                 }
 
                 /// iterate over inner objects of the Object
-                var keys    = getObjectKeys(schema, obj),
-                    object  = {};
+                var objMetadata    = getObjectMetadata(schema, obj),
+                    object      = {};
 
-                _.each(keys, function(objKey){
+                _.each(
+                    objMetadata, 
+                    function(metadata){
 
-                    var _key    = objKey.key,
-                        _item   = objKey.item,
-                        _schema = objKey.schema;
+                        /// be sure that the structure is compatible
+                        metadata = new ValueMetadata(metadata);
+                        
+                        /// current path
+                        var _path = _.clone(path);
+                        _path.push(metadata.index);
 
-                    /// current path
-                    var _path = _.clone(path);
-                    _path.push(_key);
+                        /// bottom-up iteration
+                        var o = iterate( metadata.schema, metadata.value, _path);
 
-                    /// bottom-up iteration
-                    var o = iterate(_schema, _item, _path);
+                        /// set the object value
+                        object[metadata.index] = o;
 
-                    /// set the object value
-                    object[_key] = o;
-
-                });
+                    });
 
                 return object; 
 

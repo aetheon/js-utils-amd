@@ -1,4 +1,4 @@
-describe("Assert/_IndexSpec", function () {
+describe("Validation/_IndexSpec", function () {
 
     var Squire = null,
         Injector = null,

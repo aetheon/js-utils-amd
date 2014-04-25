@@ -7,6 +7,7 @@ define([
         "require", 
         "lodash",
 
+        "js-utils-lib/Schema/ValueMetadata",
         "js-utils-lib/Type",
         "js-utils-lib/Safe"
        
@@ -15,9 +16,10 @@ define([
         "use strict";
 
 
-        var _           = require("lodash"),
-            Safe        = require("js-utils-lib/Safe"),
-            Type        = require("js-utils-lib/Type");
+        var _                = require("lodash"),
+            Safe             = require("js-utils-lib/Safe"),
+            Type             = require("js-utils-lib/Type"),
+            ValueMetadata    = require("js-utils-lib/Schema/ValueMetadata");
 
 
 
@@ -79,36 +81,16 @@ define([
 
         };
 
+       
         /**
          *
-         * The ObjectKEys return object. Contains information about the real key 
-         * and the schema/item value
-         *
-         * @class
-         * 
-         * @param {String} key
-         * @param {*} schemaValue
-         * @param {*} objValue
-         * 
-         */
-        var ObjectKeyItem = function(key, schemaValue, objValue){
-
-            this.key    = key;
-            this.schema = schemaValue;
-            this.item   = objValue;
-
-        };
-
-
-        /**
-         *
-         * Get the Schema Keys information for the given object. The schema keys can be a simple string or 
-         * a regular expression string.
+         * Get an array with the metadata values for the object. Returns an object with 
+         * all the properties that matches the schema rules ( including in regular expression format ).
          * 
          * @param  {Object} schema
          * @param  {Object} obj
          * 
-         * @return {[ObjectKeyItem]} 
+         * @return {[ ObjectSchemaMetadata ]} 
          *
          * @example
          *
@@ -120,10 +102,9 @@ define([
          *     });
          *
          */
-        var ObjectKeys = function(schema, obj){
+        var GetObjectMetadata = function(schema, obj){
 
-            var results = {};
-
+            var results = [];
 
             var schemaKeys  = _.keys(schema),
                 objKeys     = _.keys(obj);
@@ -140,7 +121,9 @@ define([
             /// iterate over the schema keys to get the  
             _.each(skeys, function(v, key){
 
-                var result = [ new ObjectKeyItem(key, schema[key], obj[key]) ];
+                var result = [ 
+                    new ValueMetadata( { schema: schema[key], value: obj[key], index: key } ) 
+                ];
 
                 /// if schema key is a regular expression 
                 /// get the keys from the object
@@ -150,7 +133,9 @@ define([
 
                     result = [];
                     _.each(regexKeys, function(okey){ 
-                        result.push( new ObjectKeyItem(okey, schema[key], obj[okey]) );
+                        result.push( 
+                            new ValueMetadata( { schema: schema[key], value: obj[okey], index: okey } )
+                        );
                     });
 
                 }
@@ -173,7 +158,7 @@ define([
         };
 
 
-        return ObjectKeys;
+        return GetObjectMetadata;
 
 
     });
