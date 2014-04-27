@@ -1,4 +1,6 @@
-# js-utils
+[![Divhide](http://site.divhide.com/assets/img/github_powered_by.jpg)](http://site.divhide.com/) 
+
+# js-utils-amd
 
 [![Build Status](https://travis-ci.org/aetheon/js-utils.png?branch=master)](https://travis-ci.org/aetheon/js-utils) [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=NYVPSL7GBYD6A&lc=US&item_name=Oscar%20Brito&currency_code=EUR&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted)
 
@@ -15,7 +17,6 @@
 >
 
 
-[![Divhide](http://site.divhide.com/assets/img/github_powered_by.jpg)](http://site.divhide.com/) 
 ---
 
 ## SRC
@@ -52,77 +53,6 @@ require('js-utils/?', function(){
 
 ```  
 
-
-
-
-
-## ![alt text](https://raw.github.com/aetheon/js-utils/master/img/logos/bower.png "Bower") Bower
-
-```
-
-bower install js-utils-client
-
-```
-
-### Require.js
-
-Configure your require.js path's to use the package directory ( see ***/bower_components/js-utils-client/.require.js*** ).
-
-### HTML
-
-``` javascript
-
-<script type="text/javascript" src="//bower_components/js-utils-client/lib/require/require-latest.js"></script>
-<script type="text/javascript">
-    
-    // configurate require.js
-    require(["require", "//.require.js"], function(require){
-
-        // use Type module
-        require(["js-utils-lib/Type"], function(Type){
-            
-        });
-
-    });
-
-</script>
-
-
-```
-
-
-
-## ![alt text](https://raw.github.com/aetheon/js-utils/master/img/logos/nodejs.png "Node.js") Nodejs
-
-This library does not have any dependency on the libraries and framework used in the modules. This means 
-that the application will have to reference them in their package.json files. This is because js-utils is 
-just a collection of files...
-
-
-```
-
-npm install js-utils
-
-```
-
-### Package.json
-
-```
-
-"dependencies": {
-
-    "amdefine": ">=0.1.0",
-    "requirejs": ">=2.1.9"
-
-    // use published packages
-    "js-utils": "*",
-
-    // use latest code from the master branch
-    "js-utils": "git://github.com/aetheon/js-utils.git"
-
-}
-
-```
 
 ### Usage
 
